@@ -95,7 +95,6 @@ public class UML {
 			String command = s.nextLine().toLowerCase();
 			
 			
-			
 			switch(command){
 				case "add class": 
 					System.out.println("What would you like to name the new class?");
