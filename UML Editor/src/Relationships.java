@@ -1,12 +1,15 @@
 
-import java.io.*;
-import java.util.*;
 
-public class UML {
-	//Size
-	private String size;
+public class Relationships {
+	private String relType;
+    private UML receiving;
 	
 
-	public relationships(String name) {
- 	
-	}
+	public Relationships(UML umlFile, String type) {
+    this.relType = type;
+    this.receiving = umlFile;
+    }
+    /*
+    * getters, modifiers 
+    */
+}

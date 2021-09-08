@@ -11,18 +11,18 @@ public class UML {
 	//Class name
 	private String name;	
 	//List containing all the methods in a UML object
-	private ArrayList<methods> met;	
+	private ArrayList<Methods> met;	
 	//List containing all the variables in a UML object
-	private ArrayList<variables> vars;
+	private ArrayList<Variables> vars;
 	//MAKE ARRAY LIST OF TYPE RELATIONSHIP ONCE JAVA RELATIONSHIP CLASS IS CREATED
-	private ArrayList<relationships> rels;
+	private ArrayList<Relationships> rels;
 
 	public UML (String name) {
 		this.name = name;
 		this.size = 0;
-		this.met = new ArrayList<methods>();
-		this.vars = new ArrayList<variables>();
-		this.rels = new.ArrayList<relationships>
+		this.met = new ArrayList<Methods>();
+		this.vars = new ArrayList<Variables>();
+		this.rels = new ArrayList<Relationships>();
 		
 	}
 	
@@ -55,7 +55,7 @@ public class UML {
 	 */
 	public void checkMethods () {
 		@SuppressWarnings("rawtypes")
-		Iterator itr = methods.iterator();
+		Iterator itr = met.iterator();
 		while(itr.hasNext()) {
 			System.out.println(itr.next());
 		}
@@ -64,8 +64,9 @@ public class UML {
 	/*
 	 * Adds methods to the methods HashSet 
 	 */
-	public void addMethods (String newMethod) {
-		this.methods.add(newMethod);
+	public void addMethods (Methods newMethod) {
+		//maybe need a this?
+		met.add(newMethod);
 		++size;
 		
 	}
@@ -82,7 +83,7 @@ public class UML {
 		//This is the Array list that should hold all the objects
 		ArrayList<UML> collection = new ArrayList<UML>();  		
 		//Placeholder value for what the scanner input is
-		String value;
+		Object value;
 		//The current UML document that is being edited
 		UML current = null;
 		
@@ -104,7 +105,8 @@ public class UML {
 					value = s.nextLine();
 					
 					//Creating the UML object using the input value for the name of the UML object 
-					current = createClass(value);
+					//Make a new value of type String maybe?
+					current = createClass((String)value);
 					
 					//When implementing add class, make sure you check if the name is in the noClassDupes HashSet first to prevent classes with the same name
 					//After created, store the current in the collection ArrayList
@@ -117,7 +119,8 @@ public class UML {
 					System.out.println("What method you like to the class?");
 					s = new Scanner(System.in);
 					value = s.nextLine().toLowerCase();
-					current.addMethods(value);
+					//Make a new value of type methods maybe?
+					current.addMethods((Methods)value);
 					break;
 					
 				case "check methods":
