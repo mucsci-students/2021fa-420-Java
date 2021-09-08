@@ -1,28 +1,28 @@
 
 import java.io.*;
 import java.util.*;
-
+/*
+* imports: gradle, json thingy, other classes
+*
+*/
 public class UML {
 	//Size
 	private int size;
-	
 	//Class name
-	private String name;
-	
-	//Set containing all the methods in a UML object
-	private HashSet<String> methods;
-	
-	//Set containing all the variables in a UML object
-	private Hashtable<String, String> variables;
-	
+	private String name;	
+	//List containing all the methods in a UML object
+	private ArrayList<methods> met;	
+	//List containing all the variables in a UML object
+	private ArrayList<variables> vars;
 	//MAKE ARRAY LIST OF TYPE RELATIONSHIP ONCE JAVA RELATIONSHIP CLASS IS CREATED
+	private ArrayList<relationships> rels;
 
 	public UML (String name) {
 		this.name = name;
 		this.size = 0;
-		this.methods = new HashSet<String>();
-		this.variables = new Hashtable<String, String>();
-	//this.relationships = PUT THE ARRAY LIST OF TYPE RELATIONSHIP ONCE JAVA RELATIONSHIP CLASS IS CREATED
+		this.met = new ArrayList<methods>();
+		this.vars = new ArrayList<variables>();
+		this.rels = new.ArrayList<relationships>
 		
 	}
 	
