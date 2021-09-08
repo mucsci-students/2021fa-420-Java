@@ -8,5 +8,5 @@ public class UML {
 	
 
 	public relationships(String name) {
-		
+ 	
 	}
