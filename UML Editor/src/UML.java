@@ -71,6 +71,15 @@ public class UML {
 		
 	}
 	
+	public String save (ArrayList<UML> saveMe){
+		return "hi";
+		
+	}
+
+	public String Load (ArrayList<UML> saveMe){
+		return "hi";
+
+	}
 	/*
 	 * Run command
 	 */
