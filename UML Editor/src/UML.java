@@ -1,6 +1,9 @@
 
 import java.io.*;
 import java.util.*;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
 /*
 * imports: gradle, json thingy, other classes
 *
@@ -64,21 +67,29 @@ public class UML {
 	/*
 	 * Adds methods to the methods HashSet 
 	 */
-	public void addMethods (Methods newMethod) {
-		//maybe need a this?
-		met.add(newMethod);
+	public void addMethods (String newMethod) {
+		Methods values = new Methods(newMethod);
+		met.add(values);
 		++size;
 		
 	}
 	
-	public String save (ArrayList<UML> saveMe){
-		return "hi";
-		
+	public static String save (ArrayList<UML> saveMe){
+		Gson gson = new Gson();
+		String saveFile = gson.toJson(saveMe);
+		return saveFile;
+
 	}
 
-	public String Load (ArrayList<UML> saveMe){
-		return "hi";
-
+	public static void load (String loaded){ 
+		
+		
+		Type listType = new TypeToken<ArrayList<UML>>(){}.getType();
+		ArrayList<UML> classList = new Gson().fromJson(loaded, listType);
+		for(UML e: classList){
+			System.out.println(e.name);
+			System.out.println(e.size);
+		}
 	}
 	/*
 	 * Run command
@@ -92,7 +103,7 @@ public class UML {
 		//This is the Array list that should hold all the objects
 		ArrayList<UML> collection = new ArrayList<UML>();  		
 		//Placeholder value for what the scanner input is
-		Object value;
+		String value;
 		//The current UML document that is being edited
 		UML current = null;
 		
@@ -115,7 +126,7 @@ public class UML {
 					
 					//Creating the UML object using the input value for the name of the UML object 
 					//Make a new value of type String maybe?
-					current = createClass((String)value);
+					current = createClass(value);
 					
 					//When implementing add class, make sure you check if the name is in the noClassDupes HashSet first to prevent classes with the same name
 					//After created, store the current in the collection ArrayList
@@ -129,7 +140,7 @@ public class UML {
 					s = new Scanner(System.in);
 					value = s.nextLine().toLowerCase();
 					//Make a new value of type methods maybe?
-					current.addMethods((Methods)value);
+					current.addMethods(value);
 					break;
 					
 				case "check methods":
@@ -140,7 +151,26 @@ public class UML {
 				case "exit":
 					run = false;
 					break;
-					
+				case "sub":
+					collection.add(current);
+					break;
+				
+				case "save":
+					String saveFile = save(collection);
+					System.out.println(saveFile);
+					break;
+				case "load":
+					System.out.println("This will overide the current file, do you wish to proceed? (Y or N)");
+					 s = new Scanner(System.in);
+					//  if(s.nextLine().toLowerCase() == "y"){
+					// 	System.out.println("Enter the file you would like to load");
+					// 	s = new Scanner(System.in);
+						String x = s.nextLine();
+						load(x);
+						//System.out.println(collection);
+					//  }
+					break;
+	
 				default:
 					System.out.println("Command not recognized. Type help for valid commands");
 						
