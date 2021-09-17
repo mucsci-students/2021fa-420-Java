@@ -3,9 +3,9 @@ import java.io.*;
 import java.util.*;
 import java.util.regex.Pattern;
 /*
-* imports: gradle, json thingy, other classes
-*
-*/
+ * imports: gradle, json thingy, other classes
+ *
+ */
 public class UML {
 	//Class name
 	private String name;
@@ -48,15 +48,15 @@ public class UML {
 		return name;
 	}
 
-  // Adds an attribute to the given class
-  // Exception if:
-  // - class does NOT exist
-  // - attribute name is not alphanumeric
-  // - attribute already exists in class
-  public static void addAttribute (String className, Attributes name) {
-		// Given class exists and is alphanumeric
-    if (noClassDupes.contains(className) && !p.matcher(className).find()) {
-			// Given attribute does not exist, but the name is alphanumeric
+	// Adds an attribute to the given class
+	// Exception if:
+	// - class does NOT exist
+	// - attribute name is not alphanumeric
+	// - attribute already exists in class
+	public static void addAttribute (String className, Attributes name) {
+		// Given class exists
+		if (noClassDupes.contains(className)) {
+			// Given attribute does not exist, and the name is alphanumeric
 			if (!noAttributeDupes.contains(name.getAttributeName()) && !p.matcher(name.getAttributeName()).find()) {
 				noAttributeDupes.add(name.getAttributeName());
 				for (UML uml : collection) {
@@ -76,22 +76,18 @@ public class UML {
 				System.out.println("That attribute ALREADY exist!");
 			}
 		}
-		// Given class name is not alphanumeric
-		else if (p.matcher(className).find()) {
-			System.out.println("A class name must only contain numbers and letters");
-		}
 		// Given class does not exist
 		else {
 			System.out.println("That class does NOT exist!");
 		}
-  }
+	}
 
-  // Remove an attribute from the given class
-  // Exception if:
-  // - class does NOT exist
-  // - attribute does NOT exist
-  public static void removeAttribute (String className, Attributes name) {
-    if (noClassDupes.contains(className)) {
+	// Remove an attribute from the given class
+	// Exception if:
+	// - class does NOT exist
+	// - attribute does NOT exist
+	public static void removeAttribute (String className, Attributes name) {
+		if (noClassDupes.contains(className)) {
 			if (noAttributeDupes.contains(name.getAttributeName())) {
 				for (UML uml : collection) {
 					if (uml.getName().equals(className)) {
@@ -108,16 +104,16 @@ public class UML {
 		else {
 			System.out.println("That class does not exist!");
 		}
-  }
+	}
 
-  // Renames an already existing attribute in a given class
-  // Exception if:
-  // - class does NOT exist
-  // - attribute does NOT
-  // - attribute's new name is not alphanumeric
-  public static void renameAttribute (String className, Attributes oldName, Attributes newName) {
+	// Renames an already existing attribute in a given class
+	// Exception if:
+	// - class does NOT exist
+	// - attribute does NOT
+	// - attribute's new name is not alphanumeric
+	public static void renameAttribute (String className, Attributes oldName, Attributes newName) {
 		if (noClassDupes.contains(className)) {
-			if (noAttributeDupes.contains(oldName.getAttributeName())) {
+			if (noAttributeDupes.contains(oldName.getAttributeName()) && !p.matcher(newName.getAttributeName()).find()) {
 				for (UML uml : collection) {
 					if (uml.getName().equals(className)) {
 						noAttributeDupes.remove(oldName.getAttributeName());
@@ -128,6 +124,9 @@ public class UML {
 				}
 				System.out.println("Attribute Renamed!");
 			}
+			else if (p.matcher(newName.getAttributeName()).find()) {
+				System.out.println("A attribute name must only contain numbers and letters");
+			}
 			else {
 				System.out.println("That attribute does not exist!");
 			}
@@ -135,7 +134,7 @@ public class UML {
 		else {
 			System.out.println("That class does not exist!");
 		}
-  }
+	}
 
 	/*
 	 * Run command
@@ -159,48 +158,48 @@ public class UML {
 
 
 			switch(command){
-				case "addattribute":
-					System.out.println("What class are you adding to?");
-					String className1 = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+			case "addattribute":
+				System.out.println("What class are you adding to?");
+				String classNameAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
-					System.out.println("What would you like to name the new attribute?");
-					Attributes addAttribute = new Attributes(scanner.nextLine().toLowerCase().replaceAll("\\s", ""));
+				System.out.println("What would you like to name the new attribute?");
+				Attributes addAttribute = new Attributes(scanner.nextLine().toLowerCase().replaceAll("\\s", ""));
 
-					addAttribute(className1, addAttribute);
+				addAttribute(classNameAdd, addAttribute);
 
-					break;
+				break;
 
-				case "deleteattribute":
-					System.out.println("What class are you removing from?");
-					String className2 = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+			case "deleteattribute":
+				System.out.println("What class are you removing from?");
+				String classNameRemove = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
-					System.out.println("What attribute are you removing?");
-					Attributes deleteAttribute = new Attributes(scanner.nextLine().toLowerCase().replaceAll("\\s", ""));
+				System.out.println("What attribute are you removing?");
+				Attributes deleteAttribute = new Attributes(scanner.nextLine().toLowerCase().replaceAll("\\s", ""));
 
-					removeAttribute(className2, deleteAttribute);
+				removeAttribute(classNameRemove, deleteAttribute);
 
-					break;
+				break;
 
-				case "renameattribute":
-					System.out.println("What class are you making modifications in?");
-					String className3 = s.nextLine().toLowerCase().replaceAll("\\s", "");
+			case "renameattribute":
+				System.out.println("What class are you making modifications in?");
+				String classNameRename = s.nextLine().toLowerCase().replaceAll("\\s", "");
 
-					System.out.println("What attribute are you renaming?");
-					Attributes oldAttribute = new Attributes(scanner.nextLine().toLowerCase().replaceAll("\\s", ""));
+				System.out.println("What attribute are you renaming?");
+				Attributes oldAttribute = new Attributes(scanner.nextLine().toLowerCase().replaceAll("\\s", ""));
 
-					System.out.println("What would you like to rename the attribute to?");
-					Attributes newAttribute = new Attributes(scanner.nextLine().toLowerCase().replaceAll("\\s", ""));
+				System.out.println("What would you like to rename the attribute to?");
+				Attributes newAttribute = new Attributes(scanner.nextLine().toLowerCase().replaceAll("\\s", ""));
 
-					renameAttribute(className3, oldAttribute, newAttribute);
+				renameAttribute(classNameRename, oldAttribute, newAttribute);
 
-					break;
+				break;
 
-				case "exit":
-					run = false;
-					break;
+			case "exit":
+				run = false;
+				break;
 
-				default:
-					System.out.println("Command not recognized. Type help for valid commands");
+			default:
+				System.out.println("Command not recognized. Type help for valid commands");
 
 			}
 
