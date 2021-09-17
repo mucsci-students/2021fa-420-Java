@@ -1,50 +1,46 @@
 
 import java.io.*;
 import java.util.*;
-import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
+import java.util.regex.Pattern;
 /*
 * imports: gradle, json thingy, other classes
 *
 */
 public class UML {
-	//Size
-	private int size;
 	//Class name
-	private String name;	
+	private String name;
 	//List containing all the methods in a UML object
-	private ArrayList<Methods> met;	
+	private ArrayList<Methods> met;
 	//List containing all the variables in a UML object
-	private ArrayList<Variables> vars;
+	private ArrayList<Attributes> attr;
 	//MAKE ARRAY LIST OF TYPE RELATIONSHIP ONCE JAVA RELATIONSHIP CLASS IS CREATED
 	private ArrayList<Relationships> rels;
+	// This set is to make sure there are no classes with the same name.
+	private static HashSet<String> noClassDupes = new HashSet<String>();
+	// This set is to make sure there are no attributes with the same name.
+	private static HashSet<String> noAttributeDupes = new HashSet<String>();
+	//This is the Array list that should hold all the objects
+	private static ArrayList<UML> collection = new ArrayList<UML>();
+	// Checks name to see if it is alphanumeric
+	private static Pattern p = Pattern.compile("[^a-zA-Z0-9]");
 
 	public UML (String name) {
 		this.name = name;
-		this.size = 0;
 		this.met = new ArrayList<Methods>();
-		this.vars = new ArrayList<Variables>();
+		this.attr = new ArrayList<Attributes>();
 		this.rels = new ArrayList<Relationships>();
-		
+
 	}
-	
+
 	/*
 	 * Creates a class
 	 */
 	public static UML createClass (String name) {
-		
+
 		UML x = new UML(name);
 		return x;
 	}
-	
-	/*
-	 * Amount of elements in the class
-	 */
-	public int size() {
-		return size;
-	}
-	
+
 	/*
 	 * returns the name of the class
 	 */
@@ -52,132 +48,164 @@ public class UML {
 		return name;
 	}
 
-	/*
-	 * Uses an iterator to traverse through the methods set and 
-	 * writes them out 
-	 */
-	public void checkMethods () {
-		@SuppressWarnings("rawtypes")
-		Iterator itr = met.iterator();
-		while(itr.hasNext()) {
-			System.out.println(itr.next());
+  // Adds an attribute to the given class
+  // Exception if:
+  // - class does NOT exist
+  // - attribute name is not alphanumeric
+  // - attribute already exists in class
+  public static void addAttribute (String className, Attributes name) {
+		// Given class exists and is alphanumeric
+    if (noClassDupes.contains(className) && !p.matcher(className).find()) {
+			// Given attribute does not exist, but the name is alphanumeric
+			if (!noAttributeDupes.contains(name.getAttributeName()) && !p.matcher(name.getAttributeName()).find()) {
+				noAttributeDupes.add(name.getAttributeName());
+				for (UML uml : collection) {
+					if (uml.getName().equals(className)) {
+						uml.attr.add(name);
+						break;
+					}
+				}
+				System.out.println("Attribute Created!");
+			}
+			// Given attribute name is not alphanumeric
+			else if (p.matcher(name.getAttributeName()).find()) {
+				System.out.println("A attribute name must only contain numbers and letters");
+			}
+			// Given attribute exists
+			else {
+				System.out.println("That attribute ALREADY exist!");
+			}
 		}
-	}
-	
-	/*
-	 * Adds methods to the methods HashSet 
-	 */
-	public void addMethods (String newMethod) {
-		Methods values = new Methods(newMethod);
-		met.add(values);
-		++size;
-		
-	}
-	
-	public static String save (ArrayList<UML> saveMe){
-		Gson gson = new Gson();
-		String saveFile = gson.toJson(saveMe);
-		return saveFile;
-
-	}
-
-	public static void load (String loaded){ 
-		
-		
-		Type listType = new TypeToken<ArrayList<UML>>(){}.getType();
-		ArrayList<UML> classList = new Gson().fromJson(loaded, listType);
-		for(UML e: classList){
-			System.out.println(e.name);
-			System.out.println(e.size);
+		// Given class name is not alphanumeric
+		else if (p.matcher(className).find()) {
+			System.out.println("A class name must only contain numbers and letters");
 		}
-	}
+		// Given class does not exist
+		else {
+			System.out.println("That class does NOT exist!");
+		}
+  }
+
+  // Remove an attribute from the given class
+  // Exception if:
+  // - class does NOT exist
+  // - attribute does NOT exist
+  public static void removeAttribute (String className, Attributes name) {
+    if (noClassDupes.contains(className)) {
+			if (noAttributeDupes.contains(name.getAttributeName())) {
+				for (UML uml : collection) {
+					if (uml.getName().equals(className)) {
+						uml.attr.remove(name);
+						break;
+					}
+				}
+				System.out.println("Attribute Removed!");
+			}
+			else {
+				System.out.println("That attribute does not exist!");
+			}
+		}
+		else {
+			System.out.println("That class does not exist!");
+		}
+  }
+
+  // Renames an already existing attribute in a given class
+  // Exception if:
+  // - class does NOT exist
+  // - attribute does NOT
+  // - attribute's new name is not alphanumeric
+  public static void renameAttribute (String className, Attributes oldName, Attributes newName) {
+		if (noClassDupes.contains(className)) {
+			if (noAttributeDupes.contains(oldName.getAttributeName())) {
+				for (UML uml : collection) {
+					if (uml.getName().equals(className)) {
+						noAttributeDupes.remove(oldName.getAttributeName());
+						noAttributeDupes.add(newName.getAttributeName());
+						uml.attr.set(uml.attr.indexOf(oldName), newName);
+						break;
+					}
+				}
+				System.out.println("Attribute Renamed!");
+			}
+			else {
+				System.out.println("That attribute does not exist!");
+			}
+		}
+		else {
+			System.out.println("That class does not exist!");
+		}
+  }
+
 	/*
 	 * Run command
 	 */
 	public static void main(String args[]) {
-		
+
 
 		boolean run = true;
-		// This set is to make sure there are no classes with the same name.
-		HashSet<String> noClassDupes = new HashSet<String>();
-		//This is the Array list that should hold all the objects
-		ArrayList<UML> collection = new ArrayList<UML>();  		
 		//Placeholder value for what the scanner input is
-		String value;
+		Object value;
 		//The current UML document that is being edited
 		UML current = null;
-		
-		
+
+
 		while(run) {
-			
+
 			System.out.println("Enter a command or type exit if you wish to exit!");
-			Scanner s = new Scanner(System.in);
+			Scanner scanner = new Scanner(System.in);
 			//This is the command the user has entered. It is converted to lowercase to allow for easier comparison
-			String command = s.nextLine().toLowerCase();
-			
-			
+			String command = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+
+
 			switch(command){
-				case "add class": 
-					System.out.println("What would you like to name the new class?");
-					s = new Scanner(System.in);
-					
-					//Scanner input (name of UML object)
-					value = s.nextLine();
-					
-					//Creating the UML object using the input value for the name of the UML object 
-					//Make a new value of type String maybe?
-					current = createClass(value);
-					
-					//When implementing add class, make sure you check if the name is in the noClassDupes HashSet first to prevent classes with the same name
-					//After created, store the current in the collection ArrayList
-					
-					System.out.println("Class Created!");
+				case "addattribute":
+					System.out.println("What class are you adding to?");
+					String className1 = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+
+					System.out.println("What would you like to name the new attribute?");
+					Attributes addAttribute = new Attributes(scanner.nextLine().toLowerCase().replaceAll("\\s", ""));
+
+					addAttribute(className1, addAttribute);
+
 					break;
-					
-				case "add method":
-                //NEED TO FIND THE CLASS THEY ARE ASKING FOR FROM THE ARRAY LIST, MAKE IT EQUAL TO CURRENT, THEN INSERT THE METHOD INTO THAT CLASS (2 SCANNERS IN TOTAL)
-					System.out.println("What method you like to the class?");
-					s = new Scanner(System.in);
-					value = s.nextLine().toLowerCase();
-					//Make a new value of type methods maybe?
-					current.addMethods(value);
+
+				case "deleteattribute":
+					System.out.println("What class are you removing from?");
+					String className2 = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+
+					System.out.println("What attribute are you removing?");
+					Attributes deleteAttribute = new Attributes(scanner.nextLine().toLowerCase().replaceAll("\\s", ""));
+
+					removeAttribute(className2, deleteAttribute);
+
 					break;
-					
-				case "check methods":
-                //NEED TO FIND THE CLASS THEY ARE ASKING FOR FROM THE ARRAY LIST AND MAKE THAT EQUAL TO CURRENT
-					current.checkMethods();
+
+				case "renameattribute":
+					System.out.println("What class are you making modifications in?");
+					String className3 = s.nextLine().toLowerCase().replaceAll("\\s", "");
+
+					System.out.println("What attribute are you renaming?");
+					Attributes oldAttribute = new Attributes(scanner.nextLine().toLowerCase().replaceAll("\\s", ""));
+
+					System.out.println("What would you like to rename the attribute to?");
+					Attributes newAttribute = new Attributes(scanner.nextLine().toLowerCase().replaceAll("\\s", ""));
+
+					renameAttribute(className3, oldAttribute, newAttribute);
+
 					break;
-					
+
 				case "exit":
 					run = false;
 					break;
-				case "sub":
-					collection.add(current);
-					break;
-				
-				case "save":
-					String saveFile = save(collection);
-					System.out.println(saveFile);
-					break;
-				case "load":
-					System.out.println("This will overide the current file, do you wish to proceed? (Y or N)");
-					 s = new Scanner(System.in);
-					//  if(s.nextLine().toLowerCase() == "y"){
-					// 	System.out.println("Enter the file you would like to load");
-					// 	s = new Scanner(System.in);
-						String x = s.nextLine();
-						load(x);
-						//System.out.println(collection);
-					//  }
-					break;
-	
+
 				default:
 					System.out.println("Command not recognized. Type help for valid commands");
-						
-			}	
-			
+
+			}
+
 		}
-		
+
 	}
-		
+
 }
