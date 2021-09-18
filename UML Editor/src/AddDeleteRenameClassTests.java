@@ -312,6 +312,9 @@ public class AddDeleteRenameClassTests {
 		//If uml is null, class was not renamed
 		assertNull(uml);
 
+		//True if name is alphanumeric
+		assertTrue(UML.p.matcher("dog!").find());
+
 		//True if cat still exists
 		assertTrue(UML.noClassDupes.contains("cat"));
 		//True if dog! was not added
