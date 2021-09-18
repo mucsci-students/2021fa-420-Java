@@ -9,24 +9,16 @@ public class UML {
 	//MAKE ARRAY LIST OF TYPE RELATIONSHIP ONCE JAVA RELATIONSHIP CLASS IS CREATED
 	private ArrayList<Relationships> rels;
 	// This set is to make sure there are no classes with the same name.
-	private static HashSet<String> noClassDupes = new HashSet<String>();
+	public static HashSet<String> noClassDupes = new HashSet<String>();
 	//This is the Array list that should hold all the objects
-	private static ArrayList<UML> collection = new ArrayList<UML>();
+	public static ArrayList<UML> collection = new ArrayList<UML>();
 	//Regex for determining if string is alphanumeric
-	private static Pattern p = Pattern.compile("[^a-zA-Z0-9]");
+	public static Pattern p = Pattern.compile("[^a-zA-Z0-9]");
 
 	public UML (String name) {
 		this.name = name;
 		this.attr = new ArrayList<Attributes>();
 		this.rels = new ArrayList<Relationships>();
-	}
-
-	/*
-	 * Creates a class
-	 */
-	public static UML createClass(String name) {
-		UML x = new UML(name);
-		return x;
 	}
 
 	public String getName() {
@@ -38,16 +30,28 @@ public class UML {
 		//Sets class name to new name
 		name = newName;
 	}
+	
+	public ArrayList<Attributes> getAttrs() {
+		//Returns name of class
+		return attr;
+	}
+	
+	public ArrayList<Relationships> getRels() {
+		//Returns name of class
+		return rels;
+	}
 
-	public static void addClass(String className) {
+	public static UML addClass(String className) {
 		//If class doesn't exist and is alphanumeric
 		if(!noClassDupes.contains(className) && !p.matcher(className).find()) {
 			//Creates the class
+			UML uml = new UML(className);
 			noClassDupes.add(className);
-			collection.add(createClass(className));
+			collection.add(uml);
 			System.out.println("Class Created!");
+			return uml;
 		}
-		//When the inputted string is not alphanumeric
+		//When the inputted name is not alphanumeric
 		else if(p.matcher(className).find()) {
 			System.out.println("A class name must only contain numbers and letters.");
 		}
@@ -55,9 +59,10 @@ public class UML {
 		else {
 			System.out.println("That class already exists.");
 		}
+		return null;
 	}
 
-	public static void deleteClass(String deleteName) {
+	public static UML deleteClass(String deleteName) {
 		//Check if the class exists
 		if(noClassDupes.contains(deleteName)) {
 			//Iterates through the collection
@@ -67,7 +72,7 @@ public class UML {
 					noClassDupes.remove(deleteName);
 					collection.remove(collection.indexOf(uml));
 					System.out.println("Class Deleted!");
-					break;
+					return uml;
 				}
 			}
 		}
@@ -75,27 +80,37 @@ public class UML {
 		else {
 			System.out.println("That class does not exist.");
 		}
+		return null;
 	}
 
-	public static void renameClass(String oldName, String newName) {
-		//Check if the class exists
-		if(noClassDupes.contains(oldName)) {
+	public static UML renameClass(String oldName, String newName) {
+		//Check if the old class exists and new name is alphanumeric
+		if(noClassDupes.contains(oldName) && !noClassDupes.contains(newName) && !p.matcher(newName).find()) {
 			//Iterates through the collection
 			for(UML uml : collection) {
-				//Renames class when found
+				//Renames old class when found
 				if(uml.getName().equals(oldName)) {
 					noClassDupes.remove(oldName);
 					noClassDupes.add(newName);
 					uml.setName(newName);
 					System.out.println("Class Renamed!");
-					break;
+					return uml;
 				}
 			}
 		}
-		//When the class doesn't exist
+		//When the new name is not alphanumeric
+		else if(p.matcher(newName).find()) {
+			System.out.println("A class name must only contain numbers and letters");
+		}
+		//When the new class already exists
+		else if(noClassDupes.contains(newName)) {
+			System.out.println("That class already exists.");
+		}
+		//When the old class doesn't exist
 		else {
 			System.out.println("That class does not exist.");
 		}
+		return null;
 	}
 
 	/*

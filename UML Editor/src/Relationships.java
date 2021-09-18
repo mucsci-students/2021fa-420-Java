@@ -1,26 +1,16 @@
 
 public class Relationships {
-	private String relType;
-	private UML receiving;
+	private UML destination;
 
-	public Relationships(UML umlFile, String type) {
-		this.relType = type;
-		this.receiving = umlFile;
+	public Relationships(UML destination) {
+		this.destination = destination;
 	}
 
-	public String getRelType() {
-		return relType;
+	public UML getDestination() {
+		return destination;
 	}
 
-	public void setRelType(String newType) {
-		relType = newType;
-	}
-
-	public UML getReceiving() {
-		return receiving;
-	}
-
-	public void setName(UML uml) {
-		receiving = uml;
+	public void setName(UML destination) {
+		this.destination = destination;
 	}
 }
