@@ -192,6 +192,45 @@ public class UML {
 		}
 	}
 
+	public static void addRel(String className, UML destination){ //make String type into enum later
+		boolean foundDest = false;
+		for (UML c: collection){
+			if (c.getName().equals(destination.getName())){ // Need to see if the destination file exists
+				foundDest = true;
+				break; 
+			}
+		}
+		if(foundDest){
+			Relationships r = new Relationships(destination);
+			for(UML u : collection){
+				if( u.getName().toLowerCase().equals(className.toLowerCase())){ // searches for the class name that we are adding a relationship to
+					u.rels.add(r); 
+					return;
+				}
+			}
+			System.out.println(className + " does not exist");
+		} else{
+			System.out.println(destination + " does not exist");
+		}
+	}
+	public static void delRel(String className, UML destination){
+		for(UML u : collection){
+			if (u.getName().toLowerCase().equals(className.toLowerCase())){ //finds uml
+				for (Relationships r : u.rels){
+					if (r.getDestination().getName() == destination.getName() ){ //Checks if a relationship in the relationship arraylist has the same name as the requested deletion destination 
+						int x = u.rels.indexOf(r);	// Needed to finds where the relationship is that we need to delete
+						u.rels.remove(x);
+						System.out.println("mission accomplished (poggies)");
+						return;
+					}
+
+				}
+				System.out.println(destination + " does not exist");
+			}
+		}
+		System.out.println(className + " does not exist");
+	}
+
 	/*
 	 * Run command
 	 */
@@ -276,9 +315,48 @@ public class UML {
 				renameAttribute(classNameRename, oldAttribute, newAttribute);
 
 				break;
+			case "addrelation":
+				System.out.println("What class would you like to add a relation to?");
+
+				String cName = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+
+				System.out.println("What is the destination of the relation");
+
+				String relDest = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+				for(UML u : collection){
+					if( u.getName().toLowerCase().equals(relDest)){
+						addRel(cName,u);
+						break;
+					}
+				}
+
+				break;
+
+			case "deleterelation":
+				System.out.println("What class would you like to delete a relation from?");
+
+				String clName = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+
+				System.out.println("What is the destination of the relation");
+
+				String relDestination = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+				for(UML u : collection){
+					if( u.getName().toLowerCase().equals(relDestination)){
+						delRel(clName,u);
+						break;
+					}
+				}
+
+
+				break;
+
 
 			case "help":
-				System.out.println("add class\ndelete class\nrename class\nhelp\nexit");
+				System.out.println("add class - creates a new unique class * the name must be alphanumeric and not already exist."
+						+ "\ndelete class - deletes a preexisting class * the class must already exist to delete it."
+						+ "\nrename class - takes a class and provides a new name * the name must not already exist as another class and it's new name must be alphanumeric."
+						+ "\nhelp - provides a list of commands usable commands."
+						+ "\nexit - exists the program.");
 				break;
 
 			case "exit":
