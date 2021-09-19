@@ -1,9 +1,0 @@
-{
-  "java.project.sourcePaths": ["UML Editor/src", "UML Editor"],
-  "java.project.referencedLibraries": [
-    "lib/**/*.jar",
-    "c:\\Users\\tbren\\Downloads\\gson-2.8.8.jar",
-    "/home/students/tdbrenna/Downloads/gson-2.8.8.jar"
-  ],
-  "java.configuration.updateBuildConfiguration": "automatic"
-}
