@@ -9,11 +9,11 @@ public class UML {
 	//MAKE ARRAY LIST OF TYPE RELATIONSHIP ONCE JAVA RELATIONSHIP CLASS IS CREATED
 	private ArrayList<Relationships> rels;
 	// This set is to make sure there are no classes with the same name.
-	public static HashSet<String> noClassDupes = new HashSet<String>();
+	private static HashSet<String> noClassDupes = new HashSet<String>();
 	//This is the Array list that should hold all the objects
-	public static ArrayList<UML> collection = new ArrayList<UML>();
+	private static ArrayList<UML> collection = new ArrayList<UML>();
 	//Regex for determining if string is alphanumeric
-	public static Pattern p = Pattern.compile("[^a-zA-Z0-9]");
+	private static Pattern p = Pattern.compile("[^a-zA-Z0-9]");
 
 	public UML (String name) {
 		this.name = name;
@@ -29,16 +29,6 @@ public class UML {
 	public void setName(String newName) {
 		//Sets class name to new name
 		name = newName;
-	}
-	
-	public ArrayList<Attributes> getAttrs() {
-		//Returns name of class
-		return attr;
-	}
-	
-	public ArrayList<Relationships> getRels() {
-		//Returns name of class
-		return rels;
 	}
 
 	public static UML addClass(String className) {
