@@ -32,6 +32,7 @@ public class UML {
 
 	}
 
+<<<<<<< HEAD
 	/*
 	 * Creates a class
 	 */
@@ -44,10 +45,13 @@ public class UML {
 	/*
 	 * returns the name of the class
 	 */
+=======
+>>>>>>> class
 	public String getName() {
 		return name;
 	}
 
+<<<<<<< HEAD
 	// Adds an attribute to the given class
 	// Exception if:
 	// - class does NOT exist
@@ -75,13 +79,35 @@ public class UML {
 			else {
 				System.out.println("That attribute ALREADY exist!");
 			}
+=======
+	public void setName(String newName) {
+		//Sets class name to new name
+		name = newName;
+	}
+
+	public static UML addClass(String className) {
+		//If class doesn't exist and is alphanumeric
+		if(!noClassDupes.contains(className) && !p.matcher(className).find()) {
+			//Creates the class
+			UML uml = new UML(className);
+			noClassDupes.add(className);
+			collection.add(uml);
+			System.out.println("Class Created!");
+			return uml;
+		}
+		//When the inputted name is not alphanumeric
+		else if(p.matcher(className).find()) {
+			System.out.println("A class name must only contain numbers and letters.");
+>>>>>>> class
 		}
 		// Given class does not exist
 		else {
 			System.out.println("That class does NOT exist!");
 		}
+		return null;
 	}
 
+<<<<<<< HEAD
 	// Remove an attribute from the given class
 	// Exception if:
 	// - class does NOT exist
@@ -94,6 +120,19 @@ public class UML {
 						uml.attr.remove(name);
 						break;
 					}
+=======
+	public static UML deleteClass(String deleteName) {
+		//Check if the class exists
+		if(noClassDupes.contains(deleteName)) {
+			//Iterates through the collection
+			for(UML uml : collection) {
+				//Deletes class when found
+				if(uml.getName().equals(deleteName)) {
+					noClassDupes.remove(deleteName);
+					collection.remove(collection.indexOf(uml));
+					System.out.println("Class Deleted!");
+					return uml;
+>>>>>>> class
 				}
 				System.out.println("Attribute Removed!");
 			}
@@ -104,8 +143,10 @@ public class UML {
 		else {
 			System.out.println("That class does not exist!");
 		}
+		return null;
 	}
 
+<<<<<<< HEAD
 	// Renames an already existing attribute in a given class
 	// Exception if:
 	// - class does NOT exist
@@ -121,6 +162,20 @@ public class UML {
 						uml.attr.set(uml.attr.indexOf(oldName), newName);
 						break;
 					}
+=======
+	public static UML renameClass(String oldName, String newName) {
+		//Check if the old class exists and new name is alphanumeric
+		if(noClassDupes.contains(oldName) && !noClassDupes.contains(newName) && !p.matcher(newName).find()) {
+			//Iterates through the collection
+			for(UML uml : collection) {
+				//Renames old class when found
+				if(uml.getName().equals(oldName)) {
+					noClassDupes.remove(oldName);
+					noClassDupes.add(newName);
+					uml.setName(newName);
+					System.out.println("Class Renamed!");
+					return uml;
+>>>>>>> class
 				}
 				System.out.println("Attribute Renamed!");
 			}
@@ -131,9 +186,22 @@ public class UML {
 				System.out.println("That attribute does not exist!");
 			}
 		}
+<<<<<<< HEAD
+=======
+		//When the new name is not alphanumeric
+		else if(p.matcher(newName).find()) {
+			System.out.println("A class name must only contain numbers and letters");
+		}
+		//When the new class already exists
+		else if(noClassDupes.contains(newName)) {
+			System.out.println("That class already exists.");
+		}
+		//When the old class doesn't exist
+>>>>>>> class
 		else {
 			System.out.println("That class does not exist!");
 		}
+		return null;
 	}
 
 	/*
