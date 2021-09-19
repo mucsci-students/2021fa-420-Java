@@ -231,6 +231,32 @@ public class UML {
 		System.out.println(className + " does not exist");
 	}
 
+	//Will list all of UMLs attributes.
+	public void listAttributes (){
+		//Checks if there are any attributes.
+		if (attr.isEmpty()) {
+			System.out.println("This class has no attributes");
+		} else {
+			System.out.println("Class:" + name + "\nAttributes");
+			//Prints all attributes in arrayList "attr"
+			for(int i = 0; i < attr.size(); i++) 
+				System.out.println(" " + attr.get(i).getAttributeName());
+		}
+	}	
+
+	//Will list all of UMLs relationships.
+	public void listRelationships (){
+		//Checks if there are any relationships.
+		if (rels.isEmpty()) {
+			System.out.println("Error:No relationships exist");
+		} else {
+			System.out.println(name + " relationships:");
+			//Prints all relationships in arrayList "rels"
+			for(int i = 0; i < rels.size(); i++) 
+				System.out.println(" " + rels.get(i).getReceiving().getName());
+		}
+	}
+
 	/*
 	 * Run command
 	 */
@@ -347,9 +373,50 @@ public class UML {
 					}
 				}
 
-
 				break;
 
+			case "listclasses":
+				// Checks to see if collection contains any classes
+				if (collection.isEmpty()) {
+					System.out.println("Error:No classes exist");
+				} else {
+					//Prints all classes in arrayList "collection"
+					for(int i = 0; i < collection.size(); i++) 
+						System.out.println(collection.get(i).getName());
+				}
+				break;
+
+			case "listcontents":
+				System.out.println("What class would you like to list the contents of?");
+				//Scanner input (name of UML object)
+				String toListContents = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+				if (noClassDupes.contains(toListContents)){
+					for (UML uml:collection) {
+						if (uml.getName().equals(toListContents)) {
+							uml.listAttributes();
+							break;
+						}
+					}
+				} else {
+					System.out.println("Error: class does not exist");
+				}
+				break;
+
+			case "listrelationships":
+				System.out.println("What class would you like to list the relationships of?");
+				//Scanner input (name of UML object)
+				String toListRelationships = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+				if (noClassDupes.contains(toListRelationships)){
+					for (UML uml:collection) {
+						if (uml.getName().equals(toListRelationships)) {
+							uml.listRelationships();
+							break;
+						}
+					}
+				} else {
+					System.out.println("Error: class does not exist");
+				}
+				break;
 
 			case "help":
 				System.out.println("add class - creates a new unique class * the name must be alphanumeric and not already exist."
