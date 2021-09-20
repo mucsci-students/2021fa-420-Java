@@ -215,6 +215,8 @@ public class UML {
 			for(UML u : collection){
 				if( u.getName().toLowerCase().equals(className.toLowerCase())){ // searches for the class name that we are adding a relationship to
 					u.rels.add(r); 
+					System.out.println("Relationship added!");
+
 					return;
 				}
 			}
@@ -230,7 +232,7 @@ public class UML {
 					if (r.getDestination().getName().equals(destination.getName()) ){ //Checks if a relationship in the relationship arraylist has the same name as the requested deletion destination 
 						int x = u.rels.indexOf(r);	// Needed to finds where the relationship is that we need to delete
 						u.rels.remove(x);
-						System.out.println("mission accomplished (poggies)");
+						System.out.println("Relationship deleted!");
 						return;
 					}
 
