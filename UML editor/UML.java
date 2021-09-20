@@ -455,10 +455,21 @@ public class UML {
 				}
 				break;
 
-			case "help":
+				case "help":
 				System.out.println("add class - creates a new unique class * the name must be alphanumeric and not already exist."
 						+ "\ndelete class - deletes a preexisting class * the class must already exist to delete it."
 						+ "\nrename class - takes a class and provides a new name * the name must not already exist as another class and it's new name must be alphanumeric."
+                        + "\nlistrelationships - lists all existing relationships."
+                        + "\nlistattributes - lists all the attributes of all classes."
+                        + "\nlistcontents - lists all the contents of a given uml."
+                        + "\nlistclasses - lists all classes that exist."
+                        + "\naddrelation - adds a relation to the class * must contain classname and the destination."
+                        + "\ndelrelation - deletes a relation from a class * must already exist as a relation and must contain a classname and destination."
+                        + "\naddattribute - adds an attribute to a class * must contain classname and attribute name, the attribute must be alphanumeric."
+                        + "\ndeleteattribute - removes an attribue from a class * provided that the attribute already exists"
+                        + "\nrenameattribute - renames a previous attribute * old attribute must exist and new name must be alphanumeric."
+                        + "\nsave - saves the current UML the user is designing as a json file"
+                        + "\nload - loads a save from a previous json file"
 						+ "\nhelp - provides a list of commands usable commands."
 						+ "\nexit - exists the program.");
 				break;
