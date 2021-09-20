@@ -1,5 +1,8 @@
 import java.util.*;
 import java.util.regex.Pattern;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
 
 public class UML {
 	//Class name
@@ -110,8 +113,8 @@ public class UML {
 		// Given class exists
 		if (noClassDupes.contains(className)) {
 			// Given attribute does not exist, and the name is alphanumeric
-			if (!noAttributeDupes.contains(name.getAttributeName()) && !p.matcher(name.getAttributeName()).find()) {
-				noAttributeDupes.add(name.getAttributeName());
+			if (!noAttributeDupes.contains(name.getName()) && !p.matcher(name.getName()).find()) {
+				noAttributeDupes.add(name.getName());
 				for (UML uml : collection) {
 					if (uml.getName().equals(className)) {
 						uml.attr.add(name);
@@ -121,7 +124,7 @@ public class UML {
 				System.out.println("Attribute Created!");
 			}
 			// Given attribute name is not alphanumeric
-			else if (p.matcher(name.getAttributeName()).find()) {
+			else if (p.matcher(name.getName()).find()) {
 				System.out.println("A attribute name must only contain numbers and letters");
 			}
 			// Given attribute exists
@@ -140,10 +143,10 @@ public class UML {
 		// Given class exists
 		if (noClassDupes.contains(className)) {
 			// Given attribute exists
-			if (noAttributeDupes.contains(name.getAttributeName())) {
+			if (noAttributeDupes.contains(name.getName())) {
 				for (UML uml : collection) {
 					if (uml.getName().equals(className)) {
-						noAttributeDupes.remove(name.getAttributeName());
+						noAttributeDupes.remove(name.getName());
 						uml.attr.remove(name);
 						break;
 					}
@@ -166,11 +169,11 @@ public class UML {
 		// Given class exist
 		if (noClassDupes.contains(className)) {
 			// Given attribute does not exist, and the name is alphanumeric
-			if (noAttributeDupes.contains(oldName.getAttributeName()) && !p.matcher(newName.getAttributeName()).find()) {
+			if (noAttributeDupes.contains(oldName.getName()) && !p.matcher(newName.getName()).find()) {
 				for (UML uml : collection) {
 					if (uml.getName().equals(className)) {
-						noAttributeDupes.remove(oldName.getAttributeName());
-						noAttributeDupes.add(newName.getAttributeName());
+						noAttributeDupes.remove(oldName.getName());
+						noAttributeDupes.add(newName.getName());
 						uml.attr.set(uml.attr.indexOf(oldName), newName);
 						break;
 					}
@@ -178,7 +181,7 @@ public class UML {
 				System.out.println("Attribute Renamed!");
 			}
 			// Given attribute must be alphanumeric
-			else if (p.matcher(newName.getAttributeName()).find()) {
+			else if (p.matcher(newName.getName()).find()) {
 				System.out.println("A attribute name must only contain numbers and letters");
 			}
 			// Given attribute does not exist
@@ -240,7 +243,7 @@ public class UML {
 			System.out.println("Class:" + name + "\nAttributes");
 			//Prints all attributes in arrayList "attr"
 			for(int i = 0; i < attr.size(); i++) 
-				System.out.println(" " + attr.get(i).getAttributeName());
+				System.out.println(" " + attr.get(i).getName());
 		}
 	}	
 
@@ -253,8 +256,31 @@ public class UML {
 			System.out.println(name + " relationships:");
 			//Prints all relationships in arrayList "rels"
 			for(int i = 0; i < rels.size(); i++) 
-				System.out.println(" " + rels.get(i).getReceiving().getName());
+				System.out.println(" " + rels.get(i).getDestination().getName());
 		}
+	}
+	// Saves the ArrayList of UML objects into a json string format
+	public static String save (){
+		Gson gson = new Gson();
+		// Converts the list to JSON
+		String saveFile = gson.toJson(collection);
+		return saveFile;
+
+	}
+
+	// Loads a String with a JSON format and turns it into an ArrayList of UML objects
+	// CAN'T CATCH ERRORS YET BECAUSE OUR 420 CLASS DIDN'T DECIDE ON A JSON FORMAT
+	public static void load (String loaded){ 
+		
+		// Tells the Gson converter that we want an ArrayList of UML objects
+		Type type = new TypeToken<ArrayList<UML>>(){}.getType();
+		// Puts the JSON string and determines the type of list needed and makes a new ArrayList with this information
+		ArrayList<UML> newCollection = new Gson().fromJson(loaded, type);
+		// Empties the current ArrayList
+		collection.clear();
+		// The new collection of the loaded UML object
+		collection.addAll(newCollection);
+		
 	}
 
 	/*
@@ -341,6 +367,7 @@ public class UML {
 				renameAttribute(classNameRename, oldAttribute, newAttribute);
 
 				break;
+
 			case "addrelation":
 				System.out.println("What class would you like to add a relation to?");
 
@@ -360,7 +387,7 @@ public class UML {
 
 			case "deleterelation":
 				System.out.println("What class would you like to delete a relation from?");
-
+				
 				String clName = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
 				System.out.println("What is the destination of the relation");
@@ -369,10 +396,11 @@ public class UML {
 				for(UML u : collection){
 					if( u.getName().toLowerCase().equals(relDestination)){
 						delRel(clName,u);
+						
 						break;
 					}
 				}
-
+				
 				break;
 
 			case "listclasses":
@@ -430,6 +458,26 @@ public class UML {
 				System.out.println("Exiting the application.");
 				run = false;
 				break;
+
+			case "save":
+				String saveFile = save();
+				System.out.println("File saved!");
+				System.out.println(saveFile);
+				break;
+
+			case "load":
+			System.out.println("Any unsaved changes will be deleted. Do you wish to proceed? (Yes or No)");
+			String confirm = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+
+			//Safeguard so the user doesn't accidentally delete files
+			if(confirm.equals("yes")){
+				System.out.println("Enter the file you would like to load");
+				String loadFile = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+				load(loadFile);
+				System.out.println("File loaded!");
+			}
+			break;
+				
 
 			default:
 				System.out.println("Command not recognized. Type help for valid commands");
