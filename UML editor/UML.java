@@ -139,15 +139,21 @@ public class UML {
 	}
 
 	// Remove an attribute from the given class
-	public static void removeAttribute (String className, Attributes name) {
+	public static void removeAttribute (String className, String name) {
 		// Given class exists
 		if (noClassDupes.contains(className)) {
 			// Given attribute exists
-			if (noAttributeDupes.contains(name.getName())) {
+			if (noAttributeDupes.contains(name)) {
 				for (UML uml : collection) {
 					if (uml.getName().equals(className)) {
-						noAttributeDupes.remove(name.getName());
-						uml.attr.remove(name);
+						for (Attributes a : uml.attr){
+							if(a.getName().equals(name)){
+								int remove = uml.attr.indexOf(a);
+								uml.attr.remove(remove);
+								return;
+							}
+						}
+
 						break;
 					}
 				}
@@ -163,6 +169,7 @@ public class UML {
 			System.out.println("That class does not exist!");
 		}
 	}
+	
 
 	// Renames an already existing attribute in a given class
 	public static void renameAttribute (String className, Attributes oldName, Attributes newName) {
@@ -220,7 +227,7 @@ public class UML {
 		for(UML u : collection){
 			if (u.getName().toLowerCase().equals(className.toLowerCase())){ //finds uml
 				for (Relationships r : u.rels){
-					if (r.getDestination().getName() == destination.getName() ){ //Checks if a relationship in the relationship arraylist has the same name as the requested deletion destination 
+					if (r.getDestination().getName().equals(destination.getName()) ){ //Checks if a relationship in the relationship arraylist has the same name as the requested deletion destination 
 						int x = u.rels.indexOf(r);	// Needed to finds where the relationship is that we need to delete
 						u.rels.remove(x);
 						System.out.println("mission accomplished (poggies)");
@@ -348,7 +355,7 @@ public class UML {
 				String classNameRemove = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
 				System.out.println("What attribute are you removing?");
-				Attributes deleteAttribute = new Attributes(scanner.nextLine().toLowerCase().replaceAll("\\s", ""));
+				String deleteAttribute = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
 				removeAttribute(classNameRemove, deleteAttribute);
 
