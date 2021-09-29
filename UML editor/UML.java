@@ -47,6 +47,13 @@ public class UML {
 	public static ArrayList<UML> getCollection() {
 		return collection;
 	}
+	public static void setCollection(ArrayList<UML> newCollection){
+		collection = newCollection;
+	}
+
+	public static void clearCollection(){
+		collection.clear();
+	}
 	
 	public static HashSet<String> getNoClassDupes() {
 		return noClassDupes;
