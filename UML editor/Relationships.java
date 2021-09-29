@@ -10,7 +10,7 @@ public class Relationships {
 		return destination;
 	}
 
-	public void setName(UML destination) {
+	public void setRelName(UML destination) {
 		this.destination = destination;
 	}
 }
