@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.*;
 
 public class Driver {
 	/*
@@ -54,16 +53,23 @@ public class Driver {
 			case "addfield":
 				System.out.println("What class are you adding to?");
 				String classNameAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-
-				System.out.println("What would you like to name the new field?");
-				String fieldNameAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-
-				System.out.println("What type do you want the new field to have?");
-				String fieldTypeAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-
-				Fields addfield = new Fields(fieldNameAdd, fieldTypeAdd);
-
-				Fields.addField(classNameAdd, addfield);
+				
+				boolean moreFields = true;
+				while(moreFields) {
+					System.out.println("What would you like to name the new field?");
+					String fieldNameAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+	
+					System.out.println("What type do you want the new field to have?");
+					String fieldTypeAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+	
+					Fields.addField(classNameAdd, fieldNameAdd, fieldTypeAdd);
+					
+					System.out.println("Would you like to add another field? (yes / no)");
+					String response = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+					if (response.equals("no")) {
+						moreFields = false;
+					}
+				}
 
 				break;
 
@@ -183,9 +189,8 @@ public class Driver {
 				run = false;
 				break;
 
-				case "save":
-				ArrayList<UML> collection = UML.getCollection();
-				String saveFile = JsonFile.save(collection);
+			case "save":
+				String saveFile = UML.save();
 				System.out.println("File saved!");
 				System.out.println(saveFile);
 				break;
@@ -198,10 +203,9 @@ public class Driver {
 				if(confirm.equals("yes")) {
 					System.out.println("Enter the file you would like to load");
 					String loadFile = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-				
-					JsonFile.load(loadFile, UML.getCollection());
+					UML.load(loadFile);
 					System.out.println("File loaded!");
-				 }
+				}
 
 				break;
 

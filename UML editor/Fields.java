@@ -25,22 +25,22 @@ public class Fields {
 	}
 	
 	// Adds an field to the given class
-		public static void addField (String className, Fields name) {
+		public static void addField (String className, String name, String type) {
 			// Given class exists
 			if (UML.getNoClassDupes().contains(className)) {
 				// Given field does not exist, and the name is alphanumeric
-				if (!UML.getNoFieldDupes().contains(name.getFieldName()) && !UML.getPattern().matcher(name.getFieldName()).find()) {
-					UML.getNoFieldDupes().add(name.getFieldName());
+				if (!UML.getNoFieldDupes().contains(name) && !UML.getPattern().matcher(name).find()) {
+					UML.getNoFieldDupes().add(name);
 					for (UML uml : UML.getCollection()) {
 						if (uml.getClassName().equals(className)) {
-							uml.getField().add(name);
+							uml.getField().add(new Fields(name, type));
 							break;
 						}
 					}
 					System.out.println("Field Created!");
 				}
 				// Given field name is not alphanumeric
-				else if (UML.getPattern().matcher(name.getFieldName()).find()) {
+				else if (UML.getPattern().matcher(name).find()) {
 					System.out.println("A field name must only contain numbers and letters");
 				}
 				// Given field exists
@@ -66,10 +66,10 @@ public class Fields {
 								if(field.getFieldName().equals(name)){
 									int remove = uml.getField().indexOf(field);
 									uml.getField().remove(remove);
+									UML.getNoFieldDupes().remove(name);
 									return;
 								}
 							}
-
 							break;
 						}
 					}

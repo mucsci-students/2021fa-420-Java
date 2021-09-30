@@ -47,13 +47,6 @@ public class UML {
 	public static ArrayList<UML> getCollection() {
 		return collection;
 	}
-	public static void setCollection(ArrayList<UML> newCollection){
-		collection = newCollection;
-	}
-
-	public static void clearCollection(){
-		collection.clear();
-	}
 	
 	public static HashSet<String> getNoClassDupes() {
 		return noClassDupes;
@@ -191,10 +184,10 @@ public class UML {
 		if (field.isEmpty()) {
 			System.out.println("This class has no fields");
 		} else {
-			System.out.println("Class:" + name + "\nfields");
+			System.out.println("Class: " + name + "\n\nFields:");
 			//Prints all fields in arrayList "attr"
 			for(int i = 0; i < field.size(); i++) 
-				System.out.println(" " + field.get(i).getFieldName());
+				System.out.println("name: " + field.get(i).getFieldName() + "\ttype: " + field.get(i).getFieldType());
 		}
 	}	
 
@@ -202,7 +195,7 @@ public class UML {
 	public void listRelationships (){
 		//Checks if there are any relationships.
 		if (rels.isEmpty()) {
-			System.out.println("Error:No relationships exist");
+			System.out.println("Error: No relationships exist");
 		} else {
 			System.out.println(name + " relationships:");
 			//Prints all relationships in arrayList "rels"
