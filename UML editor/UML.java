@@ -144,7 +144,7 @@ public class UML {
 
 	
 
-	public static void addRel(String className, UML destination){ //make String type into enum later
+	public static void addRel(UML className, UML destination, String type){ //make String type into enum later
 		boolean foundDest = false;
 		for (UML c: collection){
 			if (c.getClassName().equals(destination.getClassName())){ // Need to see if the destination file exists
@@ -153,9 +153,9 @@ public class UML {
 			}
 		}
 		if(foundDest){
-			Relationships r = new Relationships(destination);
+			Relationships r = new Relationships(className, destination, type);
 			for(UML u : collection){
-				if( u.getClassName().toLowerCase().equals(className.toLowerCase())){ // searches for the class name that we are adding a relationship to
+				if( u.getClassName().toLowerCase().equals(className.getClassName().toLowerCase())){ // searches for the class name that we are adding a relationship to
 					u.rels.add(r); 
 					System.out.println("Relationship added!");
 
@@ -204,12 +204,15 @@ public class UML {
 		if (rels.isEmpty()) {
 			System.out.println("Error:No relationships exist");
 		} else {
-			System.out.println(name + " relationships:");
-			//Prints all relationships in arrayList "rels"
-			for(int i = 0; i < rels.size(); i++) 
-				System.out.println(" " + rels.get(i).getDestination().getClassName());
+			//Prints all relationships in arrayList "rels" for this UML object.
+			for(int i = 0; i < rels.size(); i++) {
+				System.out.print(rels.get(i).getSource().getClassName() + " has a "); 
+				System.out.print(rels.get(i).getType() + " relationship with ");
+				System.out.println(rels.get(i).getDestination().getClassName());
+			}	
 		}
 	}
+	
 	// Saves the ArrayList of UML objects into a json string format
 	public static String save() {
 		Gson gson = new Gson();

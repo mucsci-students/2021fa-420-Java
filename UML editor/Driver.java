@@ -97,13 +97,21 @@ public class Driver {
 
 				String cName = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
-				System.out.println("What is the destination of the relation");
+				System.out.println("What is the destination of the relation?");
 
 				String relDest = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-				for(UML uml : UML.getCollection()) {
-					if(uml.getClassName().toLowerCase().equals(relDest)) {
-						UML.addRel(cName,uml);
-						break;
+				
+				System.out.println("What is the type of the relation? Type must be aggregation, composition, inharitance, or realization.");
+
+				String relType = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+				for(UML umlDest : UML.getCollection()) {
+					if(umlDest.getClassName().toLowerCase().equals(relDest)) {
+						for(UML umlSrc : UML.getCollection()) {
+							if(umlSrc.getClassName().toLowerCase().equals(cName)) {
+								UML.addRel(umlSrc,umlDest,relType);
+								break;
+							}
+						}
 					}
 				}
 
