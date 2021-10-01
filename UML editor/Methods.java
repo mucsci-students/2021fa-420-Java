@@ -8,6 +8,7 @@ public class Methods {
 	public Methods(String name, String type) {
 		this.name = name;
 		this.retType = type;
+		this.param = new ArrayList<Parameters>();
 	}
 
 	public String getMethodName() {
