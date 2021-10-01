@@ -184,6 +184,7 @@ public class Driver {
 					for (UML uml : UML.getCollection()) {
 						if (uml.getClassName().equals(toListContents)) {
 							uml.listFields();
+							uml.listMethods();
 							break;
 						}
 					}
