@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.*;
 
 public class Driver {
 	/*
@@ -72,9 +71,9 @@ public class Driver {
 				String classNameRemove = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
 				System.out.println("What field are you removing?");
-				String deletefield = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+				String deleteField = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
-				Fields.removeField(classNameRemove, deletefield);
+				Fields.removeField(classNameRemove, deleteField);
 
 				break;
 
@@ -91,7 +90,46 @@ public class Driver {
 				Fields.renameField(classNameRename, oldField, newField);
 
 				break;
+				
+			case "addmethod":
+				System.out.println("What class are you adding to?");
+				String methodClassNameAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
+				System.out.println("What would you like to name the new method?");
+				String methodNameAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+
+				System.out.println("What return type do you want the new method to have?");
+				String methodTypeAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+				
+				Methods.addMethod(methodClassNameAdd, methodNameAdd, methodTypeAdd);
+				
+				break;
+				
+			case "deletemethod":
+				System.out.println("What class are you removing from?");
+				String methodClassNameRemove = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+
+				System.out.println("What method are you removing?");
+				String deleteMethod = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+
+				Methods.removeMethod(methodClassNameRemove, deleteMethod);
+
+				break;
+			
+			case "renamemethod":
+				System.out.println("What class are you making modifications in?");
+				String methodClassNameRename = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+
+				System.out.println("What method are you renaming?");
+				String oldMethod = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+
+				System.out.println("What would you like to rename the method to?");
+				String newMethod = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+
+				Methods.renameMethod(methodClassNameRename, oldMethod, newMethod);
+
+				break;
+				
 			case "addrelation":
 				System.out.println("What class would you like to add a relation to?");
 
@@ -183,9 +221,8 @@ public class Driver {
 				run = false;
 				break;
 
-				case "save":
-				ArrayList<UML> collection = UML.getCollection();
-				String saveFile = JsonFile.save(collection);
+			case "save":
+				String saveFile = UML.save();
 				System.out.println("File saved!");
 				System.out.println(saveFile);
 				break;
@@ -198,10 +235,9 @@ public class Driver {
 				if(confirm.equals("yes")) {
 					System.out.println("Enter the file you would like to load");
 					String loadFile = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-				
-					JsonFile.load(loadFile, UML.getCollection());
+					UML.load(loadFile);
 					System.out.println("File loaded!");
-				 }
+				}
 
 				break;
 

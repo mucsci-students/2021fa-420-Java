@@ -7,14 +7,18 @@ import java.lang.reflect.Type;
 public class UML {
 	//Class name
 	private String name;
-	//List containing all the variables in a UML object
+	//List containing all the fields in a UML object
 	private ArrayList<Fields> field;
-	//MAKE ARRAY LIST OF TYPE RELATIONSHIP ONCE JAVA RELATIONSHIP CLASS IS CREATED
+	//List containing all the fields in a UML object
+	private ArrayList<Methods> method;
+	//List containing all the relations between UML objects
 	private ArrayList<Relationships> rels;
-	// This set is to make sure there are no classes with the same name.
+	//This set is to make sure there are no classes with the same name.
 	private static HashSet<String> noClassDupes = new HashSet<String>();
-	// This set is to make sure there are no fields with the same name.
+	//This set is to make sure there are no fields with the same name.
 	private static HashSet<String> noFieldDupes = new HashSet<String>();
+	//This set is to make sure there are no method with the same name.
+	private static HashSet<String> noMethodDupes = new HashSet<String>();
 	//This is the Array list that should hold all the objects
 	private static ArrayList<UML> collection = new ArrayList<UML>();
 	//Regex for determining if string is alphanumeric
@@ -23,6 +27,7 @@ public class UML {
 	public UML (String name) {
 		this.name = name;
 		this.field = new ArrayList<Fields>();
+		this.method = new ArrayList<Methods>();
 		this.rels = new ArrayList<Relationships>();
 	}
 
@@ -35,40 +40,41 @@ public class UML {
 		//Sets class name to new name
 		name = newName;
 	}
-	
+
 	public ArrayList<Fields> getField() {
 		return field;
 	}
 	
+	public ArrayList<Methods> getMethod() {
+		return method;
+	}
+
 	public ArrayList<Relationships> getRels() {
 		return rels;
 	}
-	
+
 	public static ArrayList<UML> getCollection() {
 		return collection;
 	}
-	public static void setCollection(ArrayList<UML> newCollection){
-		collection = newCollection;
-	}
 
-	public static void clearCollection(){
-		collection.clear();
-	}
-	
 	public static HashSet<String> getNoClassDupes() {
 		return noClassDupes;
 	}
-	
+
 	public static HashSet<String> getNoFieldDupes() {
 		return noFieldDupes;
 	}
-	
+
+	public static HashSet<String> getNoMethodDupes() {
+		return noMethodDupes;
+	}
+
 	public static Pattern getPattern() {
 		return pattern;
 	}
-	
-	
-	
+
+
+
 
 	public static UML addClass(String className) {
 		//If class doesn't exist and is alphanumeric
@@ -142,7 +148,7 @@ public class UML {
 		return null;
 	}
 
-	
+
 
 	public static void addRel(String className, UML destination){ //make String type into enum later
 		boolean foundDest = false;
@@ -194,7 +200,7 @@ public class UML {
 			System.out.println("Class:" + name + "\nfields");
 			//Prints all fields in arrayList "attr"
 			for(int i = 0; i < field.size(); i++) 
-				System.out.println(" " + field.get(i).getFieldName());
+				System.out.println("name: " + field.get(i).getFieldName() + " type: " + field.get(i).getFieldType());
 		}
 	}	
 
