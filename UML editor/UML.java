@@ -202,7 +202,26 @@ public class UML {
 			for(int i = 0; i < field.size(); i++) 
 				System.out.println("name: " + field.get(i).getFieldName() + " type: " + field.get(i).getFieldType());
 		}
-	}	
+	}
+	
+	//Will list all of UMLs methods.
+	public void listMethods() {
+		//Checks if there are any methods.
+		if(method.isEmpty()) {
+			System.out.println("This class has no methods");
+		}
+		else {
+			System.out.println("Methods:");
+			//Prints all methods in arrayList "method"
+			for(Methods method : method) {
+				System.out.println("name: " + method.getMethodName() + " return type: " + method.getMethodType());
+				//Prints all parameters in arrayList "param"
+				for(Parameters param : method.getParams()) {
+					System.out.println("\tParameters\n\tname: " + param.getParamName() + " type: " + param.getParamType());
+				}
+			}
+		}
+	}
 
 	//Will list all of UMLs relationships.
 	public void listRelationships (){
