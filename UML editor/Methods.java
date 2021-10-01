@@ -97,7 +97,7 @@ public class Methods {
 		// Given class exist
 		if(UML.getNoClassDupes().contains(className)) {
 			// Given method does not exist, and the name is alphanumeric
-			if(UML.getNoMethodDupes().contains(oldName) && !UML.getPattern().matcher(newName).find()) {
+			if(UML.getNoMethodDupes().contains(oldName) && !UML.getNoMethodDupes().contains(newName) && !UML.getPattern().matcher(newName).find()) {
 				for(UML uml : UML.getCollection()) {
 					if(uml.getClassName().equals(className)) {
 						UML.getNoMethodDupes().remove(oldName);
@@ -113,6 +113,10 @@ public class Methods {
 			// Given method must be alphanumeric
 			else if (UML.getPattern().matcher(newName).find()) {
 				System.out.println("A method name must only contain numbers and letters");
+			}
+			// New method name already exists
+			else if(UML.getNoMethodDupes().contains(newName)) {
+				System.out.println("That method already exists!");
 			}
 			// Given method does not exist
 			else {
