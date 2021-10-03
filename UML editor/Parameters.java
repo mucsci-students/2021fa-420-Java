@@ -5,7 +5,7 @@ import java.util.*;
 public class Parameters {
 	private String name;
 	private String type;
-	private HashSet<String> noPDupes;
+	private static HashSet<String> noPDupes;
 
 	public Parameters(String name, String type) {
 		this.name = name;
@@ -28,8 +28,8 @@ public class Parameters {
 		type = newType;
 	}
 
-	public void deleteParameter (Methods m, String pName, String pType){
-		ArrayList<Parameters> mList = m.getParamList();
+	public void deleteParameter (String UMLName, String methodsName, String pName, String pType){
+		ArrayList<Parameters> mList = findMethod(UMLName, methodsName);
 		if(mList.indexOf(new Parameters(pName, pType)) != -1){
 			mList.remove(new Parameters(pName, pType));
 			removeDupe(pName);
@@ -39,20 +39,20 @@ public class Parameters {
 		}
 	}
 
-	public void deleteAllParameters (Methods m){
-		ArrayList<Parameters> mList = m.getParamList();
+	public void deleteAllParameters (String UMLName, String methodsName){
+		ArrayList<Parameters> mList = findMethod(UMLName, methodsName);
 		mList.clear();
 		emptyPDupes();
 	}
 
-	public void addParameter(Methods m, String pName, String pType){
-		ArrayList<Parameters> mList = m.getParamList();
+	public static void addParameter(String UMLName, String methodsName, String pName, String pType){
+		ArrayList<Parameters> mList = findMethod(UMLName, methodsName);
 		Parameters p = addNoDupes(pName, pType);
 		mList.add(p);
 	}
 
-	public void changeParameter(Methods m, String oldpName, String oldpType, String newpName, String newpType ){
-		ArrayList<Parameters> mList = m.getParamList();
+	public void changeParameter(String UMLName, String methodsName, String oldpName, String oldpType, String newpName, String newpType ){
+		ArrayList<Parameters> mList = findMethod(UMLName, methodsName);
 		int index = mList.indexOf(new Parameters(oldpName, oldpType));
 		if(index != -1){
 			removeDupe(oldpName);
@@ -63,10 +63,10 @@ public class Parameters {
 		}
 
 	}
-	public void changeAllParameters(Methods m){
+	public void changeAllParameters(String UMLName, String methodsName){
 		Scanner scanner = new Scanner(System.in);
 
-		ArrayList<Parameters> mList = m.getParamList();
+		ArrayList<Parameters> mList = findMethod(UMLName, methodsName);
 
 		for (int index = 0; index >= mList.size() - 1; ++index ){
 			System.out.println("Below is the parameter being changed:");
@@ -88,19 +88,19 @@ public class Parameters {
 
 	}
 
-	public void listParamaters(Methods m){
-		ArrayList<Parameters> mList = m.getParamList();
+	public void listParameters(String UMLName, String methodsName){
+		ArrayList<Parameters> mList = findMethod(UMLName, methodsName);
 		for (Parameters p : mList){
 			System.out.println("Name: " + p.getParamName()+ " Type: " + p.getParamType());
 		}
 	}
 
 
-	public boolean noParameterDupes(String s){
+	public static boolean noParameterDupes(String s){
 		return noPDupes.contains(s.toLowerCase());
 	}
 
-	public Parameters addNoDupes(String name, String type){
+	public static Parameters addNoDupes(String name, String type){
 		if (noParameterDupes(name)){
 		noPDupes.add(name.toLowerCase());
 		return new Parameters(name, type);
@@ -117,5 +117,23 @@ public class Parameters {
 
 	public void emptyPDupes(){
 		noPDupes.clear();
+	}
+
+	public static ArrayList<Methods> findMethod(String umlName, String methods ){
+		for(UML u : UML.getCollection()){
+			if(umlName.equals(u.getClassName)){
+				UML foundUML = u;
+				break;
+			}
+		}
+		if(foundUML){
+			for (Methods m : UML.getMethod()){
+				if(methods.equals(u.getClassName)){
+					return m;
+				}
+			}
+			System.out.println("Method not found!");
+		}
+		System.out.println("Class not found!");
 	}
 }

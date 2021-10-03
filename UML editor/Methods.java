@@ -26,7 +26,7 @@ public class Methods {
 		retType = newType;
 	}
 
-	public ArrayList<Parameters> getParamList (){
+	public ArrayList<Parameters> getParams (){
 		return param;
 	}
 

@@ -210,25 +210,4 @@ public class UML {
 				System.out.println(" " + rels.get(i).getDestination().getClassName());
 		}
 	}
-	// Saves the ArrayList of UML objects into a json string format
-	public static String save() {
-		Gson gson = new Gson();
-		// Converts the list to JSON
-		String saveFile = gson.toJson(collection);
-		return saveFile;
-
-	}
-
-	// Loads a String with a JSON format and turns it into an ArrayList of UML objects
-	// CAN'T CATCH ERRORS YET BECAUSE OUR 420 CLASS DIDN'T DECIDE ON A JSON FORMAT
-	public static void load(String loaded) {
-		// Tells the Gson converter that we want an ArrayList of UML objects
-		Type type = new TypeToken<ArrayList<UML>>(){}.getType();
-		// Puts the JSON string and determines the type of list needed and makes a new ArrayList with this information
-		ArrayList<UML> newCollection = new Gson().fromJson(loaded, type);
-		// Empties the current ArrayList
-		collection.clear();
-		// The new collection of the loaded UML object
-		collection.addAll(newCollection);
-	}
 }
