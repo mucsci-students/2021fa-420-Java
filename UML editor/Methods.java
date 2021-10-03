@@ -25,4 +25,9 @@ public class Methods {
 	public void setMethodType(String newType) {
 		retType = newType;
 	}
+
+	public ArrayList<Parameters> getParamList (){
+		return param;
+	}
+
 }
