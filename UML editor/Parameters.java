@@ -120,15 +120,16 @@ public class Parameters {
 	}
 
 	public static ArrayList<Methods> findMethod(String umlName, String methods ){
+		UML foundUML;
 		for(UML u : UML.getCollection()){
-			if(umlName.equals(u.getClassName)){
-				UML foundUML = u;
+			if(umlName.equals(u.getClassName())){
+				foundUML = u;
 				break;
 			}
 		}
 		if(foundUML){
 			for (Methods m : UML.getMethod()){
-				if(methods.equals(u.getClassName)){
+				if(methods.equals(u.getClassName())){
 					return m;
 				}
 			}
