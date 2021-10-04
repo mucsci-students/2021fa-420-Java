@@ -1,6 +1,6 @@
 import java.util.*;
 
-// Test no duplicates, Test all functions, I think no dupes is currently storign all params not just in per method
+// Test no duplicates, Test all functions,
 
 public class Parameters {
 	private String name;
