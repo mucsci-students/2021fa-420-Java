@@ -244,6 +244,69 @@ public class Driver {
 
 				break;
 
+			case "addparameter":
+				System.out.println("What class would you like to add a parameter to?");
+				String UMLName = scanner.nextLine().toLowerCase();
+				System.out.println("What method would you like to add a parameter to?");
+				String methodName = scanner.nextLine().toLowerCase();
+				System.out.println("What is the Parameter name!");
+				String paramName = scanner.nextLine().toLowerCase();
+				System.out.println("What is the parameter type!");
+				String paramType = scanner.nextLine().toLowerCase();
+				System.out.println("File loaded!");
+				Parameters.addParameter(UMLName, methodName, paramName,  paramType);
+				System.out.println("Parameter Created!");
+				break;
+			
+			case "deleteparameter":
+				System.out.println("What class would you like to add a parameter to?");
+				String UMLName1 = scanner.nextLine().toLowerCase();
+				System.out.println("What method would you like to add a parameter to?");
+				String methodName1 = scanner.nextLine().toLowerCase();
+				System.out.println("What is the Parameter name!");
+				String paramName1 = scanner.nextLine().toLowerCase();
+				System.out.println("What is the parameter type!");
+				String paramType1 = scanner.nextLine().toLowerCase();
+				System.out.println("File loaded!");
+				deleteParameter(UMLName1, methodName1, paramName1,  paramType1); 
+				break;
+
+			case "deleteallparameters":
+				System.out.println("What class would you like to add a parameter to?");
+				String UMLName2 = scanner.nextLine().toLowerCase();
+				System.out.println("What method would you like to add a parameter to?");
+				String methodName2 = scanner.nextLine().toLowerCase();
+
+				deleteAllParameters(UMLName2, methodName2);
+				break;
+
+			case "changeallparameters":
+				System.out.println("What class would you like to add a parameter to?");
+				String UMLName3 = scanner.nextLine().toLowerCase();
+				System.out.println("What method would you like to add a parameter to?");
+				String methodName3 = scanner.nextLine().toLowerCase();
+
+				changeAllParameters(UMLName3, methodName3);
+				break;
+
+			case "changeparameter":
+				System.out.println("What class would you like to add a parameter to?");
+				String UMLName4 = scanner.nextLine().toLowerCase();
+				System.out.println("What method would you like to add a parameter to?");
+				String methodName4 = scanner.nextLine().toLowerCase();
+
+				changeParameter(UMLName4, methodName4);
+				break;
+
+			case "listParameters": 
+				System.out.println("What class would you like to add a parameter to?");
+				String UMLName5 = scanner.nextLine().toLowerCase();
+				System.out.println("What method would you like to add a parameter to?");
+				String methodName5 = scanner.nextLine().toLowerCase();
+
+				listParameters(UMLName5, methodName5);
+				break;
+				
 			default:
 				System.out.println("Command not recognized. Type help for valid commands");
 			}	
