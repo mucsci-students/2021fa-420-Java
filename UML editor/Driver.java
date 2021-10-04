@@ -84,6 +84,11 @@ public class Driver {
 
 				break;
 
+			case "deleteallfields":
+				Fields.removeAllFields();
+				
+				break;
+			
 			case "renamefield":
 				System.out.println("What class are you making modifications in?");
 				String classNameRename = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
