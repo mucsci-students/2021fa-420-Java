@@ -7,15 +7,15 @@ import java.lang.reflect.Type;
 public class UML {
 	//Class name
 	private String name;
-	//List containing all the variables in a UML object
+	//List containing all the fields in a UML object
 	private ArrayList<Fields> field;
 	//List containing all the fields in a UML object
 	private ArrayList<Methods> method;
 	//List containing all the relations between UML objects
 	private ArrayList<Relationships> rels;
-	// This set is to make sure there are no classes with the same name.
+	//This set is to make sure there are no classes with the same name.
 	private static HashSet<String> noClassDupes = new HashSet<String>();
-	// This set is to make sure there are no fields with the same name.
+	//This set is to make sure there are no fields with the same name.
 	private static HashSet<String> noFieldDupes = new HashSet<String>();
 	//This set is to make sure there are no method with the same name.
 	private static HashSet<String> noMethodDupes = new HashSet<String>();
@@ -56,6 +56,15 @@ public class UML {
 	public static ArrayList<UML> getCollection() {
 		return collection;
 	}
+
+	public static void setCollection(ArrayList<UML> newCollection){
+		collection = newCollection;
+	}
+
+	public static void clearCollection(){
+		collection.clear();
+	}
+
 
 	public static HashSet<String> getNoClassDupes() {
 		return noClassDupes;
@@ -155,14 +164,14 @@ public class UML {
 		for (UML c: collection){
 			if (c.getClassName().equals(destination.getClassName())){ // Need to see if the destination file exists
 				foundDest = true;
-				break; 
+				break;
 			}
 		}
 		if(foundDest){
 			Relationships r = new Relationships(destination);
 			for(UML u : collection){
 				if( u.getClassName().toLowerCase().equals(className.toLowerCase())){ // searches for the class name that we are adding a relationship to
-					u.rels.add(r); 
+					u.rels.add(r);
 					System.out.println("Relationship added!");
 
 					return;
@@ -177,7 +186,7 @@ public class UML {
 		for(UML u : collection){
 			if (u.getClassName().toLowerCase().equals(className.toLowerCase())){ //finds uml
 				for (Relationships r : u.rels){
-					if (r.getDestination().getClassName().equals(destination.getClassName()) ){ //Checks if a relationship in the relationship arraylist has the same name as the requested deletion destination 
+					if (r.getDestination().getClassName().equals(destination.getClassName()) ){ //Checks if a relationship in the relationship arraylist has the same name as the requested deletion destination
 						int x = u.rels.indexOf(r);	// Needed to finds where the relationship is that we need to delete
 						u.rels.remove(x);
 						System.out.println("Relationship deleted!");
@@ -199,8 +208,8 @@ public class UML {
 		} else {
 			System.out.println("Class: " + name + "\n\nFields:");
 			//Prints all fields in arrayList "field"
-			for(int i = 0; i < field.size(); i++) 
-				System.out.println("name: " + field.get(i).getFieldName() + "\ttype: " + field.get(i).getFieldType());
+			for(int i = 0; i < field.size(); i++)
+				System.out.println("name: " + field.get(i).getFieldName() + " type: " + field.get(i).getFieldType());
 		}
 	}
 
@@ -231,30 +240,8 @@ public class UML {
 		} else {
 			System.out.println(name + " relationships:");
 			//Prints all relationships in arrayList "rels"
-			for(int i = 0; i < rels.size(); i++) 
+			for(int i = 0; i < rels.size(); i++)
 				System.out.println(" " + rels.get(i).getDestination().getClassName());
 		}
-	}
-	
-	// Saves the ArrayList of UML objects into a json string format
-	public static String save() {
-		Gson gson = new Gson();
-		// Converts the list to JSON
-		String saveFile = gson.toJson(collection);
-		return saveFile;
-
-	}
-
-	// Loads a String with a JSON format and turns it into an ArrayList of UML objects
-	// CAN'T CATCH ERRORS YET BECAUSE OUR 420 CLASS DIDN'T DECIDE ON A JSON FORMAT
-	public static void load(String loaded) {
-		// Tells the Gson converter that we want an ArrayList of UML objects
-		Type type = new TypeToken<ArrayList<UML>>(){}.getType();
-		// Puts the JSON string and determines the type of list needed and makes a new ArrayList with this information
-		ArrayList<UML> newCollection = new Gson().fromJson(loaded, type);
-		// Empties the current ArrayList
-		collection.clear();
-		// The new collection of the loaded UML object
-		collection.addAll(newCollection);
 	}
 }
