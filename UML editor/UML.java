@@ -10,7 +10,7 @@ public class UML {
 	//List containing all the variables in a UML object
 	private ArrayList<Fields> field;
 	//MAKE ARRAY LIST OF TYPE RELATIONSHIP ONCE JAVA RELATIONSHIP CLASS IS CREATED
-	private ArrayList<Relationships> rels;
+	private static ArrayList<Relationships> rels;
 	// This set is to make sure there are no classes with the same name.
 	private static HashSet<String> noClassDupes = new HashSet<String>();
 	// This set is to make sure there are no fields with the same name.
@@ -40,7 +40,7 @@ public class UML {
 		return field;
 	}
 	
-	public ArrayList<Relationships> getRels() {
+	public static ArrayList<Relationships> getRels() {
 		return rels;
 	}
 	

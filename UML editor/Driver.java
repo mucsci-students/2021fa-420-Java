@@ -134,6 +134,30 @@ public class Driver {
 				}
 
 				break;
+				
+			case "changerelationshiptype":
+				System.out.println("What is the source class of the relationship you would like to change?");
+				String changeRelSource = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+
+				System.out.println("What is the destination class of the relationship you would like to change?");
+				String changeRelDest = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+
+				System.out.println("What would you like to change the type to?");
+				String newType = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+				
+				for(UML umlSrc : UML.getCollection()) {
+					if(umlSrc.getClassName().toLowerCase().equals(changeRelSource)) {
+						for(Relationships umlRel : UML.getRels()) {
+							if(umlRel.getDestination().getClassName().toLowerCase().equals(changeRelDest)) {
+								umlRel.setType(newType);
+								break;
+							}
+						}
+					}
+				}
+				
+
+				break;
 
 			case "listclasses":
 				// Checks to see if collection contains any classes
