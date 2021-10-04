@@ -44,7 +44,7 @@ public class UML {
 	public ArrayList<Fields> getField() {
 		return field;
 	}
-	
+
 	public ArrayList<Methods> getMethod() {
 		return method;
 	}
@@ -56,7 +56,7 @@ public class UML {
 	public static ArrayList<UML> getCollection() {
 		return collection;
 	}
-	
+
 	public static void setCollection(ArrayList<UML> newCollection){
 		collection = newCollection;
 	}
@@ -164,14 +164,14 @@ public class UML {
 		for (UML c: collection){
 			if (c.getClassName().equals(destination.getClassName())){ // Need to see if the destination file exists
 				foundDest = true;
-				break; 
+				break;
 			}
 		}
 		if(foundDest){
 			Relationships r = new Relationships(destination);
 			for(UML u : collection){
 				if( u.getClassName().toLowerCase().equals(className.toLowerCase())){ // searches for the class name that we are adding a relationship to
-					u.rels.add(r); 
+					u.rels.add(r);
 					System.out.println("Relationship added!");
 
 					return;
@@ -186,7 +186,7 @@ public class UML {
 		for(UML u : collection){
 			if (u.getClassName().toLowerCase().equals(className.toLowerCase())){ //finds uml
 				for (Relationships r : u.rels){
-					if (r.getDestination().getClassName().equals(destination.getClassName()) ){ //Checks if a relationship in the relationship arraylist has the same name as the requested deletion destination 
+					if (r.getDestination().getClassName().equals(destination.getClassName()) ){ //Checks if a relationship in the relationship arraylist has the same name as the requested deletion destination
 						int x = u.rels.indexOf(r);	// Needed to finds where the relationship is that we need to delete
 						u.rels.remove(x);
 						System.out.println("Relationship deleted!");
@@ -201,18 +201,18 @@ public class UML {
 	}
 
 	//Will list all of UMLs fields.
-	public void listFields (){
+	public void listFields () {
 		//Checks if there are any fields.
 		if (field.isEmpty()) {
 			System.out.println("This class has no fields");
 		} else {
-			System.out.println("Class:" + name + "\nfields");
-			//Prints all fields in arrayList "attr"
-			for(int i = 0; i < field.size(); i++) 
+			System.out.println("Class: " + name + "\n\nFields:");
+			//Prints all fields in arrayList "field"
+			for(int i = 0; i < field.size(); i++)
 				System.out.println("name: " + field.get(i).getFieldName() + " type: " + field.get(i).getFieldType());
 		}
 	}
-	
+
 	//Will list all of UMLs methods.
 	public void listMethods() {
 		//Checks if there are any methods.
@@ -233,14 +233,14 @@ public class UML {
 	}
 
 	//Will list all of UMLs relationships.
-	public void listRelationships (){
+	public void listRelationships () {
 		//Checks if there are any relationships.
 		if (rels.isEmpty()) {
-			System.out.println("Error:No relationships exist");
+			System.out.println("Error: No relationships exist");
 		} else {
 			System.out.println(name + " relationships:");
 			//Prints all relationships in arrayList "rels"
-			for(int i = 0; i < rels.size(); i++) 
+			for(int i = 0; i < rels.size(); i++)
 				System.out.println(" " + rels.get(i).getDestination().getClassName());
 		}
 	}

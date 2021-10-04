@@ -19,7 +19,7 @@ public class Driver {
 			String command = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
 			switch(command) {
-			case "addclass": 
+			case "addclass":
 				System.out.println("What would you like to name the new class?");
 				//Class name to add, ignores white space
 				String className = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
@@ -54,15 +54,22 @@ public class Driver {
 				System.out.println("What class are you adding to?");
 				String classNameAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
-				System.out.println("What would you like to name the new field?");
-				String fieldNameAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+				boolean moreFields = true;
+				while(moreFields) {
+					System.out.println("What would you like to name the new field?");
+					String fieldNameAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
-				System.out.println("What type do you want the new field to have?");
-				String fieldTypeAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+					System.out.println("What type do you want the new field to have?");
+					String fieldTypeAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
-				Fields addfield = new Fields(fieldNameAdd, fieldTypeAdd);
+					Fields.addField(classNameAdd, fieldNameAdd, fieldTypeAdd);
 
-				Fields.addField(classNameAdd, addfield);
+					System.out.println("Would you like to add another field? (yes / no)");
+					String response = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+					if (response.equals("no")) {
+						moreFields = false;
+					}
+				}
 
 				break;
 
@@ -74,6 +81,11 @@ public class Driver {
 				String deleteField = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
 				Fields.removeField(classNameRemove, deleteField);
+
+				break;
+
+			case "deleteallfields":
+				Fields.removeAllFields();
 
 				break;
 
@@ -90,7 +102,7 @@ public class Driver {
 				Fields.renameField(classNameRename, oldField, newField);
 
 				break;
-				
+
 			case "addmethod":
 				System.out.println("What class are you adding to?");
 				String methodClassNameAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
@@ -100,11 +112,11 @@ public class Driver {
 
 				System.out.println("What return type do you want the new method to have?");
 				String methodTypeAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-				
+
 				Methods.addMethod(methodClassNameAdd, methodNameAdd, methodTypeAdd);
-				
+
 				break;
-				
+
 			case "deletemethod":
 				System.out.println("What class are you removing from?");
 				String methodClassNameRemove = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
@@ -115,7 +127,7 @@ public class Driver {
 				Methods.removeMethod(methodClassNameRemove, deleteMethod);
 
 				break;
-			
+
 			case "renamemethod":
 				System.out.println("What class are you making modifications in?");
 				String methodClassNameRename = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
@@ -129,7 +141,7 @@ public class Driver {
 				Methods.renameMethod(methodClassNameRename, oldMethod, newMethod);
 
 				break;
-				
+
 			case "addrelation":
 				System.out.println("What class would you like to add a relation to?");
 
@@ -171,7 +183,7 @@ public class Driver {
 					System.out.println("Error:No classes exist");
 				} else {
 					//Prints all classes in arrayList "collection"
-					for(int i = 0; i < UML.getCollection().size(); i++) 
+					for(int i = 0; i < UML.getCollection().size(); i++)
 						System.out.println(UML.getCollection().get(i).getClassName());
 				}
 				break;
@@ -237,10 +249,9 @@ public class Driver {
 				if(confirm.equals("yes")) {
 					System.out.println("Enter the file you would like to load");
 					String loadFile = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-				
-					JsonFile.load(loadFile, UML.getCollection());
+					UML.load(loadFile);
 					System.out.println("File loaded!");
-				 }
+				}
 
 				break;
 
@@ -257,7 +268,7 @@ public class Driver {
 				Parameters.addParameter(UMLName, methodName, paramName,  paramType);
 				System.out.println("Parameter Created!");
 				break;
-			
+
 			case "deleteparameter":
 				System.out.println("What class would you like to add a parameter to?");
 				String UMLName1 = scanner.nextLine().toLowerCase();
@@ -268,7 +279,7 @@ public class Driver {
 				System.out.println("What is the parameter type!");
 				String paramType1 = scanner.nextLine().toLowerCase();
 				System.out.println("File loaded!");
-				deleteParameter(UMLName1, methodName1, paramName1,  paramType1); 
+				deleteParameter(UMLName1, methodName1, paramName1,  paramType1);
 				break;
 
 			case "deleteallparameters":
@@ -298,7 +309,7 @@ public class Driver {
 				changeParameter(UMLName4, methodName4);
 				break;
 
-			case "listParameters": 
+			case "listParameters":
 				System.out.println("What class would you like to add a parameter to?");
 				String UMLName5 = scanner.nextLine().toLowerCase();
 				System.out.println("What method would you like to add a parameter to?");
@@ -306,10 +317,10 @@ public class Driver {
 
 				listParameters(UMLName5, methodName5);
 				break;
-				
+
 			default:
 				System.out.println("Command not recognized. Type help for valid commands");
-			}	
+			}
 		}
 		scanner.close();
 	}
