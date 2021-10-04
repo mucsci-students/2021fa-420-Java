@@ -183,7 +183,7 @@ public class Driver {
 				run = false;
 				break;
 
-				case "save":
+			case "save":
 				ArrayList<UML> collection = UML.getCollection();
 				String saveFile = JsonFile.save(collection);
 				System.out.println("File saved!");
