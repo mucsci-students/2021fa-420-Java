@@ -7,14 +7,18 @@ import java.lang.reflect.Type;
 public class UML {
 	//Class name
 	private String name;
-	//List containing all the variables in a UML object
+	//List containing all the fields in a UML object
 	private ArrayList<Fields> field;
-	//MAKE ARRAY LIST OF TYPE RELATIONSHIP ONCE JAVA RELATIONSHIP CLASS IS CREATED
+	//List containing all the fields in a UML object
+	private ArrayList<Methods> method;
+	//List containing all the relations between UML objects
 	private ArrayList<Relationships> rels;
-	// This set is to make sure there are no classes with the same name.
+	//This set is to make sure there are no classes with the same name.
 	private static HashSet<String> noClassDupes = new HashSet<String>();
-	// This set is to make sure there are no fields with the same name.
+	//This set is to make sure there are no fields with the same name.
 	private static HashSet<String> noFieldDupes = new HashSet<String>();
+	//This set is to make sure there are no method with the same name.
+	private static HashSet<String> noMethodDupes = new HashSet<String>();
 	//This is the Array list that should hold all the objects
 	private static ArrayList<UML> collection = new ArrayList<UML>();
 	//Regex for determining if string is alphanumeric
@@ -23,6 +27,7 @@ public class UML {
 	public UML (String name) {
 		this.name = name;
 		this.field = new ArrayList<Fields>();
+		this.method = new ArrayList<Methods>();
 		this.rels = new ArrayList<Relationships>();
 	}
 
@@ -35,18 +40,23 @@ public class UML {
 		//Sets class name to new name
 		name = newName;
 	}
-	
+
 	public ArrayList<Fields> getField() {
 		return field;
 	}
-	
+
+	public ArrayList<Methods> getMethod() {
+		return method;
+	}
+
 	public ArrayList<Relationships> getRels() {
 		return rels;
 	}
-	
+
 	public static ArrayList<UML> getCollection() {
 		return collection;
 	}
+
 	public static void setCollection(ArrayList<UML> newCollection){
 		collection = newCollection;
 	}
@@ -54,21 +64,26 @@ public class UML {
 	public static void clearCollection(){
 		collection.clear();
 	}
-	
+
+
 	public static HashSet<String> getNoClassDupes() {
 		return noClassDupes;
 	}
-	
+
 	public static HashSet<String> getNoFieldDupes() {
 		return noFieldDupes;
 	}
-	
+
+	public static HashSet<String> getNoMethodDupes() {
+		return noMethodDupes;
+	}
+
 	public static Pattern getPattern() {
 		return pattern;
 	}
-	
-	
-	
+
+
+
 
 	public static UML addClass(String className) {
 		//If class doesn't exist and is alphanumeric
@@ -142,28 +157,47 @@ public class UML {
 		return null;
 	}
 
-	
+
 
 	
 
 	//Will list all of UMLs fields.
-	public void listFields (){
+	public void listFields () {
 		//Checks if there are any fields.
 		if (field.isEmpty()) {
 			System.out.println("This class has no fields");
 		} else {
-			System.out.println("Class:" + name + "\nfields");
-			//Prints all fields in arrayList "attr"
-			for(int i = 0; i < field.size(); i++) 
-				System.out.println(" " + field.get(i).getFieldName());
+			System.out.println("Class: " + name + "\n\nFields:");
+			//Prints all fields in arrayList "field"
+			for(int i = 0; i < field.size(); i++)
+				System.out.println("name: " + field.get(i).getFieldName() + " type: " + field.get(i).getFieldType());
 		}
-	}	
+	}
+
+	//Will list all of UMLs methods.
+	public void listMethods() {
+		//Checks if there are any methods.
+		if(method.isEmpty()) {
+			System.out.println("This class has no methods");
+		}
+		else {
+			System.out.println("Methods:");
+			//Prints all methods in arrayList "method"
+			for(Methods method : method) {
+				System.out.println("name: " + method.getMethodName() + " return type: " + method.getMethodType());
+				//Prints all parameters in arrayList "param"
+				for(Parameters param : method.getParams()) {
+					System.out.println("\tParameters\n\tname: " + param.getParamName() + " type: " + param.getParamType());
+				}
+			}
+		}
+	}
 
 	//Will list all of UMLs relationships.
-	public void listRelationships (){
+	public void listRelationships () {
 		//Checks if there are any relationships.
 		if (rels.isEmpty()) {
-			System.out.println("Error:No relationships exist");
+			System.out.println("Error: No relationships exist");
 		} else {
 			//Prints all relationships in arrayList "rels" for this UML object.
 			for(int i = 0; i < rels.size(); i++) {
@@ -174,25 +208,3 @@ public class UML {
 		}
 	}
 	
-	// Saves the ArrayList of UML objects into a json string format
-	public static String save() {
-		Gson gson = new Gson();
-		// Converts the list to JSON
-		String saveFile = gson.toJson(collection);
-		return saveFile;
-
-	}
-
-	// Loads a String with a JSON format and turns it into an ArrayList of UML objects
-	// CAN'T CATCH ERRORS YET BECAUSE OUR 420 CLASS DIDN'T DECIDE ON A JSON FORMAT
-	public static void load(String loaded) {
-		// Tells the Gson converter that we want an ArrayList of UML objects
-		Type type = new TypeToken<ArrayList<UML>>(){}.getType();
-		// Puts the JSON string and determines the type of list needed and makes a new ArrayList with this information
-		ArrayList<UML> newCollection = new Gson().fromJson(loaded, type);
-		// Empties the current ArrayList
-		collection.clear();
-		// The new collection of the loaded UML object
-		collection.addAll(newCollection);
-	}
-}
