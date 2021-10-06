@@ -93,7 +93,7 @@ public class Driver {
 				break;
 
 			case "addrelation":
-				System.out.println("What class would you like to add a relation to?");
+				System.out.println("What class would you like to be the source of the relation?");
 
 				String cName = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
@@ -101,14 +101,14 @@ public class Driver {
 
 				String relDest = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 				
-				System.out.println("What is the type of the relation? Type must be aggregation, composition, inharitance, or realization.");
+				System.out.println("What is the type of the relation? Type must be aggregation, composition, inheritance, or realization.");
 
 				String relType = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 				for(UML umlDest : UML.getCollection()) {
 					if(umlDest.getClassName().toLowerCase().equals(relDest)) {
 						for(UML umlSrc : UML.getCollection()) {
 							if(umlSrc.getClassName().toLowerCase().equals(cName)) {
-								UML.addRel(umlSrc,umlDest,relType);
+								Relationships.addRel(umlSrc,umlDest,relType);
 								break;
 							}
 						}
@@ -127,7 +127,7 @@ public class Driver {
 				String relDestination = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 				for(UML u : UML.getCollection()){
 					if( u.getClassName().toLowerCase().equals(relDestination)){
-						UML.delRel(clName,u);
+						Relationships.delRel(clName,u);
 
 						break;
 					}
@@ -147,9 +147,10 @@ public class Driver {
 				
 				for(UML umlSrc : UML.getCollection()) {
 					if(umlSrc.getClassName().toLowerCase().equals(changeRelSource)) {
-						for(Relationships umlRel : UML.getRels()) {
+						for(Relationships umlRel : umlSrc.getRels()) {
 							if(umlRel.getDestination().getClassName().toLowerCase().equals(changeRelDest)) {
 								umlRel.setType(newType);
+								System.out.println("Type changed to " + newType);
 								break;
 							}
 						}
@@ -168,7 +169,7 @@ public class Driver {
 					for(int i = 0; i < UML.getCollection().size(); i++) 
 						System.out.println(UML.getCollection().get(i).getClassName());
 				}
-				break;
+				
 
 			case "listcontents":
 				System.out.println("What class would you like to list the contents of?");

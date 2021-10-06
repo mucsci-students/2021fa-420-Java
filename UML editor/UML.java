@@ -10,7 +10,7 @@ public class UML {
 	//List containing all the variables in a UML object
 	private ArrayList<Fields> field;
 	//MAKE ARRAY LIST OF TYPE RELATIONSHIP ONCE JAVA RELATIONSHIP CLASS IS CREATED
-	private static ArrayList<Relationships> rels;
+	private ArrayList<Relationships> rels;
 	// This set is to make sure there are no classes with the same name.
 	private static HashSet<String> noClassDupes = new HashSet<String>();
 	// This set is to make sure there are no fields with the same name.
@@ -40,7 +40,7 @@ public class UML {
 		return field;
 	}
 	
-	public static ArrayList<Relationships> getRels() {
+	public ArrayList<Relationships> getRels() {
 		return rels;
 	}
 	
@@ -144,46 +144,7 @@ public class UML {
 
 	
 
-	public static void addRel(UML className, UML destination, String type){ //make String type into enum later
-		boolean foundDest = false;
-		for (UML c: collection){
-			if (c.getClassName().equals(destination.getClassName())){ // Need to see if the destination file exists
-				foundDest = true;
-				break; 
-			}
-		}
-		if(foundDest){
-			Relationships r = new Relationships(className, destination, type);
-			for(UML u : collection){
-				if( u.getClassName().toLowerCase().equals(className.getClassName().toLowerCase())){ // searches for the class name that we are adding a relationship to
-					u.rels.add(r); 
-					System.out.println("Relationship added!");
-
-					return;
-				}
-			}
-			System.out.println(className + " does not exist");
-		} else{
-			System.out.println(destination + " does not exist");
-		}
-	}
-	public static void delRel(String className, UML destination){
-		for(UML u : collection){
-			if (u.getClassName().toLowerCase().equals(className.toLowerCase())){ //finds uml
-				for (Relationships r : u.rels){
-					if (r.getDestination().getClassName().equals(destination.getClassName()) ){ //Checks if a relationship in the relationship arraylist has the same name as the requested deletion destination 
-						int x = u.rels.indexOf(r);	// Needed to finds where the relationship is that we need to delete
-						u.rels.remove(x);
-						System.out.println("Relationship deleted!");
-						return;
-					}
-
-				}
-				System.out.println(destination + " does not exist");
-			}
-		}
-		System.out.println(className + " does not exist");
-	}
+	
 
 	//Will list all of UMLs fields.
 	public void listFields (){
