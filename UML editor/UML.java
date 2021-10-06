@@ -159,46 +159,7 @@ public class UML {
 
 
 
-	public static void addRel(String className, UML destination){ //make String type into enum later
-		boolean foundDest = false;
-		for (UML c: collection){
-			if (c.getClassName().equals(destination.getClassName())){ // Need to see if the destination file exists
-				foundDest = true;
-				break;
-			}
-		}
-		if(foundDest){
-			Relationships r = new Relationships(destination);
-			for(UML u : collection){
-				if( u.getClassName().toLowerCase().equals(className.toLowerCase())){ // searches for the class name that we are adding a relationship to
-					u.rels.add(r);
-					System.out.println("Relationship added!");
-
-					return;
-				}
-			}
-			System.out.println(className + " does not exist");
-		} else{
-			System.out.println(destination + " does not exist");
-		}
-	}
-	public static void delRel(String className, UML destination){
-		for(UML u : collection){
-			if (u.getClassName().toLowerCase().equals(className.toLowerCase())){ //finds uml
-				for (Relationships r : u.rels){
-					if (r.getDestination().getClassName().equals(destination.getClassName()) ){ //Checks if a relationship in the relationship arraylist has the same name as the requested deletion destination
-						int x = u.rels.indexOf(r);	// Needed to finds where the relationship is that we need to delete
-						u.rels.remove(x);
-						System.out.println("Relationship deleted!");
-						return;
-					}
-
-				}
-				System.out.println(destination + " does not exist");
-			}
-		}
-		System.out.println(className + " does not exist");
-	}
+	
 
 	//Will list all of UMLs fields.
 	public void listFields () {
@@ -238,10 +199,12 @@ public class UML {
 		if (rels.isEmpty()) {
 			System.out.println("Error: No relationships exist");
 		} else {
-			System.out.println(name + " relationships:");
-			//Prints all relationships in arrayList "rels"
-			for(int i = 0; i < rels.size(); i++)
-				System.out.println(" " + rels.get(i).getDestination().getClassName());
+			//Prints all relationships in arrayList "rels" for this UML object.
+			for(int i = 0; i < rels.size(); i++) {
+				System.out.print(rels.get(i).getSource().getClassName() + " has a "); 
+				System.out.print(rels.get(i).getType() + " relationship with ");
+				System.out.println(rels.get(i).getDestination().getClassName());
+			}	
 		}
 	}
-}
+	

@@ -143,17 +143,25 @@ public class Driver {
 				break;
 
 			case "addrelation":
-				System.out.println("What class would you like to add a relation to?");
+				System.out.println("What class would you like to be the source of the relation?");
 
 				String cName = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
-				System.out.println("What is the destination of the relation");
+				System.out.println("What is the destination of the relation?");
 
 				String relDest = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-				for(UML uml : UML.getCollection()) {
-					if(uml.getClassName().toLowerCase().equals(relDest)) {
-						UML.addRel(cName,uml);
-						break;
+				
+				System.out.println("What is the type of the relation? Type must be aggregation, composition, inheritance, or realization.");
+
+				String relType = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+				for(UML umlDest : UML.getCollection()) {
+					if(umlDest.getClassName().toLowerCase().equals(relDest)) {
+						for(UML umlSrc : UML.getCollection()) {
+							if(umlSrc.getClassName().toLowerCase().equals(cName)) {
+								Relationships.addRel(umlSrc,umlDest,relType);
+								break;
+							}
+						}
 					}
 				}
 
@@ -169,11 +177,36 @@ public class Driver {
 				String relDestination = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 				for(UML u : UML.getCollection()){
 					if( u.getClassName().toLowerCase().equals(relDestination)){
-						UML.delRel(clName,u);
+						Relationships.delRel(clName,u);
 
 						break;
 					}
 				}
+
+				break;
+				
+			case "changerelationshiptype":
+				System.out.println("What is the source class of the relationship you would like to change?");
+				String changeRelSource = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+
+				System.out.println("What is the destination class of the relationship you would like to change?");
+				String changeRelDest = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+
+				System.out.println("What would you like to change the type to?");
+				String newType = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+				
+				for(UML umlSrc : UML.getCollection()) {
+					if(umlSrc.getClassName().toLowerCase().equals(changeRelSource)) {
+						for(Relationships umlRel : umlSrc.getRels()) {
+							if(umlRel.getDestination().getClassName().toLowerCase().equals(changeRelDest)) {
+								umlRel.setType(newType);
+								System.out.println("Type changed to " + newType);
+								break;
+							}
+						}
+					}
+				}
+				
 
 				break;
 
@@ -186,7 +219,7 @@ public class Driver {
 					for(int i = 0; i < UML.getCollection().size(); i++)
 						System.out.println(UML.getCollection().get(i).getClassName());
 				}
-				break;
+				
 
 			case "listcontents":
 				System.out.println("What class would you like to list the contents of?");
