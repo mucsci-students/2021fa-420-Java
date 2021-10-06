@@ -1,8 +1,5 @@
 import java.util.*;
 import java.util.regex.Pattern;
-import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
 
 public class UML {
 	//Class name
@@ -24,7 +21,7 @@ public class UML {
 	//Regex for determining if string is alphanumeric
 	private static Pattern pattern = Pattern.compile("[^a-zA-Z0-9]");
 
-	public UML (String name) {
+	public UML(String name) {
 		this.name = name;
 		this.field = new ArrayList<Fields>();
 		this.method = new ArrayList<Methods>();
@@ -65,7 +62,6 @@ public class UML {
 		collection.clear();
 	}
 
-
 	public static HashSet<String> getNoClassDupes() {
 		return noClassDupes;
 	}
@@ -81,9 +77,6 @@ public class UML {
 	public static Pattern getPattern() {
 		return pattern;
 	}
-
-
-
 
 	public static UML addClass(String className) {
 		//If class doesn't exist and is alphanumeric
@@ -157,19 +150,17 @@ public class UML {
 		return null;
 	}
 
-
-
-	
-
 	//Will list all of UMLs fields.
-	public void listFields () {
+	public void listFields() {
+		System.out.println("Class: " + name);
 		//Checks if there are any fields.
-		if (field.isEmpty()) {
+		if(field.isEmpty()) {
 			System.out.println("This class has no fields");
-		} else {
-			System.out.println("Class: " + name + "\n\nFields:");
+		} 
+		else {
+			System.out.println("Fields:");
 			//Prints all fields in arrayList "field"
-			for(int i = 0; i < field.size(); i++)
+			for(int i = 0; i < field.size(); i++) 
 				System.out.println("name: " + field.get(i).getFieldName() + " type: " + field.get(i).getFieldType());
 		}
 	}
@@ -187,24 +178,24 @@ public class UML {
 				System.out.println("name: " + method.getMethodName() + " return type: " + method.getMethodType());
 				//Prints all parameters in arrayList "param"
 				for(Parameters param : method.getParams()) {
-					System.out.println("\tParameters\n\tname: " + param.getParamName() + " type: " + param.getParamType());
+					System.out.println("Parameters:\nname: " + param.getParamName() + " type: " + param.getParamType());
 				}
 			}
 		}
 	}
 
 	//Will list all of UMLs relationships.
-	public void listRelationships () {
+	public void listRelationships (){
 		//Checks if there are any relationships.
 		if (rels.isEmpty()) {
-			System.out.println("Error: No relationships exist");
+			System.out.println("Error:No relationships exist");
 		} else {
 			//Prints all relationships in arrayList "rels" for this UML object.
 			for(int i = 0; i < rels.size(); i++) {
-				System.out.print(rels.get(i).getSource().getClassName() + " has a "); 
+				System.out.print(rels.get(i).getSource() + " has a "); 
 				System.out.print(rels.get(i).getType() + " relationship with ");
-				System.out.println(rels.get(i).getDestination().getClassName());
-			}	
+				System.out.println(rels.get(i).getDestination());
+			}
 		}
 	}
-	
+}

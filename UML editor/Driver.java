@@ -1,20 +1,21 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Driver {
 	public static boolean guiUp;
-	
+
 	/*
 	 * Run command
 	 */
 	public static void main(String args[]) {
 		runView();
 	}
-	
+
 	public static void runView() {
 		View.runGUI();
 		guiUp = true;
 	}
-	
+
 	public static void runCLI() {
 		//Scanner for user input
 		Scanner scanner = new Scanner(System.in);
@@ -64,15 +65,22 @@ public class Driver {
 				System.out.println("What class are you adding to?");
 				String classNameAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
-				System.out.println("What would you like to name the new field?");
-				String fieldNameAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+				boolean moreFields = true;
+				while(moreFields) {
+					System.out.println("What would you like to name the new field?");
+					String fieldNameAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
-				System.out.println("What type do you want the new field to have?");
-				String fieldTypeAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+					System.out.println("What type do you want the new field to have?");
+					String fieldTypeAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
-				Fields addfield = new Fields(fieldNameAdd, fieldTypeAdd);
+					Fields.addField(classNameAdd, fieldNameAdd, fieldTypeAdd);
 
-				Fields.addField(classNameAdd, addfield);
+					System.out.println("Would you like to add another field? (yes / no)");
+					String response = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+					if (response.equals("no")) {
+						moreFields = false;
+					}
+				}
 
 				break;
 
@@ -80,10 +88,30 @@ public class Driver {
 				System.out.println("What class are you removing from?");
 				String classNameRemove = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
-				System.out.println("What field are you removing?");
-				String deleteField = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+				boolean moreFieldsRemove = true;
+				while (moreFieldsRemove) {
+					System.out.println("What field are you removing?");
+					String deletefield = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
-				Fields.removeField(classNameRemove, deleteField);
+					Fields.removeField(classNameRemove, deletefield);
+
+					System.out.println("Would you like to remove another field? (yes / no)");
+					String removeResponse = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+					if (removeResponse.equals("yes")) {
+						System.out.println("Here are the remaining fields within the class " + classNameRemove);
+						if (UML.getNoClassDupes().contains(classNameRemove)) {
+							for (UML uml : UML.getCollection()) {
+								if (uml.getClassName().equals(classNameRemove)) {
+									uml.listFields();
+									break;
+								}
+							}
+						}                    
+					}
+					if (removeResponse.equals("no")) {
+						moreFieldsRemove = false;
+					}
+				}
 
 				break;
 
@@ -100,7 +128,7 @@ public class Driver {
 				Fields.renameField(classNameRename, oldField, newField);
 
 				break;
-				
+
 			case "addmethod":
 				System.out.println("What class are you adding to?");
 				String methodClassNameAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
@@ -110,11 +138,11 @@ public class Driver {
 
 				System.out.println("What return type do you want the new method to have?");
 				String methodTypeAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-				
+
 				Methods.addMethod(methodClassNameAdd, methodNameAdd, methodTypeAdd);
-				
+
 				break;
-				
+
 			case "deletemethod":
 				System.out.println("What class are you removing from?");
 				String methodClassNameRemove = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
@@ -125,7 +153,7 @@ public class Driver {
 				Methods.removeMethod(methodClassNameRemove, deleteMethod);
 
 				break;
-			
+
 			case "renamemethod":
 				System.out.println("What class are you making modifications in?");
 				String methodClassNameRename = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
@@ -139,18 +167,27 @@ public class Driver {
 				Methods.renameMethod(methodClassNameRename, oldMethod, newMethod);
 
 				break;
-				
+
 			case "addrelation":
-				System.out.println("What class would you like to add a relation to?");
+				System.out.println("What class would you like to be the source of the relation?");
+
 				String cName = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
-				System.out.println("What is the destination of the relation");
+				System.out.println("What is the destination of the relation?");
+
 				String relDest = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-				
-				for(UML uml : UML.getCollection()) {
-					if(uml.getClassName().toLowerCase().equals(relDest)) {
-						UML.addRel(cName,uml);
-						break;
+
+				System.out.println("What is the type of the relation? Type must be aggregation, composition, inheritance, or realization.");
+
+				String relType = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+				for(UML umlDest : UML.getCollection()) {
+					if(umlDest.getClassName().toLowerCase().equals(relDest)) {
+						for(UML umlSrc : UML.getCollection()) {
+							if(umlSrc.getClassName().toLowerCase().equals(cName)) {
+								Relationships.addRel(umlSrc,umlDest,relType);
+								break;
+							}
+						}
 					}
 				}
 
@@ -158,17 +195,44 @@ public class Driver {
 
 			case "deleterelation":
 				System.out.println("What class would you like to delete a relation from?");
+
 				String clName = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
 				System.out.println("What is the destination of the relation");
+
 				String relDestination = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-				
-				for(UML uml : UML.getCollection()){
-					if( uml.getClassName().toLowerCase().equals(relDestination)){
-						UML.delRel(clName, uml);
+				for(UML u : UML.getCollection()){
+					if( u.getClassName().toLowerCase().equals(relDestination)){
+						Relationships.delRel(clName,u);
+
 						break;
 					}
 				}
+
+				break;
+
+			case "changerelationshiptype":
+				System.out.println("What is the source class of the relationship you would like to change?");
+				String changeRelSource = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+
+				System.out.println("What is the destination class of the relationship you would like to change?");
+				String changeRelDest = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+
+				System.out.println("What would you like to change the type to?");
+				String newType = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+
+				for(UML umlSrc : UML.getCollection()) {
+					if(umlSrc.getClassName().toLowerCase().equals(changeRelSource)) {
+						for(Relationships umlRel : umlSrc.getRels()) {
+							if(umlRel.getDestination().toLowerCase().equals(changeRelDest)) {
+								umlRel.setType(newType);
+								System.out.println("Type changed to " + newType);
+								break;
+							}
+						}
+					}
+				}
+
 
 				break;
 
@@ -189,7 +253,7 @@ public class Driver {
 				System.out.println("What class would you like to list the contents of?");
 				//Scanner input (name of UML object)
 				String toListContents = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-				
+
 				if(UML.getNoClassDupes().contains(toListContents)) {
 					for(UML uml : UML.getCollection()) {
 						if(uml.getClassName().equals(toListContents)) {
@@ -208,7 +272,7 @@ public class Driver {
 				System.out.println("What class would you like to list the relationships of?");
 				//Scanner input (name of UML object)
 				String toListRelationships = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-				
+
 				if(UML.getNoClassDupes().contains(toListRelationships)) {
 					for(UML uml : UML.getCollection()) {
 						if(uml.getClassName().equals(toListRelationships)) {
@@ -254,7 +318,8 @@ public class Driver {
 				break;
 
 			case "save":
-				String saveFile = UML.save();
+				ArrayList<UML> collection = UML.getCollection();
+				String saveFile = JsonFile.save(collection);
 				System.out.println("File saved!");
 				System.out.println(saveFile);
 				break;
@@ -267,12 +332,80 @@ public class Driver {
 				if(confirm.equals("yes")) {
 					System.out.println("Enter the file you would like to load");
 					String loadFile = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-					UML.load(loadFile);
+
+					JsonFile.load(loadFile, UML.getCollection());
 					System.out.println("File loaded!");
 				}
 
 				break;
-				
+
+			case "addparameter":
+				System.out.println("What class would you like to add a parameter to?");
+				String UMLName = scanner.nextLine().toLowerCase();
+				System.out.println("What method would you like to add a parameter to?");
+				String methodName = scanner.nextLine().toLowerCase();
+				System.out.println("What is the Parameter name!");
+				String paramName = scanner.nextLine().toLowerCase();
+				System.out.println("What is the parameter type!");
+				String paramType = scanner.nextLine().toLowerCase();
+				Parameters.addParameter(UMLName, methodName, paramName,  paramType);
+				System.out.println("Parameter Created!");
+				break;
+
+			case "deleteparameter":
+				System.out.println("What class would you like to remove the parameter from?");
+				String UMLName1 = scanner.nextLine().toLowerCase();
+				System.out.println("What method would you like to remove the parameter from?");
+				String methodName1 = scanner.nextLine().toLowerCase();
+				System.out.println("What is the Parameter name!");
+				String paramName1 = scanner.nextLine().toLowerCase();
+
+				Parameters.deleteParameter(UMLName1, methodName1, paramName1);
+				break;
+
+			case "deleteallparameters":
+				System.out.println("What class would you like to remove the parameters from?");
+				String UMLName2 = scanner.nextLine().toLowerCase();
+				System.out.println("What method would you like to remove the parameters from?");
+				String methodName2 = scanner.nextLine().toLowerCase();
+
+				Parameters.deleteAllParameters(UMLName2, methodName2);
+				break;
+
+			case "renameallparameters":
+				System.out.println("What class would you like to rename all parameters in?");
+				String UMLName3 = scanner.nextLine().toLowerCase();
+				System.out.println("What method would you like to rename all parameters in?");
+				String methodName3 = scanner.nextLine().toLowerCase();
+
+				Parameters.changeAllParameters(UMLName3, methodName3);
+				break;
+
+			case "renameparameter":
+				System.out.println("What class would you like to change a parameter in?");
+				String UMLName4 = scanner.nextLine().toLowerCase();
+				System.out.println("What method would you like to change a parameter in?");
+				String methodName4 = scanner.nextLine().toLowerCase();
+
+				System.out.println("What is the old Parameter name!");
+				String oldParamName = scanner.nextLine().toLowerCase();
+				System.out.println("What is the new parameter's name?");
+				String paramName5 = scanner.nextLine().toLowerCase();
+				System.out.println("What is the parameter type!");
+				String paramType5 = scanner.nextLine().toLowerCase();
+
+				Parameters.changeParameter(UMLName4, methodName4, oldParamName, paramName5, paramType5);
+				break;
+
+			case "listparameters":
+				System.out.println("What class is the method you want to list in?");
+				String UMLName5 = scanner.nextLine().toLowerCase();
+				System.out.println("What method would you like to list?");
+				String methodName5 = scanner.nextLine().toLowerCase();
+
+				Parameters.listParameters(UMLName5, methodName5);
+				break;
+
 			case "gui":
 				View.runGUI();
 				guiUp = false;
