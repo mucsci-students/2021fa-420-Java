@@ -15,7 +15,6 @@ public class JsonFile {
 	}
 
 	// Loads a String with a JSON format and turns it into an ArrayList of UML objects
-	// CAN'T CATCH ERRORS YET BECAUSE OUR 420 CLASS DIDN'T DECIDE ON A JSON FORMAT
 	public static void load(String loaded, ArrayList<UML> collection) {
 		// Tells the Gson converter that we want an ArrayList of UML objects
 		Type type = new TypeToken<ArrayList<UML>>(){}.getType();

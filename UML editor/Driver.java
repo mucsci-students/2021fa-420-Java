@@ -1,11 +1,22 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Driver {
+	public static boolean guiUp;
+
 	/*
 	 * Run command
 	 */
 	public static void main(String args[]) {
+		runView();
+	}
 
+	public static void runView() {
+		View.runGUI();
+		guiUp = true;
+	}
+
+	public static void runCLI() {
 		//Scanner for user input
 		Scanner scanner = new Scanner(System.in);
 		//Boolean to run program until user exits
@@ -19,7 +30,7 @@ public class Driver {
 			String command = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
 			switch(command) {
-			case "addclass":
+			case "addclass": 
 				System.out.println("What would you like to name the new class?");
 				//Class name to add, ignores white space
 				String className = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
@@ -77,15 +88,30 @@ public class Driver {
 				System.out.println("What class are you removing from?");
 				String classNameRemove = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
-				System.out.println("What field are you removing?");
-				String deleteField = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+				boolean moreFieldsRemove = true;
+				while (moreFieldsRemove) {
+					System.out.println("What field are you removing?");
+					String deletefield = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
-				Fields.removeField(classNameRemove, deleteField);
+					Fields.removeField(classNameRemove, deletefield);
 
-				break;
-
-			case "deleteallfields":
-				Fields.removeAllFields();
+					System.out.println("Would you like to remove another field? (yes / no)");
+					String removeResponse = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+					if (removeResponse.equals("yes")) {
+						System.out.println("Here are the remaining fields within the class " + classNameRemove);
+						if (UML.getNoClassDupes().contains(classNameRemove)) {
+							for (UML uml : UML.getCollection()) {
+								if (uml.getClassName().equals(classNameRemove)) {
+									uml.listFields();
+									break;
+								}
+							}
+						}                    
+					}
+					if (removeResponse.equals("no")) {
+						moreFieldsRemove = false;
+					}
+				}
 
 				break;
 
@@ -128,6 +154,14 @@ public class Driver {
 
 				break;
 
+			case "deleteallmethods":
+				System.out.println("What class are you removing from?");
+				String methodsClassNameRemove = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+
+				Methods.removeAllMethods(methodsClassNameRemove);
+
+				break;
+
 			case "renamemethod":
 				System.out.println("What class are you making modifications in?");
 				String methodClassNameRename = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
@@ -150,7 +184,7 @@ public class Driver {
 				System.out.println("What is the destination of the relation?");
 
 				String relDest = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-				
+
 				System.out.println("What is the type of the relation? Type must be aggregation, composition, inheritance, or realization.");
 
 				String relType = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
@@ -184,7 +218,7 @@ public class Driver {
 				}
 
 				break;
-				
+
 			case "changerelationshiptype":
 				System.out.println("What is the source class of the relationship you would like to change?");
 				String changeRelSource = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
@@ -194,11 +228,11 @@ public class Driver {
 
 				System.out.println("What would you like to change the type to?");
 				String newType = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-				
+
 				for(UML umlSrc : UML.getCollection()) {
 					if(umlSrc.getClassName().toLowerCase().equals(changeRelSource)) {
 						for(Relationships umlRel : umlSrc.getRels()) {
-							if(umlRel.getDestination().getClassName().toLowerCase().equals(changeRelDest)) {
+							if(umlRel.getDestination().toLowerCase().equals(changeRelDest)) {
 								umlRel.setType(newType);
 								System.out.println("Type changed to " + newType);
 								break;
@@ -206,34 +240,40 @@ public class Driver {
 						}
 					}
 				}
-				
+
 
 				break;
 
 			case "listclasses":
-				// Checks to see if collection contains any classes
-				if (UML.getCollection().isEmpty()) {
-					System.out.println("Error:No classes exist");
-				} else {
-					//Prints all classes in arrayList "collection"
-					for(int i = 0; i < UML.getCollection().size(); i++)
-						System.out.println(UML.getCollection().get(i).getClassName());
+				if(!guiUp) {
+					// Checks to see if collection contains any classes
+					if (UML.getCollection().isEmpty()) {
+						System.out.println("Error: No classes exist");
+					}
+					else {
+						//Prints all classes in arrayList "collection"
+						for(int i = 0; i < UML.getCollection().size(); i++) {
+							System.out.println(UML.getCollection().get(i).getClassName());
+						}
+					}
 				}
-				
+				break;
 
 			case "listcontents":
 				System.out.println("What class would you like to list the contents of?");
 				//Scanner input (name of UML object)
 				String toListContents = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-				if (UML.getNoClassDupes().contains(toListContents)){
-					for (UML uml : UML.getCollection()) {
-						if (uml.getClassName().equals(toListContents)) {
+
+				if(UML.getNoClassDupes().contains(toListContents)) {
+					for(UML uml : UML.getCollection()) {
+						if(uml.getClassName().equals(toListContents)) {
 							uml.listFields();
 							uml.listMethods();
 							break;
 						}
 					}
-				} else {
+				}
+				else {
 					System.out.println("Error: class does not exist");
 				}
 				break;
@@ -242,14 +282,16 @@ public class Driver {
 				System.out.println("What class would you like to list the relationships of?");
 				//Scanner input (name of UML object)
 				String toListRelationships = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-				if (UML.getNoClassDupes().contains(toListRelationships)){
-					for (UML uml : UML.getCollection()) {
-						if (uml.getClassName().equals(toListRelationships)) {
+
+				if(UML.getNoClassDupes().contains(toListRelationships)) {
+					for(UML uml : UML.getCollection()) {
+						if(uml.getClassName().equals(toListRelationships)) {
 							uml.listRelationships();
 							break;
 						}
 					}
-				} else {
+				}
+				else {
 					System.out.println("Error: class does not exist");
 				}
 				break;
@@ -258,6 +300,23 @@ public class Driver {
 				System.out.println("add class - creates a new unique class * the name must be alphanumeric and not already exist."
 						+ "\ndelete class - deletes a preexisting class * the class must already exist to delete it."
 						+ "\nrename class - takes a class and provides a new name * the name must not already exist as another class and it's new name must be alphanumeric."
+						+ "\nadd method - creates a new method for a class"
+						+ "\ndelete method - deletes a method from a class"
+						+ "\nrename method - renames a method in a class"
+						+ "\nadd field - creates a new field for a class"
+						+ "\ndelete field - deletes a field from a class"
+						+ "\nrename field - renames a field from a class"
+						+ "\nadd parameter - creates a parameter in a method for a class"
+						+ "\ndelete parameter - deletes a parameter from a method in a class"
+						+ "\nchange parameter - renames a parameter in a method in a class"
+						+ "\nadd relation - creates a relationship between two classes"
+						+ "\ndelete relation - deletes a relationship between two classes"
+						+ "\nchange relationship type - changes a relationship type"
+						+ "\nlist classes - lists all the classes made"
+						+ "\nlist contents - lists the contents of a specific class"
+						+ "\nlist relationships - lists relationships between all classes"
+						+ "\nsave - saves current uml file"
+						+ "\nload - loads a uml file"
 						+ "\nhelp - provides a list of commands usable commands."
 						+ "\nexit - exists the program.");
 				break;
@@ -265,6 +324,7 @@ public class Driver {
 			case "exit":
 				System.out.println("Exiting the application.");
 				run = false;
+				scanner.close();
 				break;
 
 			case "save":
@@ -282,7 +342,8 @@ public class Driver {
 				if(confirm.equals("yes")) {
 					System.out.println("Enter the file you would like to load");
 					String loadFile = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-					UML.load(loadFile);
+
+					JsonFile.load(loadFile, UML.getCollection());
 					System.out.println("File loaded!");
 				}
 
@@ -297,64 +358,73 @@ public class Driver {
 				String paramName = scanner.nextLine().toLowerCase();
 				System.out.println("What is the parameter type!");
 				String paramType = scanner.nextLine().toLowerCase();
-				System.out.println("File loaded!");
 				Parameters.addParameter(UMLName, methodName, paramName,  paramType);
 				System.out.println("Parameter Created!");
 				break;
 
 			case "deleteparameter":
-				System.out.println("What class would you like to add a parameter to?");
+				System.out.println("What class would you like to remove the parameter from?");
 				String UMLName1 = scanner.nextLine().toLowerCase();
-				System.out.println("What method would you like to add a parameter to?");
+				System.out.println("What method would you like to remove the parameter from?");
 				String methodName1 = scanner.nextLine().toLowerCase();
 				System.out.println("What is the Parameter name!");
 				String paramName1 = scanner.nextLine().toLowerCase();
-				System.out.println("What is the parameter type!");
-				String paramType1 = scanner.nextLine().toLowerCase();
-				System.out.println("File loaded!");
-				deleteParameter(UMLName1, methodName1, paramName1,  paramType1);
+
+				Parameters.deleteParameter(UMLName1, methodName1, paramName1);
 				break;
 
 			case "deleteallparameters":
-				System.out.println("What class would you like to add a parameter to?");
+				System.out.println("What class would you like to remove the parameters from?");
 				String UMLName2 = scanner.nextLine().toLowerCase();
-				System.out.println("What method would you like to add a parameter to?");
+				System.out.println("What method would you like to remove the parameters from?");
 				String methodName2 = scanner.nextLine().toLowerCase();
 
-				deleteAllParameters(UMLName2, methodName2);
+				Parameters.deleteAllParameters(UMLName2, methodName2);
 				break;
 
-			case "changeallparameters":
-				System.out.println("What class would you like to add a parameter to?");
+			case "renameallparameters":
+				System.out.println("What class would you like to rename all parameters in?");
 				String UMLName3 = scanner.nextLine().toLowerCase();
-				System.out.println("What method would you like to add a parameter to?");
+				System.out.println("What method would you like to rename all parameters in?");
 				String methodName3 = scanner.nextLine().toLowerCase();
 
-				changeAllParameters(UMLName3, methodName3);
+				Parameters.changeAllParameters(UMLName3, methodName3);
 				break;
 
-			case "changeparameter":
-				System.out.println("What class would you like to add a parameter to?");
+			case "renameparameter":
+				System.out.println("What class would you like to change a parameter in?");
 				String UMLName4 = scanner.nextLine().toLowerCase();
-				System.out.println("What method would you like to add a parameter to?");
+				System.out.println("What method would you like to change a parameter in?");
 				String methodName4 = scanner.nextLine().toLowerCase();
 
-				changeParameter(UMLName4, methodName4);
+				System.out.println("What is the old Parameter name!");
+				String oldParamName = scanner.nextLine().toLowerCase();
+				System.out.println("What is the new parameter's name?");
+				String paramName5 = scanner.nextLine().toLowerCase();
+				System.out.println("What is the parameter type!");
+				String paramType5 = scanner.nextLine().toLowerCase();
+
+				Parameters.changeParameter(UMLName4, methodName4, oldParamName, paramName5, paramType5);
 				break;
 
-			case "listParameters":
-				System.out.println("What class would you like to add a parameter to?");
+			case "listparameters":
+				System.out.println("What class is the method you want to list in?");
 				String UMLName5 = scanner.nextLine().toLowerCase();
-				System.out.println("What method would you like to add a parameter to?");
+				System.out.println("What method would you like to list?");
 				String methodName5 = scanner.nextLine().toLowerCase();
 
-				listParameters(UMLName5, methodName5);
+				Parameters.listParameters(UMLName5, methodName5);
+				break;
+
+			case "gui":
+				guiUp = true;
+				View.runGUI();
+				run = false;
 				break;
 
 			default:
 				System.out.println("Command not recognized. Type help for valid commands");
-			}
+			}	
 		}
-		scanner.close();
 	}
 }

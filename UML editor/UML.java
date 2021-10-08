@@ -1,8 +1,5 @@
 import java.util.*;
 import java.util.regex.Pattern;
-import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
 
 public class UML {
 	//Class name
@@ -15,16 +12,12 @@ public class UML {
 	private ArrayList<Relationships> rels;
 	//This set is to make sure there are no classes with the same name.
 	private static HashSet<String> noClassDupes = new HashSet<String>();
-	//This set is to make sure there are no fields with the same name.
-	private static HashSet<String> noFieldDupes = new HashSet<String>();
-	//This set is to make sure there are no method with the same name.
-	private static HashSet<String> noMethodDupes = new HashSet<String>();
 	//This is the Array list that should hold all the objects
 	private static ArrayList<UML> collection = new ArrayList<UML>();
 	//Regex for determining if string is alphanumeric
 	private static Pattern pattern = Pattern.compile("[^a-zA-Z0-9]");
 
-	public UML (String name) {
+	public UML(String name) {
 		this.name = name;
 		this.field = new ArrayList<Fields>();
 		this.method = new ArrayList<Methods>();
@@ -65,48 +58,43 @@ public class UML {
 		collection.clear();
 	}
 
-
 	public static HashSet<String> getNoClassDupes() {
 		return noClassDupes;
-	}
-
-	public static HashSet<String> getNoFieldDupes() {
-		return noFieldDupes;
-	}
-
-	public static HashSet<String> getNoMethodDupes() {
-		return noMethodDupes;
 	}
 
 	public static Pattern getPattern() {
 		return pattern;
 	}
 
-
-
-
-	public static UML addClass(String className) {
+	public static void addClass(String className) {
 		//If class doesn't exist and is alphanumeric
 		if(!noClassDupes.contains(className) && !pattern.matcher(className).find()) {
 			//Creates the class
 			UML uml = new UML(className);
 			noClassDupes.add(className);
 			collection.add(uml);
-			System.out.println("Class Created!");
-			return uml;
+			if(!Driver.guiUp) {
+				System.out.println("Class Created!");
+			}
 		}
 		//When the inputted name is not alphanumeric
 		else if(pattern.matcher(className).find()) {
-			System.out.println("A class name must only contain numbers and letters.");
+			if(Driver.guiUp) {
+				View.outputLbl.setText("A class name must only contain numbers and letters.");
+			}
+			else {
+				System.out.println("A class name must only contain numbers and letters.");
+			}
 		}
 		//When the class already exists
 		else {
-			System.out.println("That class already exists.");
+			if(!Driver.guiUp) {
+				System.out.println("That class already exists.");
+			}
 		}
-		return null;
 	}
 
-	public static UML deleteClass(String deleteName) {
+	public static void deleteClass(String deleteName) {
 		//Check if the class exists
 		if(noClassDupes.contains(deleteName)) {
 			//Iterates through the collection
@@ -115,19 +103,22 @@ public class UML {
 				if(uml.getClassName().equals(deleteName)) {
 					noClassDupes.remove(deleteName);
 					collection.remove(collection.indexOf(uml));
-					System.out.println("Class Deleted!");
-					return uml;
+					if(!Driver.guiUp) {
+						System.out.println("Class Deleted!");
+					}
+					break;
 				}
 			}
 		}
 		//When the class doesn't exist
 		else {
-			System.out.println("That class does not exist.");
+			if(!Driver.guiUp) {
+				System.out.println("That class does not exist.");
+			}
 		}
-		return null;
 	}
 
-	public static UML renameClass(String oldName, String newName) {
+	public static void renameClass(String oldName, String newName) {
 		//Check if the old class exists and new name is alphanumeric
 		if(noClassDupes.contains(oldName) && !noClassDupes.contains(newName) && !pattern.matcher(newName).find()) {
 			//Iterates through the collection
@@ -137,40 +128,68 @@ public class UML {
 					noClassDupes.remove(oldName);
 					noClassDupes.add(newName);
 					uml.setClassName(newName);
-					System.out.println("Class Renamed!");
-					return uml;
+					if(!Driver.guiUp) {
+						System.out.println("Class Renamed!");
+					}
+					break;
 				}
 			}
 		}
 		//When the new name is not alphanumeric
 		else if(pattern.matcher(newName).find()) {
-			System.out.println("A class name must only contain numbers and letters");
+			if(Driver.guiUp) {
+				View.outputLbl.setText("A class name must only contain numbers and letters");
+			}
+			else {
+				System.out.println("A class name must only contain numbers and letters");
+			}
 		}
 		//When the new class already exists
 		else if(noClassDupes.contains(newName)) {
-			System.out.println("That class already exists.");
+			if(!Driver.guiUp) {
+				System.out.println("That class already exists.");
+			}
 		}
 		//When the old class doesn't exist
 		else {
-			System.out.println("That class does not exist.");
+			if(!Driver.guiUp) {
+				System.out.println("That class does not exist.");
+			}
 		}
-		return null;
 	}
 
-
-
-	
-
 	//Will list all of UMLs fields.
-	public void listFields () {
+	public void listFields() {
+		if(Driver.guiUp) {
+			View.outputText = "<html>Class: " + name;
+		}
+		else {
+			System.out.println("Class: " + name);
+		}
 		//Checks if there are any fields.
-		if (field.isEmpty()) {
-			System.out.println("This class has no fields");
-		} else {
-			System.out.println("Class: " + name + "\n\nFields:");
-			//Prints all fields in arrayList "field"
-			for(int i = 0; i < field.size(); i++)
-				System.out.println("name: " + field.get(i).getFieldName() + " type: " + field.get(i).getFieldType());
+		if(field.isEmpty()) {
+			if(Driver.guiUp) {
+				View.outputText += "<br>This class has no fields";
+			}
+			else {
+				System.out.println("This class has no fields");
+			}
+		}
+		else {
+			if(Driver.guiUp) {
+				View.outputText += "<br>Fields:";
+				//Prints all fields in arrayList "field"
+				for(int i = 0; i < field.size(); i++) {
+					View.outputText += "<br>" + field.get(i).getFieldType() + " " + field.get(i).getFieldName();
+				}
+			}
+			else {
+				System.out.println("Fields:");
+				//Prints all fields in arrayList "field"
+				for(int i = 0; i < field.size(); i++) {
+					System.out.println(field.get(i).getFieldType() + " " + field.get(i).getFieldName());
+				}
+			}
 		}
 	}
 
@@ -178,33 +197,74 @@ public class UML {
 	public void listMethods() {
 		//Checks if there are any methods.
 		if(method.isEmpty()) {
-			System.out.println("This class has no methods");
+			if(Driver.guiUp) {
+				View.outputText += "<br>This class has no methods";
+			}
+			else {
+				System.out.println("This class has no methods");
+			}
 		}
 		else {
-			System.out.println("Methods:");
-			//Prints all methods in arrayList "method"
-			for(Methods method : method) {
-				System.out.println("name: " + method.getMethodName() + " return type: " + method.getMethodType());
-				//Prints all parameters in arrayList "param"
-				for(Parameters param : method.getParams()) {
-					System.out.println("\tParameters\n\tname: " + param.getParamName() + " type: " + param.getParamType());
+			if(Driver.guiUp) {
+				//Prints all methods in arrayList "method"
+				View.outputText += "<br>Methods:";
+				for(Methods method : method) {
+					View.outputText += "<br>" + method.getMethodType() + " " + method.getMethodName() + "(";
+					//Prints all parameters in arrayList "param"
+					if(method.getParams().size() >= 1) {
+						View.outputText += method.getParams().get(0).getParamType() + " " + method.getParams().get(0).getParamName();
+					}
+					for(int i = 1; i < method.getParams().size(); i++) {
+						View.outputText += ", " + method.getParams().get(i).getParamType() + " " + method.getParams().get(i).getParamName();
+					}
+					View.outputText += ")";
+				}
+			}
+			else {
+				//Prints all methods in arrayList "method"
+				System.out.println("Methods:");
+				for(Methods method : method) {
+					System.out.print(method.getMethodType() + " " + method.getMethodName() + "(");
+					//Prints all parameters in arrayList "param"
+					if(method.getParams().size() >= 1) {
+						System.out.print(method.getParams().get(0).getParamType() + " " + method.getParams().get(0).getParamName());
+					}
+					for(int i = 1; i < method.getParams().size(); i++) {
+						System.out.print(", " + method.getParams().get(i).getParamType() + " " + method.getParams().get(i).getParamName());
+					}
+					System.out.println(")");
 				}
 			}
 		}
 	}
 
 	//Will list all of UMLs relationships.
-	public void listRelationships () {
+	public void listRelationships() {
 		//Checks if there are any relationships.
-		if (rels.isEmpty()) {
-			System.out.println("Error: No relationships exist");
-		} else {
-			//Prints all relationships in arrayList "rels" for this UML object.
-			for(int i = 0; i < rels.size(); i++) {
-				System.out.print(rels.get(i).getSource().getClassName() + " has a "); 
-				System.out.print(rels.get(i).getType() + " relationship with ");
-				System.out.println(rels.get(i).getDestination().getClassName());
-			}	
+		if(rels.isEmpty()) {
+			if(Driver.guiUp) {
+				View.outputLbl.setText("Error: No relationships exist");
+			}
+			else {
+				System.out.println("Error: No relationships exist");
+			}
+		}
+		else {
+			if(Driver.guiUp) {
+				View.outputText = "<html>";
+				//Prints all relationships in arrayList "rels" for this UML object.
+				for(int i = 0; i < rels.size(); i++) {
+					View.outputText += rels.get(i).getSource() + " has a " + rels.get(i).getType() + " relationship with " + rels.get(i).getDestination() + "<br>";
+				}
+			}
+			else {
+				//Prints all relationships in arrayList "rels" for this UML object.
+				for(int i = 0; i < rels.size(); i++) {
+					System.out.print(rels.get(i).getSource() + " has a "); 
+					System.out.print(rels.get(i).getType() + " relationship with ");
+					System.out.println(rels.get(i).getDestination());
+				}
+			}
 		}
 	}
-	
+}
