@@ -154,6 +154,14 @@ public class Driver {
 
 				break;
 
+			case "deleteallmethods":
+				System.out.println("What class are you removing from?");
+				String methodsClassNameRemove = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+
+				Methods.removeAllMethods(methodsClassNameRemove);
+
+				break;
+
 			case "renamemethod":
 				System.out.println("What class are you making modifications in?");
 				String methodClassNameRename = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
@@ -237,14 +245,16 @@ public class Driver {
 				break;
 
 			case "listclasses":
-				// Checks to see if collection contains any classes
-				if (UML.getCollection().isEmpty()) {
-					System.out.println("Error: No classes exist");
-				}
-				else {
-					//Prints all classes in arrayList "collection"
-					for(int i = 0; i < UML.getCollection().size(); i++) {
-						System.out.println(UML.getCollection().get(i).getClassName());
+				if(!guiUp) {
+					// Checks to see if collection contains any classes
+					if (UML.getCollection().isEmpty()) {
+						System.out.println("Error: No classes exist");
+					}
+					else {
+						//Prints all classes in arrayList "collection"
+						for(int i = 0; i < UML.getCollection().size(); i++) {
+							System.out.println(UML.getCollection().get(i).getClassName());
+						}
 					}
 				}
 				break;
@@ -407,8 +417,8 @@ public class Driver {
 				break;
 
 			case "gui":
+				guiUp = true;
 				View.runGUI();
-				guiUp = false;
 				run = false;
 				break;
 

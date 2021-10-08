@@ -1,73 +1,182 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
+import java.util.Scanner;
 
-public class Controller implements ActionListener, MouseMotionListener, MouseListener {
+public class Controller implements ActionListener {
 	
-	public String command;
-
+	private String command;
+	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Enter")) {
-			
+			Scanner input = new Scanner(View.textField.getText().toLowerCase());
+			if(command.equals("Add Class")) {
+				if(input.hasNext()) {
+					String className = input.next();
+					if(!UML.getNoClassDupes().contains(className)) {
+						UML.addClass(className);
+						View.outputLbl.setText("Class Created!");
+						View.panel_2.setVisible(false);
+						View.textField.setText("");
+					}
+					else {
+						View.outputLbl.setText("That class already exists.");
+					}
+				}
+			}
+			else if(command.equals("Remove Class")) {
+				if(input.hasNext()) {
+					String className = input.next();
+					if(UML.getNoClassDupes().contains(className)) {
+						UML.deleteClass(className);
+						View.outputLbl.setText("Class Deleted!");
+						View.panel_2.setVisible(false);
+						View.textField.setText("");
+					}
+					else {
+						View.outputLbl.setText("That class does not exist.");
+					}
+				}
+				else {
+					View.outputLbl.setText("Error: invalid input");
+				}
+			}
+			else if(command.equals("Rename Class")) {
+				if(input.hasNext()) {
+					String oldName = input.next();
+					if(input.hasNext()) {
+						String newName = input.next();
+						if(UML.getNoClassDupes().contains(oldName) && !UML.getNoClassDupes().contains(newName)) {
+							UML.renameClass(oldName, newName);
+							View.outputLbl.setText("Class Renamed!");
+							View.panel_2.setVisible(false);
+							View.textField.setText("");
+						}
+						else if(!UML.getNoClassDupes().contains(oldName)) {
+							View.outputLbl.setText("That class does not exist.");
+						}
+						else {
+							View.outputLbl.setText("That class already exists.");
+						}
+					}
+					else {
+						View.outputLbl.setText("Error: invalid input");
+					}
+				}
+				else {
+					View.outputLbl.setText("Error: invalid input");
+				}
+			}
+			else if(command.equals("List Contents")) {
+				if(input.hasNext()) {
+					String toListContents = input.next();
+					if(UML.getNoClassDupes().contains(toListContents)) {
+						for(UML uml : UML.getCollection()) {
+							if(uml.getClassName().equals(toListContents)) {
+								uml.listFields();
+								uml.listMethods();
+								View.outputLbl.setText(View.outputText);
+								View.panel_2.setVisible(false);
+								View.textField.setText("");
+								break;
+							}
+						}
+					}
+					else {
+						View.outputLbl.setText("Error: class does not exist");
+					}
+				}
+				else {
+					View.outputLbl.setText("Error: invalid input");
+				}
+			}
+			else if(command.equals("List Relationships")) {
+				if(input.hasNext()) {
+					String toListRels = input.next();
+					if(UML.getNoClassDupes().contains(toListRels)) {
+						for(UML uml : UML.getCollection()) {
+							if(uml.getClassName().equals(toListRels)) {
+								uml.listRelationships();
+								View.outputLbl.setText(View.outputText);
+								View.panel_2.setVisible(false);
+								View.textField.setText("");
+								break;
+							}
+						}
+					}
+					else {
+						View.outputLbl.setText("Error: class does not exist");
+					}
+				}
+				else {
+					View.outputLbl.setText("Error: invalid input");
+				}
+			}
+			input.close();
 		}
 
 		else if(e.getActionCommand().equals("Add Class")) {
-			command = "addclass";
+			command = "Add Class";
+			View.inputLbl.setText("<html><div style='text-align:center'>What would you<br>like to name the<br>new class?</div></html>");
+			View.panel_2.setVisible(true);
 		}
 
 		else if(e.getActionCommand().equals("Remove Class")) {
-			command = "removeclass";
+			command = "Remove Class";
+			View.inputLbl.setText("<html><div style='text-align:center'>What class would<br>you like to remove?</div></html>");
+			View.panel_2.setVisible(true);
 		}
 
 		else if(e.getActionCommand().equals("Rename Class")) {
-			command = "renameclass";
+			command = "Rename Class";
+			View.inputLbl.setText("<html><div style='text-align:center'>What class would<br>you like to rename and what<br>is the new name?</div></html>");
+			View.panel_2.setVisible(true);
 		}
 
 		else if(e.getActionCommand().equals("Add Method")) {
-			command = "addmethod";
+			command = "Add Method";
+			View.inputLbl.setText("<html><div style='text-align:center'>What class would<br>you like to rename and what<br>is the new name?</div></html>");
+			View.panel_2.setVisible(true);
 		}
 
 		else if(e.getActionCommand().equals("Remove Method")) {
-			command = "removemethod";
+			command = "Remove Method";
 		}
 
 		else if(e.getActionCommand().equals("Rename Method")) {
-			command = "renamemethod";
+			command = "Rename Method";
 		}
 
 		else if(e.getActionCommand().equals("Add Parameter")) {
-			command = "addparameter";
+			command = "Add Parameter";
 		}
 
 		else if(e.getActionCommand().equals("Remove Parameter")) {
-			command = "removeparameter";
+			command = "Remove Parameter";
 		}
 
 		else if(e.getActionCommand().equals("Rename Parameter")) {
-			command = "renameparameter";
+			command = "Rename Parameter";
 		}
 
 		else if(e.getActionCommand().equals("Add Field")) {
-			command = "addfield";
+			command = "Add Field";
 		}
 
 		else if(e.getActionCommand().equals("Remove Field")) {
-			command = "removefield";
+			command = "Remove Field";
 		}
 
 		else if(e.getActionCommand().equals("Rename Field")) {
-			command = "renamefield";
+			command = "Rename Field";
 		}
 
 		else if(e.getActionCommand().equals("Add Relationship")) {
-			command = "addrelationship";
+			command = "Add Relationship";
 		}
 
 		else if(e.getActionCommand().equals("Remove Relationship")) {
-			command = "removerelationship";
+			command = "Remove Relationship";
 		}
 
 		else if(e.getActionCommand().equals("List Classes")) {
@@ -82,11 +191,15 @@ public class Controller implements ActionListener, MouseMotionListener, MouseLis
 		}
 
 		else if(e.getActionCommand().equals("List Contents")) {
-			command = "listcontents";
+			command = "List Contents";
+			View.inputLbl.setText("<html><div style='text-align:center'>What class would<br>you like to list the<br>contents of?</div></html>");
+			View.panel_2.setVisible(true);
 		}
 
 		else if(e.getActionCommand().equals("List Relationships")) {
-			
+			command = "List Relationships";
+			View.inputLbl.setText("<html><div style='text-align:center'>What class would<br>you like to list the<br>relationships of?</div></html>");
+			View.panel_2.setVisible(true);
 		}
 
 		else if(e.getActionCommand().equals("Save")) {
@@ -94,13 +207,14 @@ public class Controller implements ActionListener, MouseMotionListener, MouseLis
 		}
 
 		else if(e.getActionCommand().equals("Load")) {
-			
+			command = "Load";
 		}
 
 		else if(e.getActionCommand().equals("Help")) {
-			View.outputLbl.setText("<html>add class - creates a new unique class * the name must be alphanumeric and not already exist."
-					+ "<br>delete class - deletes a preexisting class * the class must already exist to delete it."
-					+ "<br>rename class - takes a class and provides a new name * the name must not already exist as another class and it's new name must be alphanumeric."
+			View.outputLbl.setText("<html>For commands with multiple inputs, put them in order separated with a space"
+					+ "<br>add class - creates a new class"
+					+ "<br>delete class - deletes a class"
+					+ "<br>rename class - renames a class"
 					+ "<br>add method - creates a new method for a class"
 					+ "<br>delete method - deletes a method from a class"
 					+ "<br>rename method - renames a method in a class"
@@ -123,50 +237,9 @@ public class Controller implements ActionListener, MouseMotionListener, MouseLis
 		}
 
 		else if(e.getActionCommand().equals("CLI")) {
+			Driver.guiUp = false;
 			View.closeGUI();
 			Driver.runCLI();
 		}
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 }

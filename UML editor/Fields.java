@@ -24,59 +24,59 @@ public class Fields {
 	}
 
 	// Adds an field to the given class
-	public static void addField (String className, String name, String type) {
+	public static void addField(String className, String name, String type) {
 		// Given class exists
-		if (UML.getNoClassDupes().contains(className)) {
-			// Given field does not exist, and the name is alphanumeric
-			if (!UML.getNoFieldDupes().contains(name) && !UML.getPattern().matcher(name).find()) {
-				UML.getNoFieldDupes().add(name);
-				for (UML uml : UML.getCollection()) {
-					if (uml.getClassName().equals(className)) {
-						uml.getField().add(new Fields(name, type));
-						break;
+		if(UML.getNoClassDupes().contains(className)) {
+			for(UML uml : UML.getCollection()) {
+				if(uml.getClassName().equals(className)) {
+					if(!UML.getPattern().matcher(name).find()) {
+						for(int i = 0; i <= uml.getField().size(); i++) {
+							// Given field does not exist, and the name is alphanumeric
+							if(i + 1 > uml.getField().size()) {
+								uml.getField().add(new Fields(name, type));
+								System.out.println("Field Created!");
+								return;
+							}
+							// Given field exists
+							else if(i < uml.getField().size() && uml.getField().get(i).getFieldName().equals(name)) {
+								System.out.println("That field already exists!");
+								return;
+							}
+						}
+					}
+					// Given field name is not alphanumeric
+					else {
+						System.out.println("A field name must only contain numbers and letters");
 					}
 				}
-				System.out.println("Field Created!");
-			}
-			// Given field name is not alphanumeric
-			else if (UML.getPattern().matcher(name).find()) {
-				System.out.println("A field name must only contain numbers and letters");
-			}
-			// Given field exists
-			else {
-				System.out.println("That field ALREADY exist!");
 			}
 		}
 		// Given class does not exist
 		else {
-			System.out.println("That class does NOT exist!");
+			System.out.println("That class does not exist!");
 		}
 	}
 
 	// Remove an field from the given class
 	public static void removeField(String className, String name) {
 		// Given class exists
-		if (UML.getNoClassDupes().contains(className)) {
-			// Given field exists
-			if (UML.getNoFieldDupes().contains(name)) {
-				for (UML uml : UML.getCollection()) {
-					if (uml.getClassName().equals(className)) {
-						for(Fields field : uml.getField()){
-							if(field.getFieldName().equals(name)){
-								int remove = uml.getField().indexOf(field);
-								uml.getField().remove(remove);
-								UML.getNoFieldDupes().remove(name);
-								System.out.println("Field Removed!");
-								return;
-							}
+		if(UML.getNoClassDupes().contains(className)) {
+			for(UML uml : UML.getCollection()) {
+				if(uml.getClassName().equals(className)) {
+					for(int i = 0; i <= uml.getField().size(); i++) {
+						// Given field exists
+						if(i < uml.getField().size() && uml.getField().get(i).getFieldName().equals(name)) {
+							uml.getField().remove(i);
+							System.out.println("Field Removed!");
+							return;
 						}
-						break;
+						// Given field does not exist
+						else if(i == uml.getField().size()) {
+							System.out.println("That field does not exist!");
+						}
 					}
+					return;
 				}
-			}
-			// Given field does not exist
-			else {
-				System.out.println("That field does not exist!");
 			}
 		}
 		// Given class does not exists
@@ -85,57 +85,41 @@ public class Fields {
 		}
 	}
 
-	// Remove all the fields in the UML
-	public static void removeAllFields() {
-		// The UML is empty
-		if (UML.getCollection().isEmpty()) {
-			System.out.println("The UML is empty!");
-		}
-		// The UML has no fields
-		else if (UML.getNoFieldDupes().isEmpty()) {
-			System.out.println("There are no fields to remove.");
-		}
-		// Go through each class in the UML and remove every field
-		else {
-			UML.getNoFieldDupes().clear();
-			for (UML uml : UML.getCollection()) {
-				uml.getField().clear();
-			}
-			System.out.println("All fields have been deleted!");
-		}
-	}
-
-
 	// Renames an already existing field in a given class
 	public static void renameField(String className, String oldName, String newName) {
 		// Given class exist
 		if(UML.getNoClassDupes().contains(className)) {
-			// Given new field does not exist, the old field does exist, and the new name is alphanumeric
-			if(UML.getNoFieldDupes().contains(oldName) && !UML.getNoFieldDupes().contains(newName) && !UML.getPattern().matcher(newName).find()) {
-				for(int i = 0; i < UML.getCollection().size(); i++) {
-					UML uml = UML.getCollection().get(i);
-					if(uml.getClassName().equals(className)) {
-						UML.getNoFieldDupes().remove(oldName);
-						UML.getNoFieldDupes().add(newName);
-						for(Fields field : uml.getField()) {
-							field.setFieldName(newName);
+			for(UML uml : UML.getCollection()) {
+				if(uml.getClassName().equals(className)) {
+					// Given field name is alphanumeric
+					if(!UML.getPattern().matcher(newName).find()) {
+						for(int i = 0; i <= uml.getField().size(); i++) {
+							if(i < uml.getField().size() && uml.getField().get(i).getFieldName().equals(oldName)) {
+								for(int j = 0; j <= uml.getField().size(); j++) {
+									if(i == uml.getField().size()) {
+										uml.getField().get(i).setFieldName(newName);
+										System.out.println("Field Renamed!");
+										return;
+									}
+									// Given field already exists
+									else if(j < uml.getField().size() && uml.getField().get(j).getFieldName().equals(newName)) {
+										System.out.println("That field already exists!");
+										return;
+									}
+								}
+							}
+							// Given field does not exist
+							else {
+								System.out.println("That field does not exist!");
+								return;
+							}
 						}
-						break;
+					}
+					// Given field must be alphanumeric
+					else {
+						System.out.println("A field name must only contain numbers and letters");
 					}
 				}
-				System.out.println("Field Renamed!");
-			}
-			// Given field must be alphanumeric
-			else if (UML.getPattern().matcher(newName).find()) {
-				System.out.println("A field name must only contain numbers and letters");
-			}
-			// Given newName already exists as a field
-			else if (UML.getNoFieldDupes().contains(newName)) {
-				System.out.println("That name is already taken by another field in the class!");
-			}
-			// Given field does not exist
-			else {
-				System.out.println("That field does not exist!");
 			}
 		}
 		// Given class does not exist

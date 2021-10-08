@@ -47,28 +47,6 @@ public class Parameters {
 		}
 	}
 
-	//	public void addNoDupes(String s){
-	//		HashSet<String> set = getNoPDupes();
-	//		set.add(s);
-	//	}
-	//
-	//	public void checkNoDupes(String s){
-	//		HashSet<String> set = getNoPDupes();
-	//		set.contains(s);
-	//
-	//	}
-	//
-	//	public void removeDupes(String s){
-	//		HashSet<String> set = getNoPDupes();
-	//		set.remove(s);
-	//	}
-	//
-	//	public void removeAllDupes(){
-	//		HashSet<String> set = getNoPDupes();
-	//		set.clear();
-	//	}
-
-
 	//works
 	public static void deleteAllParameters (String UMLName, String methodsName){
 		ArrayList<Parameters> mList = findMethod(UMLName, methodsName);
@@ -114,7 +92,7 @@ public class Parameters {
 		for (int index = 0; index <= mList.size() -1; ++index ){
 
 			System.out.println("Below is the parameter being changed:");
-			System.out.println("Name "+ mList.get(index).getParamName() +" Type: " + mList.get(index).getParamType());
+			System.out.println("Name " + mList.get(index).getParamName() +" Type: " + mList.get(index).getParamType());
 
 			System.out.println("What is the new name?");
 			String pName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
