@@ -2,13 +2,13 @@ import java.util.ArrayList;
 
 public class Methods {
 	private String name;
-	private String retType;
-	private ArrayList<Parameters> param;
+	private String return_type;
+	private ArrayList<Parameters> params;
 
 	public Methods(String name, String type) {
 		this.name = name;
-		this.retType = type;
-		this.param = new ArrayList<Parameters>();
+		this.return_type = type;
+		this.params = new ArrayList<Parameters>();
 	}
 
 	public String getMethodName() {
@@ -20,15 +20,15 @@ public class Methods {
 	}
 
 	public String getMethodType() {
-		return retType;
+		return return_type;
 	}
 
 	public void setMethodType(String newType) {
-		retType = newType;
+		return_type = newType;
 	}
 
 	public ArrayList<Parameters> getParams() {
-		return param;
+		return params;
 	}
 
 	// Adds an method to the given class
