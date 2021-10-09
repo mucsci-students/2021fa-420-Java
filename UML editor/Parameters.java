@@ -1,12 +1,11 @@
 import java.util.*;
 
-// Test no duplicates, Test all functions,
 
 public class Parameters {
 	private String name;
 	private String type;
-
-
+	
+	// Constructor
 	public Parameters(String name, String type) {
 		this.name = name;
 		this.type = type;
@@ -19,7 +18,7 @@ public class Parameters {
 	public void setParamName(String newName) {
 		name = newName;
 	}
-
+	
 	public String getParamType() {
 		return type;
 	}
@@ -28,122 +27,203 @@ public class Parameters {
 		type = newType;
 	}
 
+	// Removes a parameter that matches the specified credentials at the index
 	public static void deleteParameter (String UMLName, String methodsName, String pName){
-		ArrayList<Parameters> mList = findMethod(UMLName, methodsName);
+		// The ArrayList of Parameters in a given method
+		ArrayList<Parameters> mList;
+		// Exit case
+		try {
+			mList = findMethod(UMLName, methodsName);
+		} catch (IllegalStateException e) {
+			System.out.println("Exited Successfully");
+			return;
+		}
 		int index = -1;
 
+		// Finds the parameter to be removed
 		for(Parameters param : mList){
 			if(param.getParamName().equalsIgnoreCase(pName)){
-				index = mList.indexOf(param);
-				break;
+			// index of the parameter
+			index = mList.indexOf(param);
+			break;
 			}
 		}
-
+		// Removes the parameter at the index if found
 		if(index != -1){
 			mList.remove(index);
 		}
 		else {
-			System.out.println("Parameter not found!");
+		System.out.println("Parameter not found!");
 		}
 	}
 
-	//works
+
+	// Empties the Parameters of a given method
 	public static void deleteAllParameters (String UMLName, String methodsName){
-		ArrayList<Parameters> mList = findMethod(UMLName, methodsName);
+		// The ArrayList of Parameters in a given method
+		ArrayList<Parameters> mList;
+		// Exit case
+		try {
+			mList = findMethod(UMLName, methodsName);
+		} catch (IllegalStateException e) {
+			System.out.println("Exited Successfully");
+			return;
+		}
 		mList.clear();
 	}
 
-	//works
-	public static void addParameter(String UMLName, String methodsName, String pName, String pType){
-		ArrayList<Parameters> mList = findMethod(UMLName, methodsName);
-		Parameters p = new Parameters(pName, pType);
-		mList.add(p);
-	}
-	//works
+	// Changes a single parameter in a method
 	public static void changeParameter(String UMLName, String methodsName, String oldpName, String newpName, String newpType ){
 
-		ArrayList<Parameters> mList = findMethod(UMLName, methodsName);
-
+		// The ArrayList of Parameters in a given method
+		ArrayList<Parameters> mList;
+		// Exit case
+		try {
+			mList = findMethod(UMLName, methodsName);
+		} catch (IllegalStateException e) {
+			System.out.println("Exited Successfully");
+			return;
+		}
+		//Duplicate checking
+		HashSet<String> noDuplicates = new HashSet<String>(); 
+		for(Parameters p : mList){
+			noDuplicates.add(p.getParamName());
+		}
+		// Used to locate the parameter to be modified
 		int index = -1;
 
+		// Finds the index of the parameter to be modified
 		for(Parameters param : mList){
 			if(param.getParamName().equalsIgnoreCase(oldpName)){
-				index = mList.indexOf(param);
-				break;
+			index = mList.indexOf(param);
+			break;
 			}
 		}
 
+		// If the parameter is found
 		if(index != -1){
-
+	
 			Parameters p = new Parameters(newpName, newpType);
+			// Replaces the parameter at that index with the new one
+			if(!noDuplicates.contains(newpName)){
 			mList.set(index, p);
+			} else{
+				System.out.println(newpName +" is a duplicate. Choose another name");
+				Scanner scanner = new Scanner(System.in);
+				newpName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+			}
 		} else {
-			System.out.println("Parameter not found!");
+		System.out.println("Parameter not found!");
 		}
 
 	}
 
-	//works
+	// Changes all the parameters of a given method
+	// Doesn't work if scanner is closed
 	public static void changeAllParameters(String UMLName, String methodsName){
 
 		Scanner scanner = new Scanner(System.in);
-		ArrayList<Parameters> mList = findMethod(UMLName, methodsName);
+		// The ArrayList of Parameters in a given method
+		ArrayList<Parameters> mList;
+		// Exit case
+		try {
+			mList = findMethod(UMLName, methodsName);
+		} catch (IllegalStateException e) {
+			System.out.println("Exited Successfully");
+			return;
+		}
+		// Used to check if the method already exists
+		HashSet<String> noDuplicates = new HashSet<String>(); 
 
+		// finds the element to be replaced and replaces the name and type for every element in the ArrayList
 		for (int index = 0; index <= mList.size() -1; ++index ){
-
+			
 			System.out.println("Below is the parameter being changed:");
-			System.out.println("Name " + mList.get(index).getParamName() +" Type: " + mList.get(index).getParamType());
+			System.out.println("Name "+ mList.get(index).getParamName() +" Type: " + mList.get(index).getParamType());
 
 			System.out.println("What is the new name?");
 			String pName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
+			// Makes sure that the new name of a parameter isn't a duplicate
+			while(noDuplicates.contains(pName)){
+				System.out.println("Parameter "+ pName + " already exists in this method. Choose another name.");
+				pName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+			}
 
+			// Adds new name to Duplicate set, so the name cant be repeated
+			noDuplicates.add(pName);
 			System.out.println("What is " + pName + "'s type");
 			String pType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
+			// Replaces the element at given index with the new element
 			mList.set(index, new Parameters(pName, pType));
-
+			
 		}
 	}
 
-	//works
-	public static void listParameters(String UMLName, String methodsName){
-		ArrayList<Parameters> mList = findMethod(UMLName, methodsName);
-		for (Parameters p : mList){
-			System.out.println("Name: " + p.getParamName()+ " Type: " + p.getParamType());
-		}
-	}
-
-	//works
+	// Helper method used to get the Parameter ArrayList of a given method
+	// Doesn't work if I close the Scanners
 	public static ArrayList<Parameters> findMethod(String umlName, String methods ){
+		// Set to null in order to use for comparisons later
 		UML foundUML = null;
 
+		// Finds the UML object if it exists
 		for(UML u : UML.getCollection()){
 			if(umlName.equals(u.getClassName())){
 				foundUML = u;
 				break;
 			}
 		}
+		// If the UML object exists, this traverses the methods of the UML object and returns the Parameter list of the correct method
 		if(foundUML != null){
+			// Used to find method and return the parameter ArrayList if exists
 			for (Methods m : foundUML.getMethod()){
 				if(methods.equals(m.getMethodName())){
 
 					return m.getParams();
 				}
 			}
+			// Below is if the method is not found
 			System.out.println("Method not found!");
 			System.out.println("Enter a new method name or type exit");
+
 			Scanner scanner = new Scanner(System.in);
+			// Asks for correct method name or if the user just wants to exit
 			String newTry = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-			scanner.close();
+
+			// Exit case. Also, unsure I should use Illegal State Exception to escape
+			if(newTry.equalsIgnoreCase("exit")){
+				throw new IllegalStateException();
+			}
+			// Recursion if they want to try entering a new method
 			return findMethod(umlName, newTry);
+			}
+		// Case if the class isn't found
+		if (foundUML == null){
+		System.out.println("Class not found!");
+		System.out.println("Enter a new class name or type exit");
+		Scanner scanner = new Scanner(System.in);
+		// Re-enter the class name
+		String newTry2 = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+		// Exit case
+		if(newTry2.equalsIgnoreCase("exit")){
+			throw new IllegalStateException();
 		}
 
-		System.out.println("Class not found!");
+		//Re-enter method name
 		System.out.println("Enter a new method name or type exit");
-		Scanner scanner = new Scanner(System.in);
-		String newTry2 = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-		scanner.close();
-		return findMethod(newTry2, methods);
-	}		
-}
+		String newTry = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+		//Exit Case
+		if(newTry.equalsIgnoreCase("exit")){
+			throw new IllegalStateException();
+		}
+		// Recursion if they are trying to enter a new class name and method
+		return findMethod(newTry2, newTry);
+		}
+
+		// Not possible to reach this code, but required because there has to be some option which happens if all the if statements are false (which is impossible).
+		throw new UnknownError("ERROR: You should not of been able to read this text");
+	}	
+		
+		
+	}

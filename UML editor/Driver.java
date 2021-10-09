@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.HashSet;
 
 public class Driver {
 	public static boolean guiUp;
@@ -349,20 +350,73 @@ public class Driver {
 
 				break;
 
-			case "addparameter":
+				case "addparameter":
+				// Check if the user wants to keep adding parameters 
+				boolean continueAddingParams = true;
+				
+				// Gets UML name and Method name
 				System.out.println("What class would you like to add a parameter to?");
 				String UMLName = scanner.nextLine().toLowerCase();
 				System.out.println("What method would you like to add a parameter to?");
 				String methodName = scanner.nextLine().toLowerCase();
+
+				// Param list init
+				ArrayList<Parameters> allParams2;
+
+				// Makes sure the method of insertion exists or if the user exited
+				try {
+					allParams2 = Parameters.findMethod(UMLName, methodName);
+				} catch (IllegalStateException e) {
+					System.out.println("Exited Successfully");
+					break;
+				}
+
+				// Duplicate checking
+				HashSet<String> noDuplicates2 = new HashSet<String>(); 
+
+				// Copying Param names to noDuplicates
+				for(Parameters p : allParams2){
+					noDuplicates2.add(p.getParamName());
+				}
+
+				// If the user wants to add multiple parameters
+				while(continueAddingParams){
+					
 				System.out.println("What is the Parameter name!");
 				String paramName = scanner.nextLine().toLowerCase();
+
+				// Duplicate checking
+				if(noDuplicates2.contains(paramName)){
+					System.out.println(paramName + " already exists in this method. Choose another name.");
+					paramName = scanner.nextLine().toLowerCase();
+				}
+
 				System.out.println("What is the parameter type!");
 				String paramType = scanner.nextLine().toLowerCase();
-				Parameters.addParameter(UMLName, methodName, paramName,  paramType);
+				
+				Parameters parameter1 = new Parameters(paramName, paramType);
+				// Addition of a new parameter
+				allParams2.add(parameter1);
+
+				//Duplicate checking
+				noDuplicates2.add(paramName);
+
 				System.out.println("Parameter Created!");
+				System.out.println("Would you like to continue adding parameters to "+methodName+"? (Y or N)");
+				String response = scanner.nextLine().toLowerCase();
+
+				// If the user wants to stop adding parameters
+				if (!response.equalsIgnoreCase("Y") && !response.equalsIgnoreCase("yes")){
+					continueAddingParams = false;
+				}
+
+				}
+
 				break;
 
 			case "deleteparameter":
+
+				// Gets the UML name, method name, and parameter name to delete
 				System.out.println("What class would you like to remove the parameter from?");
 				String UMLName1 = scanner.nextLine().toLowerCase();
 				System.out.println("What method would you like to remove the parameter from?");
@@ -370,51 +424,73 @@ public class Driver {
 				System.out.println("What is the Parameter name!");
 				String paramName1 = scanner.nextLine().toLowerCase();
 
+				// Deletion
 				Parameters.deleteParameter(UMLName1, methodName1, paramName1);
+				System.out.println("Parameter deleted!");
 				break;
 
 			case "deleteallparameters":
+				// Gets the UML name and method name to clear the paramater arraylist
 				System.out.println("What class would you like to remove the parameters from?");
 				String UMLName2 = scanner.nextLine().toLowerCase();
 				System.out.println("What method would you like to remove the parameters from?");
 				String methodName2 = scanner.nextLine().toLowerCase();
 
+				// Deletion
 				Parameters.deleteAllParameters(UMLName2, methodName2);
+				System.out.println("Parameters deleted!");
 				break;
 
 			case "renameallparameters":
-				System.out.println("What class would you like to rename all parameters in?");
+				// Gets the parameter list to modify
+				System.out.println("What class would you like to add a parameter to?");
 				String UMLName3 = scanner.nextLine().toLowerCase();
-				System.out.println("What method would you like to rename all parameters in?");
+				System.out.println("What method would you like to add a parameter to?");
 				String methodName3 = scanner.nextLine().toLowerCase();
 
+				
+				// Changes all parameters
 				Parameters.changeAllParameters(UMLName3, methodName3);
+				System.out.println("All parameters renamed!");
 				break;
 
 			case "renameparameter":
+				boolean continueChanging = true;
+
+				
+				// Gets the UML name and method name to find the parameter list 
 				System.out.println("What class would you like to change a parameter in?");
 				String UMLName4 = scanner.nextLine().toLowerCase();
 				System.out.println("What method would you like to change a parameter in?");
 				String methodName4 = scanner.nextLine().toLowerCase();
 
+				// If the user wants to continue renaming
+				while(continueChanging){
+				// Gets the old parameter name in order to find the parameter
 				System.out.println("What is the old Parameter name!");
 				String oldParamName = scanner.nextLine().toLowerCase();
+
+				//Gets the new parameter credentials
 				System.out.println("What is the new parameter's name?");
 				String paramName5 = scanner.nextLine().toLowerCase();
 				System.out.println("What is the parameter type!");
 				String paramType5 = scanner.nextLine().toLowerCase();
 
+				// Chnages parameter
 				Parameters.changeParameter(UMLName4, methodName4, oldParamName, paramName5, paramType5);
+				System.out.println("Parameter renamed!");
+
+				System.out.println("Would you like to continue renaming parameters in "+methodName4+"? (Y or N)");
+				String response = scanner.nextLine().toLowerCase();
+
+				// If the user wants to stop renaming parameters
+				if (!response.equalsIgnoreCase("Y") && !response.equalsIgnoreCase("yes")){
+					continueChanging = false;
+				}
+
+				}
 				break;
 
-			case "listparameters":
-				System.out.println("What class is the method you want to list in?");
-				String UMLName5 = scanner.nextLine().toLowerCase();
-				System.out.println("What method would you like to list?");
-				String methodName5 = scanner.nextLine().toLowerCase();
-
-				Parameters.listParameters(UMLName5, methodName5);
-				break;
 
 			case "gui":
 				guiUp = true;
