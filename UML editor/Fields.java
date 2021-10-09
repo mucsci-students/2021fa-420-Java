@@ -34,26 +34,46 @@ public class Fields {
 							// Given field does not exist, and the name is alphanumeric
 							if(i + 1 > uml.getField().size()) {
 								uml.getField().add(new Fields(name, type));
-								System.out.println("Field Created!");
+								if(Driver.guiUp) {
+									View.outputLbl.setText("Field Created!");
+								}
+								else {
+									System.out.println("Field Created!");
+								}
 								return;
 							}
 							// Given field exists
-							else if(i < uml.getField().size() && uml.getField().get(i).getFieldName().equals(name)) {
-								System.out.println("That field already exists!");
+							else if(uml.getField().get(i).getFieldName().equals(name)) {
+								if(Driver.guiUp) {
+									View.outputLbl.setText("That field already exists!");
+								}
+								else {
+									System.out.println("That field already exists!");
+								}
 								return;
 							}
 						}
 					}
 					// Given field name is not alphanumeric
 					else {
-						System.out.println("A field name must only contain numbers and letters");
+						if(Driver.guiUp) {
+							View.outputLbl.setText("A field name must only contain numbers and letters");
+						}
+						else {
+							System.out.println("A field name must only contain numbers and letters");
+						}
 					}
 				}
 			}
 		}
 		// Given class does not exist
 		else {
-			System.out.println("That class does not exist!");
+			if(Driver.guiUp) {
+				View.outputLbl.setText("That class does not exist!");
+			}
+			else {
+				System.out.println("That class does not exist!");
+			}
 		}
 	}
 
@@ -63,25 +83,50 @@ public class Fields {
 		if(UML.getNoClassDupes().contains(className)) {
 			for(UML uml : UML.getCollection()) {
 				if(uml.getClassName().equals(className)) {
-					for(int i = 0; i <= uml.getField().size(); i++) {
-						// Given field exists
-						if(i < uml.getField().size() && uml.getField().get(i).getFieldName().equals(name)) {
-							uml.getField().remove(i);
-							System.out.println("Field Removed!");
-							return;
+					if(!uml.getField().isEmpty()) {
+						for(int i = 0; i <= uml.getField().size(); i++) {
+							// Given field exists
+							if(i < uml.getField().size() && uml.getField().get(i).getFieldName().equals(name)) {
+								uml.getField().remove(i);
+								if(Driver.guiUp) {
+									View.outputLbl.setText("Field Removed!");
+								}
+								else {
+									System.out.println("Field Removed!");
+								}
+								return;
+							}
+							// Given field does not exist
+							else if(i == uml.getField().size()) {
+								if(Driver.guiUp) {
+									View.outputLbl.setText("That field does not exist!");
+								}
+								else {
+									System.out.println("That field does not exist!");
+								}
+							}
 						}
-						// Given field does not exist
-						else if(i == uml.getField().size()) {
-							System.out.println("That field does not exist!");
+						return;
+					}
+					else {
+						if(Driver.guiUp) {
+							View.outputLbl.setText("This class has no fields!");
+						}
+						else {
+							System.out.println("This class has no fields!");
 						}
 					}
-					return;
 				}
 			}
 		}
 		// Given class does not exists
 		else {
-			System.out.println("That class does not exist!");
+			if(Driver.guiUp) {
+				View.outputLbl.setText("That class does not exist!");
+			}
+			else {
+				System.out.println("That class does not exist!");
+			}
 		}
 	}
 
@@ -96,35 +141,60 @@ public class Fields {
 						for(int i = 0; i <= uml.getField().size(); i++) {
 							if(i < uml.getField().size() && uml.getField().get(i).getFieldName().equals(oldName)) {
 								for(int j = 0; j <= uml.getField().size(); j++) {
-									if(i == uml.getField().size()) {
+									if(j == uml.getField().size()) {
 										uml.getField().get(i).setFieldName(newName);
-										System.out.println("Field Renamed!");
+										if(Driver.guiUp) {
+											View.outputLbl.setText("Field Renamed!");
+										}
+										else {
+											System.out.println("Field Renamed!");
+										}
 										return;
 									}
 									// Given field already exists
 									else if(j < uml.getField().size() && uml.getField().get(j).getFieldName().equals(newName)) {
-										System.out.println("That field already exists!");
+										if(Driver.guiUp) {
+											View.outputLbl.setText("That field already exists!");
+										}
+										else {
+											System.out.println("That field already exists!");
+										}
 										return;
 									}
 								}
 							}
 							// Given field does not exist
 							else {
-								System.out.println("That field does not exist!");
+								if(Driver.guiUp) {
+									View.outputLbl.setText("That field does not exist!");
+								}
+								else {
+									System.out.println("That field does not exist!");
+								}
 								return;
 							}
 						}
 					}
 					// Given field must be alphanumeric
 					else {
-						System.out.println("A field name must only contain numbers and letters");
+						if(Driver.guiUp) {
+							View.outputLbl.setText("A field name must only contain numbers and letters");
+						}
+						else {
+							System.out.println("A field name must only contain numbers and letters");
+						}
 					}
 				}
 			}
 		}
 		// Given class does not exist
 		else {
-			System.out.println("That class does not exist!");
+			if(Driver.guiUp) {
+				View.outputLbl.setText("That class does not exist!");
+			}
+			else {
+				System.out.println("That class does not exist!");
+			}
 		}
 	}
 }

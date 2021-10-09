@@ -105,17 +105,9 @@ public class Parameters {
 
 		}
 	}
-
+	
 	//works
-	public static void listParameters(String UMLName, String methodsName){
-		ArrayList<Parameters> mList = findMethod(UMLName, methodsName);
-		for (Parameters p : mList){
-			System.out.println("Name: " + p.getParamName()+ " Type: " + p.getParamType());
-		}
-	}
-
-	//works
-	public static ArrayList<Parameters> findMethod(String umlName, String methods ){
+	public static ArrayList<Parameters> findMethod(String umlName, String methods){
 		UML foundUML = null;
 
 		for(UML u : UML.getCollection()){

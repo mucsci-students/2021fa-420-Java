@@ -14,13 +14,18 @@ import javax.swing.SwingConstants;
 
 public class View {
 	public static JFrame frmUmlEditor;
+
+	public static JPanel inputPanel;
 	public static JLabel inputLbl;
+	public static JTextField textField;
+
 	public static JLabel outputLbl;
 	public static String outputText;
-	public static JTextField textField;
-	public static JPanel panel_2;
+
+	public static JPanel savePanel;
+	public static JTextField textFieldJSON;
+
 	public static Controller controller = new Controller();
-	private JTextField textFieldJSON;
 
 	/**
 	 * Launch the application.
@@ -59,169 +64,194 @@ public class View {
 		frmUmlEditor.getContentPane().setPreferredSize(new Dimension(1360, 700));
 		frmUmlEditor.pack();
 
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.LIGHT_GRAY);
-		panel.setBounds(10, 10, 165, 539);
-		frmUmlEditor.getContentPane().add(panel);
-		panel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		JPanel mainBtnPanel = new JPanel();
+		mainBtnPanel.setBackground(Color.LIGHT_GRAY);
+		mainBtnPanel.setBounds(10, 10, 183, 679);
+		frmUmlEditor.getContentPane().add(mainBtnPanel);
+		mainBtnPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		mainBtnPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		JButton btnAddClass = new JButton("Add Class");
 		btnAddClass.setActionCommand("Add Class");
 		btnAddClass.addActionListener(controller);
-		panel.add(btnAddClass);
+		mainBtnPanel.add(btnAddClass);
 
 		JButton btnRemoveClass = new JButton("Remove Class");
 		btnRemoveClass.setActionCommand("Remove Class");
 		btnRemoveClass.addActionListener(controller);
-		panel.add(btnRemoveClass);
+		mainBtnPanel.add(btnRemoveClass);
 
 		JButton btnRenameClass = new JButton("Rename Class");
 		btnRenameClass.setActionCommand("Rename Class");
 		btnRenameClass.addActionListener(controller);
-		panel.add(btnRenameClass);
+		mainBtnPanel.add(btnRenameClass);
 
 		JButton btnAddMethod = new JButton("Add Method");
 		btnAddMethod.setActionCommand("Add Method");
 		btnAddMethod.addActionListener(controller);
-		panel.add(btnAddMethod);
+		mainBtnPanel.add(btnAddMethod);
 
 		JButton btnRemoveMethod = new JButton("Remove Method");
 		btnRemoveMethod.setActionCommand("Remove Method");
 		btnRemoveMethod.addActionListener(controller);
-		panel.add(btnRemoveMethod);
+		mainBtnPanel.add(btnRemoveMethod);
+
+		JButton btnRemoveAllMethods = new JButton("Remove All Methods");
+		btnRemoveAllMethods.setActionCommand("Remove All Methods");
+		btnRemoveAllMethods.addActionListener(controller);
+		mainBtnPanel.add(btnRemoveAllMethods);
 
 		JButton btnRenameMethod = new JButton("Rename Method");
 		btnRenameMethod.setActionCommand("Rename Method");
 		btnRenameMethod.addActionListener(controller);
-		panel.add(btnRenameMethod);
+		mainBtnPanel.add(btnRenameMethod);
 
 		JButton btnAddParameter = new JButton("Add Parameter");
 		btnAddParameter.setActionCommand("Add Parameter");
 		btnAddParameter.addActionListener(controller);
-		panel.add(btnAddParameter);
+		mainBtnPanel.add(btnAddParameter);
 
 		JButton btnRemoveParameter = new JButton("Remove Parameter");
 		btnRemoveParameter.setActionCommand("Remove Parameter");
 		btnRemoveParameter.addActionListener(controller);
-		panel.add(btnRemoveParameter);
+		mainBtnPanel.add(btnRemoveParameter);
 
 		JButton btnRenameParameter = new JButton("Rename Parameter");
 		btnRenameParameter.setActionCommand("Rename Parameter");
 		btnRenameParameter.addActionListener(controller);
-		panel.add(btnRenameParameter);
+		mainBtnPanel.add(btnRenameParameter);
+
+		JButton btnRemoveAllParameters = new JButton("Remove All Parameters");
+		btnRemoveAllParameters.setActionCommand("Remove All Parameters");
+		btnRemoveAllParameters.addActionListener(controller);
+		mainBtnPanel.add(btnRemoveAllParameters);
+		
+		JButton btnChangeAllParameters = new JButton("Change All Parameters");
+		btnChangeAllParameters.setActionCommand("Change All Parameters");
+		btnChangeAllParameters.addActionListener(controller);
+		mainBtnPanel.add(btnChangeAllParameters);
 
 		JButton btnAddField = new JButton("Add Field");
 		btnAddField.setActionCommand("Add Field");
 		btnAddField.addActionListener(controller);
-		panel.add(btnAddField);
+		mainBtnPanel.add(btnAddField);
 
 		JButton btnRemoveField = new JButton("Remove Field");
 		btnRemoveField.setActionCommand("Remove Field");
 		btnRemoveField.addActionListener(controller);
-		panel.add(btnRemoveField);
+		mainBtnPanel.add(btnRemoveField);
 
 		JButton btnRenameField = new JButton("Rename Field");
 		btnRenameField.setActionCommand("Rename Field");
 		btnRenameField.addActionListener(controller);
-		panel.add(btnRenameField);
+		mainBtnPanel.add(btnRenameField);
 
 		JButton btnAddRelationship = new JButton("Add Relationship");
 		btnAddRelationship.setActionCommand("Add Relationship");
 		btnAddRelationship.addActionListener(controller);
-		panel.add(btnAddRelationship);
+		mainBtnPanel.add(btnAddRelationship);
 
 		JButton btnRemoveRelationship = new JButton("Remove Relationship");
 		btnRemoveRelationship.setActionCommand("Remove Relationship");
 		btnRemoveRelationship.addActionListener(controller);
-		panel.add(btnRemoveRelationship);
+		mainBtnPanel.add(btnRemoveRelationship);
+
+		JButton btnChangeRelationship = new JButton("Change Relationship");
+		btnChangeRelationship.setActionCommand("Change Relationship");
+		btnChangeRelationship.addActionListener(controller);
+		mainBtnPanel.add(btnChangeRelationship);
 
 		JButton btnListClasses = new JButton("List Classes");
 		btnListClasses.setActionCommand("List Classes");
 		btnListClasses.addActionListener(controller);
-		panel.add(btnListClasses);
+		mainBtnPanel.add(btnListClasses);
 
 		JButton btnListContents = new JButton("List Contents");
 		btnListContents.setActionCommand("List Contents");
 		btnListContents.addActionListener(controller);
-		panel.add(btnListContents);
+		mainBtnPanel.add(btnListContents);
 
 		JButton btnListRelationships = new JButton("List Relationships");
 		btnListRelationships.setActionCommand("List Relationships");
 		btnListRelationships.addActionListener(controller);
-		panel.add(btnListRelationships);
+		mainBtnPanel.add(btnListRelationships);
 
 
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		panel_1.setBackground(Color.LIGHT_GRAY);
-		panel_1.setBounds(1232, 10, 118, 136);
-		frmUmlEditor.getContentPane().add(panel_1);
-		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		JPanel extraBtnPanel = new JPanel();
+		extraBtnPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		extraBtnPanel.setBackground(Color.LIGHT_GRAY);
+		extraBtnPanel.setBounds(1232, 10, 118, 136);
+		frmUmlEditor.getContentPane().add(extraBtnPanel);
+		extraBtnPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		JButton btnSave = new JButton("Save");
 		btnSave.setActionCommand("Save");
 		btnSave.addActionListener(controller);
-		panel_1.add(btnSave);
+		extraBtnPanel.add(btnSave);
 
 		JButton btnLoad = new JButton("Load");
 		btnLoad.setActionCommand("Load");
 		btnLoad.addActionListener(controller);
-		panel_1.add(btnLoad);
+		extraBtnPanel.add(btnLoad);
 
 		JButton btnHelp = new JButton("Help");
 		btnHelp.setActionCommand("Help");
 		btnHelp.addActionListener(controller);
-		panel_1.add(btnHelp);
+		extraBtnPanel.add(btnHelp);
 
 		JButton btnSwitch = new JButton("Switch to CLI");
 		btnSwitch.setActionCommand("CLI");
 		btnSwitch.addActionListener(controller);
-		panel_1.add(btnSwitch);
+		extraBtnPanel.add(btnSwitch);
 
 
 
-		panel_2 = new JPanel();
-		panel_2.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		panel_2.setBackground(Color.LIGHT_GRAY);
-		panel_2.setBounds(185, 10, 165, 269);
-		frmUmlEditor.getContentPane().add(panel_2);
-		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		inputPanel = new JPanel();
+		inputPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		inputPanel.setBackground(Color.LIGHT_GRAY);
+		inputPanel.setBounds(203, 10, 165, 291);
+		frmUmlEditor.getContentPane().add(inputPanel);
+		inputPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		inputLbl = new JLabel("");
-		panel_2.add(inputLbl);
+		inputPanel.add(inputLbl);
 
 		textField = new JTextField();
-		panel_2.add(textField);
+		inputPanel.add(textField);
 		textField.setColumns(10);
 
 		JButton btnEnter = new JButton("Enter");
 		btnEnter.setActionCommand("Enter");
 		btnEnter.addActionListener(controller);
-		panel_2.add(btnEnter);
-		panel_2.setVisible(false);
+		inputPanel.add(btnEnter);
+		inputPanel.setVisible(false);
 
-		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		panel_3.setBackground(Color.LIGHT_GRAY);
-		panel_3.setBounds(1232, 157, 118, 82);
-		frmUmlEditor.getContentPane().add(panel_3);
-		panel_3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+
+
+		savePanel = new JPanel();
+		savePanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		savePanel.setBackground(Color.LIGHT_GRAY);
+		savePanel.setBounds(1232, 157, 118, 59);
+		frmUmlEditor.getContentPane().add(savePanel);
+		savePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		JLabel copyLabel = new JLabel("<html><div style='text-align:center'>Copy JSON String</div></html>");
-		panel_3.add(copyLabel);
+		savePanel.add(copyLabel);
 
 		textFieldJSON = new JTextField();
-		panel_3.add(textFieldJSON);
+		savePanel.add(textFieldJSON);
 		textFieldJSON.setColumns(10);
-		
+		savePanel.setVisible(true);
+
+
+
 		outputLbl = new JLabel("");
 		outputLbl.setVerticalAlignment(SwingConstants.TOP);
 		outputLbl.setFont(outputLbl.getFont().deriveFont(16f));
-		outputLbl.setBounds(360, 10, 862, 679);
+		outputLbl.setBounds(378, 10, 844, 679);
 		frmUmlEditor.getContentPane().add(outputLbl);
-		
+
 	}
 
 	public static void closeGUI() {
