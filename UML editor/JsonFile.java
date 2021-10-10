@@ -15,9 +15,7 @@ public class JsonFile {
 	}
 
 	// Loads a String with a JSON format and turns it into an ArrayList of UML objects
-	public static boolean load(String loaded, ArrayList<UML> collection) {
-
-		try{
+	public static void load(String loaded, ArrayList<UML> collection) {
 		// Tells the Gson converter that we want an ArrayList of UML objects
 		Type type = new TypeToken<ArrayList<UML>>(){}.getType();
 		// Puts the JSON string and determines the type of list needed and makes a new ArrayList with this information
@@ -36,11 +34,5 @@ public class JsonFile {
 		// The new collection of the loaded UML object
 		UML.setCollection(newCollection);
 
-	} catch(com.google.gson.JsonSyntaxException e){
-		System.out.println("This is not a valid Json file!");
-		return false;
-		}
-
-	return true;
 	}
 }

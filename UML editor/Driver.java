@@ -348,9 +348,8 @@ public class Driver {
 					System.out.println("Enter the file you would like to load");
 					String loadFile = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
-					if(JsonFile.load(loadFile, UML.getCollection())){
+					JsonFile.load(loadFile, UML.getCollection());
 					System.out.println("File loaded!");
-					}
 				}
 
 				break;
@@ -366,29 +365,55 @@ public class Driver {
 				String methodName = scanner.nextLine().toLowerCase();
 
 				// Param list init
-				
+				ArrayList<Parameters> allParams2;
+
+				// Makes sure the method of insertion exists or if the user exited
+				try {
+					allParams2 = Parameters.findMethod(UMLName, methodName);
+				} catch (IllegalStateException e) {
+					
+					break;
+				}
+
+				// Duplicate checking
+				HashSet<String> noDuplicates2 = new HashSet<String>(); 
+
+				// Copying Param names to noDuplicates
+				for(Parameters p : allParams2){
+					noDuplicates2.add(p.getParamName());
+				}
+
 				// If the user wants to add multiple parameters
 				while(continueAddingParams){
 					
 				System.out.println("What is the parameter name!");
 				String paramName = scanner.nextLine().toLowerCase();
 
+				// Duplicate checking
+				if(noDuplicates2.contains(paramName)){
+					System.out.println(paramName + " already exists in this method. Choose another name.");
+					paramName = scanner.nextLine().toLowerCase();
+				}
+
 				System.out.println("What is the parameter type!");
 
 				String paramType = scanner.nextLine().toLowerCase();
 				
-				if(Parameters.addParameter(UMLName, methodName, paramName, paramType)){
-				
+				Parameters parameter1 = new Parameters(paramName, paramType);
+				// Addition of a new parameter
+				allParams2.add(parameter1);
+
+				//Duplicate checking
+				noDuplicates2.add(paramName);
+
+				System.out.println("Parameter Created!");
 				System.out.println("Would you like to continue adding parameters to "+methodName+"? (Y or N)");
 				String response = scanner.nextLine().toLowerCase();
+
+				// If the user wants to stop adding parameters
 				if (!response.equalsIgnoreCase("Y") && !response.equalsIgnoreCase("yes")){
 					continueAddingParams = false;
-					}
-				} else{
-					break;
 				}
-				// If the user wants to stop adding parameters
-				
 
 				}
 
@@ -408,8 +433,9 @@ public class Driver {
 
 				// Deletion
 				if(Parameters.deleteParameter(UMLName1, methodName1, paramName1)){
-					System.out.println("Would you like to continue deleting parameters in "+methodName1+"? (Yes or No)");
-					String response = scanner.nextLine().toLowerCase();
+					System.out.println("Parameter deleted!");
+					System.out.println("Would you like to continue deleting parameters in "+methodName1+"? (Y or N)");
+				String response = scanner.nextLine().toLowerCase();
 
 				// If the user wants to stop adding parameters
 				if (!response.equalsIgnoreCase("Y") && !response.equalsIgnoreCase("yes")){
@@ -430,52 +456,28 @@ public class Driver {
 				String methodName2 = scanner.nextLine().toLowerCase();
 
 				// Deletion
-				Parameters.deleteAllParameters(UMLName2, methodName2);
-				
+				if(Parameters.deleteAllParameters(UMLName2, methodName2)){
+					System.out.println("Parameters deleted!");
+				}
 				
 				break;
 
-			case "changeallparameters":
+			case "renameallparameters":
 				// Gets the parameter list to modify
 				System.out.println("What class would you like to rename parameters in?");
-				String UMLName3 = scanner.nextLine().toLowerCase();
 
+				String UMLName3 = scanner.nextLine().toLowerCase();
 				System.out.println("What method would you like to rename parameters in?");
 				String methodName3 = scanner.nextLine().toLowerCase();
-				HashSet<String> Dupes = new HashSet<>();
 
-				ArrayList<Parameters> pList = Parameters.findMethod(UMLName3, methodName3);
-
-				if (pList.isEmpty()){
-					System.out.println("There are no parameters are in " + methodName3);
-					break;
+				
+				// Changes all parameters
+				if(Parameters.changeAllParameters(UMLName3, methodName3)){
+				System.out.println("All parameters renamed!");
 				}
-
-				int count = 0;
-				if (pList != null){
-				for(Parameters p : pList){
-					System.out.println("Here is the parameter being changed:");
-					System.out.println("Name: "+ p.getParamName() +" Type: " + p.getParamType());
-
-					System.out.println("What is the new name?");
-					String pName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-
-					if(!Dupes.contains(pName)){
-					Dupes.add(pName);
-
-					System.out.println("What is the parameter type?");
-					String pType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-					
-					pList.set(count, new Parameters(pName, pType));
-					++count;
-					} else {
-						System.out.println(pName+" already exists in " + methodName3);
-					}
-				}
-			}
 				break;
 
-			case "changeparameter":
+			case "renameparameter":
 				boolean continueChanging = true;
 
 				
@@ -499,17 +501,20 @@ public class Driver {
 
 				// Changes parameter if it doesn't already exist
 				if(Parameters.changeParameter(UMLName4, methodName4, oldParamName, paramName5, paramType5)){
+				System.out.println("Parameter renamed!");
+				
+				} else{
+					break;
+				}
 
-				System.out.println("Would you like to continue renaming parameters in "+methodName4+"? (Yes or No)");
+				System.out.println("Would you like to continue renaming parameters in "+methodName4+"? (Y or N)");
 				String response = scanner.nextLine().toLowerCase();
 
 				// If the user wants to stop renaming parameters
-					if (!response.equalsIgnoreCase("Y") && !response.equalsIgnoreCase("yes")){
-						continueChanging = false;
-						}
-					} else { 
-						break;
-					}
+				if (!response.equalsIgnoreCase("Y") && !response.equalsIgnoreCase("yes")){
+					continueChanging = false;
+				}
+
 				}
 				break;
 
