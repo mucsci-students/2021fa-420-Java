@@ -327,7 +327,7 @@ public class Driver {
 						+ "\nload - loads a uml file"
 						+ "\nhelp - provides a list of commands usable commands."
 						+ "\nexit - exists the program."
-						+ "\nGUI - opens the GUI."
+						+ "\nGUI - opens the GUI.");
 
 				break;
 
