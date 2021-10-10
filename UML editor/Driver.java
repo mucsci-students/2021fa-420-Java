@@ -378,7 +378,7 @@ public class Driver {
 				String paramType = scanner.nextLine().toLowerCase();
 				
 				if(Parameters.addParameter(UMLName, methodName, paramName, paramType)){
-				System.out.println("Parameter Created!");
+				
 				System.out.println("Would you like to continue adding parameters to "+methodName+"? (Y or N)");
 				String response = scanner.nextLine().toLowerCase();
 				if (!response.equalsIgnoreCase("Y") && !response.equalsIgnoreCase("yes")){
@@ -408,7 +408,6 @@ public class Driver {
 
 				// Deletion
 				if(Parameters.deleteParameter(UMLName1, methodName1, paramName1)){
-					System.out.println("Parameter deleted!");
 					System.out.println("Would you like to continue deleting parameters in "+methodName1+"? (Y or N)");
 				String response = scanner.nextLine().toLowerCase();
 
@@ -431,9 +430,8 @@ public class Driver {
 				String methodName2 = scanner.nextLine().toLowerCase();
 
 				// Deletion
-				if(Parameters.deleteAllParameters(UMLName2, methodName2)){
-					System.out.println("Parameters deleted!");
-				}
+				Parameters.deleteAllParameters(UMLName2, methodName2);
+				
 				
 				break;
 
@@ -447,9 +445,8 @@ public class Driver {
 
 				
 				// Changes all parameters
-				if(Parameters.changeAllParameters(UMLName3, methodName3)){
-				System.out.println("All parameters renamed!");
-				}
+				Parameters.changeAllParameters(UMLName3, methodName3);
+
 				break;
 
 			case "renameparameter":
@@ -475,12 +472,7 @@ public class Driver {
 				String paramType5 = scanner.nextLine().toLowerCase();
 
 				// Changes parameter if it doesn't already exist
-				if(Parameters.changeParameter(UMLName4, methodName4, oldParamName, paramName5, paramType5)){
-				System.out.println("Parameter renamed!");
-				
-				} else{
-					break;
-				}
+				Parameters.changeParameter(UMLName4, methodName4, oldParamName, paramName5, paramType5);
 
 				System.out.println("Would you like to continue renaming parameters in "+methodName4+"? (Y or N)");
 				String response = scanner.nextLine().toLowerCase();
