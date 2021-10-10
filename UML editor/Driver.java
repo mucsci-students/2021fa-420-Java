@@ -329,10 +329,6 @@ public class Driver {
 						+ "\nexit - exists the program."
 						+ "\nGUI - opens the GUI."
 
-						
-
-						
-						+ "\ndeleteallmethods - Deletes all methods in a given UML Class.");
 				break;
 
 			case "exit":
