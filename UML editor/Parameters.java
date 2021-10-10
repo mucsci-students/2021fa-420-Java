@@ -31,10 +31,9 @@ public class Parameters {
 		ArrayList<Parameters> pList;
 
 				// Makes sure the method of insertion exists or if the user exited
-				try {
-					pList = Parameters.findMethod(UMLName, methodName);
-				} catch (IllegalStateException e) {
-					
+				
+				pList = Parameters.findMethod(UMLName, methodName);
+				if(pList == null){ 
 					return false;
 				}
 
@@ -51,6 +50,7 @@ public class Parameters {
 				Parameters parameter = new Parameters(parameterName, type);
 				// Addition of a new parameter
 				pList.add(parameter);
+				System.out.println("Parameter Created!");
 				return true;
 				} else{
 					System.out.println( parameterName+" is a duplicate!");
@@ -64,11 +64,10 @@ public class Parameters {
 		// The ArrayList of Parameters in a given method
 		ArrayList<Parameters> mList;
 		// Exit case
-		try {
-			mList = findMethod(UMLName, methodsName);
-		} catch (IllegalStateException e) {
-			return false;
-		}
+			mList = Parameters.findMethod(UMLName, methodsName);
+			if(mList == null){ 
+				return false;
+				}
 		int index = -1;
 
 		// Finds the parameter to be removed
@@ -82,6 +81,7 @@ public class Parameters {
 		// Removes the parameter at the index if found
 		if(index != -1){
 			mList.remove(index);
+			System.out.println("Parameter deleted!");
 			return true;
 		}
 		else {
@@ -96,12 +96,13 @@ public class Parameters {
 		// The ArrayList of Parameters in a given method
 		ArrayList<Parameters> mList;
 		// Exit case
-		try {
-			mList = findMethod(UMLName, methodsName);
-		} catch (IllegalStateException e) {
+		mList = Parameters.findMethod(UMLName, methodsName);
+		if(mList == null){ 
 			return false;
-		}
+			}
+
 		mList.clear();
+		System.out.println("Parameters deleted!");
 		return true;
 	}
 
@@ -111,11 +112,10 @@ public class Parameters {
 		// The ArrayList of Parameters in a given method
 		ArrayList<Parameters> mList;
 		// Exit case
-		try {
-			mList = findMethod(UMLName, methodsName);
-		} catch (IllegalStateException e) {
+		mList = Parameters.findMethod(UMLName, methodsName);
+		if(mList == null){ 
 			return false;
-		}
+			}
 		//Duplicate checking
 		HashSet<String> noDuplicates = new HashSet<String>(); 
 		for(Parameters p : mList){
@@ -139,6 +139,7 @@ public class Parameters {
 			// Replaces the parameter at that index with the new one
 			if(!noDuplicates.contains(newpName)){
 			mList.set(index, p);
+			System.out.println("Parameter renamed!");
 			return true;
 			} else{
 				System.out.println(newpName +" is a duplicate. Choose another name");
@@ -172,7 +173,7 @@ public class Parameters {
 		for (int index = 0; index <= mList.size() -1; ++index ){
 			
 			System.out.println("Below is the parameter being changed:");
-			System.out.println("Name "+ mList.get(index).getParamName() +" Type: " + mList.get(index).getParamType());
+			System.out.println("Name: "+ mList.get(index).getParamName() +" Type: " + mList.get(index).getParamType());
 
 			System.out.println("What is the new name?");
 			String pName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
@@ -191,9 +192,11 @@ public class Parameters {
 
 			// Replaces the element at given index with the new element
 			mList.set(index, new Parameters(pName, pType));
+			
 		
 
 		}
+		System.out.println("All parameters renamed!");
 		return true;
 	}
 
@@ -221,10 +224,10 @@ public class Parameters {
 				}
 			}
 			System.out.println("Method " + methods +" was not found");
-			throw new IllegalStateException();
+			return null;
 		}
 		System.out.println("Class " + umlName +" was not found");
-		throw new IllegalStateException();
+		return null;
 	
 	}	
 }		
