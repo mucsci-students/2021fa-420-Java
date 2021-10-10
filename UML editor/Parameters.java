@@ -106,6 +106,8 @@ public class Parameters {
 		return true;
 	}
 
+
+
 	// Changes a single parameter in a method
 	public static boolean changeParameter(String UMLName, String methodsName, String oldpName, String newpName, String newpType ){
 
@@ -153,52 +155,6 @@ public class Parameters {
 
 	}
 
-	// Changes all the parameters of a given method
-	// Doesn't work if scanner is closed
-	public static boolean changeAllParameters(String UMLName, String methodsName){
-
-		Scanner scanner = new Scanner(System.in);
-		// The ArrayList of Parameters in a given method
-		ArrayList<Parameters> mList;
-		// Exit case
-		try {
-			mList = findMethod(UMLName, methodsName);
-		} catch (IllegalStateException e) {
-			return false;
-		}
-		// Used to check if the method already exists
-		HashSet<String> noDuplicates = new HashSet<String>(); 
-
-		// finds the element to be replaced and replaces the name and type for every element in the ArrayList
-		for (int index = 0; index <= mList.size() -1; ++index ){
-			
-			System.out.println("Below is the parameter being changed:");
-			System.out.println("Name: "+ mList.get(index).getParamName() +" Type: " + mList.get(index).getParamType());
-
-			System.out.println("What is the new name?");
-			String pName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-
-			// Makes sure that the new name of a parameter isn't a duplicate
-			while(noDuplicates.contains(pName)){
-				System.out.println("Parameter "+ pName + " already exists in this method. Choose another name.");
-				pName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-			}
-
-			// Adds new name to Duplicate set, so the name cant be repeated
-			noDuplicates.add(pName);
-      
-			System.out.println("What is " + pName + "'s type");
-			String pType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-
-			// Replaces the element at given index with the new element
-			mList.set(index, new Parameters(pName, pType));
-			
-		
-
-		}
-		System.out.println("All parameters renamed!");
-		return true;
-	}
 
 	// Helper method used to get the Parameter ArrayList of a given method
 	// Doesn't work if I close the Scanners

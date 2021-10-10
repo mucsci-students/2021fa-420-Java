@@ -66,7 +66,7 @@ public class UML {
 		return pattern;
 	}
 
-	public static void addClass(String className) {
+	public static UML addClass(String className) {
 		//If class doesn't exist and is alphanumeric
 		if(!noClassDupes.contains(className) && !pattern.matcher(className).find()) {
 			//Creates the class
@@ -79,6 +79,7 @@ public class UML {
 			else {
 				System.out.println("Class Created!");
 			}
+			return uml;
 		}
 		//When the inputted name is not alphanumeric
 		else if(pattern.matcher(className).find()) {
@@ -98,9 +99,10 @@ public class UML {
 				System.out.println("That class already exists!");
 			}
 		}
+		return null;
 	}
 
-	public static void deleteClass(String deleteName) {
+	public static UML deleteClass(String deleteName) {
 		//Check if the class exists
 		if(noClassDupes.contains(deleteName)) {
 			//Iterates through the collection
@@ -115,7 +117,7 @@ public class UML {
 					else {
 						System.out.println("Class Deleted!");
 					}
-					break;
+					return uml;
 				}
 			}
 		}
@@ -128,9 +130,10 @@ public class UML {
 				System.out.println("That class does not exist!");
 			}
 		}
+		return null;
 	}
 
-	public static void renameClass(String oldName, String newName) {
+	public static UML renameClass(String oldName, String newName) {
 		//Check if the old class exists and new name is alphanumeric
 		if(noClassDupes.contains(oldName) && !noClassDupes.contains(newName) && !pattern.matcher(newName).find()) {
 			//Iterates through the collection
@@ -146,7 +149,7 @@ public class UML {
 					else {
 						System.out.println("Class Renamed!");
 					}
-					break;
+					return uml;
 				}
 			}
 		}
@@ -177,6 +180,7 @@ public class UML {
 				System.out.println("That class does not exist!");
 			}
 		}
+		return null;
 	}
 
 	//Will list all of UMLs fields.
