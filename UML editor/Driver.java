@@ -307,13 +307,16 @@ public class Driver {
 						+ "\nrename class - takes a class and provides a new name * the name must not already exist as another class and it's new name must be alphanumeric."
 						+ "\nadd method - creates a new method for a class"
 						+ "\ndelete method - deletes a method from a class"
+						+ "\ndelete all methods - Deletes all methods in a given UML Class."
 						+ "\nrename method - renames a method in a class"
 						+ "\nadd field - creates a new field for a class"
 						+ "\ndelete field - deletes a field from a class"
 						+ "\nrename field - renames a field from a class"
 						+ "\nadd parameter - creates a parameter in a method for a class"
 						+ "\ndelete parameter - deletes a parameter from a method in a class"
-						+ "\nchange parameter - renames a parameter in a method in a class"
+						+ "\ndelete all parameters - deletes all the paramaters in a given method"
+						+ "\nchange parameter - changes a parameter in a method in a class"
+						+ "\nchange all parameters - changes all the parameters in a method."
 						+ "\nadd relation - creates a relationship between two classes"
 						+ "\ndelete relation - deletes a relationship between two classes"
 						+ "\nchange relationship type - changes a relationship type"
@@ -323,7 +326,9 @@ public class Driver {
 						+ "\nsave - saves current uml file"
 						+ "\nload - loads a uml file"
 						+ "\nhelp - provides a list of commands usable commands."
-						+ "\nexit - exists the program.");
+						+ "\nexit - exists the program."
+						+ "\nGUI - opens the GUI.");
+
 				break;
 
 			case "exit":
