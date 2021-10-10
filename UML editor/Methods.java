@@ -174,6 +174,8 @@ public class Methods {
 			}
 		}
 	}
+	
+
 	// Renames an already existing method in a given class
 	public static void renameMethod(String className, String oldName, String newName) {
 		// Given class exists
