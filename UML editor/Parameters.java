@@ -27,6 +27,38 @@ public class Parameters {
 		type = newType;
 	}
 
+	public static boolean addParameter(String UMLName, String methodName, String parameterName, String type){
+		ArrayList<Parameters> pList;
+
+				// Makes sure the method of insertion exists or if the user exited
+				try {
+					pList = Parameters.findMethod(UMLName, methodName);
+				} catch (IllegalStateException e) {
+					
+					return false;
+				}
+
+				// Duplicate checking
+				HashSet<String> noDuplicates = new HashSet<String>(); 
+
+				// Copying Param names to noDuplicates
+				for(Parameters p : pList){
+					noDuplicates.add(p.getParamName());
+				}
+
+				if(!noDuplicates.contains(parameterName)){
+				noDuplicates.add(parameterName);
+				Parameters parameter = new Parameters(parameterName, type);
+				// Addition of a new parameter
+				pList.add(parameter);
+				return true;
+				} else{
+					System.out.println( parameterName+" is a duplicate!");
+				}
+			return false;
+
+	}
+
 	// Removes a parameter that matches the specified credentials at the index
 	public static boolean deleteParameter (String UMLName, String methodsName, String pName){
 		// The ArrayList of Parameters in a given method
