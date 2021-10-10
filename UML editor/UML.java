@@ -73,23 +73,29 @@ public class UML {
 			UML uml = new UML(className);
 			noClassDupes.add(className);
 			collection.add(uml);
-			if(!Driver.guiUp) {
+			if(Driver.guiUp) {
+				View.outputLbl.setText("Class Created!");
+			}
+			else {
 				System.out.println("Class Created!");
 			}
 		}
 		//When the inputted name is not alphanumeric
 		else if(pattern.matcher(className).find()) {
 			if(Driver.guiUp) {
-				View.outputLbl.setText("A class name must only contain numbers and letters.");
+				View.outputLbl.setText("A class name must only contain numbers and letters!");
 			}
 			else {
-				System.out.println("A class name must only contain numbers and letters.");
+				System.out.println("A class name must only contain numbers and letters!");
 			}
 		}
 		//When the class already exists
 		else {
-			if(!Driver.guiUp) {
-				System.out.println("That class already exists.");
+			if(Driver.guiUp) {
+				View.outputLbl.setText("That class already exists!");
+			}
+			else {
+				System.out.println("That class already exists!");
 			}
 		}
 	}
@@ -103,7 +109,10 @@ public class UML {
 				if(uml.getClassName().equals(deleteName)) {
 					noClassDupes.remove(deleteName);
 					collection.remove(collection.indexOf(uml));
-					if(!Driver.guiUp) {
+					if(Driver.guiUp) {
+						View.outputLbl.setText("Class Deleted!");
+					}
+					else {
 						System.out.println("Class Deleted!");
 					}
 					break;
@@ -112,8 +121,11 @@ public class UML {
 		}
 		//When the class doesn't exist
 		else {
-			if(!Driver.guiUp) {
-				System.out.println("That class does not exist.");
+			if(Driver.guiUp) {
+				View.outputLbl.setText("That class does not exist!");
+			}
+			else {
+				System.out.println("That class does not exist!");
 			}
 		}
 	}
@@ -128,7 +140,10 @@ public class UML {
 					noClassDupes.remove(oldName);
 					noClassDupes.add(newName);
 					uml.setClassName(newName);
-					if(!Driver.guiUp) {
+					if(Driver.guiUp) {
+						View.outputLbl.setText("Class Renamed!");
+					}
+					else {
 						System.out.println("Class Renamed!");
 					}
 					break;
@@ -146,14 +161,20 @@ public class UML {
 		}
 		//When the new class already exists
 		else if(noClassDupes.contains(newName)) {
-			if(!Driver.guiUp) {
-				System.out.println("That class already exists.");
+			if(Driver.guiUp) {
+				View.outputLbl.setText("That class already exists!");
+			}
+			else {
+				System.out.println("That class already exists!");
 			}
 		}
 		//When the old class doesn't exist
 		else {
-			if(!Driver.guiUp) {
-				System.out.println("That class does not exist.");
+			if(Driver.guiUp) {
+				View.outputLbl.setText("That class does not exist!");
+			}
+			else {
+				System.out.println("That class does not exist!");
 			}
 		}
 	}
@@ -243,10 +264,10 @@ public class UML {
 		//Checks if there are any relationships.
 		if(rels.isEmpty()) {
 			if(Driver.guiUp) {
-				View.outputLbl.setText("Error: No relationships exist");
+				View.outputText = ("No relationships exist!");
 			}
 			else {
-				System.out.println("Error: No relationships exist");
+				System.out.println("No relationships exist!");
 			}
 		}
 		else {

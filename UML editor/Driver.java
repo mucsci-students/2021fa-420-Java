@@ -76,9 +76,21 @@ public class Driver {
 					Fields.addField(classNameAdd, fieldNameAdd, fieldTypeAdd);
 
 					System.out.println("Would you like to add another field? (yes / no)");
-					String response = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-					if (response.equals("no")) {
-						moreFields = false;
+					String answer = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+
+					boolean response = true;
+					while(response) {
+						if(!answer.equals("yes") && !answer.equals("no")) {
+							System.out.println("Please respond with yes or no!");
+							answer = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+						}
+						else if(answer.equals("no")) {
+							response = false;
+							moreFields = false;
+						}
+						else {
+							response = false;
+						}
 					}
 				}
 
@@ -89,7 +101,8 @@ public class Driver {
 				String classNameRemove = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
 				boolean moreFieldsRemove = true;
-				while (moreFieldsRemove) {
+
+				while(moreFieldsRemove) {
 					System.out.println("What field are you removing?");
 					String deletefield = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
@@ -97,19 +110,20 @@ public class Driver {
 
 					System.out.println("Would you like to remove another field? (yes / no)");
 					String removeResponse = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-					if (removeResponse.equals("yes")) {
-						System.out.println("Here are the remaining fields within the class " + classNameRemove);
-						if (UML.getNoClassDupes().contains(classNameRemove)) {
-							for (UML uml : UML.getCollection()) {
-								if (uml.getClassName().equals(classNameRemove)) {
-									uml.listFields();
-									break;
-								}
-							}
-						}                    
-					}
-					if (removeResponse.equals("no")) {
-						moreFieldsRemove = false;
+
+					boolean response = true;
+					while(response) {
+						if(!removeResponse.equals("yes") && !removeResponse.equals("no")) {
+							System.out.println("Please respond with yes or no!");
+							removeResponse = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+						}
+						else if(removeResponse.equals("no")) {
+							response = false;
+							moreFieldsRemove = false;
+						}
+						else {
+							response = false;
+						}
 					}
 				}
 
@@ -178,44 +192,45 @@ public class Driver {
 
 			case "addrelation":
 				System.out.println("What class would you like to be the source of the relation?");
-
 				String cName = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
 				System.out.println("What is the destination of the relation?");
-
 				String relDest = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
 				System.out.println("What is the type of the relation? Type must be aggregation, composition, inheritance, or realization.");
-
 				String relType = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-				for(UML umlDest : UML.getCollection()) {
-					if(umlDest.getClassName().toLowerCase().equals(relDest)) {
-						for(UML umlSrc : UML.getCollection()) {
-							if(umlSrc.getClassName().toLowerCase().equals(cName)) {
-								Relationships.addRel(umlSrc,umlDest,relType);
-								break;
+
+				if(UML.getNoClassDupes().contains(cName)) {
+					if(UML.getNoClassDupes().contains(relDest)) {
+						for(UML umlDest : UML.getCollection()) {
+							if(umlDest.getClassName().equals(relDest)) {
+								for(UML umlSrc : UML.getCollection()) {
+									if(umlSrc.getClassName().equals(cName)) {
+										Relationships.addRel(umlSrc, umlDest, relType);
+										break;
+									}
+								}
 							}
 						}
 					}
+					else {
+						System.out.println("Destination class does not exist!");
+					}
+				}
+				else {
+					System.out.println("Source class does not exist!");
 				}
 
 				break;
 
 			case "deleterelation":
 				System.out.println("What class would you like to delete a relation from?");
-
 				String clName = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
 				System.out.println("What is the destination of the relation");
-
 				String relDestination = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-				for(UML u : UML.getCollection()){
-					if( u.getClassName().toLowerCase().equals(relDestination)){
-						Relationships.delRel(clName,u);
-
-						break;
-					}
-				}
+				
+				Relationships.delRel(clName, relDestination);
 
 				break;
 
@@ -229,18 +244,7 @@ public class Driver {
 				System.out.println("What would you like to change the type to?");
 				String newType = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
-				for(UML umlSrc : UML.getCollection()) {
-					if(umlSrc.getClassName().toLowerCase().equals(changeRelSource)) {
-						for(Relationships umlRel : umlSrc.getRels()) {
-							if(umlRel.getDestination().toLowerCase().equals(changeRelDest)) {
-								umlRel.setType(newType);
-								System.out.println("Type changed to " + newType);
-								break;
-							}
-						}
-					}
-				}
-
+				Relationships.changeRel(changeRelSource, changeRelDest, newType);
 
 				break;
 
@@ -248,7 +252,7 @@ public class Driver {
 				if(!guiUp) {
 					// Checks to see if collection contains any classes
 					if (UML.getCollection().isEmpty()) {
-						System.out.println("Error: No classes exist");
+						System.out.println("No classes exist!");
 					}
 					else {
 						//Prints all classes in arrayList "collection"
@@ -274,7 +278,7 @@ public class Driver {
 					}
 				}
 				else {
-					System.out.println("Error: class does not exist");
+					System.out.println("Class does not exist!");
 				}
 				break;
 
@@ -292,7 +296,7 @@ public class Driver {
 					}
 				}
 				else {
-					System.out.println("Error: class does not exist");
+					System.out.println("Class does not exist!");
 				}
 				break;
 
@@ -354,9 +358,9 @@ public class Driver {
 				String UMLName = scanner.nextLine().toLowerCase();
 				System.out.println("What method would you like to add a parameter to?");
 				String methodName = scanner.nextLine().toLowerCase();
-				System.out.println("What is the Parameter name!");
+				System.out.println("What is the parameter name?");
 				String paramName = scanner.nextLine().toLowerCase();
-				System.out.println("What is the parameter type!");
+				System.out.println("What is the parameter type?");
 				String paramType = scanner.nextLine().toLowerCase();
 				Parameters.addParameter(UMLName, methodName, paramName,  paramType);
 				System.out.println("Parameter Created!");
@@ -367,7 +371,7 @@ public class Driver {
 				String UMLName1 = scanner.nextLine().toLowerCase();
 				System.out.println("What method would you like to remove the parameter from?");
 				String methodName1 = scanner.nextLine().toLowerCase();
-				System.out.println("What is the Parameter name!");
+				System.out.println("What is the parameter name?");
 				String paramName1 = scanner.nextLine().toLowerCase();
 
 				Parameters.deleteParameter(UMLName1, methodName1, paramName1);
@@ -382,7 +386,7 @@ public class Driver {
 				Parameters.deleteAllParameters(UMLName2, methodName2);
 				break;
 
-			case "renameallparameters":
+			case "changeallparameters":
 				System.out.println("What class would you like to rename all parameters in?");
 				String UMLName3 = scanner.nextLine().toLowerCase();
 				System.out.println("What method would you like to rename all parameters in?");
@@ -405,15 +409,6 @@ public class Driver {
 				String paramType5 = scanner.nextLine().toLowerCase();
 
 				Parameters.changeParameter(UMLName4, methodName4, oldParamName, paramName5, paramType5);
-				break;
-
-			case "listparameters":
-				System.out.println("What class is the method you want to list in?");
-				String UMLName5 = scanner.nextLine().toLowerCase();
-				System.out.println("What method would you like to list?");
-				String methodName5 = scanner.nextLine().toLowerCase();
-
-				Parameters.listParameters(UMLName5, methodName5);
 				break;
 
 			case "gui":

@@ -4,21 +4,9 @@ public class Relationships {
 	private String type;
 
 	public Relationships(UML source, UML destination, String type) {
-		if (testType(type)) {
-			this.source = source.getClassName();
-			this.destination = destination.getClassName();
-			this.type = type;
-		} else {
-			System.out.println("Error:Type must be aggregation, composition, inheritance, or realization.");
-		}
-	}
-
-	private boolean testType (String type) {
-		type.toLowerCase();
-		if (type.equals("aggregation")||type.equals("composition")||type.equals("inheritance")||type.equals("realization")) {
-			return true;
-		}
-		return false; 
+		this.source = source.getClassName();
+		this.destination = destination.getClassName();
+		this.type = type;
 	}
 
 	public String getSource() {
@@ -43,70 +31,133 @@ public class Relationships {
 	}
 
 	public void setType(String type) {
-		if (testType(type)) {
+		if(testType(type)) {
 			this.type = type;
-		} else {
-			System.out.println("Error:Type must be aggregation, composition, inheritance, or realization.");
+		}
+		else {
+			if(Driver.guiUp) {
+				View.outputLbl.setText("Type must be aggregation, composition, inheritance, or realization.");
+			}
+			else {
+				System.out.println("Type must be aggregation, composition, inheritance, or realization.");
+			}
 		}
 	}
 
-	public static void addRel(UML source, UML destination, String type){ //make String type into enum later
-        boolean foundDest = false;
-        boolean foundSrc = false;
-        boolean dupeRel = false;
-        for (UML c: UML.getCollection()){
-            if (c.getClassName().equals(source.getClassName())) {
-                foundSrc = true;
-            }
-            if (c.getClassName().equals(destination.getClassName())){ // Need to see if the destination file exists
-                foundDest = true;
-            }
-            if(source == destination) {
-                foundDest = false;
-                foundSrc = false;
-            }
-        }
-        if(foundSrc && foundDest){
-            for (Relationships c: source.getRels()) {
-                if (c.getDestination() == destination.getClassName()) {
-                    dupeRel = true;
-                    System.out.println("A relationship from " + source.getClassName() + " to " + destination.getClassName() + " already exists");
-                }
-            }
-            if (dupeRel == false) {
-                Relationships r = new Relationships(source, destination, type);
-                for(UML u : UML.getCollection()){
-                    if( u.getClassName().toLowerCase().equals(source.getClassName().toLowerCase())){ // searches for the class name that we are adding a relationship to
-                        u.getRels().add(r); 
-                        System.out.println("Relationship added!");
+	public static boolean testType(String type) {
+		if(type.equals("aggregation") || type.equals("composition") || type.equals("inheritance") || type.equals("realization")) {
+			return true;
+		}
+		return false;
+	}
 
-                        return;
-                    }
-                }
-            }
-        } else {
-            System.out.println("Improper input");
+	public static void addRel(UML source, UML destination, String type) { //make String type into enum later
+		boolean dupeRel = false;
+		if(source != destination) {
+			for(Relationships c : source.getRels()) {
+				if(c.getDestination() == destination.getClassName()) {
+					dupeRel = true;
+					if(Driver.guiUp) {
+						View.outputLbl.setText("A relationship from " + source.getClassName() + " to " + destination.getClassName() + " already exists!");
+					}
+					else {
+						System.out.println("A relationship from " + source.getClassName() + " to " + destination.getClassName() + " already exists!");
+					}
+				}
+			}
+			if(dupeRel == false) {
+				Relationships r = new Relationships(source, destination, type);
+				for(UML u : UML.getCollection()) {
+					if(u.getClassName().equals(source.getClassName())) { // searches for the class name that we are adding a relationship to
+						u.getRels().add(r);
+						if(Driver.guiUp) {
+							View.outputLbl.setText("Relationship added!");
+						}
+						else {
+							System.out.println("Relationship added!");
+						}
+						return;
+					}
+				}
+			}
+		}
+	}
 
-        }
-    }
-
-        public static void delRel(String className, UML destination) {
-            for(UML u : UML.getCollection()){
-                if (u.getClassName().toLowerCase().equals(u.getClassName().toLowerCase())){ //finds uml
-                    for (Relationships r : u.getRels()){
-                        if (r.getDestination().equals(destination.getClassName()) ){ //Checks if a relationship in the relationship arraylist has the same name as the requested deletion destination 
-                            int x = u.getRels().indexOf(r);    // Needed to finds where the relationship is that we need to delete
-                            u.getRels().remove(x);
-                            System.out.println("Relationship deleted!");
-                            return;
-                        }
-
-                    }
-                    System.out.println(destination + " does not exist");
-                }
-            }
-            System.out.println(className + " does not exist");
-
-
-    }
+	public static void delRel(String className, String destination) {
+		for(UML srcUml : UML.getCollection()) {
+			if(srcUml.getClassName().equals(srcUml.getClassName())) { //finds uml
+				for(UML destUml : UML.getCollection()) {
+					if(destUml.getClassName().equals(destination)) {
+						for(Relationships r : srcUml.getRels()) {
+							if(r.getDestination().equals(destination)) { //Checks if a relationship in the relationship arraylist has the same name as the requested deletion destination 
+								int x = srcUml.getRels().indexOf(r);// Needed to finds where the relationship is that we need to delete
+								srcUml.getRels().remove(x);
+								if(Driver.guiUp) {
+									View.outputLbl.setText("Relationship deleted!");
+								}
+								else {
+									System.out.println("Relationship deleted!");
+								}
+							}
+						}
+					}
+					else {
+						if(Driver.guiUp) {
+							View.outputLbl.setText("Destination class does not exist!");
+						}
+						else {
+							System.out.println("Destination class does not exist!");
+						}
+					}
+				}
+			}
+			else {
+				if(Driver.guiUp) {
+					View.outputLbl.setText("Source class does not exist!");
+				}
+				else {
+					System.out.println("Source class does not exist!");
+				}
+			}
+		}
+	}
+	
+	public static void changeRel(String srcName, String destName, String type) {
+		if(UML.getNoClassDupes().contains(srcName)) {
+			if(UML.getNoClassDupes().contains(destName)) {
+				for(UML umlSrc : UML.getCollection()) {
+					if(umlSrc.getClassName().equals(srcName)) {
+						for(Relationships umlRel : umlSrc.getRels()) {
+							if(umlRel.getDestination().equals(destName)) {
+								umlRel.setType(type);
+								if(Driver.guiUp) {
+									View.outputLbl.setText("Type changed to " + type);
+								}
+								else {
+									System.out.println("Type changed to " + type);
+								}
+								return;
+							}
+						}
+					}
+				}
+			}
+			else {
+				if(Driver.guiUp) {
+					View.outputLbl.setText("Destination class does not exist!");
+				}
+				else {
+					System.out.println("Destination class does not exist!");
+				}
+			}
+		}
+		else {
+			if(Driver.guiUp) {
+				View.outputLbl.setText("Source class does not exist!");
+			}
+			else {
+				System.out.println("Source class does not exist!");
+			}
+		}
+	}
 }
