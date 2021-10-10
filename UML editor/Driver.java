@@ -367,7 +367,7 @@ public class Driver {
 				try {
 					allParams2 = Parameters.findMethod(UMLName, methodName);
 				} catch (IllegalStateException e) {
-					System.out.println("Exited Successfully");
+					
 					break;
 				}
 
@@ -382,7 +382,7 @@ public class Driver {
 				// If the user wants to add multiple parameters
 				while(continueAddingParams){
 					
-				System.out.println("What is the Parameter name!");
+				System.out.println("What is the parameter name!");
 				String paramName = scanner.nextLine().toLowerCase();
 
 				// Duplicate checking
@@ -415,18 +415,32 @@ public class Driver {
 				break;
 
 			case "deleteparameter":
-
+				boolean continueDelete = true;
 				// Gets the UML name, method name, and parameter name to delete
 				System.out.println("What class would you like to remove the parameter from?");
 				String UMLName1 = scanner.nextLine().toLowerCase();
 				System.out.println("What method would you like to remove the parameter from?");
 				String methodName1 = scanner.nextLine().toLowerCase();
+
+				while(continueDelete){
 				System.out.println("What is the Parameter name!");
 				String paramName1 = scanner.nextLine().toLowerCase();
 
 				// Deletion
-				Parameters.deleteParameter(UMLName1, methodName1, paramName1);
-				System.out.println("Parameter deleted!");
+				if(Parameters.deleteParameter(UMLName1, methodName1, paramName1)){
+					System.out.println("Parameter deleted!");
+					System.out.println("Would you like to continue deleting parameters in "+methodName1+"? (Y or N)");
+				String response = scanner.nextLine().toLowerCase();
+
+				// If the user wants to stop adding parameters
+				if (!response.equalsIgnoreCase("Y") && !response.equalsIgnoreCase("yes")){
+					continueDelete = false;
+				}
+			} else {
+				break;
+			}
+				
+				}
 				break;
 
 			case "deleteallparameters":
@@ -437,21 +451,24 @@ public class Driver {
 				String methodName2 = scanner.nextLine().toLowerCase();
 
 				// Deletion
-				Parameters.deleteAllParameters(UMLName2, methodName2);
-				System.out.println("Parameters deleted!");
+				if(Parameters.deleteAllParameters(UMLName2, methodName2)){
+					System.out.println("Parameters deleted!");
+				}
+				
 				break;
 
 			case "renameallparameters":
 				// Gets the parameter list to modify
-				System.out.println("What class would you like to add a parameter to?");
+				System.out.println("What class would you like to rename parameters in?");
 				String UMLName3 = scanner.nextLine().toLowerCase();
-				System.out.println("What method would you like to add a parameter to?");
+				System.out.println("What method would you like to rename parameters in?");
 				String methodName3 = scanner.nextLine().toLowerCase();
 
 				
 				// Changes all parameters
-				Parameters.changeAllParameters(UMLName3, methodName3);
+				if(Parameters.changeAllParameters(UMLName3, methodName3)){
 				System.out.println("All parameters renamed!");
+				}
 				break;
 
 			case "renameparameter":
@@ -476,9 +493,13 @@ public class Driver {
 				System.out.println("What is the parameter type!");
 				String paramType5 = scanner.nextLine().toLowerCase();
 
-				// Chnages parameter
-				Parameters.changeParameter(UMLName4, methodName4, oldParamName, paramName5, paramType5);
+				// Changes parameter if it doesn't already exist
+				if(Parameters.changeParameter(UMLName4, methodName4, oldParamName, paramName5, paramType5)){
 				System.out.println("Parameter renamed!");
+				
+				} else{
+					break;
+				}
 
 				System.out.println("Would you like to continue renaming parameters in "+methodName4+"? (Y or N)");
 				String response = scanner.nextLine().toLowerCase();
