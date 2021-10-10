@@ -408,8 +408,8 @@ public class Driver {
 
 				// Deletion
 				if(Parameters.deleteParameter(UMLName1, methodName1, paramName1)){
-					System.out.println("Would you like to continue deleting parameters in "+methodName1+"? (Y or N)");
-				String response = scanner.nextLine().toLowerCase();
+					System.out.println("Would you like to continue deleting parameters in "+methodName1+"? (Yes or No)");
+					String response = scanner.nextLine().toLowerCase();
 
 				// If the user wants to stop adding parameters
 				if (!response.equalsIgnoreCase("Y") && !response.equalsIgnoreCase("yes")){
@@ -435,21 +435,47 @@ public class Driver {
 				
 				break;
 
-			case "renameallparameters":
+			case "changeallparameters":
 				// Gets the parameter list to modify
 				System.out.println("What class would you like to rename parameters in?");
-
 				String UMLName3 = scanner.nextLine().toLowerCase();
+
 				System.out.println("What method would you like to rename parameters in?");
 				String methodName3 = scanner.nextLine().toLowerCase();
+				HashSet<String> Dupes = new HashSet<>();
 
-				
-				// Changes all parameters
-				Parameters.changeAllParameters(UMLName3, methodName3);
+				ArrayList<Parameters> pList = Parameters.findMethod(UMLName3, methodName3);
 
+				if (pList.isEmpty()){
+					System.out.println("There are no parameters are in " + methodName3);
+					break;
+				}
+
+				int count = 0;
+				if (pList != null){
+				for(Parameters p : pList){
+					System.out.println("Here is the parameter being changed:");
+					System.out.println("Name: "+ p.getParamName() +" Type: " + p.getParamType());
+
+					System.out.println("What is the new name?");
+					String pName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+
+					if(!Dupes.contains(pName)){
+					Dupes.add(pName);
+
+					System.out.println("What is the parameter type?");
+					String pType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+					
+					pList.set(count, new Parameters(pName, pType));
+					++count;
+					} else {
+						System.out.println(pName+" already exists in " + methodName3);
+					}
+				}
+			}
 				break;
 
-			case "renameparameter":
+			case "changeparameter":
 				boolean continueChanging = true;
 
 				
@@ -472,16 +498,18 @@ public class Driver {
 				String paramType5 = scanner.nextLine().toLowerCase();
 
 				// Changes parameter if it doesn't already exist
-				Parameters.changeParameter(UMLName4, methodName4, oldParamName, paramName5, paramType5);
+				if(Parameters.changeParameter(UMLName4, methodName4, oldParamName, paramName5, paramType5)){
 
-				System.out.println("Would you like to continue renaming parameters in "+methodName4+"? (Y or N)");
+				System.out.println("Would you like to continue renaming parameters in "+methodName4+"? (Yes or No)");
 				String response = scanner.nextLine().toLowerCase();
 
 				// If the user wants to stop renaming parameters
-				if (!response.equalsIgnoreCase("Y") && !response.equalsIgnoreCase("yes")){
-					continueChanging = false;
-				}
-
+					if (!response.equalsIgnoreCase("Y") && !response.equalsIgnoreCase("yes")){
+						continueChanging = false;
+						}
+					} else { 
+						break;
+					}
 				}
 				break;
 
