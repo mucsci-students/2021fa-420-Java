@@ -153,12 +153,14 @@ public class Parameters {
 
 			// Adds new name to Duplicate set, so the name cant be repeated
 			noDuplicates.add(pName);
+      
 			System.out.println("What is " + pName + "'s type");
 			String pType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
 			// Replaces the element at given index with the new element
 			mList.set(index, new Parameters(pName, pType));
-			
+		
+
 		}
 		return true;
 	}
@@ -167,6 +169,7 @@ public class Parameters {
 	// Doesn't work if I close the Scanners
 	public static ArrayList<Parameters> findMethod(String umlName, String methods ){
 		// Set to null in order to use for comparisons later
+
 		UML foundUML = null;
 
 		// Finds the UML object if it exists
