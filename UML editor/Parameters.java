@@ -97,12 +97,10 @@ public class Parameters {
 			System.out.println("What is the new name?");
 			String pName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
-
 			System.out.println("What is " + pName + "'s type");
 			String pType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
 			mList.set(index, new Parameters(pName, pType));
-
 		}
 	}
 	

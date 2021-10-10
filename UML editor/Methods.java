@@ -124,6 +124,7 @@ public class Methods {
 							System.out.println("This class has no methods!");
 						}
 					}
+					return;
 				}
 			}
 		}
@@ -171,6 +172,27 @@ public class Methods {
 			else {
 				System.out.println("That class does not exist!");
 			}
+		}
+	}
+	// Remove all methods from the given class
+	public static void removeAllMethods(String className) {
+		// Given class exists
+		if(UML.getNoClassDupes().contains(className)) {
+			for(UML uml : UML.getCollection()) {
+				if(uml.getClassName().equals(className)) {
+					if(uml.getMethod().isEmpty()) {
+						System.out.println("There are no methods to remove.");
+					}
+					else {
+						uml.getMethod().clear();
+						System.out.println("All methods have been deleted!");
+						return;
+					}
+				}
+			}
+		}
+		else {
+			System.out.println("That class does not exist!");
 		}
 	}
 

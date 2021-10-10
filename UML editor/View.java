@@ -63,7 +63,7 @@ public class View {
 		frmUmlEditor.getContentPane().setLayout(null);
 		frmUmlEditor.getContentPane().setPreferredSize(new Dimension(1360, 700));
 		frmUmlEditor.pack();
-
+    
 		JPanel mainBtnPanel = new JPanel();
 		mainBtnPanel.setBackground(Color.LIGHT_GRAY);
 		mainBtnPanel.setBounds(10, 10, 183, 679);
@@ -145,7 +145,7 @@ public class View {
 		btnRenameField.setActionCommand("Rename Field");
 		btnRenameField.addActionListener(controller);
 		mainBtnPanel.add(btnRenameField);
-
+    
 		JButton btnAddRelationship = new JButton("Add Relationship");
 		btnAddRelationship.setActionCommand("Add Relationship");
 		btnAddRelationship.addActionListener(controller);
@@ -251,7 +251,6 @@ public class View {
 		outputLbl.setFont(outputLbl.getFont().deriveFont(16f));
 		outputLbl.setBounds(378, 10, 844, 679);
 		frmUmlEditor.getContentPane().add(outputLbl);
-
 	}
 
 	public static void closeGUI() {

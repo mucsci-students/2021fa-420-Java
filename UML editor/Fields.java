@@ -116,6 +116,7 @@ public class Fields {
 							System.out.println("This class has no fields!");
 						}
 					}
+					return;
 				}
 			}
 		}
