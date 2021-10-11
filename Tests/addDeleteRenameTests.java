@@ -16,6 +16,8 @@ public class AddDeleteRenameClassTests {
 		assertEquals("New class attribute arraylist had wrong size.", 0, uml.getField().size());
 		//True if relationship arraylist is empty on uml creation
 		assertEquals("New class relationship arraylist had wrong size.", 0, uml.getRels().size());
+		UML.getNoClassDupes().clear();
+		UML.getCollection().clear();
 	}
 	@Test
 	public void test02_AddThreeClasses() {
@@ -73,6 +75,8 @@ public class AddDeleteRenameClassTests {
 		//True if collection did not add uml and size is still 0
 		assertTrue(!UML.getCollection().contains(uml));
 		assertEquals("collection size is not 0", 0, UML.getCollection().size());
+		UML.getNoClassDupes().clear();
+		UML.getCollection().clear();
 	}
 	@Test
 	public void test04_AddClassExists() {
@@ -118,6 +122,8 @@ public class AddDeleteRenameClassTests {
 		//True if collection removed uml and size is 0
 		assertTrue(!UML.getCollection().contains(uml));
 		assertEquals("collection size is not 0", 0, UML.getCollection().size());
+		UML.getNoClassDupes().clear();
+		UML.getCollection().clear();
 	}
 	@Test
 	public void test06_DeleteClassNotExists() {
@@ -142,6 +148,8 @@ public class AddDeleteRenameClassTests {
 		assertTrue(bool);
 		//True if collection size did not change
 		assertEquals("collection size is not " + size, UML.getCollection().size(), size);
+		UML.getNoClassDupes().clear();
+		UML.getCollection().clear();
 	}
 	@Test
 	public void test07_RenameClassSuccess() {
@@ -179,7 +187,7 @@ public class AddDeleteRenameClassTests {
 		assertTrue(bool);
 		//True if collection size did not change
 		assertEquals("collection size is not " + size, UML.getCollection().size(), size);
-		UML.getCollection().clear();
+		UML.getNoClassDupes().clear();
 		UML.getCollection().clear();
 	}
 	@Test
