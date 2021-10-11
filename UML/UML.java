@@ -5,11 +5,11 @@ public class UML {
 	//Class name
 	private String name;
 	//List containing all the fields in a UML object
-	private ArrayList<Fields> field;
+	private ArrayList<Fields> fields;
 	//List containing all the fields in a UML object
-	private ArrayList<Methods> method;
+	private ArrayList<Methods> methods;
 	//List containing all the relations between UML objects
-	private ArrayList<Relationships> rels;
+	private ArrayList<Relationships> relationships;
 	//This set is to make sure there are no classes with the same name.
 	private static HashSet<String> noClassDupes = new HashSet<String>();
 	//This is the Array list that should hold all the objects
@@ -19,9 +19,9 @@ public class UML {
 
 	public UML(String name) {
 		this.name = name;
-		this.field = new ArrayList<Fields>();
-		this.method = new ArrayList<Methods>();
-		this.rels = new ArrayList<Relationships>();
+		this.fields = new ArrayList<Fields>();
+		this.methods = new ArrayList<Methods>();
+		this.relationships = new ArrayList<Relationships>();
 	}
 
 	public String getClassName() {
@@ -35,15 +35,15 @@ public class UML {
 	}
 
 	public ArrayList<Fields> getField() {
-		return field;
+		return fields;
 	}
 
 	public ArrayList<Methods> getMethod() {
-		return method;
+		return methods;
 	}
 
 	public ArrayList<Relationships> getRels() {
-		return rels;
+		return relationships;
 	}
 
 	public static ArrayList<UML> getCollection() {
@@ -192,7 +192,7 @@ public class UML {
 			System.out.println("Class: " + name);
 		}
 		//Checks if there are any fields.
-		if(field.isEmpty()) {
+		if(fields.isEmpty()) {
 			if(Driver.guiUp) {
 				View.outputText += "<br>This class has no fields";
 			}
@@ -204,15 +204,15 @@ public class UML {
 			if(Driver.guiUp) {
 				View.outputText += "<br>Fields:";
 				//Prints all fields in arrayList "field"
-				for(int i = 0; i < field.size(); i++) {
-					View.outputText += "<br>" + field.get(i).getFieldType() + " " + field.get(i).getFieldName();
+				for(int i = 0; i < fields.size(); i++) {
+					View.outputText += "<br>" + fields.get(i).getFieldType() + " " + fields.get(i).getFieldName();
 				}
 			}
 			else {
 				System.out.println("Fields:");
 				//Prints all fields in arrayList "field"
-				for(int i = 0; i < field.size(); i++) {
-					System.out.println(field.get(i).getFieldType() + " " + field.get(i).getFieldName());
+				for(int i = 0; i < fields.size(); i++) {
+					System.out.println(fields.get(i).getFieldType() + " " + fields.get(i).getFieldName());
 				}
 			}
 		}
@@ -221,7 +221,7 @@ public class UML {
 	//Will list all of UMLs methods.
 	public void listMethods() {
 		//Checks if there are any methods.
-		if(method.isEmpty()) {
+		if(methods.isEmpty()) {
 			if(Driver.guiUp) {
 				View.outputText += "<br>This class has no methods";
 			}
@@ -233,7 +233,7 @@ public class UML {
 			if(Driver.guiUp) {
 				//Prints all methods in arrayList "method"
 				View.outputText += "<br>Methods:";
-				for(Methods method : method) {
+				for(Methods method : methods) {
 					View.outputText += "<br>" + method.getMethodType() + " " + method.getMethodName() + "(";
 					//Prints all parameters in arrayList "param"
 					if(method.getParams().size() >= 1) {
@@ -248,7 +248,7 @@ public class UML {
 			else {
 				//Prints all methods in arrayList "method"
 				System.out.println("Methods:");
-				for(Methods method : method) {
+				for(Methods method : methods) {
 					System.out.print(method.getMethodType() + " " + method.getMethodName() + "(");
 					//Prints all parameters in arrayList "param"
 					if(method.getParams().size() >= 1) {
@@ -266,7 +266,7 @@ public class UML {
 	//Will list all of UMLs relationships.
 	public void listRelationships() {
 		//Checks if there are any relationships.
-		if(rels.isEmpty()) {
+		if(relationships.isEmpty()) {
 			if(Driver.guiUp) {
 				View.outputText = ("No relationships exist!");
 			}
@@ -278,16 +278,16 @@ public class UML {
 			if(Driver.guiUp) {
 				View.outputText = "<html>";
 				//Prints all relationships in arrayList "rels" for this UML object.
-				for(int i = 0; i < rels.size(); i++) {
-					View.outputText += rels.get(i).getSource() + " has a " + rels.get(i).getType() + " relationship with " + rels.get(i).getDestination() + "<br>";
+				for(int i = 0; i < relationships.size(); i++) {
+					View.outputText += relationships.get(i).getSource() + " has a " + relationships.get(i).getType() + " relationship with " + relationships.get(i).getDestination() + "<br>";
 				}
 			}
 			else {
 				//Prints all relationships in arrayList "rels" for this UML object.
-				for(int i = 0; i < rels.size(); i++) {
-					System.out.print(rels.get(i).getSource() + " has a "); 
-					System.out.print(rels.get(i).getType() + " relationship with ");
-					System.out.println(rels.get(i).getDestination());
+				for(int i = 0; i < relationships.size(); i++) {
+					System.out.print(relationships.get(i).getSource() + " has a "); 
+					System.out.print(relationships.get(i).getType() + " relationship with ");
+					System.out.println(relationships.get(i).getDestination());
 				}
 			}
 		}

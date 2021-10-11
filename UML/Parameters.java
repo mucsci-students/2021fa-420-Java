@@ -1,6 +1,5 @@
 import java.util.*;
 
-
 public class Parameters {
 	private String name;
 	private String type;
