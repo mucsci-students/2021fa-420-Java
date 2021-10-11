@@ -118,7 +118,6 @@ public class UML {
 						System.out.println("Class Deleted!");
 					}
 					return uml;
-					
 				}
 			}
 		}
