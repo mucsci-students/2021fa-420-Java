@@ -66,6 +66,7 @@ public class Driver {
 				System.out.println("What class are you adding to?");
 				String classNameAdd = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
+				//While the user wants more fields
 				boolean moreFields = true;
 				while(moreFields) {
 					System.out.println("What would you like to name the new field?");
@@ -78,17 +79,21 @@ public class Driver {
 
 					System.out.println("Would you like to add another field? (yes / no)");
 					String answer = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-
+					
+					//While the user needs to input yes or no
 					boolean response = true;
 					while(response) {
+						//Makes sure answer is yes or no
 						if(!answer.equals("yes") && !answer.equals("no")) {
 							System.out.println("Please respond with yes or no!");
 							answer = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 						}
+						//Stops if no
 						else if(answer.equals("no")) {
 							response = false;
 							moreFields = false;
 						}
+						//Continues if yes
 						else {
 							response = false;
 						}
@@ -112,16 +117,19 @@ public class Driver {
 					System.out.println("Would you like to remove another field? (yes / no)");
 					String removeResponse = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
+					//While the user needs to input yes or no
 					boolean response = true;
 					while(response) {
 						if(!removeResponse.equals("yes") && !removeResponse.equals("no")) {
 							System.out.println("Please respond with yes or no!");
 							removeResponse = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 						}
+						//Stops if no
 						else if(removeResponse.equals("no")) {
 							response = false;
 							moreFieldsRemove = false;
 						}
+						//Continues if yes
 						else {
 							response = false;
 						}
@@ -201,10 +209,14 @@ public class Driver {
 				System.out.println("What is the type of the relation? Type must be aggregation, composition, inheritance, or realization.");
 				String relType = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
+				//Checks if source exists
 				if(UML.getNoClassDupes().contains(cName)) {
+					//Checks if destination exists
 					if(UML.getNoClassDupes().contains(relDest)) {
+						//Searches for destination
 						for(UML umlDest : UML.getCollection()) {
 							if(umlDest.getClassName().equals(relDest)) {
+								//Searches for source
 								for(UML umlSrc : UML.getCollection()) {
 									if(umlSrc.getClassName().equals(cName)) {
 										Relationships.addRel(umlSrc, umlDest, relType);
@@ -214,6 +226,7 @@ public class Driver {
 							}
 						}
 					}
+					//Destination class does not exist
 					else {
 						if(Driver.guiUp) {
 							View.outputLbl.setText("Destination class does not exist!");
@@ -223,6 +236,7 @@ public class Driver {
 						}
 					}
 				}
+				//Source class does not exist
 				else {
 					if(Driver.guiUp) {
 						View.outputLbl.setText("Source class does not exist!");
@@ -298,7 +312,9 @@ public class Driver {
 				//Scanner input (name of UML object)
 				String toListRelationships = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
+				//Checks if class exists
 				if(UML.getNoClassDupes().contains(toListRelationships)) {
+					//Searches for class
 					for(UML uml : UML.getCollection()) {
 						if(uml.getClassName().equals(toListRelationships)) {
 							uml.listRelationships();
@@ -317,13 +333,16 @@ public class Driver {
 						+ "\nrename class - takes a class and provides a new name * the name must not already exist as another class and it's new name must be alphanumeric."
 						+ "\nadd method - creates a new method for a class"
 						+ "\ndelete method - deletes a method from a class"
+						+ "\ndelete all methods - Deletes all methods in a given UML Class."
 						+ "\nrename method - renames a method in a class"
 						+ "\nadd field - creates a new field for a class"
 						+ "\ndelete field - deletes a field from a class"
 						+ "\nrename field - renames a field from a class"
 						+ "\nadd parameter - creates a parameter in a method for a class"
 						+ "\ndelete parameter - deletes a parameter from a method in a class"
-						+ "\nchange parameter - renames a parameter in a method in a class"
+						+ "\ndelete all parameters - deletes all the paramaters in a given method"
+						+ "\nchange parameter - changes a parameter in a method in a class"
+						+ "\nchange all parameters - changes all the parameters in a method"
 						+ "\nadd relation - creates a relationship between two classes"
 						+ "\ndelete relation - deletes a relationship between two classes"
 						+ "\nchange relationship type - changes a relationship type"
@@ -332,8 +351,9 @@ public class Driver {
 						+ "\nlist relationships - lists relationships between all classes"
 						+ "\nsave - saves current uml file"
 						+ "\nload - loads a uml file"
-						+ "\nhelp - provides a list of commands usable commands."
-						+ "\nexit - exists the program.");
+						+ "\nhelp - provides a list of commands usable commands"
+						+ "\nexit - exists the program"
+						+ "\nGUI - opens the GUI");
 				break;
 
 			case "exit":
@@ -408,7 +428,6 @@ public class Driver {
 						break;
 					}
 				}
-				
 				break;
 
 			case "deleteallparameters":
@@ -429,19 +448,21 @@ public class Driver {
 
 				System.out.println("What method would you like to rename parameters in?");
 				String methodName3 = scanner.nextLine().toLowerCase();
-				
+
 				HashSet<String> Dupes = new HashSet<String>();
 				ArrayList<Parameters> pList = Parameters.findMethod(UMLName3, methodName3);
 
+				//Makes sure there are parameters
 				if(pList != null) {
 					if(!pList.isEmpty()) {
+						//Loops through all parameters
 						for(int i = 0 ; i <= pList.size() - 1; i++) {
 							System.out.println("Here is the parameter being changed:");
 							System.out.println(pList.get(i).getParamType() + " " + pList.get(i).getParamName());
 
 							System.out.println("What is the new name?");
 							String pName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-
+							//Makes sure no duplicates while renaming
 							if(!Dupes.contains(pName)){
 								Dupes.add(pName);
 
@@ -459,7 +480,6 @@ public class Driver {
 						System.out.println("There are no parameters to change!");
 					}
 				}
-				
 				break;
 
 			case "changeparameter":

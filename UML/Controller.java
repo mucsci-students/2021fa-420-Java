@@ -195,6 +195,7 @@ public class Controller implements ActionListener {
 
 			//If user wanted to remove a parameter
 			else if(command.equals("Remove Parameter")) {
+				//If user inputs info correctly
 				if(input.hasNext()) {
 					String className = input.next();
 					if(input.hasNext()) {
@@ -221,6 +222,7 @@ public class Controller implements ActionListener {
 
 			//If user wanted to remove all parameters
 			else if(command.equals("Remove All Parameters")) {
+				//If user inputs info correctly
 				if(input.hasNext()) {
 					String className = input.next();
 					if(input.hasNext()) {
@@ -241,6 +243,7 @@ public class Controller implements ActionListener {
 
 			//If user wanted to change a parameter
 			else if(command.equals("Change Parameter")) {
+				//If user inputs info correctly
 				if(input.hasNext()) {
 					String className = input.next();
 					if(input.hasNext()) {
@@ -279,6 +282,7 @@ public class Controller implements ActionListener {
 
 			//If user wanted to change all parameters
 			else if(command.equals("Change All Parameters")) {
+				//If user inputs info correctly
 				if(input.hasNext()) {
 					String className = input.next();
 					if(input.hasNext()) {
@@ -315,6 +319,7 @@ public class Controller implements ActionListener {
 			
 			//To continue changing parameters
 			else if(command.equals("Change All Params Continued")) {
+				//If user inputs info correctly
 				if(input.hasNext()) {
 					String paramName = input.next();
 					if(input.hasNext()) {

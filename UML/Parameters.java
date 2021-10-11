@@ -1,6 +1,5 @@
 import java.util.*;
 
-
 public class Parameters {
 	private String name;
 	private String type;
@@ -29,7 +28,6 @@ public class Parameters {
 
 	public static boolean addParameter(String UMLName, String methodName, String parameterName, String type){
 		ArrayList<Parameters> pList;
-		
 		// Makes sure the method of insertion exists or if the user exited
 
 		pList = Parameters.findMethod(UMLName, methodName);
