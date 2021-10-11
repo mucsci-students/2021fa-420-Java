@@ -378,8 +378,9 @@ public class Driver {
 					System.out.println("Enter the file you would like to load");
 					String loadFile = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
-					JsonFile.load(loadFile, UML.getCollection());
+					if(JsonFile.load(loadFile, UML.getCollection())){
 					System.out.println("File loaded!");
+					}
 				}
 
 				break;
@@ -427,7 +428,6 @@ public class Driver {
 						break;
 					}
 				}
-
 				break;
 
 			case "deleteallparameters":
@@ -480,7 +480,6 @@ public class Driver {
 						System.out.println("There are no parameters to change!");
 					}
 				}
-
 				break;
 
 			case "changeparameter":
