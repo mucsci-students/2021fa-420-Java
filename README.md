@@ -17,7 +17,7 @@ Dependencies:
     
     ![image](https://user-images.githubusercontent.com/89495565/136719504-c702035b-8457-40bf-851b-7ef158cd6095.png)
 
-    - Search for "Language Support for Java(TM) by Red Hat" and click install
+    - Search for "Language Support for Java(TM) by Red Hat" and click install to get the Java extension
     
     ![image](https://user-images.githubusercontent.com/89495565/136719539-f14e7a28-6b81-499c-a2c2-756eedcb80d7.png)
 
