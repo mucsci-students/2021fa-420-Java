@@ -1,6 +1,6 @@
 import org.junit.Test;
 import static org.junit.Assert.*;
-public class AddDeleteRenameClassTests {
+public class addDeleteRenameTests {
 	
 	/**
 	 * Make global variables attr, rels, noClassDupes, collection, and p public

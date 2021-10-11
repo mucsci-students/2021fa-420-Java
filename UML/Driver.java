@@ -358,8 +358,9 @@ public class Driver {
 					System.out.println("Enter the file you would like to load");
 					String loadFile = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
-					JsonFile.load(loadFile, UML.getCollection());
+					if(JsonFile.load(loadFile, UML.getCollection())){
 					System.out.println("File loaded!");
+					}
 				}
 
 				break;
