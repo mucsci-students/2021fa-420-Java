@@ -1,6 +1,6 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.HashSet;
+import java.util.Scanner;
 
 public class Driver {
 	public static boolean guiUp;
@@ -215,11 +215,21 @@ public class Driver {
 						}
 					}
 					else {
-						System.out.println("Destination class does not exist!");
+						if(Driver.guiUp) {
+							View.outputLbl.setText("Destination class does not exist!");
+						}
+						else {
+							System.out.println("Destination class does not exist!");
+						}
 					}
 				}
 				else {
-					System.out.println("Source class does not exist!");
+					if(Driver.guiUp) {
+						View.outputLbl.setText("Source class does not exist!");
+					}
+					else {
+						System.out.println("Source class does not exist!");
+					}
 				}
 
 				break;
@@ -230,7 +240,7 @@ public class Driver {
 
 				System.out.println("What is the destination of the relation");
 				String relDestination = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-				
+
 				Relationships.delRel(clName, relDestination);
 
 				break;
@@ -307,16 +317,13 @@ public class Driver {
 						+ "\nrename class - takes a class and provides a new name * the name must not already exist as another class and it's new name must be alphanumeric."
 						+ "\nadd method - creates a new method for a class"
 						+ "\ndelete method - deletes a method from a class"
-						+ "\ndelete all methods - Deletes all methods in a given UML Class."
 						+ "\nrename method - renames a method in a class"
 						+ "\nadd field - creates a new field for a class"
 						+ "\ndelete field - deletes a field from a class"
 						+ "\nrename field - renames a field from a class"
 						+ "\nadd parameter - creates a parameter in a method for a class"
 						+ "\ndelete parameter - deletes a parameter from a method in a class"
-						+ "\ndelete all parameters - deletes all the paramaters in a given method"
-						+ "\nchange parameter - changes a parameter in a method in a class"
-						+ "\nchange all parameters - changes all the parameters in a method."
+						+ "\nchange parameter - renames a parameter in a method in a class"
 						+ "\nadd relation - creates a relationship between two classes"
 						+ "\ndelete relation - deletes a relationship between two classes"
 						+ "\nchange relationship type - changes a relationship type"
@@ -326,9 +333,7 @@ public class Driver {
 						+ "\nsave - saves current uml file"
 						+ "\nload - loads a uml file"
 						+ "\nhelp - provides a list of commands usable commands."
-						+ "\nexit - exists the program."
-						+ "\nGUI - opens the GUI.");
-
+						+ "\nexit - exists the program.");
 				break;
 
 			case "exit":
@@ -353,91 +358,67 @@ public class Driver {
 					System.out.println("Enter the file you would like to load");
 					String loadFile = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
-					if(JsonFile.load(loadFile, UML.getCollection())){
+					JsonFile.load(loadFile, UML.getCollection());
 					System.out.println("File loaded!");
-					}
 				}
 
 				break;
 
-				case "addparameter":
-				// Check if the user wants to keep adding parameters 
-				boolean continueAddingParams = true;
-				
-				// Gets UML name and Method name
+			case "addparameter":
 				System.out.println("What class would you like to add a parameter to?");
-				String UMLName = scanner.nextLine().toLowerCase();
+				String UMLName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+
 				System.out.println("What method would you like to add a parameter to?");
-				String methodName = scanner.nextLine().toLowerCase();
+				String methodName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
-				// Param list init
-				
-				// If the user wants to add multiple parameters
-				while(continueAddingParams){
-					
-				System.out.println("What is the parameter name!");
-				String paramName = scanner.nextLine().toLowerCase();
+				System.out.println("What is the parameter name?");
+				String paramName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
-				System.out.println("What is the parameter type!");
+				System.out.println("What is the parameter type?");
+				String paramType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
-				String paramType = scanner.nextLine().toLowerCase();
-				
-				if(Parameters.addParameter(UMLName, methodName, paramName, paramType)){
-				
-				System.out.println("Would you like to continue adding parameters to "+methodName+"? (Y or N)");
-				String response = scanner.nextLine().toLowerCase();
-				if (!response.equalsIgnoreCase("Y") && !response.equalsIgnoreCase("yes")){
-					continueAddingParams = false;
-					}
-				} else{
-					break;
-				}
-				// If the user wants to stop adding parameters
-				
-
-				}
+				Parameters.addParameter(UMLName, methodName, paramName,  paramType);
 
 				break;
 
 			case "deleteparameter":
-				boolean continueDelete = true;
-				// Gets the UML name, method name, and parameter name to delete
 				System.out.println("What class would you like to remove the parameter from?");
-				String UMLName1 = scanner.nextLine().toLowerCase();
+				String UMLName1 = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+
 				System.out.println("What method would you like to remove the parameter from?");
-				String methodName1 = scanner.nextLine().toLowerCase();
+				String methodName1 = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
+				boolean continueDelete = true;
 				while(continueDelete){
-				System.out.println("What is the parameter name!");
-				String paramName1 = scanner.nextLine().toLowerCase();
+					System.out.println("What is the parameter name?");
+					String paramName1 = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
-				// Deletion
-				if(Parameters.deleteParameter(UMLName1, methodName1, paramName1)){
-					System.out.println("Would you like to continue deleting parameters in "+methodName1+"? (Yes or No)");
-					String response = scanner.nextLine().toLowerCase();
+					// Deletion
+					if(Parameters.deleteParameter(UMLName1, methodName1, paramName1)) {
+						System.out.println("Would you like to continue deleting parameters in " + methodName1 + "? (Yes or No)");
+						String response = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
-				// If the user wants to stop adding parameters
-				if (!response.equalsIgnoreCase("Y") && !response.equalsIgnoreCase("yes")){
-					continueDelete = false;
+						// If the user wants to stop adding parameters
+						if(!response.equalsIgnoreCase("Y") && !response.equalsIgnoreCase("yes")) {
+							continueDelete = false;
+						}
+					}
+					else {
+						break;
+					}
 				}
-			} else {
-				break;
-			}
 				
-				}
 				break;
 
 			case "deleteallparameters":
-				// Gets the UML name and method name to clear the paramater arraylist
 				System.out.println("What class would you like to remove the parameters from?");
-				String UMLName2 = scanner.nextLine().toLowerCase();
-				System.out.println("What method would you like to remove the parameters from?");
-				String methodName2 = scanner.nextLine().toLowerCase();
+				String UMLName2 = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
-				// Deletion
+				System.out.println("What method would you like to remove the parameters from?");
+				String methodName2 = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+
 				Parameters.deleteAllParameters(UMLName2, methodName2);
-				
-				
+
 				break;
 
 			case "changeallparameters":
@@ -447,75 +428,57 @@ public class Driver {
 
 				System.out.println("What method would you like to rename parameters in?");
 				String methodName3 = scanner.nextLine().toLowerCase();
-				HashSet<String> Dupes = new HashSet<>();
-
+				
+				HashSet<String> Dupes = new HashSet<String>();
 				ArrayList<Parameters> pList = Parameters.findMethod(UMLName3, methodName3);
 
-				if (pList.isEmpty()){
-					System.out.println("There are no parameters are in " + methodName3);
-					break;
-				}
+				if(pList != null) {
+					if(!pList.isEmpty()) {
+						for(int i = 0 ; i <= pList.size() - 1; i++) {
+							System.out.println("Here is the parameter being changed:");
+							System.out.println(pList.get(i).getParamType() + " " + pList.get(i).getParamName());
 
-				int count = 0;
-				if (pList != null){
-				for(Parameters p : pList){
-					System.out.println("Here is the parameter being changed:");
-					System.out.println("Name: "+ p.getParamName() +" Type: " + p.getParamType());
+							System.out.println("What is the new name?");
+							String pName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
-					System.out.println("What is the new name?");
-					String pName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+							if(!Dupes.contains(pName)){
+								Dupes.add(pName);
 
-					if(!Dupes.contains(pName)){
-					Dupes.add(pName);
+								System.out.println("What is the parameter type?");
+								String pType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
-					System.out.println("What is the parameter type?");
-					String pType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-					
-					pList.set(count, new Parameters(pName, pType));
-					++count;
-					} else {
-						System.out.println(pName+" already exists in " + methodName3);
+								pList.set(i, new Parameters(pName, pType));
+							}
+							else {
+								System.out.println(pName + " already exists in " + methodName3);
+							}
+						}
+					}
+					else {
+						System.out.println("There are no parameters to change!");
 					}
 				}
-			}
+				
 				break;
 
 			case "changeparameter":
-				boolean continueChanging = true;
-
-				
-				// Gets the UML name and method name to find the parameter list 
 				System.out.println("What class would you like to change a parameter in?");
-				String UMLName4 = scanner.nextLine().toLowerCase();
+				String UMLName4 = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+
 				System.out.println("What method would you like to change a parameter in?");
-				String methodName4 = scanner.nextLine().toLowerCase();
+				String methodName4 = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
-				// If the user wants to continue renaming
-				while(continueChanging){
-				// Gets the old parameter name in order to find the parameter
-				System.out.println("What is the old Parameter name!");
-				String oldParamName = scanner.nextLine().toLowerCase();
+				System.out.println("What is the old parameter name?");
+				String oldParamName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
-				//Gets the new parameter credentials
-				System.out.println("What is the new parameter's name?");
-				String paramName5 = scanner.nextLine().toLowerCase();
-				System.out.println("What is the parameter type!");
-				String paramType5 = scanner.nextLine().toLowerCase();
+				System.out.println("What is the new parameter name?");
+				String paramName5 = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
-				// Changes parameter if it doesn't already exist
-				if(Parameters.changeParameter(UMLName4, methodName4, oldParamName, paramName5, paramType5)){
+				System.out.println("What is the parameter type?");
+				String paramType5 = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
-				System.out.println("Would you like to continue renaming parameters in "+methodName4+"? (Yes or No)");
-				String response = scanner.nextLine().toLowerCase();
+				Parameters.changeParameter(UMLName4, methodName4, oldParamName, paramName5, paramType5);
 
-				// If the user wants to stop renaming parameters
-					if (!response.equalsIgnoreCase("Y") && !response.equalsIgnoreCase("yes")){
-						continueChanging = false;
-						}
-					} else { 
-						break;
-					}
-				}
 				break;
 
 			case "gui":
