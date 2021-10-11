@@ -1,10 +1,12 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "c:\\Users\\tbren\\Desktop\\gson-2.8.8.jar"
+        "c:\\Users\\tbren\\Desktop\\gson-2.8.8.jar",
+        "junit-4.12.jar"
     ],
     "java.project.sourcePaths": [
         "UML editor",
-        "UML"
+        "UML",
+        "Tests"
     ]
 }
