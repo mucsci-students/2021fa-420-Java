@@ -3,20 +3,17 @@ apply plugin: 'application'
 
 mainClassName = 'Driver.java'
 
-// tag::repositories[]
+
 repositories { 
     mavenCentral() 
 }
-// end::repositories[]
 
-// tag::jar[]
 jar {
     archiveBaseName = 'UMLEditor'
     archiveVersion =  '0.0.1'
 }
-// end::jar[]
 
-// tag::dependencies[]
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
