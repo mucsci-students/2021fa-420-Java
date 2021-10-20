@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-mainClassName = 'Driver.java'
+mainClassName = 'UML.Driver'
 
 
 repositories { 
@@ -11,6 +11,9 @@ repositories {
 jar {
     archiveBaseName = 'UMLEditor'
     archiveVersion =  '0.0.1'
+    manifest {
+        attributes "Main-Class": "$mainClassName"
+    }
 }
 
 
