@@ -1,3 +1,5 @@
+import javax.swing.JOptionPane;
+
 public class Relationships {
 	private String source;
 	private String destination;
@@ -36,7 +38,7 @@ public class Relationships {
 		}
 		else {
 			if(Driver.guiUp) {
-				View.outputLbl.setText("Type must be aggregation, composition, inheritance, or realization.");
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "Type must be aggregation, composition, inheritance, or realization.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				System.out.println("Type must be aggregation, composition, inheritance, or realization.");
@@ -60,7 +62,7 @@ public class Relationships {
 					if(c.getDestination() == destination.getClassName()) {
 						dupeRel = true;
 						if(Driver.guiUp) {
-							View.outputLbl.setText("A relationship from " + source.getClassName() + " to " + destination.getClassName() + " already exists!");
+							JOptionPane.showMessageDialog(View.frmUmlEditor, "A relationship from " + source.getClassName() + " to " + destination.getClassName() + " already exists!", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 						else {
 							System.out.println("A relationship from " + source.getClassName() + " to " + destination.getClassName() + " already exists!");
@@ -73,7 +75,7 @@ public class Relationships {
 						if(u.getClassName().equals(source.getClassName())) { // searches for the class name that we are adding a relationship to
 							u.getRels().add(r);
 							if(Driver.guiUp) {
-								View.outputLbl.setText("Relationship added!");
+//								View.outputLbl.setText("Relationship added!");
 							}
 							else {
 								System.out.println("Relationship added!");
@@ -85,7 +87,7 @@ public class Relationships {
 			}
 			else {
 				if(Driver.guiUp) {
-					View.outputLbl.setText("Cannot add a relationship to the same class");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Cannot add a relationship to the same class", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				else {
 					System.out.println("Cannot add a relationship to the same class");
@@ -95,7 +97,7 @@ public class Relationships {
 		else {
 			//Type entered was not one of the 4 for relationships
 			if(Driver.guiUp) {
-				View.outputLbl.setText("Type must be aggregation, composition, inheritance, or realization.");
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "Type must be aggregation, composition, inheritance, or realization.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				System.out.println("Type must be aggregation, composition, inheritance, or realization.");
@@ -115,7 +117,7 @@ public class Relationships {
 										int x = srcUml.getRels().indexOf(r);// Needed to finds where the relationship is that we need to delete
 										srcUml.getRels().remove(x);
 										if(Driver.guiUp) {
-											View.outputLbl.setText("Relationship deleted!");
+//											View.outputLbl.setText("Relationship deleted!");
 										}
 										else {
 											System.out.println("Relationship deleted!");
@@ -132,7 +134,7 @@ public class Relationships {
 			}
 			else {
 				if(Driver.guiUp) {
-					View.outputLbl.setText("Destination class does not exist!");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Destination class does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				else {
 					System.out.println("Destination class does not exist!");
@@ -141,7 +143,7 @@ public class Relationships {
 		}
 		else {
 			if(Driver.guiUp) {
-				View.outputLbl.setText("Source class does not exist!");
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "Source class does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				System.out.println("Source class does not exist!");
@@ -158,7 +160,7 @@ public class Relationships {
 							if(umlRel.getDestination().equals(destName)) {
 								umlRel.setType(type);
 								if(Driver.guiUp) {
-									View.outputLbl.setText("Type changed to " + type);
+									JOptionPane.showMessageDialog(View.frmUmlEditor, "Type changed to " + type, "Error", JOptionPane.ERROR_MESSAGE);
 								}
 								else {
 									System.out.println("Type changed to " + type);
@@ -171,7 +173,7 @@ public class Relationships {
 			}
 			else {
 				if(Driver.guiUp) {
-					View.outputLbl.setText("Destination class does not exist!");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Destination class does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				else {
 					System.out.println("Destination class does not exist!");
@@ -180,7 +182,7 @@ public class Relationships {
 		}
 		else {
 			if(Driver.guiUp) {
-				View.outputLbl.setText("Source class does not exist!");
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "Source class does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				System.out.println("Source class does not exist!");

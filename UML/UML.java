@@ -1,5 +1,8 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.regex.Pattern;
+
+import javax.swing.JOptionPane;
 
 public class UML {
 	//Class name
@@ -10,18 +13,26 @@ public class UML {
 	private ArrayList<Methods> methods;
 	//List containing all the relations between UML objects
 	private ArrayList<Relationships> relationships;
+	//X position of class box
+	private int xPos;
+	//Y position of class box
+	private int yPos;
 	//This set is to make sure there are no classes with the same name.
 	private static HashSet<String> noClassDupes = new HashSet<String>();
 	//This is the Array list that should hold all the objects
 	private static ArrayList<UML> collection = new ArrayList<UML>();
+	//This is the Array list that holds all the JLabels
+	private static ArrayList<BoxObject> jlabels = new ArrayList<BoxObject>();
 	//Regex for determining if string is alphanumeric
 	private static Pattern pattern = Pattern.compile("[^a-zA-Z0-9]");
 
-	public UML(String name) {
+	public UML(String name, int xPos, int yPos) {
 		this.name = name;
 		this.fields = new ArrayList<Fields>();
 		this.methods = new ArrayList<Methods>();
 		this.relationships = new ArrayList<Relationships>();
+		this.xPos = xPos;
+		this.yPos = yPos;
 	}
 
 	public String getClassName() {
@@ -46,6 +57,22 @@ public class UML {
 		return relationships;
 	}
 
+	public int getXPos() {
+		return xPos;
+	}
+
+	public void setXPos(int x) {
+		xPos = x;
+	}
+
+	public int getYPos() {
+		return yPos;
+	}
+
+	public void setYPos(int y) {
+		yPos = y;
+	}
+
 	public static ArrayList<UML> getCollection() {
 		return collection;
 	}
@@ -62,6 +89,10 @@ public class UML {
 		return noClassDupes;
 	}
 
+	public static ArrayList<BoxObject> getJLabels() {
+		return jlabels;
+	}
+
 	public static Pattern getPattern() {
 		return pattern;
 	}
@@ -70,13 +101,11 @@ public class UML {
 		//If class doesn't exist and is alphanumeric
 		if(!noClassDupes.contains(className) && !pattern.matcher(className).find()) {
 			//Creates the class
-			UML uml = new UML(className);
+			UML uml = new UML(className, 0, 0);
 			noClassDupes.add(className);
 			collection.add(uml);
-			if(Driver.guiUp) {
-				View.outputLbl.setText("Class Created!");
-			}
-			else {
+			View.createBox(uml);
+			if(!Driver.guiUp) {
 				System.out.println("Class Created!");
 			}
 			return uml;
@@ -84,7 +113,7 @@ public class UML {
 		//When the inputted name is not alphanumeric
 		else if(pattern.matcher(className).find()) {
 			if(Driver.guiUp) {
-				View.outputLbl.setText("A class name must only contain numbers and letters!");
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "A class name must only contain numbers and letters!", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				System.out.println("A class name must only contain numbers and letters!");
@@ -93,7 +122,7 @@ public class UML {
 		//When the class already exists
 		else {
 			if(Driver.guiUp) {
-				View.outputLbl.setText("That class already exists!");
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class already exists!", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				System.out.println("That class already exists!");
@@ -112,7 +141,7 @@ public class UML {
 					noClassDupes.remove(deleteName);
 					collection.remove(collection.indexOf(uml));
 					if(Driver.guiUp) {
-						View.outputLbl.setText("Class Deleted!");
+						//						View.outputLbl.setText("Class Deleted!");
 					}
 					else {
 						System.out.println("Class Deleted!");
@@ -124,7 +153,7 @@ public class UML {
 		//When the class doesn't exist
 		else {
 			if(Driver.guiUp) {
-				View.outputLbl.setText("That class does not exist!");
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				System.out.println("That class does not exist!");
@@ -144,7 +173,7 @@ public class UML {
 					noClassDupes.add(newName);
 					uml.setClassName(newName);
 					if(Driver.guiUp) {
-						View.outputLbl.setText("Class Renamed!");
+						//						View.outputLbl.setText("Class Renamed!");
 					}
 					else {
 						System.out.println("Class Renamed!");
@@ -156,7 +185,7 @@ public class UML {
 		//When the new name is not alphanumeric
 		else if(pattern.matcher(newName).find()) {
 			if(Driver.guiUp) {
-				View.outputLbl.setText("A class name must only contain numbers and letters");
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "A class name must only contain numbers and letters", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				System.out.println("A class name must only contain numbers and letters");
@@ -165,7 +194,7 @@ public class UML {
 		//When the new class already exists
 		else if(noClassDupes.contains(newName)) {
 			if(Driver.guiUp) {
-				View.outputLbl.setText("That class already exists!");
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class already exists!", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				System.out.println("That class already exists!");
@@ -174,7 +203,7 @@ public class UML {
 		//When the old class doesn't exist
 		else {
 			if(Driver.guiUp) {
-				View.outputLbl.setText("That class does not exist!");
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				System.out.println("That class does not exist!");

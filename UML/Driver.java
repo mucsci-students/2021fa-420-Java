@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 public class Driver {
 	public static boolean guiUp;
 
@@ -229,7 +231,7 @@ public class Driver {
 					//Destination class does not exist
 					else {
 						if(Driver.guiUp) {
-							View.outputLbl.setText("Destination class does not exist!");
+							JOptionPane.showMessageDialog(View.frmUmlEditor, "Destination class does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 						else {
 							System.out.println("Destination class does not exist!");
@@ -239,7 +241,7 @@ public class Driver {
 				//Source class does not exist
 				else {
 					if(Driver.guiUp) {
-						View.outputLbl.setText("Source class does not exist!");
+						JOptionPane.showMessageDialog(View.frmUmlEditor, "Source class does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 					else {
 						System.out.println("Source class does not exist!");
@@ -378,8 +380,9 @@ public class Driver {
 					System.out.println("Enter the file you would like to load");
 					String loadFile = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
-					JsonFile.load(loadFile, UML.getCollection());
+					if(JsonFile.load(loadFile, UML.getCollection())){
 					System.out.println("File loaded!");
+					}
 				}
 
 				break;
@@ -427,7 +430,6 @@ public class Driver {
 						break;
 					}
 				}
-
 				break;
 
 			case "deleteallparameters":
@@ -480,7 +482,6 @@ public class Driver {
 						System.out.println("There are no parameters to change!");
 					}
 				}
-
 				break;
 
 			case "changeparameter":
