@@ -50,10 +50,14 @@ public class Parameters {
 			Parameters parameter = new Parameters(parameterName, type);
 			// Addition of a new parameter
 			pList.add(parameter);
-			if(Driver.guiUp) {
-//				View.outputLbl.setText("Parameter Created!");
+			
+			for(BoxObject obj : UML.getJLabels()) {
+				if(obj.getJLabelName().equals(UMLName)) {
+					View.updateBox(obj);
+				}
 			}
-			else {
+
+			if(!Driver.guiUp) {
 				System.out.println("Parameter Created!");
 			}
 			return true;
@@ -92,11 +96,15 @@ public class Parameters {
 		// Removes the parameter at the index if found
 		if(index != -1) {
 			mList.remove(index);
-			if(Driver.guiUp) {
-//				View.outputLbl.setText("Parameter deleted!");
+
+			for(BoxObject obj : UML.getJLabels()) {
+				if(obj.getJLabelName().equals(UMLName)) {
+					View.updateBox(obj);
+				}
 			}
-			else {
-				System.out.println("Parameter deleted!");
+
+			if(!Driver.guiUp) {
+				System.out.println("Parameter Removed!");
 			}
 			return true;
 		}
@@ -131,11 +139,15 @@ public class Parameters {
 			return false;
 		}
 		mList.clear();
-		if(Driver.guiUp) {
-//			View.outputLbl.setText("Parameters deleted!");
+
+		for(BoxObject obj : UML.getJLabels()) {
+			if(obj.getJLabelName().equals(UMLName)) {
+				View.updateBox(obj);
+			}
 		}
-		else {
-			System.out.println("Parameters deleted!");
+
+		if(!Driver.guiUp) {
+			System.out.println("Parameters Removed!");
 		}
 		return true;
 	}
@@ -171,11 +183,15 @@ public class Parameters {
 			// Replaces the parameter at that index with the new one
 			if(!noDuplicates.contains(newpName)){
 				mList.set(index, p);
-				if(Driver.guiUp) {
-//					View.outputLbl.setText("Parameter changed!");
+
+				for(BoxObject obj : UML.getJLabels()) {
+					if(obj.getJLabelName().equals(UMLName)) {
+						View.updateBox(obj);
+					}
 				}
-				else {
-					System.out.println("Parameter changed!");
+
+				if(!Driver.guiUp) {
+					System.out.println("Parameter Changed!");
 				}
 				return true;
 			}

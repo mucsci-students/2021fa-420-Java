@@ -104,7 +104,9 @@ public class UML {
 			UML uml = new UML(className, 0, 0);
 			noClassDupes.add(className);
 			collection.add(uml);
+			
 			View.createBox(uml);
+			
 			if(!Driver.guiUp) {
 				System.out.println("Class Created!");
 			}
@@ -140,10 +142,15 @@ public class UML {
 				if(uml.getClassName().equals(deleteName)) {
 					noClassDupes.remove(deleteName);
 					collection.remove(collection.indexOf(uml));
-					if(Driver.guiUp) {
-						//						View.outputLbl.setText("Class Deleted!");
+					
+					for(BoxObject obj : UML.getJLabels()) {
+						if(obj.getJLabelName().equals(uml.getClassName())) {
+							View.panel.remove(obj.getLabel());
+						}
 					}
-					else {
+					View.panel.repaint();
+					
+					if(!Driver.guiUp) {
 						System.out.println("Class Deleted!");
 					}
 					return uml;
@@ -172,10 +179,15 @@ public class UML {
 					noClassDupes.remove(oldName);
 					noClassDupes.add(newName);
 					uml.setClassName(newName);
-					if(Driver.guiUp) {
-						//						View.outputLbl.setText("Class Renamed!");
+					
+					for(BoxObject obj : UML.getJLabels()) {
+						if(obj.getJLabelName().equals(oldName)) {
+							obj.setJLabelName(newName);
+							View.updateBox(obj);
+						}
 					}
-					else {
+					
+					if(!Driver.guiUp) {
 						System.out.println("Class Renamed!");
 					}
 					return uml;

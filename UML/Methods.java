@@ -46,10 +46,14 @@ public class Methods {
 							//Given method does not exist
 							if(i == uml.getMethod().size()) {
 								uml.getMethod().add(new Methods(methodName, retType));
-								if(Driver.guiUp) {
-//									View.outputLbl.setText("Method Created!");
+
+								for(BoxObject obj : UML.getJLabels()) {
+									if(obj.getJLabelName().equals(uml.getClassName())) {
+										View.updateBox(obj);
+									}
 								}
-								else {
+
+								if(!Driver.guiUp) {
 									System.out.println("Method Created!");
 								}
 								return;
@@ -102,10 +106,14 @@ public class Methods {
 							//Given method exists
 							if(i < uml.getMethod().size() && uml.getMethod().get(i).getMethodName().equals(methodName)) {
 								uml.getMethod().remove(i);
-								if(Driver.guiUp) {
-//									View.outputLbl.setText("Method Removed!");
+
+								for(BoxObject obj : UML.getJLabels()) {
+									if(obj.getJLabelName().equals(uml.getClassName())) {
+										View.updateBox(obj);
+									}
 								}
-								else {
+
+								if(Driver.guiUp) {
 									System.out.println("Method Removed!");
 								}
 								return;
@@ -164,10 +172,14 @@ public class Methods {
 					else {
 						//Deletes all methods
 						uml.getMethod().clear();
-						if(Driver.guiUp) {
-//							View.outputLbl.setText("All methods have been deleted!");
+
+						for(BoxObject obj : UML.getJLabels()) {
+							if(obj.getJLabelName().equals(uml.getClassName())) {
+								View.updateBox(obj);
+							}
 						}
-						else {
+
+						if(!Driver.guiUp) {
 							System.out.println("All methods have been deleted!");
 						}
 						return;
@@ -204,10 +216,14 @@ public class Methods {
 									//New method does not exist
 									if(j == uml.getMethod().size()) {
 										uml.getMethod().get(i).setMethodName(newName);
-										if(Driver.guiUp) {
-//											View.outputLbl.setText("Method Renamed!");
+
+										for(BoxObject obj : UML.getJLabels()) {
+											if(obj.getJLabelName().equals(uml.getClassName())) {
+												View.updateBox(obj);
+											}
 										}
-										else {
+
+										if(!Driver.guiUp) {
 											System.out.println("Method Renamed!");
 										}
 										return;

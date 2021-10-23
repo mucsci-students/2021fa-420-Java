@@ -38,10 +38,14 @@ public class Fields {
 							//Given field does not exist
 							if(i == uml.getField().size()) {
 								uml.getField().add(new Fields(name, type));
-								if(Driver.guiUp) {
-//									View.outputLbl.setText("Field Created!");
+
+								for(BoxObject obj : UML.getJLabels()) {
+									if(obj.getJLabelName().equals(uml.getClassName())) {
+										View.updateBox(obj);
+									}
 								}
-								else {
+
+								if(!Driver.guiUp) {
 									System.out.println("Field Created!");
 								}
 								return;
@@ -94,10 +98,14 @@ public class Fields {
 							//Given field exists
 							if(i < uml.getField().size() && uml.getField().get(i).getFieldName().equals(name)) {
 								uml.getField().remove(i);
-								if(Driver.guiUp) {
-//									View.outputLbl.setText("Field Removed!");
+
+								for(BoxObject obj : UML.getJLabels()) {
+									if(obj.getJLabelName().equals(uml.getClassName())) {
+										View.updateBox(obj);
+									}
 								}
-								else {
+
+								if(Driver.guiUp) {
 									System.out.println("Field Removed!");
 								}
 								return;
@@ -155,10 +163,14 @@ public class Fields {
 									//New field does not exist
 									if(j == uml.getField().size()) {
 										uml.getField().get(i).setFieldName(newName);
-										if(Driver.guiUp) {
-//											View.outputLbl.setText("Field Renamed!");
+
+										for(BoxObject obj : UML.getJLabels()) {
+											if(obj.getJLabelName().equals(uml.getClassName())) {
+												View.updateBox(obj);
+											}
 										}
-										else {
+
+										if(!Driver.guiUp) {
 											System.out.println("Field Renamed!");
 										}
 										return;

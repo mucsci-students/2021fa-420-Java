@@ -160,7 +160,7 @@ public class Relationships {
 							if(umlRel.getDestination().equals(destName)) {
 								umlRel.setType(type);
 								if(Driver.guiUp) {
-									JOptionPane.showMessageDialog(View.frmUmlEditor, "Type changed to " + type, "Error", JOptionPane.ERROR_MESSAGE);
+//									JOptionPane.showMessageDialog(View.frmUmlEditor, "Type changed to " + type, "Error", JOptionPane.ERROR_MESSAGE);
 								}
 								else {
 									System.out.println("Type changed to " + type);

@@ -288,6 +288,33 @@ public class View {
 		UML.getJLabels().add(new BoxObject(uml.getClassName(), lbl));
 	}
 	
+	public static void updateBox(BoxObject obj) {
+		for(UML uml : UML.getCollection()) {
+			if(obj.getJLabelName().equals(uml.getClassName())) {
+				String text = "<html>" + uml.getClassName();
+				for(Fields field : uml.getField()) {
+					text += "<br>" + field.getFieldType() + " " + field.getFieldName();
+				}
+				for(Methods method : uml.getMethod()) {
+					text += "<br>" + method.getMethodType() + " " + method.getMethodName() + "(";
+					if(method.getParams().size() >= 1) {
+						text += method.getParams().get(0).getParamType() + " " + method.getParams().get(0).getParamName();
+					}
+					for(int i = 1; i < method.getParams().size(); i++) {
+						text += ", " + method.getParams().get(i).getParamType() + " " + method.getParams().get(i).getParamName();
+					}
+					text += ")";
+				}
+				text += "</html>";
+				obj.getLabel().setText(text);
+				obj.getLabel().setSize(obj.getLabel().getPreferredSize().width + 10, obj.getLabel().getPreferredSize().height + 2);
+				obj.getLabel().setLocation(uml.getXPos(), uml.getYPos());
+				panel.add(obj.getLabel());
+				break;
+			}
+		}
+	}
+	
 	public static void updateBoxes() {
 		for(BoxObject obj : UML.getJLabels()) {
 			for(UML uml : UML.getCollection()) {
@@ -308,9 +335,8 @@ public class View {
 					}
 					text += "</html>";
 					obj.getLabel().setText(text);
-					obj.getLabel().setSize(obj.getLabel().getPreferredSize().width + 10, obj.getLabel().getPreferredSize().height + 6);
+					obj.getLabel().setSize(obj.getLabel().getPreferredSize().width + 10, obj.getLabel().getPreferredSize().height + 2);
 					obj.getLabel().setLocation(uml.getXPos(), uml.getYPos());
-//					System.out.println(uml.getXPos() + " " + uml.getYPos());
 					panel.add(obj.getLabel());
 					break;
 				}
