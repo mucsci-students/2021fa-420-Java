@@ -17,7 +17,7 @@
 @if "%DEBUG%" == "" @echo off
 @rem ##########################################################################
 @rem
-@rem  UML startup script for Windows
+@rem  2021fa-420-Java startup script for Windows
 @rem
 @rem ##########################################################################
 
@@ -32,7 +32,7 @@ set APP_HOME=%DIRNAME%..
 @rem Resolve any "." and ".." in APP_HOME to make it shorter.
 for %%i in ("%APP_HOME%") do set APP_HOME=%%~fi
 
-@rem Add default JVM options here. You can also use JAVA_OPTS and UML_OPTS to pass JVM options to this script.
+@rem Add default JVM options here. You can also use JAVA_OPTS and 2021FA_420_JAVA_OPTS to pass JVM options to this script.
 set DEFAULT_JVM_OPTS=
 
 @rem Find java.exe
@@ -70,17 +70,17 @@ goto fail
 set CLASSPATH=%APP_HOME%\lib\UMLEditor-0.0.1.jar;%APP_HOME%\lib\gson-2.8.8.jar
 
 
-@rem Execute UML
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %UML_OPTS%  -classpath "%CLASSPATH%" UML.Driver %*
+@rem Execute 2021fa-420-Java
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %2021FA_420_JAVA_OPTS%  -classpath "%CLASSPATH%" Driver %*
 
 :end
 @rem End local scope for the variables with windows NT shell
 if "%ERRORLEVEL%"=="0" goto mainEnd
 
 :fail
-rem Set variable UML_EXIT_CONSOLE if you need the _script_ return code instead of
+rem Set variable 2021FA_420_JAVA_EXIT_CONSOLE if you need the _script_ return code instead of
 rem the _cmd.exe /c_ return code!
-if  not "" == "%UML_EXIT_CONSOLE%" exit 1
+if  not "" == "%2021FA_420_JAVA_EXIT_CONSOLE%" exit 1
 exit /b 1
 
 :mainEnd

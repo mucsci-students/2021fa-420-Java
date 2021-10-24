@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-mainClassName = 'UML.Driver'
+mainClassName = 'Driver'
 
 
 repositories { 
