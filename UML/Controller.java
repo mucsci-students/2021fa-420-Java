@@ -1,8 +1,10 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -14,11 +16,13 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 	//Lets enter button know what command is running
 	private String command;
 
+
 	//For changing all parameters
 	private HashSet<String> dupes;
 	private ArrayList<Parameters> pList;
 	private int counter = 0;
 	private String className;
+
 
 	public void actionPerformed(ActionEvent e) {
 		//If enter button is clicked
@@ -37,6 +41,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 				}
 				else {
 					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
+
 				}
 			}
 
@@ -52,6 +57,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 				}
 				else {
 					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
+
 				}
 			}
 
@@ -73,6 +79,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 				}
 				else {
 					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
+
 				}
 			}
 
@@ -100,6 +107,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 				}
 				else {
 					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
+
 				}
 			}
 
@@ -121,6 +129,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 				}
 				else {
 					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
+
 				}
 			}
 
@@ -136,6 +145,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 				}
 				else {
 					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
+
 				}
 			}
 
@@ -154,6 +164,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							View.textField.setText("");
 						}
 						else {
+
 							JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 					}
@@ -183,6 +194,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 								View.textField.setText("");
 							}
 							else {
+
 								JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 							}
 						}
@@ -196,6 +208,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 				}
 				else {
 					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
+
 				}
 			}
 
@@ -239,11 +252,13 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 						View.textField.setText("");
 					}
 					else {
+
 						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else {
 					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
+
 				}
 			}
 
@@ -349,6 +364,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 										View.updateBox(obj);
 									}
 								}
+
 								View.inputPanel.setVisible(false);
 								View.textField.setText("");
 							}
@@ -356,6 +372,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 						//If a parameter entered already exists
 						else {
 							JOptionPane.showMessageDialog(View.frmUmlEditor, "That parameter already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+
 							View.inputPanel.setVisible(false);
 							View.textField.setText("");
 						}
@@ -615,7 +632,6 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 								//Calls listFields and listMethods
 								uml.listFields();
 								uml.listMethods();
-								//								View.outputLbl.setText(View.outputText);
 								View.inputPanel.setVisible(false);
 								View.textField.setText("");
 								break;
@@ -643,6 +659,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							if(uml.getClassName().equals(className)) {
 								//Calls listRelationships
 								uml.listRelationships();
+
 								//								View.outputLbl.setText(View.outputText);
 								View.inputPanel.setVisible(false);
 								View.textField.setText("");
@@ -808,7 +825,6 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 					text = text + "<br>" + UML.getCollection().get(i).getClassName();
 				}
 			}
-			//			View.outputLbl.setText(text);
 		}
 
 		//If list contents button is clicked
@@ -828,6 +844,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 		//If save button is clicked
 		else if(e.getActionCommand().equals("Save")) {
 			View.textFieldJSON.setText(JsonFile.save(UML.getCollection()));
+
 		}
 
 		//If load button is clicked

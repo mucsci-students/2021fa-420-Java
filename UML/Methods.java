@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+
 import javax.swing.JOptionPane;
 
 public class Methods {
@@ -121,7 +122,9 @@ public class Methods {
 							//Given method does not exist
 							else if(i == uml.getMethod().size()) {
 								if(Driver.guiUp) {
+
 									JOptionPane.showMessageDialog(View.frmUmlEditor, "That method does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+
 								}
 								else {
 									System.out.println("That method does not exist!");
@@ -134,6 +137,7 @@ public class Methods {
 					else {
 						if(Driver.guiUp) {
 							JOptionPane.showMessageDialog(View.frmUmlEditor, "This class has no methods!", "Error", JOptionPane.ERROR_MESSAGE);
+
 						}
 						else {
 							System.out.println("This class has no methods!");
@@ -146,6 +150,7 @@ public class Methods {
 		else {
 			if(Driver.guiUp) {
 				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+
 			}
 			else {
 				System.out.println("That class does not exist!");
@@ -224,6 +229,7 @@ public class Methods {
 										}
 
 										if(!Driver.guiUp) {
+
 											System.out.println("Method Renamed!");
 										}
 										return;

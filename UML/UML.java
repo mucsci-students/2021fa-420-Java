@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
+
 public class UML {
 	//Class name
 	private String name;
@@ -17,6 +18,7 @@ public class UML {
 	private int xPos;
 	//Y position of class box
 	private int yPos;
+
 	//This set is to make sure there are no classes with the same name.
 	private static HashSet<String> noClassDupes = new HashSet<String>();
 	//This is the Array list that should hold all the objects
@@ -108,6 +110,7 @@ public class UML {
 			View.createBox(uml);
 			
 			if(!Driver.guiUp) {
+
 				System.out.println("Class Created!");
 			}
 			return uml;
@@ -116,6 +119,7 @@ public class UML {
 		else if(pattern.matcher(className).find()) {
 			if(Driver.guiUp) {
 				JOptionPane.showMessageDialog(View.frmUmlEditor, "A class name must only contain numbers and letters!", "Error", JOptionPane.ERROR_MESSAGE);
+
 			}
 			else {
 				System.out.println("A class name must only contain numbers and letters!");
@@ -125,6 +129,7 @@ public class UML {
 		else {
 			if(Driver.guiUp) {
 				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+
 			}
 			else {
 				System.out.println("That class already exists!");
@@ -206,6 +211,7 @@ public class UML {
 		//When the new class already exists
 		else if(noClassDupes.contains(newName)) {
 			if(Driver.guiUp) {
+
 				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class already exists!", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else {

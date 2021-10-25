@@ -342,6 +342,7 @@ public class View {
 				}
 			}
 		}
+
 	}
 
 	public static void closeGUI() {

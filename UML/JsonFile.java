@@ -6,6 +6,7 @@ import java.util.*;
 public class JsonFile {
 
 	// Saves the ArrayList of UML objects into a json string format
+
 	public static String save(ArrayList<UML> collection) {
 		Gson gson = new Gson();
 		// Converts the list to JSON
@@ -18,8 +19,8 @@ public class JsonFile {
 	// Loads a String with a JSON format and turns it into an ArrayList of UML objects
 	public static boolean load(String loaded, ArrayList<UML> collection) {
 
-
 		try {
+
 			// Tells the Gson converter that we want an ArrayList of UML objects
 			Type type = new TypeToken<ArrayList<UML>>(){}.getType();
 			// Puts the JSON string and determines the type of list needed and makes a new ArrayList with this information
@@ -34,6 +35,7 @@ public class JsonFile {
 
 			//Inserts class names into no dupes
 			for(UML u : newCollection){
+
 				noDupes.add(u.getClassName());
 			}
 			// The new collection of the loaded UML object
@@ -52,6 +54,7 @@ public class JsonFile {
 				View.createBox(uml);
 			}
 			View.updateBoxes();
+
 
 		} catch(com.google.gson.JsonSyntaxException e){
 			System.out.println("Not a valid Json file!");

@@ -1,3 +1,4 @@
+
 import javax.swing.JOptionPane;
 
 public class Relationships {
@@ -75,6 +76,7 @@ public class Relationships {
 						if(u.getClassName().equals(source.getClassName())) { // searches for the class name that we are adding a relationship to
 							u.getRels().add(r);
 							if(Driver.guiUp) {
+
 //								View.outputLbl.setText("Relationship added!");
 							}
 							else {
@@ -97,6 +99,7 @@ public class Relationships {
 		else {
 			//Type entered was not one of the 4 for relationships
 			if(Driver.guiUp) {
+
 				JOptionPane.showMessageDialog(View.frmUmlEditor, "Type must be aggregation, composition, inheritance, or realization.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
@@ -117,7 +120,9 @@ public class Relationships {
 										int x = srcUml.getRels().indexOf(r);// Needed to finds where the relationship is that we need to delete
 										srcUml.getRels().remove(x);
 										if(Driver.guiUp) {
+
 //											View.outputLbl.setText("Relationship deleted!");
+
 										}
 										else {
 											System.out.println("Relationship deleted!");
@@ -143,7 +148,9 @@ public class Relationships {
 		}
 		else {
 			if(Driver.guiUp) {
+
 				JOptionPane.showMessageDialog(View.frmUmlEditor, "Source class does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+
 			}
 			else {
 				System.out.println("Source class does not exist!");
@@ -161,6 +168,7 @@ public class Relationships {
 								umlRel.setType(type);
 								if(Driver.guiUp) {
 //									JOptionPane.showMessageDialog(View.frmUmlEditor, "Type changed to " + type, "Error", JOptionPane.ERROR_MESSAGE);
+
 								}
 								else {
 									System.out.println("Type changed to " + type);
@@ -173,7 +181,9 @@ public class Relationships {
 			}
 			else {
 				if(Driver.guiUp) {
+
 					JOptionPane.showMessageDialog(View.frmUmlEditor, "Destination class does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+
 				}
 				else {
 					System.out.println("Destination class does not exist!");
@@ -182,7 +192,9 @@ public class Relationships {
 		}
 		else {
 			if(Driver.guiUp) {
+
 				JOptionPane.showMessageDialog(View.frmUmlEditor, "Source class does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+
 			}
 			else {
 				System.out.println("Source class does not exist!");

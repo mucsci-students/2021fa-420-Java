@@ -1,3 +1,4 @@
+
 import javax.swing.JOptionPane;
 
 public class Fields {
@@ -53,7 +54,9 @@ public class Fields {
 							//Given field exists
 							else if(uml.getField().get(i).getFieldName().equals(name)) {
 								if(Driver.guiUp) {
+
 									JOptionPane.showMessageDialog(View.frmUmlEditor, "That field already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+
 								}
 								else {
 									System.out.println("That field already exists!");
@@ -65,7 +68,9 @@ public class Fields {
 					//Given field name is not alphanumeric
 					else {
 						if(Driver.guiUp) {
+
 							JOptionPane.showMessageDialog(View.frmUmlEditor, "A field name must only contain numbers and letters", "Error", JOptionPane.ERROR_MESSAGE);
+
 						}
 						else {
 							System.out.println("A field name must only contain numbers and letters");
@@ -77,7 +82,9 @@ public class Fields {
 		//Given class does not exist
 		else {
 			if(Driver.guiUp) {
+
 				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+
 			}
 			else {
 				System.out.println("That class does not exist!");

@@ -1,5 +1,6 @@
 import java.util.*;
 
+
 import javax.swing.JOptionPane;
 
 public class Parameters {
@@ -50,6 +51,7 @@ public class Parameters {
 			Parameters parameter = new Parameters(parameterName, type);
 			// Addition of a new parameter
 			pList.add(parameter);
+
 			
 			for(BoxObject obj : UML.getJLabels()) {
 				if(obj.getJLabelName().equals(UMLName)) {
@@ -184,6 +186,7 @@ public class Parameters {
 			if(!noDuplicates.contains(newpName)){
 				mList.set(index, p);
 
+
 				for(BoxObject obj : UML.getJLabels()) {
 					if(obj.getJLabelName().equals(UMLName)) {
 						View.updateBox(obj);
@@ -208,6 +211,7 @@ public class Parameters {
 		else {
 			if(Driver.guiUp) {
 				JOptionPane.showMessageDialog(View.frmUmlEditor, "That parameter does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+
 			}
 			else {
 				System.out.println("That parameter does not exist!");
@@ -248,7 +252,9 @@ public class Parameters {
 			return null;
 		}
 		if(Driver.guiUp) {
+
 			JOptionPane.showMessageDialog(View.frmUmlEditor, "That class does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+
 		}
 		else {
 			System.out.println("That class does not exist!");
