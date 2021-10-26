@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+
+import javax.swing.JOptionPane;
+
 public class Methods {
 	private String name;
 	private String return_type;
@@ -44,10 +47,14 @@ public class Methods {
 							//Given method does not exist
 							if(i == uml.getMethod().size()) {
 								uml.getMethod().add(new Methods(methodName, retType));
-								if(Driver.guiUp) {
-									View.outputLbl.setText("Method Created!");
+
+								for(BoxObject obj : UML.getJLabels()) {
+									if(obj.getJLabelName().equals(uml.getClassName())) {
+										View.updateBox(obj);
+									}
 								}
-								else {
+
+								if(!Driver.guiUp) {
 									System.out.println("Method Created!");
 								}
 								return;
@@ -55,7 +62,7 @@ public class Methods {
 							//Given method exists
 							else if(uml.getMethod().get(i).getMethodName().equals(methodName)) {
 								if(Driver.guiUp) {
-									View.outputLbl.setText("That method already exists!");
+									JOptionPane.showMessageDialog(View.frmUmlEditor, "That method already exists!", "Error", JOptionPane.ERROR_MESSAGE);
 								}
 								else {
 									System.out.println("That method already exists!");
@@ -67,7 +74,7 @@ public class Methods {
 					//Given method name is not alphanumeric
 					else {
 						if(Driver.guiUp) {
-							View.outputLbl.setText("A method name must only contain numbers and letters");
+							JOptionPane.showMessageDialog(View.frmUmlEditor, "A method name must only contain numbers and letters", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 						else {
 							System.out.println("A method name must only contain numbers and letters");
@@ -79,7 +86,7 @@ public class Methods {
 		//Given class does not exist
 		else {
 			if(Driver.guiUp) {
-				View.outputLbl.setText("That class already exists.");
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class already exists.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				System.out.println("That class does not exist!");
@@ -100,10 +107,14 @@ public class Methods {
 							//Given method exists
 							if(i < uml.getMethod().size() && uml.getMethod().get(i).getMethodName().equals(methodName)) {
 								uml.getMethod().remove(i);
-								if(Driver.guiUp) {
-									View.outputLbl.setText("Method Removed!");
+
+								for(BoxObject obj : UML.getJLabels()) {
+									if(obj.getJLabelName().equals(uml.getClassName())) {
+										View.updateBox(obj);
+									}
 								}
-								else {
+
+								if(Driver.guiUp) {
 									System.out.println("Method Removed!");
 								}
 								return;
@@ -111,7 +122,9 @@ public class Methods {
 							//Given method does not exist
 							else if(i == uml.getMethod().size()) {
 								if(Driver.guiUp) {
-									View.outputLbl.setText("That method does not exist!");
+
+									JOptionPane.showMessageDialog(View.frmUmlEditor, "That method does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+
 								}
 								else {
 									System.out.println("That method does not exist!");
@@ -123,7 +136,8 @@ public class Methods {
 					//No methods to remove
 					else {
 						if(Driver.guiUp) {
-							View.outputLbl.setText("This class has no methods!");
+							JOptionPane.showMessageDialog(View.frmUmlEditor, "This class has no methods!", "Error", JOptionPane.ERROR_MESSAGE);
+
 						}
 						else {
 							System.out.println("This class has no methods!");
@@ -135,7 +149,8 @@ public class Methods {
 		//Given class does not exists
 		else {
 			if(Driver.guiUp) {
-				View.outputLbl.setText("That class does not exist!");
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+
 			}
 			else {
 				System.out.println("That class does not exist!");
@@ -152,7 +167,7 @@ public class Methods {
 					//If there are no methods
 					if(uml.getMethod().isEmpty()) {
 						if(Driver.guiUp) {
-							View.outputLbl.setText("There are no methods to remove.");
+							JOptionPane.showMessageDialog(View.frmUmlEditor, "There are no methods to remove.", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 						else {
 							System.out.println("There are no methods to remove.");
@@ -162,10 +177,14 @@ public class Methods {
 					else {
 						//Deletes all methods
 						uml.getMethod().clear();
-						if(Driver.guiUp) {
-							View.outputLbl.setText("All methods have been deleted!");
+
+						for(BoxObject obj : UML.getJLabels()) {
+							if(obj.getJLabelName().equals(uml.getClassName())) {
+								View.updateBox(obj);
+							}
 						}
-						else {
+
+						if(!Driver.guiUp) {
 							System.out.println("All methods have been deleted!");
 						}
 						return;
@@ -176,7 +195,7 @@ public class Methods {
 		//Given class does not exist
 		else {
 			if(Driver.guiUp) {
-				View.outputLbl.setText("That class does not exist!");
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				System.out.println("That class does not exist!");
@@ -202,10 +221,15 @@ public class Methods {
 									//New method does not exist
 									if(j == uml.getMethod().size()) {
 										uml.getMethod().get(i).setMethodName(newName);
-										if(Driver.guiUp) {
-											View.outputLbl.setText("Method Renamed!");
+
+										for(BoxObject obj : UML.getJLabels()) {
+											if(obj.getJLabelName().equals(uml.getClassName())) {
+												View.updateBox(obj);
+											}
 										}
-										else {
+
+										if(!Driver.guiUp) {
+
 											System.out.println("Method Renamed!");
 										}
 										return;
@@ -213,7 +237,7 @@ public class Methods {
 									//New method already exists
 									else if(j < uml.getMethod().size() && uml.getMethod().get(j).getMethodName().equals(newName)) {
 										if(Driver.guiUp) {
-											View.outputLbl.setText("That method already exists!");
+											JOptionPane.showMessageDialog(View.frmUmlEditor, "That method already exists!", "Error", JOptionPane.ERROR_MESSAGE);
 										}
 										else {
 											System.out.println("That method already exists!");
@@ -225,7 +249,7 @@ public class Methods {
 							//Old method does not exist
 							else {
 								if(Driver.guiUp) {
-									View.outputLbl.setText("That method does not exist!");
+									JOptionPane.showMessageDialog(View.frmUmlEditor, "That method does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
 								}
 								else {
 									System.out.println("That method does not exist!");
@@ -237,7 +261,7 @@ public class Methods {
 					//New method must be alphanumeric
 					else {
 						if(Driver.guiUp) {
-							View.outputLbl.setText("A method name must only contain numbers and letters");
+							JOptionPane.showMessageDialog(View.frmUmlEditor, "A method name must only contain numbers and letters", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 						else {
 							System.out.println("A method name must only contain numbers and letters");
@@ -249,7 +273,7 @@ public class Methods {
 		//Given class does not exist
 		else {
 			if(Driver.guiUp) {
-				View.outputLbl.setText("That class does not exist!");
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				System.out.println("That class does not exist!");

@@ -1,18 +1,28 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 
-public class Controller implements ActionListener {
+import javax.swing.JOptionPane;
+
+public class Controller implements ActionListener, MouseListener, MouseMotionListener {
 
 	//Lets enter button know what command is running
 	private String command;
-	
+
+
 	//For changing all parameters
 	private HashSet<String> dupes;
 	private ArrayList<Parameters> pList;
 	private int counter = 0;
+	private String className;
+
 
 	public void actionPerformed(ActionEvent e) {
 		//If enter button is clicked
@@ -30,7 +40,8 @@ public class Controller implements ActionListener {
 					View.textField.setText("");
 				}
 				else {
-					View.outputLbl.setText("Invalid input");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
+
 				}
 			}
 
@@ -45,7 +56,8 @@ public class Controller implements ActionListener {
 					View.textField.setText("");
 				}
 				else {
-					View.outputLbl.setText("Invalid input");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
+
 				}
 			}
 
@@ -62,11 +74,12 @@ public class Controller implements ActionListener {
 						View.textField.setText("");
 					}
 					else {
-						View.outputLbl.setText("Invalid input");
+						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else {
-					View.outputLbl.setText("Invalid input");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
+
 				}
 			}
 
@@ -85,15 +98,16 @@ public class Controller implements ActionListener {
 							View.textField.setText("");
 						}
 						else {
-							View.outputLbl.setText("Invalid input");
+							JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 					else {
-						View.outputLbl.setText("Invalid input");
+						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else {
-					View.outputLbl.setText("Invalid input");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
+
 				}
 			}
 
@@ -110,11 +124,12 @@ public class Controller implements ActionListener {
 						View.textField.setText("");
 					}
 					else {
-						View.outputLbl.setText("Invalid input");
+						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else {
-					View.outputLbl.setText("Invalid input");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
+
 				}
 			}
 
@@ -129,7 +144,8 @@ public class Controller implements ActionListener {
 					View.textField.setText("");
 				}
 				else {
-					View.outputLbl.setText("Invalid input");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
+
 				}
 			}
 
@@ -148,15 +164,16 @@ public class Controller implements ActionListener {
 							View.textField.setText("");
 						}
 						else {
-							View.outputLbl.setText("Invalid input");
+
+							JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 					else {
-						View.outputLbl.setText("Invalid input");
+						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else {
-					View.outputLbl.setText("Invalid input");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 
@@ -177,19 +194,21 @@ public class Controller implements ActionListener {
 								View.textField.setText("");
 							}
 							else {
-								View.outputLbl.setText("Invalid input");
+
+								JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 							}
 						}
 						else {
-							View.outputLbl.setText("Invalid input");
+							JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 					else {
-						View.outputLbl.setText("Invalid input");
+						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else {
-					View.outputLbl.setText("Invalid input");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
+
 				}
 			}
 
@@ -208,15 +227,15 @@ public class Controller implements ActionListener {
 							View.textField.setText("");
 						}
 						else {
-							View.outputLbl.setText("Invalid input");
+							JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 					else {
-						View.outputLbl.setText("Invalid input");
+						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else {
-					View.outputLbl.setText("Invalid input");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 
@@ -233,11 +252,13 @@ public class Controller implements ActionListener {
 						View.textField.setText("");
 					}
 					else {
-						View.outputLbl.setText("Invalid input");
+
+						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else {
-					View.outputLbl.setText("Invalid input");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
+
 				}
 			}
 
@@ -260,23 +281,23 @@ public class Controller implements ActionListener {
 									View.textField.setText("");
 								}
 								else {
-									View.outputLbl.setText("Invalid input");
+									JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 								}
 							}
 							else {
-								View.outputLbl.setText("Invalid input");
+								JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 							}
 						}
 						else {
-							View.outputLbl.setText("Invalid input");
+							JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 					else {
-						View.outputLbl.setText("Invalid input");
+						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else {
-					View.outputLbl.setText("Invalid input");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 
@@ -301,22 +322,23 @@ public class Controller implements ActionListener {
 							}
 							//There were no parameters to change
 							else {
-								View.outputLbl.setText("There are no parameters to change!");
+								JOptionPane.showMessageDialog(View.frmUmlEditor, "There are no parameters to change!", "Error", JOptionPane.ERROR_MESSAGE);
 								View.inputPanel.setVisible(false);
 								View.textField.setText("");
 							}
 						}
 						command = "Change All Params Continued";
+						this.className = className;
 					}
 					else {
-						View.outputLbl.setText("Invalid input");
+						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else {
-					View.outputLbl.setText("Invalid input");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
-			
+
 			//To continue changing parameters
 			else if(command.equals("Change All Params Continued")) {
 				//If user inputs info correctly
@@ -337,24 +359,30 @@ public class Controller implements ActionListener {
 							}
 							//No more parameters to loop through
 							else {
-								View.outputLbl.setText("Parameters Changed!");
+								for(BoxObject obj : UML.getJLabels()) {
+									if(obj.getJLabelName().equals(className)) {
+										View.updateBox(obj);
+									}
+								}
+
 								View.inputPanel.setVisible(false);
 								View.textField.setText("");
 							}
 						}
 						//If a parameter entered already exists
 						else {
-							View.outputLbl.setText("That parameter already exists!");
+							JOptionPane.showMessageDialog(View.frmUmlEditor, "That parameter already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+
 							View.inputPanel.setVisible(false);
 							View.textField.setText("");
 						}
 					}
 					else {
-						View.outputLbl.setText("Invalid input");
+						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else {
-					View.outputLbl.setText("Invalid input");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 
@@ -375,15 +403,15 @@ public class Controller implements ActionListener {
 							command = "Response Add Field";
 						}
 						else {
-							View.outputLbl.setText("Invalid input");
+							JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 					else {
-						View.outputLbl.setText("Invalid input");
+						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else {
-					View.outputLbl.setText("Invalid input");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 
@@ -410,7 +438,7 @@ public class Controller implements ActionListener {
 					}
 				}
 				else {
-					View.outputLbl.setText("Invalid input");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 
@@ -429,11 +457,11 @@ public class Controller implements ActionListener {
 						command = "Response Remove Field";
 					}
 					else {
-						View.outputLbl.setText("Invalid input");
+						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else {
-					View.outputLbl.setText("Invalid input");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 
@@ -460,7 +488,7 @@ public class Controller implements ActionListener {
 					}
 				}
 				else {
-					View.outputLbl.setText("Invalid input");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 
@@ -479,15 +507,15 @@ public class Controller implements ActionListener {
 							View.textField.setText("");
 						}
 						else {
-							View.outputLbl.setText("Invalid input");
+							JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 					else {
-						View.outputLbl.setText("Invalid input");
+						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else {
-					View.outputLbl.setText("Invalid input");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 
@@ -522,24 +550,24 @@ public class Controller implements ActionListener {
 								}
 								//Destination class does not exist
 								else {
-									View.outputLbl.setText("Destination class does not exist!");
+									JOptionPane.showMessageDialog(View.frmUmlEditor, "Destination class does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
 								}
 							}
 							//Source class does not exist
 							else {
-								View.outputLbl.setText("Source class does not exist!");
+								JOptionPane.showMessageDialog(View.frmUmlEditor, "Source class does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
 							}
 						}
 						else {
-							View.outputLbl.setText("Invalid input");
+							JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 					else {
-						View.outputLbl.setText("Invalid input");
+						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else {
-					View.outputLbl.setText("Invalid input");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 
@@ -556,11 +584,11 @@ public class Controller implements ActionListener {
 						View.textField.setText("");
 					}
 					else {
-						View.outputLbl.setText("Invalid input");
+						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else {
-					View.outputLbl.setText("Invalid input");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 
@@ -579,15 +607,15 @@ public class Controller implements ActionListener {
 							View.textField.setText("");
 						}
 						else {
-							View.outputLbl.setText("Invalid input");
+							JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 					else {
-						View.outputLbl.setText("Invalid input");
+						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else {
-					View.outputLbl.setText("Invalid input");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 
@@ -604,7 +632,6 @@ public class Controller implements ActionListener {
 								//Calls listFields and listMethods
 								uml.listFields();
 								uml.listMethods();
-								View.outputLbl.setText(View.outputText);
 								View.inputPanel.setVisible(false);
 								View.textField.setText("");
 								break;
@@ -612,11 +639,11 @@ public class Controller implements ActionListener {
 						}
 					}
 					else {
-						View.outputLbl.setText("That class does not exist!");
+						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else {
-					View.outputLbl.setText("Invalid input");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 
@@ -632,7 +659,8 @@ public class Controller implements ActionListener {
 							if(uml.getClassName().equals(className)) {
 								//Calls listRelationships
 								uml.listRelationships();
-								View.outputLbl.setText(View.outputText);
+
+								//								View.outputLbl.setText(View.outputText);
 								View.inputPanel.setVisible(false);
 								View.textField.setText("");
 								break;
@@ -641,11 +669,11 @@ public class Controller implements ActionListener {
 					}
 					//Class does not exist
 					else {
-						View.outputLbl.setText("That class does not exist");
+						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else {
-					View.outputLbl.setText("Invalid input");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 
@@ -654,7 +682,7 @@ public class Controller implements ActionListener {
 				//If user inputs info correctly
 				if(input.hasNext()) {
 					JsonFile.load(input.next(), UML.getCollection());
-					View.outputLbl.setText("File Loaded!");
+					//					View.outputLbl.setText("File Loaded!");
 					View.inputPanel.setVisible(false);
 					View.textField.setText("");
 				}
@@ -797,7 +825,6 @@ public class Controller implements ActionListener {
 					text = text + "<br>" + UML.getCollection().get(i).getClassName();
 				}
 			}
-			View.outputLbl.setText(text);
 		}
 
 		//If list contents button is clicked
@@ -817,7 +844,7 @@ public class Controller implements ActionListener {
 		//If save button is clicked
 		else if(e.getActionCommand().equals("Save")) {
 			View.textFieldJSON.setText(JsonFile.save(UML.getCollection()));
-			View.outputLbl.setText("File Saved!");
+
 		}
 
 		//If load button is clicked
@@ -829,32 +856,34 @@ public class Controller implements ActionListener {
 
 		//If help button is clicked
 		else if(e.getActionCommand().equals("Help")) {
-			View.outputLbl.setText("<html>For commands with multiple inputs, put them in order separated with a space"
-					+ "<br>add class - creates a new class"
-					+ "<br>delete class - deletes a class"
-					+ "<br>rename class - renames a class"
-					+ "<br>add method - creates a new method for a class"
-					+ "<br>delete method - deletes a method from a class"
-					+ "<br>delete all methods - deletes all methods from a class"
-					+ "<br>rename method - renames a method in a class"
-					+ "<br>add field - creates a new field for a class"
-					+ "<br>delete field - deletes a field from a class"
-					+ "<br>rename field - renames a field from a class"
-					+ "<br>add parameter - creates a parameter in a method for a class"
-					+ "<br>delete parameter - deletes a parameter from a method in a class"
-					+ "<br>delete all parameters - deletes all parameters in a method in a class"
-					+ "<br>change parameter - changes a parameter in a method in a class"
-					+ "<br>change all parameters - changes all parameters in a method in a class"
-					+ "<br>add relation - creates a relationship between two classes"
-					+ "<br>delete relation - deletes a relationship between two classes"
-					+ "<br>change relationship type - changes a relationship type"
-					+ "<br>list classes - lists all the classes made"
-					+ "<br>list contents - lists the contents of a specific class"
-					+ "<br>list relationships - lists relationships between all classes"
-					+ "<br>save - saves current uml file"
-					+ "<br>load - loads a uml file"
-					+ "<br>help - provides a list of commands usable commands"
-					+ "<br>switch to cli - exists the gui, runs cli");
+			JOptionPane.showMessageDialog(View.frmUmlEditor,
+					"<html>For commands with multiple inputs, put them in order separated with a space"
+							+ "<br>add class - creates a new class"
+							+ "<br>delete class - deletes a class"
+							+ "<br>rename class - renames a class"
+							+ "<br>add method - creates a new method for a class"
+							+ "<br>delete method - deletes a method from a class"
+							+ "<br>delete all methods - deletes all methods from a class"
+							+ "<br>rename method - renames a method in a class"
+							+ "<br>add field - creates a new field for a class"
+							+ "<br>delete field - deletes a field from a class"
+							+ "<br>rename field - renames a field from a class"
+							+ "<br>add parameter - creates a parameter in a method for a class"
+							+ "<br>delete parameter - deletes a parameter from a method in a class"
+							+ "<br>delete all parameters - deletes all parameters in a method in a class"
+							+ "<br>change parameter - changes a parameter in a method in a class"
+							+ "<br>change all parameters - changes all parameters in a method in a class"
+							+ "<br>add relation - creates a relationship between two classes"
+							+ "<br>delete relation - deletes a relationship between two classes"
+							+ "<br>change relationship type - changes a relationship type"
+							+ "<br>list classes - lists all the classes made"
+							+ "<br>list contents - lists the contents of a specific class"
+							+ "<br>list relationships - lists relationships between all classes"
+							+ "<br>save - saves current uml file"
+							+ "<br>load - loads a uml file"
+							+ "<br>help - provides a list of commands usable commands"
+							+ "<br>switch to cli - exists the gui, runs cli",
+							"Help", JOptionPane.INFORMATION_MESSAGE);
 		}
 
 		//If switch to cli button is clicked
@@ -862,6 +891,63 @@ public class Controller implements ActionListener {
 			Driver.guiUp = false;
 			View.closeGUI();
 			Driver.runCLI();
+		}
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		e.getComponent().setLocation(e.getXOnScreen() - 378, e.getYOnScreen() - 35);
+
+		if(e.getComponent().getX() < 0) {
+			e.getComponent().setLocation(0, e.getComponent().getY());
+		}
+		if(e.getComponent().getX() > 844 - e.getComponent().getWidth()) {
+			e.getComponent().setLocation(844 - e.getComponent().getWidth(), e.getComponent().getY());
+		}
+		if(e.getComponent().getY() < 0) {
+			e.getComponent().setLocation(e.getComponent().getX(), 0);
+		}
+		if(e.getComponent().getY() > 679 - e.getComponent().getHeight()) {
+			e.getComponent().setLocation(e.getComponent().getX(), 679 - e.getComponent().getHeight());
+		}
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		for(BoxObject obj : UML.getJLabels()) {
+			if(obj.getLabel() == e.getComponent()) {
+				for(UML uml : UML.getCollection()) {
+					if(obj.getJLabelName().equals(uml.getClassName())) {
+						uml.setXPos(e.getComponent().getX());
+						uml.setYPos(e.getComponent().getY());
+					}
+				}
+			}
 		}
 	}
 }
