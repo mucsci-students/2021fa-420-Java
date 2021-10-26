@@ -1,9 +1,11 @@
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import java.util.Scanner;
 
 public class Driver {
 	//Scanner for user input
 	static Scanner scanner = new Scanner(System.in);
+
 	public static boolean guiUp;
 
 	/*
@@ -12,6 +14,7 @@ public class Driver {
 	public static void main(String args[]) {
 		runView();
 	}
+
 
 	// Runs the GUI (view) for the UML
 	public static void runView() {
@@ -31,6 +34,7 @@ public class Driver {
 			String command = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 
 			switch(command) {
+          
 			case "addclass": 
 				CLI.addClassCLI();
 				break;
@@ -144,6 +148,7 @@ public class Driver {
 						+ "\nGUI - opens the GUI");
 				break;
 
+
 			case "save":
 				ArrayList<UML> collection = UML.getCollection();
 				String saveFile = JsonFile.save(collection);
@@ -161,6 +166,7 @@ public class Driver {
 					String loadFile = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
 					if(JsonFile.load(loadFile, UML.getCollection())){
+
 						System.out.println("File loaded!");
 					}
 				}

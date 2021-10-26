@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 
 import javax.swing.border.LineBorder;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
 public class View {
 	//Window
@@ -20,9 +19,6 @@ public class View {
 	public static JPanel inputPanel;
 	public static JLabel inputLbl;
 	public static JTextField textField;
-
-	//For printing out info
-	public static JLabel outputLbl;
 	public static String outputText;
 
 	//JSON string output
@@ -31,6 +27,9 @@ public class View {
 
 	//Controller object to run commands
 	public static Controller controller = new Controller();
+	
+	public static JLabel lbl;
+	public static JPanel panel;
 
 	/**
 	 * Launch the application.
@@ -261,16 +260,88 @@ public class View {
 		textFieldJSON = new JTextField();
 		savePanel.add(textFieldJSON);
 		textFieldJSON.setColumns(10);
+		
+		panel = new JPanel();
+		panel.setBackground(Color.LIGHT_GRAY);
+		panel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		panel.setBounds(378, 10, 844, 679);
+		frmUmlEditor.getContentPane().add(panel);
+		panel.setLayout(null);
 		savePanel.setVisible(true);
-		//*************************************************************************************//
-
-
-		//Creates output label
-		outputLbl = new JLabel("");
-		outputLbl.setVerticalAlignment(SwingConstants.TOP);
-		outputLbl.setFont(outputLbl.getFont().deriveFont(16f));
-		outputLbl.setBounds(378, 10, 844, 679);
-		frmUmlEditor.getContentPane().add(outputLbl);
+		
+		updateBoxes();
+	}
+	
+	public static void createBox(UML uml) {
+		lbl = new JLabel("<html>" + uml.getClassName() + "</html>");
+		panel.add(lbl);
+		lbl.setSize(lbl.getPreferredSize().width + 10, lbl.getPreferredSize().height + 6);
+		lbl.setVerticalAlignment(JLabel.TOP);
+		lbl.setHorizontalAlignment(JLabel.CENTER);
+		lbl.setLocation(uml.getXPos(), uml.getYPos());
+//		System.out.println(uml.getXPos() + " " + uml.getYPos());
+		lbl.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		lbl.setVisible(true);
+		lbl.setOpaque(true);
+		lbl.addMouseListener(controller);
+		lbl.addMouseMotionListener(controller);
+		UML.getJLabels().add(new BoxObject(uml.getClassName(), lbl));
+	}
+	
+	public static void updateBox(BoxObject obj) {
+		for(UML uml : UML.getCollection()) {
+			if(obj.getJLabelName().equals(uml.getClassName())) {
+				String text = "<html>" + uml.getClassName();
+				for(Fields field : uml.getField()) {
+					text += "<br>" + field.getFieldType() + " " + field.getFieldName();
+				}
+				for(Methods method : uml.getMethod()) {
+					text += "<br>" + method.getMethodType() + " " + method.getMethodName() + "(";
+					if(method.getParams().size() >= 1) {
+						text += method.getParams().get(0).getParamType() + " " + method.getParams().get(0).getParamName();
+					}
+					for(int i = 1; i < method.getParams().size(); i++) {
+						text += ", " + method.getParams().get(i).getParamType() + " " + method.getParams().get(i).getParamName();
+					}
+					text += ")";
+				}
+				text += "</html>";
+				obj.getLabel().setText(text);
+				obj.getLabel().setSize(obj.getLabel().getPreferredSize().width + 10, obj.getLabel().getPreferredSize().height + 2);
+				obj.getLabel().setLocation(uml.getXPos(), uml.getYPos());
+				panel.add(obj.getLabel());
+				break;
+			}
+		}
+	}
+	
+	public static void updateBoxes() {
+		for(BoxObject obj : UML.getJLabels()) {
+			for(UML uml : UML.getCollection()) {
+				if(obj.getJLabelName().equals(uml.getClassName())) {
+					String text = "<html>" + uml.getClassName();
+					for(Fields field : uml.getField()) {
+						text += "<br>" + field.getFieldType() + " " + field.getFieldName();
+					}
+					for(Methods method : uml.getMethod()) {
+						text += "<br>" + method.getMethodType() + " " + method.getMethodName() + "(";
+						if(method.getParams().size() >= 1) {
+							text += method.getParams().get(0).getParamType() + " " + method.getParams().get(0).getParamName();
+						}
+						for(int i = 1; i < method.getParams().size(); i++) {
+							text += ", " + method.getParams().get(i).getParamType() + " " + method.getParams().get(i).getParamName();
+						}
+						text += ")";
+					}
+					text += "</html>";
+					obj.getLabel().setText(text);
+					obj.getLabel().setSize(obj.getLabel().getPreferredSize().width + 10, obj.getLabel().getPreferredSize().height + 2);
+					obj.getLabel().setLocation(uml.getXPos(), uml.getYPos());
+					panel.add(obj.getLabel());
+					break;
+				}
+			}
+		}
 
 	}
 
