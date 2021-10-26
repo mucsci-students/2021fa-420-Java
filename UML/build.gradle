@@ -1,8 +1,9 @@
-apply plugin: 'java'
-apply plugin: 'application'
+plugins {
+    id 'application'
+    id 'java'
+}
 
-mainClassName = 'Driver'
-
+mainClassName = 'uml.Driver'
 
 repositories { 
     mavenCentral() 
@@ -10,12 +11,15 @@ repositories {
 
 jar {
     archiveBaseName = 'UMLEditor'
-    archiveVersion =  '0.0.1'
+    archiveVersion =  '3.0.0'
     manifest {
         attributes "Main-Class": "$mainClassName"
     }
 }
 
+application {
+    mainClass = "$mainClassName"
+}
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
