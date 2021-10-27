@@ -1,4 +1,7 @@
+package uml;
+
 import java.util.*;
+import javax.swing.JOptionPane;
 
 
 import javax.swing.JOptionPane;
@@ -29,11 +32,51 @@ public class Parameters {
 		type = newType;
 	}
 
+	//THIS FINALLY WORKS HOMIES!!!!!!
 	public static boolean addParameter(String UMLName, String methodName, String parameterName, String type){
-		ArrayList<Parameters> pList;
+		ArrayList<Parameters> pList = null;
+		boolean validate = true;
+		try {
+			if(MethodOverloading.containsDuplicateMethods(UMLName).contains(methodName)){
+				validate = false;
+				String dif = "nd";
+				int num = 1;
+				ArrayList<String> comparison = new ArrayList<>();
+				Scanner scanner = new Scanner(System.in);
+				System.out.println("Enter the "+num+"st parameter type or type -1 if you are done!");
+				String s = scanner.nextLine().toLowerCase();
+				while(!(s.equals("-1"))){
+					comparison.add(s);
+					++num;
+					if(dif.equals("rd")){
+						dif = "th";
+					}
+					System.out.println("Enter "+num + dif+" parameter type or type -1 if you are done!");
+					s = scanner.nextLine().toLowerCase();
+					if (dif.equals("nd")){
+						dif = "rd";
+					}
+					
+					
+	
+				}
+				
+				pList = MethodOverloading.findMethod(UMLName, methodName, comparison);
+			}
+	
+		} catch (NullPointerException e) {
+			System.out.println(" Class name not found");
+			return false;
+		}
+		
+
+
+		if (validate){
 		// Makes sure the method of insertion exists or if the user exited
 
 		pList = Parameters.findMethod(UMLName, methodName);
+		} 
+
 		if(pList == null){ 
 			return false;
 		}
@@ -74,30 +117,25 @@ public class Parameters {
 		}
 		return false;
 
-	}
+}
 
 	// Removes a parameter that matches the specified credentials at the index
 	public static boolean deleteParameter(String UMLName, String methodsName, String pName) {
 		// The ArrayList of Parameters in a given method
-		ArrayList<Parameters> mList;
-		// Exit case
-		mList = Parameters.findMethod(UMLName, methodsName);
-		if(mList == null){ 
-			return false;
-		}
+		ArrayList<Parameters> pList = MethodOverloading.locating(UMLName, methodsName);
 		int index = -1;
 
 		// Finds the parameter to be removed
-		for(Parameters param : mList){
+		for(Parameters param : pList){
 			if(param.getParamName().equalsIgnoreCase(pName)){
 				// index of the parameter
-				index = mList.indexOf(param);
+				index = pList.indexOf(param);
 				break;
 			}
 		}
 		// Removes the parameter at the index if found
 		if(index != -1) {
-			mList.remove(index);
+			pList.remove(index);
 
 			for(BoxObject obj : UML.getJLabels()) {
 				if(obj.getJLabelName().equals(UMLName)) {
@@ -261,4 +299,8 @@ public class Parameters {
 		}
 		return null;
 	}
+	
+	// WORK ON BELOW
+	//**********************************************************************************************************************/
+	
 }

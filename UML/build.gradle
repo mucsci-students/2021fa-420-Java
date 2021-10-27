@@ -1,0 +1,30 @@
+plugins {
+    id 'application'
+    id 'java'
+}
+
+mainClassName = 'uml.Driver'
+
+repositories { 
+    mavenCentral() 
+}
+
+jar {
+    archiveBaseName = 'UMLEditor'
+    archiveVersion =  '3.0.0'
+    manifest {
+        attributes "Main-Class": "$mainClassName"
+    }
+}
+
+application {
+    mainClass = "$mainClassName"
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.8.8'
+    testImplementation 'junit:junit:4.12'
+}

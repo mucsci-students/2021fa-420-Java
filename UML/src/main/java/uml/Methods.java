@@ -1,3 +1,5 @@
+package uml;
+
 import java.util.ArrayList;
 
 
@@ -59,16 +61,16 @@ public class Methods {
 								}
 								return;
 							}
-							//Given method exists
-							else if(uml.getMethod().get(i).getMethodName().equals(methodName)) {
-								if(Driver.guiUp) {
-									JOptionPane.showMessageDialog(View.frmUmlEditor, "That method already exists!", "Error", JOptionPane.ERROR_MESSAGE);
-								}
-								else {
-									System.out.println("That method already exists!");
-								}
-								return;
-							}
+							// //Given method exists
+							// else if(uml.getMethod().get(i).getMethodName().equals(methodName)) {
+							// 	if(Driver.guiUp) {
+							// 		JOptionPane.showMessageDialog(View.frmUmlEditor, "That method already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+							// 	}
+							// 	else {
+							// 		System.out.println("That method already exists!");
+							// 	}
+							// 	return;
+							// }
 						}
 					}
 					//Given method name is not alphanumeric
