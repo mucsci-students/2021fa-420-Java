@@ -3,6 +3,9 @@ package uml;
 import java.util.*;
 import javax.swing.JOptionPane;
 
+
+import javax.swing.JOptionPane;
+
 public class Parameters {
 	private String name;
 	private String type;
