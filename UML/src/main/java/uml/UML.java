@@ -1,3 +1,5 @@
+package uml;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.regex.Pattern;
@@ -151,6 +153,8 @@ public class UML {
 					for(BoxObject obj : UML.getJLabels()) {
 						if(obj.getJLabelName().equals(uml.getClassName())) {
 							View.panel.remove(obj.getLabel());
+							jlabels.remove(obj);
+							break;
 						}
 					}
 					View.panel.repaint();

@@ -1,3 +1,5 @@
+package uml;
+
 import java.awt.EventQueue;
 import java.awt.Color;
 import java.awt.Dimension;
