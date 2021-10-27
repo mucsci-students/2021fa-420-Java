@@ -1,5 +1,7 @@
 package uml;
 
+import javax.swing.JOptionPane;
+
 public class Fields {
 	private String name;
 	private String type;
@@ -38,10 +40,14 @@ public class Fields {
 							//Given field does not exist
 							if(i == uml.getField().size()) {
 								uml.getField().add(new Fields(name, type));
-								if(Driver.guiUp) {
-									View.outputLbl.setText("Field Created!");
+
+								for(BoxObject obj : UML.getJLabels()) {
+									if(obj.getJLabelName().equals(uml.getClassName())) {
+										View.updateBox(obj);
+									}
 								}
-								else {
+
+								if(!Driver.guiUp) {
 									System.out.println("Field Created!");
 								}
 								return;
@@ -49,7 +55,9 @@ public class Fields {
 							//Given field exists
 							else if(uml.getField().get(i).getFieldName().equals(name)) {
 								if(Driver.guiUp) {
-									View.outputLbl.setText("That field already exists!");
+
+									JOptionPane.showMessageDialog(View.frmUmlEditor, "That field already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+
 								}
 								else {
 									System.out.println("That field already exists!");
@@ -61,7 +69,9 @@ public class Fields {
 					//Given field name is not alphanumeric
 					else {
 						if(Driver.guiUp) {
-							View.outputLbl.setText("A field name must only contain numbers and letters");
+
+							JOptionPane.showMessageDialog(View.frmUmlEditor, "A field name must only contain numbers and letters", "Error", JOptionPane.ERROR_MESSAGE);
+
 						}
 						else {
 							System.out.println("A field name must only contain numbers and letters");
@@ -73,7 +83,9 @@ public class Fields {
 		//Given class does not exist
 		else {
 			if(Driver.guiUp) {
-				View.outputLbl.setText("That class does not exist!");
+
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+
 			}
 			else {
 				System.out.println("That class does not exist!");
@@ -94,10 +106,14 @@ public class Fields {
 							//Given field exists
 							if(i < uml.getField().size() && uml.getField().get(i).getFieldName().equals(name)) {
 								uml.getField().remove(i);
-								if(Driver.guiUp) {
-									View.outputLbl.setText("Field Removed!");
+
+								for(BoxObject obj : UML.getJLabels()) {
+									if(obj.getJLabelName().equals(uml.getClassName())) {
+										View.updateBox(obj);
+									}
 								}
-								else {
+
+								if(Driver.guiUp) {
 									System.out.println("Field Removed!");
 								}
 								return;
@@ -105,7 +121,7 @@ public class Fields {
 							//Given field does not exist
 							else if(i == uml.getField().size()) {
 								if(Driver.guiUp) {
-									View.outputLbl.setText("That field does not exist!");
+									JOptionPane.showMessageDialog(View.frmUmlEditor, "That field does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
 								}
 								else {
 									System.out.println("That field does not exist!");
@@ -117,7 +133,7 @@ public class Fields {
 					//No fields to remove
 					else {
 						if(Driver.guiUp) {
-							View.outputLbl.setText("This class has no fields!");
+							JOptionPane.showMessageDialog(View.frmUmlEditor, "This class has no fields!", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 						else {
 							System.out.println("This class has no fields!");
@@ -129,7 +145,7 @@ public class Fields {
 		//Given class does not exists
 		else {
 			if(Driver.guiUp) {
-				View.outputLbl.setText("That class does not exist!");
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				System.out.println("That class does not exist!");
@@ -155,10 +171,14 @@ public class Fields {
 									//New field does not exist
 									if(j == uml.getField().size()) {
 										uml.getField().get(i).setFieldName(newName);
-										if(Driver.guiUp) {
-											View.outputLbl.setText("Field Renamed!");
+
+										for(BoxObject obj : UML.getJLabels()) {
+											if(obj.getJLabelName().equals(uml.getClassName())) {
+												View.updateBox(obj);
+											}
 										}
-										else {
+
+										if(!Driver.guiUp) {
 											System.out.println("Field Renamed!");
 										}
 										return;
@@ -166,7 +186,7 @@ public class Fields {
 									//New field already exists
 									else if(j < uml.getField().size() && uml.getField().get(j).getFieldName().equals(newName)) {
 										if(Driver.guiUp) {
-											View.outputLbl.setText("That field already exists!");
+											JOptionPane.showMessageDialog(View.frmUmlEditor, "That field already exists!", "Error", JOptionPane.ERROR_MESSAGE);
 										}
 										else {
 											System.out.println("That field already exists!");
@@ -178,7 +198,7 @@ public class Fields {
 							//Old field does not exist
 							else {
 								if(Driver.guiUp) {
-									View.outputLbl.setText("That field does not exist!");
+									JOptionPane.showMessageDialog(View.frmUmlEditor, "That field does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
 								}
 								else {
 									System.out.println("That field does not exist!");
@@ -190,7 +210,7 @@ public class Fields {
 					//New field must be alphanumeric
 					else {
 						if(Driver.guiUp) {
-							View.outputLbl.setText("A field name must only contain numbers and letters");
+							JOptionPane.showMessageDialog(View.frmUmlEditor, "A field name must only contain numbers and letters", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 						else {
 							System.out.println("A field name must only contain numbers and letters");
@@ -202,7 +222,7 @@ public class Fields {
 		//Given class does not exist
 		else {
 			if(Driver.guiUp) {
-				View.outputLbl.setText("That class does not exist!");
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				System.out.println("That class does not exist!");

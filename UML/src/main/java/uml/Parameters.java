@@ -1,6 +1,7 @@
 package uml;
 
 import java.util.*;
+import javax.swing.JOptionPane;
 
 public class Parameters {
 	private String name;
@@ -28,11 +29,51 @@ public class Parameters {
 		type = newType;
 	}
 
+	//THIS FINALLY WORKS HOMIES!!!!!!
 	public static boolean addParameter(String UMLName, String methodName, String parameterName, String type){
-		ArrayList<Parameters> pList;
+		ArrayList<Parameters> pList = null;
+		boolean validate = true;
+		try {
+			if(MethodOverloading.containsDuplicateMethods(UMLName).contains(methodName)){
+				validate = false;
+				String dif = "nd";
+				int num = 1;
+				ArrayList<String> comparison = new ArrayList<>();
+				Scanner scanner = new Scanner(System.in);
+				System.out.println("Enter the "+num+"st parameter type or type -1 if you are done!");
+				String s = scanner.nextLine().toLowerCase();
+				while(!(s.equals("-1"))){
+					comparison.add(s);
+					++num;
+					if(dif.equals("rd")){
+						dif = "th";
+					}
+					System.out.println("Enter "+num + dif+" parameter type or type -1 if you are done!");
+					s = scanner.nextLine().toLowerCase();
+					if (dif.equals("nd")){
+						dif = "rd";
+					}
+					
+					
+	
+				}
+				
+				pList = MethodOverloading.findMethod(UMLName, methodName, comparison);
+			}
+	
+		} catch (NullPointerException e) {
+			System.out.println(" Class name not found");
+			return false;
+		}
+		
+
+
+		if (validate){
 		// Makes sure the method of insertion exists or if the user exited
 
 		pList = Parameters.findMethod(UMLName, methodName);
+		} 
+
 		if(pList == null){ 
 			return false;
 		}
@@ -50,17 +91,22 @@ public class Parameters {
 			Parameters parameter = new Parameters(parameterName, type);
 			// Addition of a new parameter
 			pList.add(parameter);
-			if(Driver.guiUp) {
-				View.outputLbl.setText("Parameter Created!");
+
+			
+			for(BoxObject obj : UML.getJLabels()) {
+				if(obj.getJLabelName().equals(UMLName)) {
+					View.updateBox(obj);
+				}
 			}
-			else {
+
+			if(!Driver.guiUp) {
 				System.out.println("Parameter Created!");
 			}
 			return true;
 		}
 		else {
 			if(Driver.guiUp) {
-				View.outputLbl.setText("That parameter already exists!");
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "That parameter already exists!", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				System.out.println("That parameter already exists!");
@@ -68,41 +114,40 @@ public class Parameters {
 		}
 		return false;
 
-	}
+}
 
 	// Removes a parameter that matches the specified credentials at the index
 	public static boolean deleteParameter(String UMLName, String methodsName, String pName) {
 		// The ArrayList of Parameters in a given method
-		ArrayList<Parameters> mList;
-		// Exit case
-		mList = Parameters.findMethod(UMLName, methodsName);
-		if(mList == null){ 
-			return false;
-		}
+		ArrayList<Parameters> pList = MethodOverloading.locating(UMLName, methodsName);
 		int index = -1;
 
 		// Finds the parameter to be removed
-		for(Parameters param : mList){
+		for(Parameters param : pList){
 			if(param.getParamName().equalsIgnoreCase(pName)){
 				// index of the parameter
-				index = mList.indexOf(param);
+				index = pList.indexOf(param);
 				break;
 			}
 		}
 		// Removes the parameter at the index if found
 		if(index != -1) {
-			mList.remove(index);
-			if(Driver.guiUp) {
-				View.outputLbl.setText("Parameter deleted!");
+			pList.remove(index);
+
+			for(BoxObject obj : UML.getJLabels()) {
+				if(obj.getJLabelName().equals(UMLName)) {
+					View.updateBox(obj);
+				}
 			}
-			else {
-				System.out.println("Parameter deleted!");
+
+			if(!Driver.guiUp) {
+				System.out.println("Parameter Removed!");
 			}
 			return true;
 		}
 		else {
 			if(Driver.guiUp) {
-				View.outputLbl.setText("That parameter does not exist!");
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "That parameter does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				System.out.println("That parameter does not exist!");
@@ -123,7 +168,7 @@ public class Parameters {
 		}
 		if(mList.isEmpty()) {
 			if(Driver.guiUp) {
-				View.outputLbl.setText("There are no parameters to remove.");
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "There are no parameters to remove.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				System.out.println("There are no parameters to remove.");
@@ -131,11 +176,15 @@ public class Parameters {
 			return false;
 		}
 		mList.clear();
-		if(Driver.guiUp) {
-			View.outputLbl.setText("Parameters deleted!");
+
+		for(BoxObject obj : UML.getJLabels()) {
+			if(obj.getJLabelName().equals(UMLName)) {
+				View.updateBox(obj);
+			}
 		}
-		else {
-			System.out.println("Parameters deleted!");
+
+		if(!Driver.guiUp) {
+			System.out.println("Parameters Removed!");
 		}
 		return true;
 	}
@@ -171,17 +220,22 @@ public class Parameters {
 			// Replaces the parameter at that index with the new one
 			if(!noDuplicates.contains(newpName)){
 				mList.set(index, p);
-				if(Driver.guiUp) {
-					View.outputLbl.setText("Parameter changed!");
+
+
+				for(BoxObject obj : UML.getJLabels()) {
+					if(obj.getJLabelName().equals(UMLName)) {
+						View.updateBox(obj);
+					}
 				}
-				else {
-					System.out.println("Parameter changed!");
+
+				if(!Driver.guiUp) {
+					System.out.println("Parameter Changed!");
 				}
 				return true;
 			}
 			else {
 				if(Driver.guiUp) {
-					View.outputLbl.setText("That parameter already exists!");
+					JOptionPane.showMessageDialog(View.frmUmlEditor, "That parameter already exists!", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				else {
 					System.out.println("That parameter already exists!");
@@ -191,7 +245,8 @@ public class Parameters {
 		}
 		else {
 			if(Driver.guiUp) {
-				View.outputLbl.setText("That parameter does not exist!");
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "That parameter does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+
 			}
 			else {
 				System.out.println("That parameter does not exist!");
@@ -224,7 +279,7 @@ public class Parameters {
 				}
 			}
 			if(Driver.guiUp) {
-				View.outputLbl.setText("That method does not exist!");
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "That method does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				System.out.println("That method does not exist!");
@@ -232,11 +287,17 @@ public class Parameters {
 			return null;
 		}
 		if(Driver.guiUp) {
-			View.outputLbl.setText("That class does not exist!");
+
+			JOptionPane.showMessageDialog(View.frmUmlEditor, "That class does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+
 		}
 		else {
 			System.out.println("That class does not exist!");
 		}
 		return null;
 	}
+	
+	// WORK ON BELOW
+	//**********************************************************************************************************************/
+	
 }
