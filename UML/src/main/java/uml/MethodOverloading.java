@@ -57,6 +57,19 @@ public class MethodOverloading {
 		return false;
 
 	}
+	public static boolean compareParams(ArrayList<Parameters> list1, ArrayList<Parameters> list2, String x){
+		if (list1.size() == list2.size()){
+			for(int i = 0; i <= list1.size() - 1; ++i){
+				if (!(list1.get(i).getParamType().equals(list2.get(i).getParamType()))){
+					return false;
+					
+				}
+			}
+			return true;
+		}
+		return false;
+
+	}
 	// NEED TO MAKE SURE UML CLASS AND METHOD EXISTS
 	// OTHERWISE WORKS
 	public static HashSet<String> containsDuplicateMethods(String UMLname){
@@ -82,20 +95,74 @@ public class MethodOverloading {
 	
 	}
 
-	public static boolean containsSameSignature(UML UMLname, Methods addend, Parameters latestAddition){
-	
-		ArrayList<Parameters> origin = addend.getParams();
+	//**************************************************************************************************************************************
+	/* Checking signatures of methods
+	*****************************************************************************************************************************************/
+	public static boolean containsSameSignatureAdding(UML UMLname, ArrayList<Parameters> addend, Parameters latestAddition, String mName){
+		@SuppressWarnings("unchecked")
+		ArrayList<Parameters> origin = (ArrayList<Parameters>) addend.clone();
 		origin.add(latestAddition);
 
 			for(Methods m : UMLname.getMethod()) {
-				if(m.getMethodName().equals(addend.getMethodName()) && m.getParams().equals(origin)) {
+				if(m.getMethodName().equals(mName) && compareParams(m.getParams(), origin, "Hello fellow coder")) {
 					return true;
 				}
 			}
 		return false;
 	}
+	public static boolean containsSameSignatureDeleting(UML UMLname,  ArrayList<Parameters> addend, Parameters latestAddition, String mName){
+		@SuppressWarnings("unchecked")
+		ArrayList<Parameters> origin = (ArrayList<Parameters>) addend.clone();
+		origin.remove(latestAddition);
 
-    public static ArrayList<Parameters> locating(String UML, String method){
+		for(Methods m : UMLname.getMethod()) {
+			if(m.getMethodName().equals(mName) && compareParams(m.getParams(), origin, "Hello fellow coder")) {
+				return true;
+			}
+		}
+	return false;
+	}
+	public static boolean containsSameSignatureDeletingAll(UML UMLname,  ArrayList<Parameters> addend, String mName){
+		
+		ArrayList<Parameters> origin = new ArrayList<Parameters>();
+
+		for(Methods m : UMLname.getMethod()) {
+			if(m.getMethodName().equals(mName) && compareParams(m.getParams(), origin, "Hello fellow coder")) {
+				return true;
+			}
+		}
+	return false;
+	}
+	public static boolean containsSameSignatureChanging(UML UMLname,  ArrayList<Parameters> addend, String mName, String oldPName, String newPName){
+		@SuppressWarnings("unchecked")
+		ArrayList<Parameters> origin = (ArrayList<Parameters>) addend.clone();
+		Parameters p1 = Parameters.findParam(oldPName, addend);
+		Parameters p2 = Parameters.findParam(oldPName, addend);
+		int index = origin.indexOf(p1);
+		origin.set(index, p2);
+
+		for(Methods m : UMLname.getMethod()) {
+			if(m.getMethodName().equals(mName) && compareParams(m.getParams(), origin, "Hello fellow coder")) {
+				return true;
+			}
+		}
+	return false;
+	}
+	public static boolean containsSameSignatureChangingAll(UML UMLname, ArrayList<Parameters> addend, Parameters latestAddition, String mName){
+		@SuppressWarnings("unchecked")
+		ArrayList<Parameters> origin = (ArrayList<Parameters>) addend.clone();
+		origin.set(addend.size()-1, latestAddition);
+
+			for(Methods m : UMLname.getMethod()) {
+				if(m.getMethodName().equals(mName) && compareParams(m.getParams(), origin, "Hello fellow coder")) {
+					return true;
+				}
+			}
+		return false;
+	}
+	
+//************************************************************************************************************************************ */
+    public static ArrayList<Parameters> locatingParameters(String UML, String method){
         ArrayList<Parameters> pList = null;
 		boolean validate = true;
 		// Exit case
@@ -140,6 +207,8 @@ public class MethodOverloading {
 		}
         return pList;
     }
+
+
 
 
 }

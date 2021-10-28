@@ -222,12 +222,19 @@ public class CLI {
 		System.out.println("What method would you like to rename parameters in?");
 		String methodName3 = scanner.nextLine().toLowerCase();
 		HashSet<String> Dupes = new HashSet<String>();
-		ArrayList<Parameters> pList = Parameters.findMethod(UMLName3, methodName3);
-		//Makes sure there are parameters
+
+		ArrayList<Parameters> pList = MethodOverloading.locatingParameters(UMLName3, methodName3);
+		UML UMLOBJ = UML.findUMLOBJ(UMLName3);
+
+		if(pList == null){ 
+			return;
+		}
+
+		
 		if(pList != null) {
 			if(!pList.isEmpty()) {
 				//Loops through all parameters
-				for(int i = 0 ; i <= pList.size() - 1; i++) {
+				for(int i = 0 ; i <= pList.size() - 2; i++) {
 					System.out.println("Here is the parameter being changed:");
 					System.out.println(pList.get(i).getParamType() + " " + pList.get(i).getParamName());
 					System.out.println("What is the new name?");
@@ -243,8 +250,27 @@ public class CLI {
 						System.out.println(pName + " already exists in " + methodName3);
 					}
 				}
+					System.out.println("Here is the parameter being changed:");
+					System.out.println(pList.get(pList.size()-1).getParamType() + " " + pList.get(pList.size()-1).getParamName());
+					System.out.println("What is the new name?");
+					String pName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+					//Makes sure no duplicates while renaming
+					if(!Dupes.contains(pName)){
+						Dupes.add(pName);
+						System.out.println("What is the parameter type?");
+						String pType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+						while(MethodOverloading.containsSameSignatureChangingAll(UMLOBJ, pList, new Parameters(pName, pType), methodName3)){
+							System.out.println("A method with that signature already exists! Choose another typing for last parameter");
+							System.out.println("What is the parameter type?");
+						 	pType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+						}
+						pList.set(pList.size()-1, new Parameters(pName, pType));
+					}else {
+						System.out.println(pName + " already exists in " + methodName3);
+					}
 			}
-			else {
+					
+			else{
 				System.out.println("There are no parameters to change!");
 			}
 		}

@@ -343,4 +343,22 @@ public class UML {
 			}
 		}
 	}
+
+	public static UML findUMLOBJ (String name){
+		UML foundUML = null;
+
+		// Finds the UML object if it exists
+		for(UML u : UML.getCollection()) {
+			if(name.equals(u.getClassName())) {
+				foundUML = u;
+				break;
+			}
+		}
+		// If the UML object exists, this traverses the methods of the UML object and returns the Parameter list of the correct method
+		if(foundUML != null) {
+			return foundUML;
+			}	
+		return null;
+	}
+	
 }

@@ -34,50 +34,16 @@ public class Parameters {
 
 	//THIS FINALLY WORKS HOMIES!!!!!!
 	public static boolean addParameter(String UMLName, String methodName, String parameterName, String type){
-		ArrayList<Parameters> pList = null;
-		boolean validate = true;
-		try {
-			if(MethodOverloading.containsDuplicateMethods(UMLName).contains(methodName)){
-				validate = false;
-				String dif = "nd";
-				int num = 1;
-				ArrayList<String> comparison = new ArrayList<>();
-				Scanner scanner = new Scanner(System.in);
-				System.out.println("Enter the "+num+"st parameter type or type -1 if you are done!");
-				String s = scanner.nextLine().toLowerCase();
-				while(!(s.equals("-1"))){
-					comparison.add(s);
-					++num;
-					if(dif.equals("rd")){
-						dif = "th";
-					}
-					System.out.println("Enter "+num + dif+" parameter type or type -1 if you are done!");
-					s = scanner.nextLine().toLowerCase();
-					if (dif.equals("nd")){
-						dif = "rd";
-					}
-					
-					
-	
-				}
-				
-				pList = MethodOverloading.findMethod(UMLName, methodName, comparison);
-			}
-	
-		} catch (NullPointerException e) {
-			System.out.println(" Class name not found");
-			return false;
-		}
-		
-
-
-		if (validate){
-		// Makes sure the method of insertion exists or if the user exited
-
-		pList = Parameters.findMethod(UMLName, methodName);
-		} 
+		ArrayList<Parameters> pList = MethodOverloading.locatingParameters(UMLName, methodName);
+		Parameters parameter = new Parameters(parameterName, type);
+		UML UMLOBJ = UML.findUMLOBJ(UMLName);
 
 		if(pList == null){ 
+			return false;
+		}
+
+		if(MethodOverloading.containsSameSignatureAdding(UMLOBJ, pList, parameter, methodName)){
+			System.out.println("A method with that signature already exists");
 			return false;
 		}
 
@@ -91,7 +57,7 @@ public class Parameters {
 
 		if(!noDuplicates.contains(parameterName)) {
 			noDuplicates.add(parameterName);
-			Parameters parameter = new Parameters(parameterName, type);
+			
 			// Addition of a new parameter
 			pList.add(parameter);
 
@@ -122,7 +88,17 @@ public class Parameters {
 	// Removes a parameter that matches the specified credentials at the index
 	public static boolean deleteParameter(String UMLName, String methodsName, String pName) {
 		// The ArrayList of Parameters in a given method
-		ArrayList<Parameters> pList = MethodOverloading.locating(UMLName, methodsName);
+		ArrayList<Parameters> pList = MethodOverloading.locatingParameters(UMLName, methodsName);
+		UML UMLOBJ = UML.findUMLOBJ(UMLName);
+
+		if(pList == null){ 
+			return false;
+		}
+		Parameters p = findParam(pName, pList);
+		if(MethodOverloading.containsSameSignatureDeleting(UMLOBJ, pList, p, methodsName)){
+			System.out.println("A method with that signature already exists");
+			return false;
+		}
 		int index = -1;
 
 		// Finds the parameter to be removed
@@ -163,13 +139,19 @@ public class Parameters {
 	// Empties the Parameters of a given method
 	public static boolean deleteAllParameters (String UMLName, String methodsName){
 		// The ArrayList of Parameters in a given method
-		ArrayList<Parameters> mList;
-		// Exit case
-		mList = Parameters.findMethod(UMLName, methodsName);
-		if(mList == null) {
+		ArrayList<Parameters> pList = MethodOverloading.locatingParameters(UMLName, methodsName);
+		UML UMLOBJ = UML.findUMLOBJ(UMLName);
+
+		if(pList == null){ 
 			return false;
 		}
-		if(mList.isEmpty()) {
+
+		if(MethodOverloading.containsSameSignatureDeletingAll(UMLOBJ, pList, methodsName)){
+			System.out.println("A method with that signature already exists");
+			return false;
+		}				
+
+		if(pList.isEmpty()) {
 			if(Driver.guiUp) {
 				JOptionPane.showMessageDialog(View.frmUmlEditor, "There are no parameters to remove.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
@@ -178,7 +160,7 @@ public class Parameters {
 			}
 			return false;
 		}
-		mList.clear();
+		pList.clear();
 
 		for(BoxObject obj : UML.getJLabels()) {
 			if(obj.getJLabelName().equals(UMLName)) {
@@ -194,25 +176,29 @@ public class Parameters {
 
 	// Changes a single parameter in a method
 	public static boolean changeParameter(String UMLName, String methodsName, String oldpName, String newpName, String newpType ) {
-		// The ArrayList of Parameters in a given method
-		ArrayList<Parameters> mList;
-		// Exit case
-		mList = Parameters.findMethod(UMLName, methodsName);
-		if(mList == null){ 
+		ArrayList<Parameters> pList = MethodOverloading.locatingParameters(UMLName, methodsName);
+		UML UMLOBJ = UML.findUMLOBJ(UMLName);
+
+		if(pList == null){ 
+			return false;
+		}
+
+		if(MethodOverloading.containsSameSignatureChanging(UMLOBJ, pList, methodsName, oldpName, newpName)){
+			System.out.println("A method with that signature already exists");
 			return false;
 		}
 		//Duplicate checking
 		HashSet<String> noDuplicates = new HashSet<String>(); 
-		for(Parameters p : mList){
+		for(Parameters p : pList){
 			noDuplicates.add(p.getParamName());
 		}
 		// Used to locate the parameter to be modified
 		int index = -1;
 
 		// Finds the index of the parameter to be modified
-		for(Parameters param : mList){
+		for(Parameters param : pList){
 			if(param.getParamName().equalsIgnoreCase(oldpName)){
-				index = mList.indexOf(param);
+				index = pList.indexOf(param);
 				break;
 			}
 		}
@@ -222,7 +208,7 @@ public class Parameters {
 			Parameters p = new Parameters(newpName, newpType);
 			// Replaces the parameter at that index with the new one
 			if(!noDuplicates.contains(newpName)){
-				mList.set(index, p);
+				pList.set(index, p);
 
 
 				for(BoxObject obj : UML.getJLabels()) {
@@ -302,5 +288,12 @@ public class Parameters {
 	
 	// WORK ON BELOW
 	//**********************************************************************************************************************/
-	
+	public static Parameters findParam(String name, ArrayList<Parameters> list){
+		for(Parameters p : list){
+			if (p.getParamName().equals(name)){
+				return p;
+			}
+		}
+		return null;
+	}
 }
