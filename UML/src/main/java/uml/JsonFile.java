@@ -29,7 +29,11 @@ public class JsonFile {
 			ArrayList<UML> newCollection = new Gson().fromJson(loaded, type);
 
 			// Empties the current ArrayList
-
+			for(BoxObject obj : UML.getJLabels()) {
+				View.panel.remove(obj.getLabel());
+			}
+			UML.getJLabels().clear();
+			View.panel.repaint();
 			UML.clearCollection();
 			
 			//Need to remove the current no dupes and replace it with the loaded dupes
@@ -47,15 +51,17 @@ public class JsonFile {
 			UML.setCollection(newCollection);
 	
 
-			//Removes previous class boxes
-			for(BoxObject obj : UML.getJLabels()) {
-				View.panel.remove(obj.getLabel());
-			}
-			UML.getJLabels().clear();
-			View.panel.repaint();
+			//Create a box object for every uml object
+			//add box object to jlabs array
+
+
+		
+			
 
 			//Creates JLabels for gui
-			
+			for(UML u: UML.getCollection()){
+				View.createBox(u);
+			}
 			View.updateBoxes();
 			View.panel.repaint();
 

@@ -340,6 +340,7 @@ public class View {
 					obj.getLabel().setSize(obj.getLabel().getPreferredSize().width + 10, obj.getLabel().getPreferredSize().height + 2);
 					obj.getLabel().setLocation(uml.getposition_x(), uml.getposition_y());
 					panel.add(obj.getLabel());
+					
 					break;
 				}
 			}
