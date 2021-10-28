@@ -133,11 +133,11 @@ public class MethodOverloading {
 		}
 	return false;
 	}
-	public static boolean containsSameSignatureChanging(UML UMLname,  ArrayList<Parameters> addend, String mName, String oldPName, String newPName){
+	public static boolean containsSameSignatureChanging(UML UMLname,  ArrayList<Parameters> addend, String mName, String oldPName, String newPName, String newPType){
 		@SuppressWarnings("unchecked")
 		ArrayList<Parameters> origin = (ArrayList<Parameters>) addend.clone();
 		Parameters p1 = Parameters.findParam(oldPName, addend);
-		Parameters p2 = Parameters.findParam(oldPName, addend);
+		Parameters p2 = new Parameters(newPName, newPType);
 		int index = origin.indexOf(p1);
 		origin.set(index, p2);
 

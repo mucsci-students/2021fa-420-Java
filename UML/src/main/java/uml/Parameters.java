@@ -183,7 +183,7 @@ public class Parameters {
 			return false;
 		}
 
-		if(MethodOverloading.containsSameSignatureChanging(UMLOBJ, pList, methodsName, oldpName, newpName)){
+		if(MethodOverloading.containsSameSignatureChanging(UMLOBJ, pList, methodsName, oldpName, newpName, newpType)){
 			System.out.println("A method with that signature already exists");
 			return false;
 		}

@@ -12,10 +12,11 @@ public class JsonFile {
 	public static String save(ArrayList<UML> collection) {
 		Gson gson = new Gson();
 		// Converts the list to JSON
-		String saveFile = gson.toJson(collection);
+			String saveFile = gson.toJson(collection);
 
 		return saveFile;
-
+	
+		
 	}
 
 	// Loads a String with a JSON format and turns it into an ArrayList of UML objects
