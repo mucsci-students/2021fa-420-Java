@@ -280,8 +280,8 @@ public class View {
 		lbl.setSize(lbl.getPreferredSize().width + 10, lbl.getPreferredSize().height + 6);
 		lbl.setVerticalAlignment(JLabel.TOP);
 		lbl.setHorizontalAlignment(JLabel.CENTER);
-		lbl.setLocation(uml.getXPos(), uml.getYPos());
-//		System.out.println(uml.getXPos() + " " + uml.getYPos());
+		lbl.setLocation(uml.getposition_x(), uml.getposition_y());
+//		System.out.println(uml.getposition_x() + " " + uml.getposition_y());
 		lbl.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		lbl.setVisible(true);
 		lbl.setOpaque(true);
@@ -310,7 +310,7 @@ public class View {
 				text += "</html>";
 				obj.getLabel().setText(text);
 				obj.getLabel().setSize(obj.getLabel().getPreferredSize().width + 10, obj.getLabel().getPreferredSize().height + 2);
-				obj.getLabel().setLocation(uml.getXPos(), uml.getYPos());
+				obj.getLabel().setLocation(uml.getposition_x(), uml.getposition_y());
 				panel.add(obj.getLabel());
 				break;
 			}
@@ -338,7 +338,7 @@ public class View {
 					text += "</html>";
 					obj.getLabel().setText(text);
 					obj.getLabel().setSize(obj.getLabel().getPreferredSize().width + 10, obj.getLabel().getPreferredSize().height + 2);
-					obj.getLabel().setLocation(uml.getXPos(), uml.getYPos());
+					obj.getLabel().setLocation(uml.getposition_x(), uml.getposition_y());
 					panel.add(obj.getLabel());
 					break;
 				}

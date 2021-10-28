@@ -13,7 +13,6 @@ public class JsonFile {
 		Gson gson = new Gson();
 		// Converts the list to JSON
 			String saveFile = gson.toJson(collection);
-
 		return saveFile;
 	
 		
@@ -30,8 +29,9 @@ public class JsonFile {
 			ArrayList<UML> newCollection = new Gson().fromJson(loaded, type);
 
 			// Empties the current ArrayList
-			UML.clearCollection();
 
+			UML.clearCollection();
+			
 			//Need to remove the current no dupes and replace it with the loaded dupes
 			HashSet<String> noDupes = UML.getNoClassDupes();
 			noDupes.clear();
@@ -42,7 +42,10 @@ public class JsonFile {
 				noDupes.add(u.getClassName());
 			}
 			// The new collection of the loaded UML object
+			
+			System.out.println(save(newCollection));
 			UML.setCollection(newCollection);
+	
 
 			//Removes previous class boxes
 			for(BoxObject obj : UML.getJLabels()) {
@@ -52,12 +55,9 @@ public class JsonFile {
 			View.panel.repaint();
 
 			//Creates JLabels for gui
-			for(UML uml : UML.getCollection()) {
-				//				System.out.println(uml.getXPos() + " " + uml.getYPos());
-				View.createBox(uml);
-			}
+			
 			View.updateBoxes();
-
+			View.panel.repaint();
 
 		} catch(com.google.gson.JsonSyntaxException e){
 			System.out.println("Not a valid Json file!");
