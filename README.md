@@ -13,15 +13,17 @@ STEP 4:
 Open up a console or terminal and cd into the path that you copied from STEP 3
 
 STEP 5:
+
 # IF ON LINUX OR MAC
   Type: ./gradlew clean build
   
+  Then,
+  
+  Type: ./gradlew run -q --console=plain
+  
 # IF ON WINDOWS
   Type: .\gradlew clean build
- 
-STEP 6:
-# IF ON LINUX OR MAC
-  Type: ./gradlew run -q --console=plain
-   
-# IF ON WINDOWS
+  
+  Then,
+  
   Type: .\gradlew run -q --console=plain
