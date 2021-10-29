@@ -1,3 +1,6 @@
+STEP 0:
+Have Java installed
+
 STEP 1:
 
 Clone the repository to a folder of your choosing
