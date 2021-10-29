@@ -28,5 +28,5 @@ STEP 5:
   Type:     .\gradlew clean build
   
   Then,
-  
+ 
   Type:     .\gradlew run -q --console=plain
