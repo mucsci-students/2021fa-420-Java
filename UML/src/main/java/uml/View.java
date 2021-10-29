@@ -1,17 +1,21 @@
-package uml;
+package src.main.java.uml;
 
-import java.awt.EventQueue;
-import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.Graphics2D;
+import java.awt.BasicStroke;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JButton;
 import javax.swing.JPanel;
-
-import javax.swing.border.LineBorder;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
+
 
 public class View {
 	//Window
@@ -171,20 +175,15 @@ public class View {
 		btnChangeRelationship.addActionListener(controller);
 		mainBtnPanel.add(btnChangeRelationship);
 
-		JButton btnListClasses = new JButton("List Classes");
-		btnListClasses.setActionCommand("List Classes");
-		btnListClasses.addActionListener(controller);
-		mainBtnPanel.add(btnListClasses);
+		JButton btnUndo = new JButton("Undo");
+		btnUndo.setActionCommand("Undo");
+		btnUndo.addActionListener(controller);
+		mainBtnPanel.add(btnUndo);
 
-		JButton btnListContents = new JButton("List Contents");
-		btnListContents.setActionCommand("List Contents");
-		btnListContents.addActionListener(controller);
-		mainBtnPanel.add(btnListContents);
-
-		JButton btnListRelationships = new JButton("List Relationships");
-		btnListRelationships.setActionCommand("List Relationships");
-		btnListRelationships.addActionListener(controller);
-		mainBtnPanel.add(btnListRelationships);
+		JButton btnRedo = new JButton("Redo");
+		btnRedo.setActionCommand("Redo");
+		btnRedo.addActionListener(controller);
+		mainBtnPanel.add(btnRedo);
 		//*************************************************************************************//
 
 
@@ -281,7 +280,6 @@ public class View {
 		lbl.setVerticalAlignment(JLabel.TOP);
 		lbl.setHorizontalAlignment(JLabel.CENTER);
 		lbl.setLocation(uml.getXPos(), uml.getYPos());
-//		System.out.println(uml.getXPos() + " " + uml.getYPos());
 		lbl.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		lbl.setVisible(true);
 		lbl.setOpaque(true);
@@ -344,7 +342,56 @@ public class View {
 				}
 			}
 		}
+	}
+	
+	public static void drawAggregation(Arrows arrow) {
+		Graphics g = View.panel.getGraphics();
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setStroke(new BasicStroke(2));
 
+		Rectangle srcBounds = arrow.getSrc().getLabel().getBounds();
+		Rectangle destBounds = arrow.getDest().getLabel().getBounds();
+		
+		if(srcBounds.x + srcBounds.getWidth() < destBounds.x) {
+			g.drawLine(srcBounds.x + srcBounds.width, srcBounds.y + (srcBounds.height / 2), srcBounds.x + srcBounds.width + 10, srcBounds.y + (srcBounds.height / 2));
+			
+			g.drawLine(destBounds.x, destBounds.y + (destBounds.height / 2), destBounds.x - 5, destBounds.y + (destBounds.height / 2) + 3);
+			g.drawLine(destBounds.x - 5, destBounds.y + (destBounds.height / 2) + 3, destBounds.x - 10, destBounds.y + (destBounds.height / 2));
+			g.drawLine(destBounds.x, destBounds.y + (destBounds.height / 2), destBounds.x - 5, destBounds.y + (destBounds.height / 2) - 3);
+			g.drawLine(destBounds.x - 5, destBounds.y + (destBounds.height / 2) - 3, destBounds.x - 10, destBounds.y + (destBounds.height / 2));
+			
+			g.drawLine(srcBounds.x + srcBounds.width + 10, srcBounds.y + (srcBounds.height / 2), destBounds.x - 10, destBounds.y + (destBounds.height / 2));
+		}
+		else if(srcBounds.x > destBounds.x + destBounds.getWidth()) {
+			g.drawLine(srcBounds.x, srcBounds.y + (srcBounds.height / 2), srcBounds.x - 10, srcBounds.y + (srcBounds.height / 2));
+			
+			g.drawLine(destBounds.x + destBounds.width, destBounds.y + (destBounds.height / 2), destBounds.x + destBounds.width + 5, destBounds.y + (destBounds.height / 2) + 3);
+			g.drawLine(destBounds.x + destBounds.width + 5, destBounds.y + (destBounds.height / 2) + 3, destBounds.x + destBounds.width + 10, destBounds.y + (destBounds.height / 2));
+			g.drawLine(destBounds.x + destBounds.width, destBounds.y + (destBounds.height / 2), destBounds.x + destBounds.width + 5, destBounds.y + (destBounds.height / 2) - 3);
+			g.drawLine(destBounds.x + destBounds.width + 5, destBounds.y + (destBounds.height / 2) - 3, destBounds.x + destBounds.width + 10, destBounds.y + (destBounds.height / 2));
+			
+			g.drawLine(srcBounds.x - 10, srcBounds.y + (srcBounds.height / 2), destBounds.x + destBounds.width + 10, destBounds.y + (destBounds.height / 2));
+		}
+		else if(srcBounds.y + srcBounds.getHeight() < destBounds.y) {
+			g.drawLine(srcBounds.x + (srcBounds.width / 2), srcBounds.y + srcBounds.height, srcBounds.x + (srcBounds.width / 2), srcBounds.y + srcBounds.height + 10);
+			
+			g.drawLine(destBounds.x + (destBounds.width / 2), destBounds.y, destBounds.x + (destBounds.width / 2) + 3, destBounds.y - 5);
+			g.drawLine(destBounds.x + (destBounds.width / 2) + 3, destBounds.y - 5, destBounds.x + (destBounds.width / 2), destBounds.y - 10);
+			g.drawLine(destBounds.x + (destBounds.width / 2), destBounds.y, destBounds.x + (destBounds.width / 2) - 3, destBounds.y - 5);
+			g.drawLine(destBounds.x + (destBounds.width / 2) - 3, destBounds.y - 5, destBounds.x + (destBounds.width / 2), destBounds.y - 10);
+			
+			g.drawLine(srcBounds.x + (srcBounds.width / 2), srcBounds.y + srcBounds.height + 10, destBounds.x + (destBounds.width / 2), destBounds.y - 10);
+		}
+		else if(srcBounds.y > destBounds.y + destBounds.height) {
+			g.drawLine(srcBounds.x + (srcBounds.width / 2), srcBounds.y, srcBounds.x + (srcBounds.width / 2), srcBounds.y - 10);
+			
+			g.drawLine(destBounds.x + (destBounds.width / 2), destBounds.y + destBounds.height, destBounds.x + (destBounds.width / 2) + 3, destBounds.y + destBounds.height + 5);
+			g.drawLine(destBounds.x + (destBounds.width / 2) + 3, destBounds.y + destBounds.height + 5, destBounds.x + (destBounds.width / 2), destBounds.y + destBounds.height + 10);
+			g.drawLine(destBounds.x + (destBounds.width / 2), destBounds.y + destBounds.height, destBounds.x + (destBounds.width / 2) - 3, destBounds.y + destBounds.height + 5);
+			g.drawLine(destBounds.x + (destBounds.width / 2) - 3, destBounds.y + destBounds.height + 5, destBounds.x + (destBounds.width / 2), destBounds.y + destBounds.height + 10);
+			
+			g.drawLine(srcBounds.x + (srcBounds.width / 2), srcBounds.y - 10, destBounds.x + (destBounds.width / 2), destBounds.y + destBounds.height + 10);
+		}
 	}
 
 	public static void closeGUI() {

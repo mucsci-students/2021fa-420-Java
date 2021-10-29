@@ -1,4 +1,4 @@
-package uml;
+package src.main.java.uml;
 
 
 import javax.swing.JOptionPane;
@@ -78,8 +78,17 @@ public class Relationships {
 						if(u.getClassName().equals(source.getClassName())) { // searches for the class name that we are adding a relationship to
 							u.getRels().add(r);
 							if(Driver.guiUp) {
-
-//								View.outputLbl.setText("Relationship added!");
+								for(BoxObject src : UML.getJLabels()) {
+									if(src.getJLabelName().equals(source.getClassName())) {
+										for(BoxObject dest : UML.getJLabels()) {
+											if(dest.getJLabelName().equals(destination.getClassName())) {
+												Arrows arrow = new Arrows(src, dest, type);
+												UML.getArrows().add(arrow);
+												View.drawAggregation(arrow);
+											}
+										}
+									}
+								}
 							}
 							else {
 								System.out.println("Relationship added!");

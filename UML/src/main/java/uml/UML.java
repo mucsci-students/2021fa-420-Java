@@ -1,11 +1,10 @@
-package uml;
+package src.main.java.uml;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
-
 
 public class UML {
 	//Class name
@@ -17,16 +16,19 @@ public class UML {
 	//List containing all the relations between UML objects
 	private ArrayList<Relationships> relationships;
 	//X position of class box
-	private int xPos;
+	private int position_x;
 	//Y position of class box
-	private int yPos;
-
+	private int position_y;
+	
 	//This set is to make sure there are no classes with the same name.
 	private static HashSet<String> noClassDupes = new HashSet<String>();
-	//This is the Array list that should hold all the objects
+	//This is the Array list that holds all the objects
 	private static ArrayList<UML> collection = new ArrayList<UML>();
 	//This is the Array list that holds all the JLabels
 	private static ArrayList<BoxObject> jlabels = new ArrayList<BoxObject>();
+	//This is the Array list that keeps tracks of the relationship arrows
+	private static ArrayList<Arrows> arrows = new ArrayList<Arrows>();
+	
 	//Regex for determining if string is alphanumeric
 	private static Pattern pattern = Pattern.compile("[^a-zA-Z0-9]");
 
@@ -35,8 +37,8 @@ public class UML {
 		this.fields = new ArrayList<Fields>();
 		this.methods = new ArrayList<Methods>();
 		this.relationships = new ArrayList<Relationships>();
-		this.xPos = xPos;
-		this.yPos = yPos;
+		this.position_x = xPos;
+		this.position_y = yPos;
 	}
 
 	public String getClassName() {
@@ -62,19 +64,19 @@ public class UML {
 	}
 
 	public int getXPos() {
-		return xPos;
+		return position_x;
 	}
 
 	public void setXPos(int x) {
-		xPos = x;
+		position_x = x;
 	}
 
 	public int getYPos() {
-		return yPos;
+		return position_y;
 	}
 
 	public void setYPos(int y) {
-		yPos = y;
+		position_y = y;
 	}
 
 	public static ArrayList<UML> getCollection() {
@@ -95,6 +97,10 @@ public class UML {
 
 	public static ArrayList<BoxObject> getJLabels() {
 		return jlabels;
+	}
+	
+	public static ArrayList<Arrows> getArrows() {
+		return arrows;
 	}
 
 	public static Pattern getPattern() {
