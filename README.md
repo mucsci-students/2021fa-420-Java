@@ -1,4 +1,5 @@
 STEP 0:
+
 Have Java installed
 
 STEP 1:
