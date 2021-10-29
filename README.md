@@ -1,4 +1,5 @@
 STEP 1:
+
 Clone the repository to a folder of your choosing
 
 STEP 2:
@@ -7,9 +8,11 @@ STEP 2:
 3. Open the folder titled UML
 
 STEP 3:
+
 Copy the path from the folder labeled UML
 
 STEP 4:
+
 Open up a console or terminal and cd into the path that you copied from STEP 3
 
 STEP 5:
