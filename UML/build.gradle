@@ -1,12 +1,18 @@
 plugins {
     id 'application'
     id 'java'
+    id 'java-library'
 }
 
 mainClassName = 'uml.Driver'
 
 repositories { 
     mavenCentral() 
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.8.8'
+    testImplementation 'junit:junit:4.12'
 }
 
 jar {
@@ -24,7 +30,3 @@ application {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-dependencies {
-    implementation 'com.google.code.gson:gson:2.8.8'
-    testImplementation 'junit:junit:4.12'
-}
