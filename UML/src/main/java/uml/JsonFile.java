@@ -12,7 +12,7 @@ public class JsonFile {
 	public static String save(ArrayList<UML> collection) {
 		Gson gson = new Gson();
 		// Converts the list to JSON
-			String saveFile = gson.toJson(collection);
+		String saveFile = gson.toJson(collection);
 		return saveFile;
 	
 		
@@ -47,7 +47,6 @@ public class JsonFile {
 			}
 			// The new collection of the loaded UML object
 			
-			System.out.println(save(newCollection));
 			UML.setCollection(newCollection);
 	
 
