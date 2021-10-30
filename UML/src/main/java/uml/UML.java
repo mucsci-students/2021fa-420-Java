@@ -17,9 +17,9 @@ public class UML {
 	//List containing all the relations between UML objects
 	private ArrayList<Relationships> relationships;
 	//X position of class box
-	private int xPos;
+	private int position_x;
 	//Y position of class box
-	private int yPos;
+	private int position_y;
 
 	//This set is to make sure there are no classes with the same name.
 	private static HashSet<String> noClassDupes = new HashSet<String>();
@@ -30,13 +30,13 @@ public class UML {
 	//Regex for determining if string is alphanumeric
 	private static Pattern pattern = Pattern.compile("[^a-zA-Z0-9]");
 
-	public UML(String name, int xPos, int yPos) {
+	public UML(String name, int position_x, int position_y) {
 		this.name = name;
 		this.fields = new ArrayList<Fields>();
 		this.methods = new ArrayList<Methods>();
 		this.relationships = new ArrayList<Relationships>();
-		this.xPos = xPos;
-		this.yPos = yPos;
+		this.position_x = position_x;
+		this.position_y = position_y;
 	}
 
 	public String getClassName() {
@@ -61,20 +61,20 @@ public class UML {
 		return relationships;
 	}
 
-	public int getXPos() {
-		return xPos;
+	public int getposition_x() {
+		return position_x;
 	}
 
-	public void setXPos(int x) {
-		xPos = x;
+	public void setposition_x(int x) {
+		position_x = x;
 	}
 
-	public int getYPos() {
-		return yPos;
+	public int getposition_y() {
+		return position_y;
 	}
 
-	public void setYPos(int y) {
-		yPos = y;
+	public void setposition_y(int y) {
+		position_y = y;
 	}
 
 	public static ArrayList<UML> getCollection() {
@@ -343,4 +343,22 @@ public class UML {
 			}
 		}
 	}
+
+	public static UML findUMLOBJ (String name){
+		UML foundUML = null;
+
+		// Finds the UML object if it exists
+		for(UML u : UML.getCollection()) {
+			if(name.equals(u.getClassName())) {
+				foundUML = u;
+				break;
+			}
+		}
+		// If the UML object exists, this traverses the methods of the UML object and returns the Parameter list of the correct method
+		if(foundUML != null) {
+			return foundUML;
+			}	
+		return null;
+	}
+	
 }
