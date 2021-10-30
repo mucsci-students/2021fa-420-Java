@@ -1,17 +1,3 @@
 **/.gradle
 **/.project
-**/*.jar
 **/.classpath
-UML/build/classes/java/main/uml/CLI.class
-UML/build/classes/java/main/uml/BoxObject.class
-UML/build/classes/java/main/uml/Controller.class
-UML/build/classes/java/main/uml/Driver.class
-UML/build/classes/java/main/uml/Fields.class
-UML/build/classes/java/main/uml/JsonFile.class
-UML/build/classes/java/main/uml/JsonFile$1.class
-UML/build/classes/java/main/uml/MethodOverloading.class
-UML/build/classes/java/main/uml/Methods.class
-UML/build/classes/java/main/uml/Parameters.class
-UML/build/classes/java/main/uml/Relationships.class
-UML/build/classes/java/main/uml/View.class
-UML/build/classes/java/main/uml/View$1.class

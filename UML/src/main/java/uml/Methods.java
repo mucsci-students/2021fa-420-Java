@@ -61,7 +61,7 @@ public class Methods {
 								}
 								return;
 							}
-							//Given method exists
+							//If given method exists and has the same signature as another method
 							else if(uml.getMethod().get(i).getMethodName().equals(methodName) && (uml.getMethod().get(i).getParams().isEmpty())) {
 								if(Driver.guiUp) {
 									JOptionPane.showMessageDialog(View.frmUmlEditor, "That method already exists!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -238,7 +238,7 @@ public class Methods {
 										}
 										return;
 									}
-									//New method already exists
+									//If the method exists and has the same signature as another method
 									else if(j < uml.getMethod().size() && uml.getMethod().get(j).getMethodName().equals(newName) && (MethodOverloading.compareParams(uml.getMethod().get(j).getParams(),oldParameters, "hi"))) {
 										if(Driver.guiUp) {
 											JOptionPane.showMessageDialog(View.frmUmlEditor, "That method with that signature already exists!", "Error", JOptionPane.ERROR_MESSAGE);

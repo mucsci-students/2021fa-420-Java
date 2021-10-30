@@ -30,6 +30,7 @@ application {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+//Needed so the console doesn't crash when run
 run {
     standardInput = System.in
 }
