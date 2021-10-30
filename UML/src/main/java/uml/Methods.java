@@ -61,16 +61,16 @@ public class Methods {
 								}
 								return;
 							}
-							// //Given method exists
-							// else if(uml.getMethod().get(i).getMethodName().equals(methodName)) {
-							// 	if(Driver.guiUp) {
-							// 		JOptionPane.showMessageDialog(View.frmUmlEditor, "That method already exists!", "Error", JOptionPane.ERROR_MESSAGE);
-							// 	}
-							// 	else {
-							// 		System.out.println("That method already exists!");
-							// 	}
-							// 	return;
-							// }
+							//If given method exists and has the same signature as another method
+							else if(uml.getMethod().get(i).getMethodName().equals(methodName) && (uml.getMethod().get(i).getParams().isEmpty())) {
+								if(Driver.guiUp) {
+									JOptionPane.showMessageDialog(View.frmUmlEditor, "That method already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+								}
+								else {
+									System.out.println("That method already exists!");
+								}
+								return;
+							}
 						}
 					}
 					//Given method name is not alphanumeric
@@ -207,6 +207,8 @@ public class Methods {
 
 	//Renames an already existing method in a given class
 	public static void renameMethod(String className, String oldName, String newName) {
+
+		ArrayList<Parameters> oldParameters = MethodOverloading.locatingParameters(className, newName);
 		//Given class exists
 		if(UML.getNoClassDupes().contains(className)) {
 			//Searches for class
@@ -236,10 +238,10 @@ public class Methods {
 										}
 										return;
 									}
-									//New method already exists
-									else if(j < uml.getMethod().size() && uml.getMethod().get(j).getMethodName().equals(newName)) {
+									//If the method exists and has the same signature as another method
+									else if(j < uml.getMethod().size() && uml.getMethod().get(j).getMethodName().equals(newName) && (MethodOverloading.compareParams(uml.getMethod().get(j).getParams(),oldParameters, "hi"))) {
 										if(Driver.guiUp) {
-											JOptionPane.showMessageDialog(View.frmUmlEditor, "That method already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+											JOptionPane.showMessageDialog(View.frmUmlEditor, "That method with that signature already exists!", "Error", JOptionPane.ERROR_MESSAGE);
 										}
 										else {
 											System.out.println("That method already exists!");

@@ -26,9 +26,8 @@ public class Driver {
 	public static void runCLI() {
 		//Boolean to run program until user exits
 		boolean run = true;
-
 		while(run) {
-
+			
 			System.out.println("Enter a command or type exit if you wish to exit!");
 			//This is the command the user has entered
 			//It is converted to lowercase to allow for easier comparison and ignores white space
