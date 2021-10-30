@@ -1,4 +1,4 @@
-package uml;
+package src.main.java.uml;
 
 import java.util.ArrayList;
 
@@ -52,7 +52,7 @@ public class Methods {
 
 								for(BoxObject obj : UML.getJLabels()) {
 									if(obj.getJLabelName().equals(uml.getClassName())) {
-										View.updateBox(obj);
+										BoxObject.updateBox(obj);
 									}
 								}
 
@@ -112,7 +112,7 @@ public class Methods {
 
 								for(BoxObject obj : UML.getJLabels()) {
 									if(obj.getJLabelName().equals(uml.getClassName())) {
-										View.updateBox(obj);
+										BoxObject.updateBox(obj);
 									}
 								}
 
@@ -182,7 +182,7 @@ public class Methods {
 
 						for(BoxObject obj : UML.getJLabels()) {
 							if(obj.getJLabelName().equals(uml.getClassName())) {
-								View.updateBox(obj);
+								BoxObject.updateBox(obj);
 							}
 						}
 
@@ -226,7 +226,7 @@ public class Methods {
 
 										for(BoxObject obj : UML.getJLabels()) {
 											if(obj.getJLabelName().equals(uml.getClassName())) {
-												View.updateBox(obj);
+												BoxObject.updateBox(obj);
 											}
 										}
 

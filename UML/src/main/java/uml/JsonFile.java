@@ -1,4 +1,4 @@
-package uml;
+package src.main.java.uml;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
@@ -52,10 +52,9 @@ public class JsonFile {
 
 			//Creates JLabels for gui
 			for(UML uml : UML.getCollection()) {
-				//				System.out.println(uml.getXPos() + " " + uml.getYPos());
-				View.createBox(uml);
+				BoxObject.createBox(uml);
 			}
-			View.updateBoxes();
+			BoxObject.updateBoxes();
 
 
 		} catch(com.google.gson.JsonSyntaxException e){

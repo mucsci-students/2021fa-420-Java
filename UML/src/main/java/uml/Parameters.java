@@ -1,9 +1,6 @@
-package uml;
+package src.main.java.uml;
 
 import java.util.*;
-import javax.swing.JOptionPane;
-
-
 import javax.swing.JOptionPane;
 
 public class Parameters {
@@ -98,7 +95,7 @@ public class Parameters {
 			
 			for(BoxObject obj : UML.getJLabels()) {
 				if(obj.getJLabelName().equals(UMLName)) {
-					View.updateBox(obj);
+					BoxObject.updateBox(obj);
 				}
 			}
 
@@ -139,7 +136,7 @@ public class Parameters {
 
 			for(BoxObject obj : UML.getJLabels()) {
 				if(obj.getJLabelName().equals(UMLName)) {
-					View.updateBox(obj);
+					BoxObject.updateBox(obj);
 				}
 			}
 
@@ -182,7 +179,7 @@ public class Parameters {
 
 		for(BoxObject obj : UML.getJLabels()) {
 			if(obj.getJLabelName().equals(UMLName)) {
-				View.updateBox(obj);
+				BoxObject.updateBox(obj);
 			}
 		}
 
@@ -227,7 +224,7 @@ public class Parameters {
 
 				for(BoxObject obj : UML.getJLabels()) {
 					if(obj.getJLabelName().equals(UMLName)) {
-						View.updateBox(obj);
+						BoxObject.updateBox(obj);
 					}
 				}
 
@@ -299,8 +296,4 @@ public class Parameters {
 		}
 		return null;
 	}
-	
-	// WORK ON BELOW
-	//**********************************************************************************************************************/
-	
 }

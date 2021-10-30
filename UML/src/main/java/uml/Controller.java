@@ -362,7 +362,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							else {
 								for(BoxObject obj : UML.getJLabels()) {
 									if(obj.getJLabelName().equals(className)) {
-										View.updateBox(obj);
+										BoxObject.updateBox(obj);
 									}
 								}
 
@@ -840,20 +840,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 		}
 
 		View.panel.repaint();
-		for(Arrows arrow : UML.getArrows()) {
-			if(arrow.getType().equals("aggregation")) {
-				View.drawAggregation(arrow);
-			}
-			else if(arrow.getType().equals("inheritance")) {
-				
-			}
-			else if(arrow.getType().equals("composition")) {
-				
-			}
-			else if(arrow.getType().equals("realization")) {
-				
-			}
-		}
+		Arrows.updateArrows();
 	}
 
 	@Override
@@ -883,19 +870,6 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		for(Arrows arrow : UML.getArrows()) {
-			if(arrow.getType().equals("aggregation")) {
-				View.drawAggregation(arrow);
-			}
-			else if(arrow.getType().equals("inheritance")) {
-				
-			}
-			else if(arrow.getType().equals("composition")) {
-				
-			}
-			else if(arrow.getType().equals("realization")) {
-				
-			}
-		}
+		Arrows.updateArrows();
 	}
 }
