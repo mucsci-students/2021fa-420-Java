@@ -944,8 +944,8 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 			if(obj.getLabel() == e.getComponent()) {
 				for(UML uml : UML.getCollection()) {
 					if(obj.getJLabelName().equals(uml.getClassName())) {
-						uml.setXPos(e.getComponent().getX());
-						uml.setYPos(e.getComponent().getY());
+						uml.setposition_x(e.getComponent().getX());
+						uml.setposition_y(e.getComponent().getY());
 					}
 				}
 			}
