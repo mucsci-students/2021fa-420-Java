@@ -189,30 +189,18 @@ public class MethodOverloading {
 			if(MethodOverloading.containsDuplicateMethods(UML).contains(method)){
 				
 				validate = false;
-				String dif = "nd";
-				int num = 1;
-
 				ArrayList<String> comparison = new ArrayList<>();
 				Scanner scanner = new Scanner(System.in);
-				System.out.println("Enter the "+num+"st parameter type or type -1 if you are done!");
+				System.out.println("There is more than one method that uses the name " + method);
+				System.out.println("Enter all the parameter types for the method you are editing");
 
 				//User types in all parameter types of the method they are looking for and -1 when they are done
-				String s = scanner.nextLine().toLowerCase();
-				while(!(s.equals("-1"))){
-					comparison.add(s);
-					++num;
-					if(dif.equals("rd")){
-						dif = "th";
-					}
-					System.out.println("Enter "+num + dif+" parameter type or type -1 if you are done!");
-					s = scanner.nextLine().toLowerCase();
-					if (dif.equals("nd")){
-						dif = "rd";
-					}
-					
-					
-	
+				Scanner s = new Scanner(scanner.nextLine().toLowerCase()); 
+				
+				while(s.hasNext()){
+					comparison.add(s.next());
 				}
+					
 				// Specific parameter list if the method is overloaded
 				pList = MethodOverloading.findMethod(UML, method, comparison);
 			}
