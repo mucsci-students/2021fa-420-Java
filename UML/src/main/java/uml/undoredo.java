@@ -11,9 +11,9 @@ public class undoredo {
    
 
     public static void stateKeeper(){
-        mem.add(JsonFile.save(UML.getCollection()));
-        incr++;
-        
+        mem.add(JsonFile.save(Model.getCollection()));
+        ++incr;
+      
     }
 
     public static void undo(){
