@@ -30,9 +30,9 @@ public class Fields {
 	//Adds an field to the given class
 	public static void addField(String className, String name, String type) {
 		//Given class exists
-		if(UML.getNoClassDupes().contains(className)) {
+		if(Model.getNoClassDupes().contains(className)) {
 			//Searches for class
-			for(UML uml : UML.getCollection()) {
+			for(UML uml : Model.getCollection()) {
 				if(uml.getClassName().equals(className)) {
 					//Given field is alphanumeric
 					if(!UML.getPattern().matcher(name).find()) {
@@ -41,7 +41,7 @@ public class Fields {
 							if(i == uml.getField().size()) {
 								uml.getField().add(new Fields(name, type));
 
-								for(BoxObject obj : UML.getJLabels()) {
+								for(BoxObject obj : Model.getJLabels()) {
 									if(obj.getJLabelName().equals(uml.getClassName())) {
 										View.updateBox(obj);
 									}
@@ -96,9 +96,9 @@ public class Fields {
 	//Remove an field from the given class
 	public static void removeField(String className, String name) {
 		//Given class exists
-		if(UML.getNoClassDupes().contains(className)) {
+		if(Model.getNoClassDupes().contains(className)) {
 			//Searches for class
-			for(UML uml : UML.getCollection()) {
+			for(UML uml : Model.getCollection()) {
 				if(uml.getClassName().equals(className)) {
 					//Checks if there are fields to remove
 					if(!uml.getField().isEmpty()) {
@@ -107,7 +107,7 @@ public class Fields {
 							if(i < uml.getField().size() && uml.getField().get(i).getFieldName().equals(name)) {
 								uml.getField().remove(i);
 
-								for(BoxObject obj : UML.getJLabels()) {
+								for(BoxObject obj : Model.getJLabels()) {
 									if(obj.getJLabelName().equals(uml.getClassName())) {
 										View.updateBox(obj);
 									}
@@ -156,9 +156,9 @@ public class Fields {
 	//Renames an already existing field in a given class
 	public static void renameField(String className, String oldName, String newName) {
 		//Given class exist
-		if(UML.getNoClassDupes().contains(className)) {
+		if(Model.getNoClassDupes().contains(className)) {
 			//Searches for class
-			for(UML uml : UML.getCollection()) {
+			for(UML uml : Model.getCollection()) {
 				if(uml.getClassName().equals(className)) {
 					//Given field name is alphanumeric
 					if(!UML.getPattern().matcher(newName).find()) {
@@ -172,7 +172,7 @@ public class Fields {
 									if(j == uml.getField().size()) {
 										uml.getField().get(i).setFieldName(newName);
 
-										for(BoxObject obj : UML.getJLabels()) {
+										for(BoxObject obj : Model.getJLabels()) {
 											if(obj.getJLabelName().equals(uml.getClassName())) {
 												View.updateBox(obj);
 											}

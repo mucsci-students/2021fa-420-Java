@@ -21,12 +21,7 @@ public class UML {
 	//Y position of class box
 	private int position_y;
 
-	//This set is to make sure there are no classes with the same name.
-	private static HashSet<String> noClassDupes = new HashSet<String>();
-	//This is the Array list that should hold all the objects
-	private static ArrayList<UML> collection = new ArrayList<UML>();
-	//This is the Array list that holds all the JLabels
-	private static ArrayList<BoxObject> jlabels = new ArrayList<BoxObject>();
+
 	//Regex for determining if string is alphanumeric
 	private static Pattern pattern = Pattern.compile("[^a-zA-Z0-9]");
 
@@ -77,25 +72,7 @@ public class UML {
 		position_y = y;
 	}
 
-	public static ArrayList<UML> getCollection() {
-		return collection;
-	}
-
-	public static void setCollection(ArrayList<UML> newCollection){
-		collection = newCollection;
-	}
-
-	public static void clearCollection(){
-		collection.clear();
-	}
-
-	public static HashSet<String> getNoClassDupes() {
-		return noClassDupes;
-	}
-
-	public static ArrayList<BoxObject> getJLabels() {
-		return jlabels;
-	}
+	
 
 	public static Pattern getPattern() {
 		return pattern;
@@ -103,11 +80,11 @@ public class UML {
 
 	public static UML addClass(String className) {
 		//If class doesn't exist and is alphanumeric
-		if(!noClassDupes.contains(className) && !pattern.matcher(className).find()) {
+		if(!Model.getNoClassDupes().contains(className) && !pattern.matcher(className).find()) {
 			//Creates the class
 			UML uml = new UML(className, 0, 0);
-			noClassDupes.add(className);
-			collection.add(uml);
+			Model.getNoClassDupes().add(className);
+			Model.getCollection().add(uml);
 			
 			View.createBox(uml);
 			
@@ -142,18 +119,18 @@ public class UML {
 
 	public static UML deleteClass(String deleteName) {
 		//Check if the class exists
-		if(noClassDupes.contains(deleteName)) {
+		if(Model.getNoClassDupes().contains(deleteName)) {
 			//Iterates through the collection
-			for(UML uml : collection) {
+			for(UML uml : Model.getCollection()) {
 				//Deletes class when found
 				if(uml.getClassName().equals(deleteName)) {
-					noClassDupes.remove(deleteName);
-					collection.remove(collection.indexOf(uml));
+					Model.getNoClassDupes().remove(deleteName);
+					Model.getCollection().remove(Model.getCollection().indexOf(uml));
 					
-					for(BoxObject obj : UML.getJLabels()) {
+					for(BoxObject obj : Model.getJLabels()) {
 						if(obj.getJLabelName().equals(uml.getClassName())) {
 							View.panel.remove(obj.getLabel());
-							jlabels.remove(obj);
+							Model.getJLabels().remove(obj);
 							break;
 						}
 					}
@@ -180,16 +157,16 @@ public class UML {
 
 	public static UML renameClass(String oldName, String newName) {
 		//Check if the old class exists and new name is alphanumeric
-		if(noClassDupes.contains(oldName) && !noClassDupes.contains(newName) && !pattern.matcher(newName).find()) {
+		if(Model.getNoClassDupes().contains(oldName) && !Model.getNoClassDupes().contains(newName) && !pattern.matcher(newName).find()) {
 			//Iterates through the collection
-			for(UML uml : collection) {
+			for(UML uml : Model.getCollection()) {
 				//Renames old class when found
 				if(uml.getClassName().equals(oldName)) {
-					noClassDupes.remove(oldName);
-					noClassDupes.add(newName);
+					Model.getNoClassDupes().remove(oldName);
+					Model.getNoClassDupes().add(newName);
 					uml.setClassName(newName);
 					
-					for(BoxObject obj : UML.getJLabels()) {
+					for(BoxObject obj : Model.getJLabels()) {
 						if(obj.getJLabelName().equals(oldName)) {
 							obj.setJLabelName(newName);
 							View.updateBox(obj);
@@ -213,7 +190,7 @@ public class UML {
 			}
 		}
 		//When the new class already exists
-		else if(noClassDupes.contains(newName)) {
+		else if(Model.getNoClassDupes().contains(newName)) {
 			if(Driver.guiUp) {
 
 				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class already exists!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -348,7 +325,7 @@ public class UML {
 		UML foundUML = null;
 
 		// Finds the UML object if it exists
-		for(UML u : UML.getCollection()) {
+		for(UML u : Model.getCollection()) {
 			if(name.equals(u.getClassName())) {
 				foundUML = u;
 				break;
