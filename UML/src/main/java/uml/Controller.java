@@ -26,11 +26,13 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 
 	// UNDO REDO state saver
 	private boolean state = false;
-
-
+	private boolean start = true;
 	public void actionPerformed(ActionEvent e) {
-		
-		if ((state && !(command.equals("undo")) && !(command.equals("redo")))){
+		if (start){
+			undoredo.stateKeeper();
+			start = false;
+		}
+		if ((state && !(e.getActionCommand().equals("Undo")) && !(e.getActionCommand().equals("Redo")))){
 			undoredo.memClear();
 		}
 
@@ -650,37 +652,6 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
-
-			//If user wanted to list contents of a class
-			else if(command.equals("List Contents")) {
-				//If user inputs info correctly
-				if(input.hasNext()) {
-					String className = input.next();
-					//Checks if class name exists
-					if(UML.getNoClassDupes().contains(className)) {
-						//Searches for class
-						for(UML uml : UML.getCollection()) {
-							if(uml.getClassName().equals(className)) {
-								//Calls listFields and listMethods
-								uml.listFields();
-								uml.listMethods();
-								View.inputPanel.setVisible(false);
-								View.textField.setText("");
-								undoredo.stateKeeper();
-
-								break;
-							}
-						}
-					}
-					else {
-						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-				else {
-					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-
 		
 			//If user wanted to load a JSON string
 			else if(command.equals("Load")) {
@@ -845,6 +816,16 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 			command = "List Relationships";
 			View.inputLbl.setText("<html><div style='text-align:center'>What class would<br>you like to list the<br>relationships of?</div></html>");
 			View.inputPanel.setVisible(true);
+		}
+		else if(e.getActionCommand().equals("Undo")) {
+			undoredo.undo();
+			View.panel.repaint();
+
+		}
+		else if(e.getActionCommand().equals("Redo")) {
+			undoredo.redo();
+			View.panel.repaint();
+
 		}
 
 		//If save button is clicked

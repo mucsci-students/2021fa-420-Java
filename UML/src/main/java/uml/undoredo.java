@@ -41,6 +41,7 @@ public class undoredo {
         
 
     }
+    // This is fucked!
     public static void memClear(){ // if method is called after undo/redo clear any replace index and clear all indices after
         int temp = incr;
         try{
@@ -50,8 +51,9 @@ public class undoredo {
             }
         }
         catch (IndexOutOfBoundsException e){
-           System.out.println("Error: "+ e.getMessage());
+           
         }
+        // --incr;
 
     }
     public static void loadClear(){
