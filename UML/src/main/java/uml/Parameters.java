@@ -1,9 +1,6 @@
-package uml;
+package src.main.java.uml;
 
 import java.util.*;
-import javax.swing.JOptionPane;
-
-
 import javax.swing.JOptionPane;
 
 public class Parameters {
@@ -44,7 +41,7 @@ public class Parameters {
 		if(pList == null){ 
 			return false;
 		}
-		//Makes sure there aren't any methods with duplicate sinatures being created with the addition of a new parameter
+		//Makes sure there aren't any methods with duplicate signatures being created with the addition of a new parameter
 		if(MethodOverloading.containsSameSignatureAdding(UMLOBJ, pList, parameter, methodName)){
 			System.out.println("A method with that signature already exists");
 			return false;
@@ -67,7 +64,7 @@ public class Parameters {
 			// Updates GUI boxes
 			for(BoxObject obj : UML.getJLabels()) {
 				if(obj.getJLabelName().equals(UMLName)) {
-					View.updateBox(obj);
+					BoxObject.updateBox(obj);
 				}
 			}
 
@@ -123,7 +120,7 @@ public class Parameters {
 			// Updates GUI boxes
 			for(BoxObject obj : UML.getJLabels()) {
 				if(obj.getJLabelName().equals(UMLName)) {
-					View.updateBox(obj);
+					BoxObject.updateBox(obj);
 				}
 			}
 
@@ -174,7 +171,7 @@ public class Parameters {
 
 		for(BoxObject obj : UML.getJLabels()) {
 			if(obj.getJLabelName().equals(UMLName)) {
-				View.updateBox(obj);
+				BoxObject.updateBox(obj);
 			}
 		}
 
@@ -225,7 +222,7 @@ public class Parameters {
 
 				for(BoxObject obj : UML.getJLabels()) {
 					if(obj.getJLabelName().equals(UMLName)) {
-						View.updateBox(obj);
+						BoxObject.updateBox(obj);
 					}
 				}
 

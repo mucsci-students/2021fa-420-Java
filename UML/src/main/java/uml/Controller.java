@@ -1,7 +1,7 @@
-package uml;
+package src.main.java.uml;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -190,9 +190,16 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							if(input.hasNext()) {
 								String type = input.next();
 								//Takes info and calls addParameter
-								Parameters.addParameter(className, methodName, paramName, type);
-								View.inputPanel.setVisible(false);
-								View.textField.setText("");
+								HashSet<String> h = MethodOverloading.containsDuplicateMethods(className);
+                                if(!h.contains(methodName)){
+                                	Parameters.addParameter(className, methodName, paramName, type);
+        							View.inputPanel.setVisible(false);
+                                	View.textField.setText("");
+                                }
+                                else {
+    								View.inputLbl.setText("<html><div style='text-align:center'>There is more than<br>one method that<br>uses the name " + methodName + "<br>Enter all the parameter<br>types for the method<br>you are editing<div></html>");
+    								command = "Method Overloading Cont";
+                                }
 							}
 							else {
 
@@ -211,6 +218,11 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 
 				}
+			}
+			
+			else if(command.equals("Method Overloading Cont")) {
+				Scanner s = new Scanner(input.nextLine());
+				
 			}
 
 			//If user wanted to remove a parameter
@@ -362,7 +374,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							else {
 								for(BoxObject obj : UML.getJLabels()) {
 									if(obj.getJLabelName().equals(className)) {
-										View.updateBox(obj);
+										BoxObject.updateBox(obj);
 									}
 								}
 
@@ -620,64 +632,6 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 				}
 			}
 
-			//If user wanted to list contents of a class
-			else if(command.equals("List Contents")) {
-				//If user inputs info correctly
-				if(input.hasNext()) {
-					String className = input.next();
-					//Checks if class name exists
-					if(UML.getNoClassDupes().contains(className)) {
-						//Searches for class
-						for(UML uml : UML.getCollection()) {
-							if(uml.getClassName().equals(className)) {
-								//Calls listFields and listMethods
-								uml.listFields();
-								uml.listMethods();
-								View.inputPanel.setVisible(false);
-								View.textField.setText("");
-								break;
-							}
-						}
-					}
-					else {
-						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-				else {
-					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-
-			//If user wanted to list relationships of a class
-			else if(command.equals("List Relationships")) {
-				//If user inputs info correctly
-				if(input.hasNext()) {
-					String className = input.next();
-					//Checks if class name exists
-					if(UML.getNoClassDupes().contains(className)) {
-						//Searches for class
-						for(UML uml : UML.getCollection()) {
-							if(uml.getClassName().equals(className)) {
-								//Calls listRelationships
-								uml.listRelationships();
-
-								//								View.outputLbl.setText(View.outputText);
-								View.inputPanel.setVisible(false);
-								View.textField.setText("");
-								break;
-							}
-						}
-					}
-					//Class does not exist
-					else {
-						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-				else {
-					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-
 			//If user wanted to load a JSON string
 			else if(command.equals("Load")) {
 				//If user inputs info correctly
@@ -817,31 +771,6 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 			View.inputPanel.setVisible(true);
 		}
 
-		//If list classes button is clicked
-		else if(e.getActionCommand().equals("List Classes")) {
-			String text = "No classes exist!";
-			if(UML.getCollection().size() >= 1) {
-				text = "<html>Classes:<br>" + UML.getCollection().get(0).getClassName();
-				for(int i = 1; i < UML.getCollection().size(); i++) {
-					text = text + "<br>" + UML.getCollection().get(i).getClassName();
-				}
-			}
-		}
-
-		//If list contents button is clicked
-		else if(e.getActionCommand().equals("List Contents")) {
-			command = "List Contents";
-			View.inputLbl.setText("<html><div style='text-align:center'>What class would<br>you like to list the<br>contents of?</div></html>");
-			View.inputPanel.setVisible(true);
-		}
-
-		//If list relationships button is clicked
-		else if(e.getActionCommand().equals("List Relationships")) {
-			command = "List Relationships";
-			View.inputLbl.setText("<html><div style='text-align:center'>What class would<br>you like to list the<br>relationships of?</div></html>");
-			View.inputPanel.setVisible(true);
-		}
-
 		//If save button is clicked
 		else if(e.getActionCommand().equals("Save")) {
 			View.textFieldJSON.setText(JsonFile.save(UML.getCollection()));
@@ -877,9 +806,8 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							+ "<br>add relation - creates a relationship between two classes"
 							+ "<br>delete relation - deletes a relationship between two classes"
 							+ "<br>change relationship type - changes a relationship type"
-							+ "<br>list classes - lists all the classes made"
-							+ "<br>list contents - lists the contents of a specific class"
-							+ "<br>list relationships - lists relationships between all classes"
+							+ "<br>undo - undos a change made"
+							+ "<br>redo - redos an undo made"
 							+ "<br>save - saves current uml file"
 							+ "<br>load - loads a uml file"
 							+ "<br>help - provides a list of commands usable commands"
@@ -897,7 +825,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		e.getComponent().setLocation(e.getXOnScreen() - 378, e.getYOnScreen() - 35);
+		e.getComponent().setLocation(e.getXOnScreen() - 378, e.getYOnScreen() - 34);
 
 		if(e.getComponent().getX() < 0) {
 			e.getComponent().setLocation(0, e.getComponent().getY());
@@ -911,6 +839,9 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 		if(e.getComponent().getY() > 679 - e.getComponent().getHeight()) {
 			e.getComponent().setLocation(e.getComponent().getX(), 679 - e.getComponent().getHeight());
 		}
+
+		View.panel.repaint();
+		Arrows.updateArrows();
 	}
 
 	@Override
@@ -940,15 +871,6 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		for(BoxObject obj : UML.getJLabels()) {
-			if(obj.getLabel() == e.getComponent()) {
-				for(UML uml : UML.getCollection()) {
-					if(obj.getJLabelName().equals(uml.getClassName())) {
-						uml.setposition_x(e.getComponent().getX());
-						uml.setposition_y(e.getComponent().getY());
-					}
-				}
-			}
-		}
+		Arrows.updateArrows();
 	}
 }
