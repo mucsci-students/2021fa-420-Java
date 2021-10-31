@@ -210,7 +210,16 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							if(input.hasNext()) {
 								String type = input.next();
 								//Takes info and calls addParameter
-								Parameters.addParameter(className, methodName, paramName, type);
+								// UML u = UML.findUMLOBJ(className);
+								// ArrayList<Parameters> p = MethodOverloading.locatingParameters(className, methodName);
+								// Parameters x = Parameters.findParam(paramName, p);
+								// if(MethodOverloading.containsSameSignatureAdding(u,p,x,methodName)){
+
+								// }else{
+									Parameters.addParameter(className, methodName, paramName, type);
+								// }
+								
+								
 								View.inputPanel.setVisible(false);
 								View.textField.setText("");
 								undoredo.stateKeeper();
