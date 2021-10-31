@@ -18,10 +18,8 @@ public class undoredo {
 
     public static void undo(){
         try {
-            System.out.println(incr);
+            JsonFile.load(mem.get(incr-1), newColl);
             incr--;
-            System.out.println(incr);
-            JsonFile.load(mem.get(incr), newColl);
             System.out.println("Action undone!");
         
         } catch (IndexOutOfBoundsException e) {
@@ -32,11 +30,9 @@ public class undoredo {
     }
     public static void redo(){
         try {
-            System.out.println(incr);
             JsonFile.load(mem.get(incr + 1), newColl);
             
             ++incr;
-            System.out.println(incr);
             System.out.println("Action redone!");
             
         } catch (IndexOutOfBoundsException e) {
@@ -54,8 +50,14 @@ public class undoredo {
             }
         }
         catch (IndexOutOfBoundsException e){
-           ;
+           System.out.println("Error: "+ e.getMessage());
         }
 
+    }
+    public static void loadClear(){
+        mem.clear();
+        stateKeeper();
+        incr = 0;
+        
     }
 }

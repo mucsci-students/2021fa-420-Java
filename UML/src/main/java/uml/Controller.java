@@ -24,10 +24,21 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 	private int counter = 0;
 	private String className;
 
+	// UNDO REDO state saver
+	private boolean state = false;
+
 
 	public void actionPerformed(ActionEvent e) {
+		
+		if ((state && !(command.equals("undo")) && !(command.equals("redo")))){
+			undoredo.memClear();
+		}
+
+		state = false;
 		//If enter button is clicked
 		if(e.getActionCommand().equals("Enter")) {
+
+			
 			//Grabs input from textfield
 			Scanner input = new Scanner(View.textField.getText().toLowerCase());
 			//If user wanted to add a class
@@ -39,6 +50,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 					UML.addClass(className);
 					View.inputPanel.setVisible(false);
 					View.textField.setText("");
+					undoredo.stateKeeper();
 				}
 				else {
 					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -55,6 +67,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 					UML.deleteClass(className);
 					View.inputPanel.setVisible(false);
 					View.textField.setText("");
+					undoredo.stateKeeper();
 				}
 				else {
 					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -73,6 +86,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 						UML.renameClass(oldName, newName);
 						View.inputPanel.setVisible(false);
 						View.textField.setText("");
+						undoredo.stateKeeper();
 					}
 					else {
 						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -97,6 +111,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							Methods.addMethod(className, methodName, retType);
 							View.inputPanel.setVisible(false);
 							View.textField.setText("");
+							undoredo.stateKeeper();
 						}
 						else {
 							JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -123,6 +138,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 						Methods.removeMethod(className, methodName);
 						View.inputPanel.setVisible(false);
 						View.textField.setText("");
+						undoredo.stateKeeper();
 					}
 					else {
 						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -143,6 +159,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 					Methods.removeAllMethods(className);
 					View.inputPanel.setVisible(false);
 					View.textField.setText("");
+					undoredo.stateKeeper();
 				}
 				else {
 					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -163,6 +180,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							Methods.renameMethod(className, oldName, newName);
 							View.inputPanel.setVisible(false);
 							View.textField.setText("");
+							undoredo.stateKeeper();
 						}
 						else {
 
@@ -193,6 +211,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 								Parameters.addParameter(className, methodName, paramName, type);
 								View.inputPanel.setVisible(false);
 								View.textField.setText("");
+								undoredo.stateKeeper();
 							}
 							else {
 
@@ -226,6 +245,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							Parameters.deleteParameter(className, methodName, paramName);
 							View.inputPanel.setVisible(false);
 							View.textField.setText("");
+							undoredo.stateKeeper();
 						}
 						else {
 							JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -251,6 +271,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 						Parameters.deleteAllParameters(className, methodName);
 						View.inputPanel.setVisible(false);
 						View.textField.setText("");
+						undoredo.stateKeeper();
 					}
 					else {
 
@@ -280,6 +301,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 									Parameters.changeParameter(className, methodName, oldName, newName, type);
 									View.inputPanel.setVisible(false);
 									View.textField.setText("");
+									undoredo.stateKeeper();
 								}
 								else {
 									JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -331,6 +353,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 						command = "Change All Params Continued";
 						this.className = className;
 					}
+					
 					else {
 						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 					}
@@ -338,6 +361,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 				else {
 					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 				}
+				
 			}
 
 			//To continue changing parameters
@@ -368,6 +392,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 
 								View.inputPanel.setVisible(false);
 								View.textField.setText("");
+								undoredo.stateKeeper();
 							}
 						}
 						//If a parameter entered already exists
@@ -402,6 +427,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							//Prompts user if they want to add another field
 							View.inputLbl.setText("<html><div style='text-align:center'>Would you like to add<br>another field? (yes / no)</div></html>");
 							command = "Response Add Field";
+							undoredo.stateKeeper();
 						}
 						else {
 							JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -456,6 +482,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 						//Prompts user if they want to remove another field
 						View.inputLbl.setText("<html><div style='text-align:center'>Would you like to remove<br>another field? (yes / no)</div></html>");
 						command = "Response Remove Field";
+						undoredo.stateKeeper();
 					}
 					else {
 						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -506,6 +533,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							Fields.renameField(className, oldName, newName);
 							View.inputPanel.setVisible(false);
 							View.textField.setText("");
+							undoredo.stateKeeper();
 						}
 						else {
 							JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -543,6 +571,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 													Relationships.addRel(umlSrc, umlDest, type);
 													View.inputPanel.setVisible(false);
 													View.textField.setText("");
+													undoredo.stateKeeper();
 													break;
 												}
 											}
@@ -583,6 +612,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 						Relationships.delRel(srcName, destName);
 						View.inputPanel.setVisible(false);
 						View.textField.setText("");
+						undoredo.stateKeeper();
 					}
 					else {
 						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -606,6 +636,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							Relationships.changeRel(srcName, destName, type);
 							View.inputPanel.setVisible(false);
 							View.textField.setText("");
+							undoredo.stateKeeper();
 						}
 						else {
 							JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -635,6 +666,8 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 								uml.listMethods();
 								View.inputPanel.setVisible(false);
 								View.textField.setText("");
+								undoredo.stateKeeper();
+
 								break;
 							}
 						}
@@ -648,36 +681,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 				}
 			}
 
-			//If user wanted to list relationships of a class
-			else if(command.equals("List Relationships")) {
-				//If user inputs info correctly
-				if(input.hasNext()) {
-					String className = input.next();
-					//Checks if class name exists
-					if(UML.getNoClassDupes().contains(className)) {
-						//Searches for class
-						for(UML uml : UML.getCollection()) {
-							if(uml.getClassName().equals(className)) {
-								//Calls listRelationships
-								uml.listRelationships();
-
-								//								View.outputLbl.setText(View.outputText);
-								View.inputPanel.setVisible(false);
-								View.textField.setText("");
-								break;
-							}
-						}
-					}
-					//Class does not exist
-					else {
-						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-				else {
-					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-
+		
 			//If user wanted to load a JSON string
 			else if(command.equals("Load")) {
 				//If user inputs info correctly
@@ -686,6 +690,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 					//					View.outputLbl.setText("File Loaded!");
 					View.inputPanel.setVisible(false);
 					View.textField.setText("");
+					undoredo.loadClear();
 				}
 			}
 			input.close();
