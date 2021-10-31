@@ -49,11 +49,12 @@ public class undoredo {
 
                 mem.remove(mem.get(temp+1));
             }
+            --incr;
         }
         catch (IndexOutOfBoundsException e){
-           
+           System.out.println(e.getMessage());
         }
-        // --incr;
+         
 
     }
     public static void loadClear(){
