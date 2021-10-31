@@ -65,7 +65,7 @@ public class Parameters {
 			pList.add(parameter);
 
 			// Updates GUI boxes
-			for(BoxObject obj : UML.getJLabels()) {
+			for(BoxObject obj : Model.getJLabels()) {
 				if(obj.getJLabelName().equals(UMLName)) {
 					View.updateBox(obj);
 				}
@@ -121,7 +121,7 @@ public class Parameters {
 			pList.remove(index);
 
 			// Updates GUI boxes
-			for(BoxObject obj : UML.getJLabels()) {
+			for(BoxObject obj : Model.getJLabels()) {
 				if(obj.getJLabelName().equals(UMLName)) {
 					View.updateBox(obj);
 				}
@@ -172,7 +172,7 @@ public class Parameters {
 		//deletes parameters
 		pList.clear();
 
-		for(BoxObject obj : UML.getJLabels()) {
+		for(BoxObject obj : Model.getJLabels()) {
 			if(obj.getJLabelName().equals(UMLName)) {
 				View.updateBox(obj);
 			}
@@ -223,7 +223,7 @@ public class Parameters {
 				pList.set(index, p);
 
 
-				for(BoxObject obj : UML.getJLabels()) {
+				for(BoxObject obj : Model.getJLabels()) {
 					if(obj.getJLabelName().equals(UMLName)) {
 						View.updateBox(obj);
 					}
@@ -264,7 +264,7 @@ public class Parameters {
 		UML foundUML = null;
 
 		// Finds the UML object if it exists
-		for(UML u : UML.getCollection()) {
+		for(UML u : Model.getCollection()) {
 			if(umlName.equals(u.getClassName())) {
 				foundUML = u;
 				break;

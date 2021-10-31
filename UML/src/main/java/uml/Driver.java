@@ -183,7 +183,7 @@ public class Driver {
 
 
 			case "save":
-				ArrayList<UML> collection = UML.getCollection();
+				ArrayList<UML> collection = Model.getCollection();
 				String saveFile = JsonFile.save(collection);
 				System.out.println("File saved!");
 				System.out.println(saveFile);
@@ -198,7 +198,7 @@ public class Driver {
 					System.out.println("Enter the file you would like to load");
 					String loadFile = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
-					if(JsonFile.load(loadFile, UML.getCollection())){
+					if(JsonFile.load(loadFile, Model.getCollection())){
 
 						System.out.println("File loaded!");
 					}

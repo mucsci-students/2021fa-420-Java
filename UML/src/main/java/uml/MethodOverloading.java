@@ -12,7 +12,7 @@ public class MethodOverloading {
 		UML foundUML = null;
 
 		// Finds the UML object if it exists
-		for(UML u : UML.getCollection()) {
+		for(UML u : Model.getCollection()) {
 			if(umlName.equals(u.getClassName())) {
 				foundUML = u;
 				break;
@@ -81,7 +81,7 @@ public class MethodOverloading {
 
 		UML foundUML = null;
 		//Finds UML class name
-			for (UML u : UML.getCollection()) {
+			for (UML u : Model.getCollection()) {
 				if (UMLname.equals(u.getClassName())) {
 					foundUML = u;
 					break;

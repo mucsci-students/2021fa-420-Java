@@ -287,11 +287,11 @@ public class View {
 		lbl.setOpaque(true);
 		lbl.addMouseListener(controller);
 		lbl.addMouseMotionListener(controller);
-		UML.getJLabels().add(new BoxObject(uml.getClassName(), lbl));
+		Model.getJLabels().add(new BoxObject(uml.getClassName(), lbl));
 	}
 	
 	public static void updateBox(BoxObject obj) {
-		for(UML uml : UML.getCollection()) {
+		for(UML uml : Model.getCollection()) {
 			if(obj.getJLabelName().equals(uml.getClassName())) {
 				String text = "<html>" + uml.getClassName();
 				for(Fields field : uml.getField()) {
@@ -318,8 +318,8 @@ public class View {
 	}
 	
 	public static void updateBoxes() {
-		for(BoxObject obj : UML.getJLabels()) {
-			for(UML uml : UML.getCollection()) {
+		for(BoxObject obj : Model.getJLabels()) {
+			for(UML uml : Model.getCollection()) {
 				if(obj.getJLabelName().equals(uml.getClassName())) {
 					String text = "<html>" + uml.getClassName();
 					for(Fields field : uml.getField()) {

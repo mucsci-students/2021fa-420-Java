@@ -11,7 +11,7 @@ public class undoredo {
    
 
     public static void stateKeeper(){
-        mem.add(JsonFile.save(UML.getCollection()));
+        mem.add(JsonFile.save(Model.getCollection()));
         ++incr;
         
     }

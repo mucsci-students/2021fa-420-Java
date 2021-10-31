@@ -360,7 +360,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							}
 							//No more parameters to loop through
 							else {
-								for(BoxObject obj : UML.getJLabels()) {
+								for(BoxObject obj : Model.getJLabels()) {
 									if(obj.getJLabelName().equals(className)) {
 										View.updateBox(obj);
 									}
@@ -530,14 +530,14 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 						if(input.hasNext()) {
 							String type = input.next();
 							//Checks if source class exists
-							if(UML.getNoClassDupes().contains(sourceName)) {
+							if(Model.getNoClassDupes().contains(sourceName)) {
 								//Checks if destination class exists
-								if(UML.getNoClassDupes().contains(destName)) {
+								if(Model.getNoClassDupes().contains(destName)) {
 									//Searches for destination class
-									for(UML umlDest : UML.getCollection()) {
+									for(UML umlDest : Model.getCollection()) {
 										if(umlDest.getClassName().equals(destName)) {
 											//Searches for source class
-											for(UML umlSrc : UML.getCollection()) {
+											for(UML umlSrc : Model.getCollection()) {
 												if(umlSrc.getClassName().equals(sourceName)) {
 													//Takes info and calls addRel
 													Relationships.addRel(umlSrc, umlDest, type);
@@ -626,9 +626,9 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 				if(input.hasNext()) {
 					String className = input.next();
 					//Checks if class name exists
-					if(UML.getNoClassDupes().contains(className)) {
+					if(Model.getNoClassDupes().contains(className)) {
 						//Searches for class
-						for(UML uml : UML.getCollection()) {
+						for(UML uml : Model.getCollection()) {
 							if(uml.getClassName().equals(className)) {
 								//Calls listFields and listMethods
 								uml.listFields();
@@ -654,9 +654,9 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 				if(input.hasNext()) {
 					String className = input.next();
 					//Checks if class name exists
-					if(UML.getNoClassDupes().contains(className)) {
+					if(Model.getNoClassDupes().contains(className)) {
 						//Searches for class
-						for(UML uml : UML.getCollection()) {
+						for(UML uml : Model.getCollection()) {
 							if(uml.getClassName().equals(className)) {
 								//Calls listRelationships
 								uml.listRelationships();
@@ -682,7 +682,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 			else if(command.equals("Load")) {
 				//If user inputs info correctly
 				if(input.hasNext()) {
-					JsonFile.load(input.next(), UML.getCollection());
+					JsonFile.load(input.next(), Model.getCollection());
 					//					View.outputLbl.setText("File Loaded!");
 					View.inputPanel.setVisible(false);
 					View.textField.setText("");
@@ -820,10 +820,10 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 		//If list classes button is clicked
 		else if(e.getActionCommand().equals("List Classes")) {
 			String text = "No classes exist!";
-			if(UML.getCollection().size() >= 1) {
-				text = "<html>Classes:<br>" + UML.getCollection().get(0).getClassName();
-				for(int i = 1; i < UML.getCollection().size(); i++) {
-					text = text + "<br>" + UML.getCollection().get(i).getClassName();
+			if(Model.getCollection().size() >= 1) {
+				text = "<html>Classes:<br>" + Model.getCollection().get(0).getClassName();
+				for(int i = 1; i < Model.getCollection().size(); i++) {
+					text = text + "<br>" + Model.getCollection().get(i).getClassName();
 				}
 			}
 		}
@@ -844,7 +844,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 
 		//If save button is clicked
 		else if(e.getActionCommand().equals("Save")) {
-			View.textFieldJSON.setText(JsonFile.save(UML.getCollection()));
+			View.textFieldJSON.setText(JsonFile.save(Model.getCollection()));
 
 		}
 
@@ -940,9 +940,9 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		for(BoxObject obj : UML.getJLabels()) {
+		for(BoxObject obj : Model.getJLabels()) {
 			if(obj.getLabel() == e.getComponent()) {
-				for(UML uml : UML.getCollection()) {
+				for(UML uml : Model.getCollection()) {
 					if(obj.getJLabelName().equals(uml.getClassName())) {
 						uml.setposition_x(e.getComponent().getX());
 						uml.setposition_y(e.getComponent().getY());
