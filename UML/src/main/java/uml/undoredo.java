@@ -7,19 +7,19 @@ public class undoredo {
     private static ArrayList<String> mem = new ArrayList<String>();
     //private Iterator<String> itr = mem.iterator();
     private static ArrayList<UML> newColl = new ArrayList<UML>();
-    static int incr = 0;
+    static int incr = -1;
    
 
     public static void stateKeeper(){
         mem.add(JsonFile.save(UML.getCollection()));
-        ++incr;
+        incr++;
         
     }
 
     public static void undo(){
         try {
-            --incr;
             JsonFile.load(mem.get(incr-1), newColl);
+            incr--;
             System.out.println("Action undone!");
         
         } catch (IndexOutOfBoundsException e) {
@@ -30,8 +30,9 @@ public class undoredo {
     }
     public static void redo(){
         try {
+            JsonFile.load(mem.get(incr + 1), newColl);
+            
             ++incr;
-            JsonFile.load(mem.get(incr -1), newColl);
             System.out.println("Action redone!");
             
         } catch (IndexOutOfBoundsException e) {
@@ -40,6 +41,7 @@ public class undoredo {
         
 
     }
+    // This is fucked!
     public static void memClear(){ // if method is called after undo/redo clear any replace index and clear all indices after
         int temp = incr;
         try{
@@ -47,10 +49,18 @@ public class undoredo {
 
                 mem.remove(mem.get(temp+1));
             }
+            --incr;
         }
         catch (IndexOutOfBoundsException e){
-           ;
+           System.out.println(e.getMessage());
         }
+         
 
+    }
+    public static void loadClear(){
+        mem.clear();
+        stateKeeper();
+        incr = 0;
+        
     }
 }

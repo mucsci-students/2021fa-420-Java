@@ -171,20 +171,16 @@ public class View {
 		btnChangeRelationship.addActionListener(controller);
 		mainBtnPanel.add(btnChangeRelationship);
 
-		JButton btnListClasses = new JButton("List Classes");
-		btnListClasses.setActionCommand("List Classes");
-		btnListClasses.addActionListener(controller);
-		mainBtnPanel.add(btnListClasses);
+		JButton btnUndo = new JButton("Undo");
+		btnUndo.setActionCommand("Undo");
+		btnUndo.addActionListener(controller);
+		mainBtnPanel.add(btnUndo);
 
-		JButton btnListContents = new JButton("List Contents");
-		btnListContents.setActionCommand("List Contents");
-		btnListContents.addActionListener(controller);
-		mainBtnPanel.add(btnListContents);
+		JButton btnRedo = new JButton("Redo");
+		btnRedo.setActionCommand("Redo");
+		btnRedo.addActionListener(controller);
+		mainBtnPanel.add(btnRedo);
 
-		JButton btnListRelationships = new JButton("List Relationships");
-		btnListRelationships.setActionCommand("List Relationships");
-		btnListRelationships.addActionListener(controller);
-		mainBtnPanel.add(btnListRelationships);
 		//*************************************************************************************//
 
 
