@@ -15,7 +15,8 @@ public class CLI {
 		System.out.println("What would you like to name the new class?");
 		//Class name to add, ignores white space
 		String className = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-		UML.addClass(className);
+		UML uml = UML.addClass(className);
+		View.createBox(uml);
 	}
 
 	// Deletes a class from the UML
@@ -286,14 +287,14 @@ public class CLI {
 		System.out.println("What is the type of the relation? Type must be aggregation, composition, inheritance, or realization.");
 		String relType = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 		//Checks if source exists
-		if(UML.getNoClassDupes().contains(cName)) {
+		if(Model.getNoClassDupes().contains(cName)) {
 			//Checks if destination exists
-			if(UML.getNoClassDupes().contains(relDest)) {
+			if(Model.getNoClassDupes().contains(relDest)) {
 				//Searches for destination
-				for(UML umlDest : UML.getCollection()) {
+				for(UML umlDest : Model.getCollection()) {
 					if(umlDest.getClassName().equals(relDest)) {
 						//Searches for source
-						for(UML umlSrc : UML.getCollection()) {
+						for(UML umlSrc : Model.getCollection()) {
 							if(umlSrc.getClassName().equals(cName)) {
 								Relationships.addRel(umlSrc, umlDest, relType);
 								break;
@@ -347,13 +348,13 @@ public class CLI {
 	public static void listClassesCLI() {
 		if(!guiUp) {
 			// Checks to see if collection contains any classes
-			if (UML.getCollection().isEmpty()) {
+			if (Model.getCollection().isEmpty()) {
 				System.out.println("No classes exist!");
 			}
 			else {
 				//Prints all classes in arrayList "collection"
-				for(int i = 0; i < UML.getCollection().size(); i++) {
-					System.out.println(UML.getCollection().get(i).getClassName());
+				for(int i = 0; i < Model.getCollection().size(); i++) {
+					System.out.println(Model.getCollection().get(i).getClassName());
 				}
 			}
 		}
@@ -364,8 +365,8 @@ public class CLI {
 		System.out.println("What class would you like to list the contents of?");
 		//Scanner input (name of UML object)
 		String toListContents = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-		if(UML.getNoClassDupes().contains(toListContents)) {
-			for(UML uml : UML.getCollection()) {
+		if(Model.getNoClassDupes().contains(toListContents)) {
+			for(UML uml : Model.getCollection()) {
 				if(uml.getClassName().equals(toListContents)) {
 					uml.listFields();
 					uml.listMethods();
@@ -384,9 +385,9 @@ public class CLI {
 		//Scanner input (name of UML object)
 		String toListRelationships = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 		//Checks if class exists
-		if(UML.getNoClassDupes().contains(toListRelationships)) {
+		if(Model.getNoClassDupes().contains(toListRelationships)) {
 			//Searches for class
-			for(UML uml : UML.getCollection()) {
+			for(UML uml : Model.getCollection()) {
 				if(uml.getClassName().equals(toListRelationships)) {
 					uml.listRelationships();
 					break;

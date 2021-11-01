@@ -12,7 +12,7 @@ public class MethodOverloading {
 		UML foundUML = null;
 
 		// Finds the UML object if it exists
-		for(UML u : UML.getCollection()) {
+		for(UML u : Model.getCollection()) {
 			if(umlName.equals(u.getClassName())) {
 				foundUML = u;
 				break;
@@ -69,6 +69,7 @@ public class MethodOverloading {
 					
 				}
 			}
+			//If they are the same
 			return true;
 		}
 		return false;
@@ -81,7 +82,7 @@ public class MethodOverloading {
 
 		UML foundUML = null;
 		//Finds UML class name
-			for (UML u : UML.getCollection()) {
+			for (UML u : Model.getCollection()) {
 				if (UMLname.equals(u.getClassName())) {
 					foundUML = u;
 					break;
@@ -118,6 +119,7 @@ public class MethodOverloading {
 			}
 		return false;
 	}
+	
 	//Checks to see that if a parameter is removed that it won't create a method of the same signature
 	public static boolean containsSameSignatureDeleting(UML UMLname,  ArrayList<Parameters> addend, Parameters latestAddition, String mName){
 		@SuppressWarnings("unchecked")
@@ -187,6 +189,7 @@ public class MethodOverloading {
 		// Exit case
 		try {
 			if(MethodOverloading.containsDuplicateMethods(UML).contains(method)){
+
 				
 				validate = false;
 				ArrayList<String> comparison = new ArrayList<>();

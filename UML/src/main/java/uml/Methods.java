@@ -39,9 +39,9 @@ public class Methods {
 	//Adds an method to the given class
 	public static void addMethod(String className, String methodName, String retType) {
 		//Given class exists
-		if(UML.getNoClassDupes().contains(className)) {
+		if(Model.getNoClassDupes().contains(className)) {
 			//Searches for class
-			for(UML uml : UML.getCollection()) {
+			for(UML uml : Model.getCollection()) {
 				if(uml.getClassName().equals(className)) {
 					//Given method is alphanumeric
 					if(!UML.getPattern().matcher(methodName).find()) {
@@ -50,7 +50,7 @@ public class Methods {
 							if(i == uml.getMethod().size()) {
 								uml.getMethod().add(new Methods(methodName, retType));
 
-								for(BoxObject obj : UML.getJLabels()) {
+								for(BoxObject obj : Model.getJLabels()) {
 									if(obj.getJLabelName().equals(uml.getClassName())) {
 										BoxObject.updateBox(obj);
 									}
@@ -99,9 +99,9 @@ public class Methods {
 	//Remove an method from the given class
 	public static void removeMethod(String className, String methodName) {
 		//Given class exists
-		if(UML.getNoClassDupes().contains(className)) {
+		if(Model.getNoClassDupes().contains(className)) {
 			//Searches for class
-			for(UML uml : UML.getCollection()) {
+			for(UML uml : Model.getCollection()) {
 				if(uml.getClassName().equals(className)) {
 					//Checks if there are methods to remove
 					if(!uml.getMethod().isEmpty()) {
@@ -110,7 +110,7 @@ public class Methods {
 							if(i < uml.getMethod().size() && uml.getMethod().get(i).getMethodName().equals(methodName)) {
 								uml.getMethod().remove(i);
 
-								for(BoxObject obj : UML.getJLabels()) {
+								for(BoxObject obj : Model.getJLabels()) {
 									if(obj.getJLabelName().equals(uml.getClassName())) {
 										BoxObject.updateBox(obj);
 									}
@@ -162,9 +162,9 @@ public class Methods {
 	//Remove all methods from the given class
 	public static void removeAllMethods(String className) {
 		//Given class exists
-		if(UML.getNoClassDupes().contains(className)) {
+		if(Model.getNoClassDupes().contains(className)) {
 			//Searches for class
-			for(UML uml : UML.getCollection()) {
+			for(UML uml : Model.getCollection()) {
 				if(uml.getClassName().equals(className)) {
 					//If there are no methods
 					if(uml.getMethod().isEmpty()) {
@@ -180,7 +180,7 @@ public class Methods {
 						//Deletes all methods
 						uml.getMethod().clear();
 
-						for(BoxObject obj : UML.getJLabels()) {
+						for(BoxObject obj : Model.getJLabels()) {
 							if(obj.getJLabelName().equals(uml.getClassName())) {
 								BoxObject.updateBox(obj);
 							}
@@ -209,9 +209,9 @@ public class Methods {
 	public static void renameMethod(String className, String oldName, String newName) {
 		ArrayList<Parameters> oldParameters = MethodOverloading.locatingParameters(className, newName, "");
 		//Given class exists
-		if(UML.getNoClassDupes().contains(className)) {
+		if(Model.getNoClassDupes().contains(className)) {
 			//Searches for class
-			for(UML uml : UML.getCollection()) {
+			for(UML uml : Model.getCollection()) {
 				if(uml.getClassName().equals(className)) {
 					//Given method name is alphanumeric
 					if(!UML.getPattern().matcher(newName).find()) {
@@ -225,7 +225,7 @@ public class Methods {
 									if(j == uml.getMethod().size()) {
 										uml.getMethod().get(i).setMethodName(newName);
 
-										for(BoxObject obj : UML.getJLabels()) {
+										for(BoxObject obj : Model.getJLabels()) {
 											if(obj.getJLabelName().equals(uml.getClassName())) {
 												BoxObject.updateBox(obj);
 											}

@@ -12,7 +12,7 @@ public class JsonFile {
 	public static String save(ArrayList<UML> collection) {
 		Gson gson = new Gson();
 		// Converts the list to JSON
-			String saveFile = gson.toJson(collection);
+		String saveFile = gson.toJson(collection);
 		return saveFile;
 	
 		
@@ -29,15 +29,15 @@ public class JsonFile {
 			ArrayList<UML> newCollection = new Gson().fromJson(loaded, type);
 
 			// Empties the current ArrayList
-			for(BoxObject obj : UML.getJLabels()) {
+			for(BoxObject obj : Model.getJLabels()) {
 				View.panel.remove(obj.getLabel());
 			}
-			UML.getJLabels().clear();
+			Model.getJLabels().clear();
 			View.panel.repaint();
-			UML.clearCollection();
+			Model.clearCollection();
 			
 			//Need to remove the current no dupes and replace it with the loaded dupes
-			HashSet<String> noDupes = UML.getNoClassDupes();
+			HashSet<String> noDupes = Model.getNoClassDupes();
 			noDupes.clear();
 
 			//Inserts class names into no dupes
@@ -48,7 +48,9 @@ public class JsonFile {
 			// The new collection of the loaded UML object
 			
 			System.out.println(save(newCollection));
-			UML.setCollection(newCollection);
+			Model.setCollection(newCollection);
+
+
 	
 
 			//Create a box object for every uml object
@@ -59,7 +61,7 @@ public class JsonFile {
 			
 
 			//Creates JLabels for gui
-			for(UML u: UML.getCollection()){
+			for(UML u: Model.getCollection()){
 				View.createBox(u);
 			}
 			View.updateBoxes();

@@ -181,6 +181,7 @@ public class View {
 		btnRedo.setActionCommand("Redo");
 		btnRedo.addActionListener(controller);
 		mainBtnPanel.add(btnRedo);
+
 		//*************************************************************************************//
 
 
@@ -269,6 +270,7 @@ public class View {
 		
 		BoxObject.updateBoxes();
 		Arrows.updateArrows();
+
 	}
 
 	public static void closeGUI() {
