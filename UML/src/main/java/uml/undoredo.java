@@ -14,7 +14,7 @@ public class undoredo {
     public static void stateKeeper(){ 
         mem.add(incr,JsonFile.save(Model.getCollection())); // adds the string of the save file into an arraylist to track actions
        //System.out.println(mem.size());
-       System.out.println(Model.getCollection().size());
+    //    System.out.println(Model.getCollection().size());
         ++incr;
        //System.out.println("incr: "+ incr);
         
