@@ -74,7 +74,7 @@ public class Relationships {
 				}
 				if(dupeRel == false) {
 					Relationships r = new Relationships(source, destination, type);
-					for(UML u : UML.getCollection()) {
+					for(UML u : Model.getCollection()) {
 						if(u.getClassName().equals(source.getClassName())) { // searches for the class name that we are adding a relationship to
 							u.getRels().add(r);
 							for(BoxObject src : UML.getJLabels()) {
@@ -118,11 +118,11 @@ public class Relationships {
 	}
 
 	public static void delRel(String source, String destination) {
-		if(UML.getNoClassDupes().contains(source)) {
-			if(UML.getNoClassDupes().contains(destination)) {
-				for(UML srcUml : UML.getCollection()) {
+		if(Model.getNoClassDupes().contains(source)) {
+			if(Model.getNoClassDupes().contains(destination)) {
+				for(UML srcUml : Model.getCollection()) {
 					if(srcUml.getClassName().equals(source)) { //finds uml
-						for(UML destUml : UML.getCollection()) {
+						for(UML destUml : Model.getCollection()) {
 							if(destUml.getClassName().equals(destination)) {
 								for(Relationships r : srcUml.getRels()) {
 									if(r.getDestination().equals(destination)) { //Checks if a relationship in the relationship arraylist has the same name as the requested deletion destination 
@@ -171,9 +171,9 @@ public class Relationships {
 	}
 
 	public static void changeRel(String srcName, String destName, String type) {
-		if(UML.getNoClassDupes().contains(srcName)) {
-			if(UML.getNoClassDupes().contains(destName)) {
-				for(UML umlSrc : UML.getCollection()) {
+		if(Model.getNoClassDupes().contains(srcName)) {
+			if(Model.getNoClassDupes().contains(destName)) {
+				for(UML umlSrc : Model.getCollection()) {
 					if(umlSrc.getClassName().equals(srcName)) {
 						for(Relationships umlRel : umlSrc.getRels()) {
 							if(umlRel.getDestination().equals(destName)) {

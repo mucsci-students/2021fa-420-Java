@@ -39,9 +39,9 @@ public class Methods {
 	//Adds an method to the given class
 	public static void addMethod(String className, String methodName, String retType) {
 		//Given class exists
-		if(UML.getNoClassDupes().contains(className)) {
+		if(Model.getNoClassDupes().contains(className)) {
 			//Searches for class
-			for(UML uml : UML.getCollection()) {
+			for(UML uml : Model.getCollection()) {
 				if(uml.getClassName().equals(className)) {
 					//Given method is alphanumeric
 					if(!UML.getPattern().matcher(methodName).find()) {
@@ -50,7 +50,7 @@ public class Methods {
 							if(i == uml.getMethod().size()) {
 								uml.getMethod().add(new Methods(methodName, retType));
 
-								for(BoxObject obj : UML.getJLabels()) {
+								for(BoxObject obj : Model.getJLabels()) {
 									if(obj.getJLabelName().equals(uml.getClassName())) {
 										BoxObject.updateBox(obj);
 									}
@@ -61,16 +61,16 @@ public class Methods {
 								}
 								return;
 							}
-							// //Given method exists
-							// else if(uml.getMethod().get(i).getMethodName().equals(methodName)) {
-							// 	if(Driver.guiUp) {
-							// 		JOptionPane.showMessageDialog(View.frmUmlEditor, "That method already exists!", "Error", JOptionPane.ERROR_MESSAGE);
-							// 	}
-							// 	else {
-							// 		System.out.println("That method already exists!");
-							// 	}
-							// 	return;
-							// }
+							//If given method exists and has the same signature as another method
+							else if(uml.getMethod().get(i).getMethodName().equals(methodName) && (uml.getMethod().get(i).getParams().isEmpty())) {
+								if(Driver.guiUp) {
+									JOptionPane.showMessageDialog(View.frmUmlEditor, "That method already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+								}
+								else {
+									System.out.println("That method already exists!");
+								}
+								return;
+							}
 						}
 					}
 					//Given method name is not alphanumeric
@@ -99,9 +99,9 @@ public class Methods {
 	//Remove an method from the given class
 	public static void removeMethod(String className, String methodName) {
 		//Given class exists
-		if(UML.getNoClassDupes().contains(className)) {
+		if(Model.getNoClassDupes().contains(className)) {
 			//Searches for class
-			for(UML uml : UML.getCollection()) {
+			for(UML uml : Model.getCollection()) {
 				if(uml.getClassName().equals(className)) {
 					//Checks if there are methods to remove
 					if(!uml.getMethod().isEmpty()) {
@@ -110,7 +110,7 @@ public class Methods {
 							if(i < uml.getMethod().size() && uml.getMethod().get(i).getMethodName().equals(methodName)) {
 								uml.getMethod().remove(i);
 
-								for(BoxObject obj : UML.getJLabels()) {
+								for(BoxObject obj : Model.getJLabels()) {
 									if(obj.getJLabelName().equals(uml.getClassName())) {
 										BoxObject.updateBox(obj);
 									}
@@ -162,9 +162,9 @@ public class Methods {
 	//Remove all methods from the given class
 	public static void removeAllMethods(String className) {
 		//Given class exists
-		if(UML.getNoClassDupes().contains(className)) {
+		if(Model.getNoClassDupes().contains(className)) {
 			//Searches for class
-			for(UML uml : UML.getCollection()) {
+			for(UML uml : Model.getCollection()) {
 				if(uml.getClassName().equals(className)) {
 					//If there are no methods
 					if(uml.getMethod().isEmpty()) {
@@ -180,7 +180,7 @@ public class Methods {
 						//Deletes all methods
 						uml.getMethod().clear();
 
-						for(BoxObject obj : UML.getJLabels()) {
+						for(BoxObject obj : Model.getJLabels()) {
 							if(obj.getJLabelName().equals(uml.getClassName())) {
 								BoxObject.updateBox(obj);
 							}
@@ -207,10 +207,11 @@ public class Methods {
 
 	//Renames an already existing method in a given class
 	public static void renameMethod(String className, String oldName, String newName) {
+		ArrayList<Parameters> oldParameters = MethodOverloading.locatingParameters(className, newName, "");
 		//Given class exists
-		if(UML.getNoClassDupes().contains(className)) {
+		if(Model.getNoClassDupes().contains(className)) {
 			//Searches for class
-			for(UML uml : UML.getCollection()) {
+			for(UML uml : Model.getCollection()) {
 				if(uml.getClassName().equals(className)) {
 					//Given method name is alphanumeric
 					if(!UML.getPattern().matcher(newName).find()) {
@@ -224,25 +225,24 @@ public class Methods {
 									if(j == uml.getMethod().size()) {
 										uml.getMethod().get(i).setMethodName(newName);
 
-										for(BoxObject obj : UML.getJLabels()) {
+										for(BoxObject obj : Model.getJLabels()) {
 											if(obj.getJLabelName().equals(uml.getClassName())) {
 												BoxObject.updateBox(obj);
 											}
 										}
 
 										if(!Driver.guiUp) {
-
 											System.out.println("Method Renamed!");
 										}
 										return;
 									}
-									//New method already exists
-									else if(j < uml.getMethod().size() && uml.getMethod().get(j).getMethodName().equals(newName)) {
+									//If the method exists and has the same signature as another method
+									else if(j < uml.getMethod().size() && uml.getMethod().get(j).getMethodName().equals(newName) && (MethodOverloading.compareParams(uml.getMethod().get(j).getParams(),oldParameters, "hi"))) {
 										if(Driver.guiUp) {
-											JOptionPane.showMessageDialog(View.frmUmlEditor, "That method already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+											JOptionPane.showMessageDialog(View.frmUmlEditor, "That method with that signature already exists!", "Error", JOptionPane.ERROR_MESSAGE);
 										}
 										else {
-											System.out.println("That method already exists!");
+											System.out.println("That method with that signature already exists!");
 										}
 										return;
 									}

@@ -1,4 +1,16 @@
 **/.gradle
 **/.project
-**/*.jar
 **/.classpath
+UML/bin/main/uml/CLI.class
+UML/bin/main/uml/Controller.class
+UML/bin/main/uml/Driver.class
+UML/bin/main/uml/Fields.class
+UML/bin/main/uml/JsonFile.class
+UML/bin/main/uml/MethodOverloading.class
+UML/bin/main/uml/Methods.class
+UML/bin/main/uml/Model.class
+UML/bin/main/uml/Parameters.class
+UML/bin/main/uml/Relationships.class
+UML/bin/main/uml/UML.class
+UML/bin/main/uml/undoredo.class
+UML/bin/main/uml/View.class

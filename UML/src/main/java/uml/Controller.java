@@ -22,12 +22,30 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 	private HashSet<String> dupes;
 	private ArrayList<Parameters> pList;
 	private int counter = 0;
-	private String className;
+	private String classNameCAP;
+	
+	//For method overloading
+	private String classNameMO;
+	private String methodNameMO;
+	private String oldParamNameMO;
+	private String paramNameMO;
+	private String typeMO;
 
 
 	public void actionPerformed(ActionEvent e) {
+		if (start){
+			undoredo.stateKeeper();
+			start = false;
+		}
+		if ((state && !(e.getActionCommand().equals("Undo")) && !(e.getActionCommand().equals("Redo")))){
+			undoredo.memClear();
+		}
+
+		state = false;
 		//If enter button is clicked
 		if(e.getActionCommand().equals("Enter")) {
+
+			
 			//Grabs input from textfield
 			Scanner input = new Scanner(View.textField.getText().toLowerCase());
 			//If user wanted to add a class
@@ -36,9 +54,11 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 				if(input.hasNext()) {
 					String className = input.next();
 					//Takes info and calls addClass
-					UML.addClass(className);
+					UML uml = UML.addClass(className);
+					View.createBox(uml);
 					View.inputPanel.setVisible(false);
 					View.textField.setText("");
+					undoredo.stateKeeper();
 				}
 				else {
 					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -55,6 +75,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 					UML.deleteClass(className);
 					View.inputPanel.setVisible(false);
 					View.textField.setText("");
+					undoredo.stateKeeper();
 				}
 				else {
 					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -73,6 +94,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 						UML.renameClass(oldName, newName);
 						View.inputPanel.setVisible(false);
 						View.textField.setText("");
+						undoredo.stateKeeper();
 					}
 					else {
 						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -97,6 +119,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							Methods.addMethod(className, methodName, retType);
 							View.inputPanel.setVisible(false);
 							View.textField.setText("");
+							undoredo.stateKeeper();
 						}
 						else {
 							JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -123,6 +146,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 						Methods.removeMethod(className, methodName);
 						View.inputPanel.setVisible(false);
 						View.textField.setText("");
+						undoredo.stateKeeper();
 					}
 					else {
 						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -143,6 +167,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 					Methods.removeAllMethods(className);
 					View.inputPanel.setVisible(false);
 					View.textField.setText("");
+					undoredo.stateKeeper();
 				}
 				else {
 					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -163,6 +188,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							Methods.renameMethod(className, oldName, newName);
 							View.inputPanel.setVisible(false);
 							View.textField.setText("");
+							undoredo.stateKeeper();
 						}
 						else {
 
@@ -182,17 +208,27 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 			else if(command.equals("Add Parameter")) {
 				//If user inputs info correctly
 				if(input.hasNext()) {
-					String className = input.next();
+					classNameMO = input.next();
 					if(input.hasNext()) {
-						String methodName = input.next();
+						methodNameMO = input.next();
 						if(input.hasNext()) {
-							String paramName = input.next();
+							paramNameMO = input.next();
 							if(input.hasNext()) {
-								String type = input.next();
+								typeMO = input.next();
 								//Takes info and calls addParameter
-								Parameters.addParameter(className, methodName, paramName, type);
-								View.inputPanel.setVisible(false);
-								View.textField.setText("");
+								HashSet<String> dupes = MethodOverloading.containsDuplicateMethods(classNameMO);
+                                if(!dupes.contains(methodNameMO)) {
+                                	Parameters.addParameter(classNameMO, methodNameMO, paramNameMO, typeMO, null, false);
+        							View.inputPanel.setVisible(false);
+                                	View.textField.setText("");
+                                  
+                                }
+                                else {
+                                	View.textField.setText("");
+    								View.inputLbl.setText("<html><div style='text-align:center'>There is more than<br>one method that<br>uses the name " + methodNameMO + "<br>Enter all the parameter<br>types for the method<br>you are editing<div></html>");
+    								command = "Method Overloading Add Cont";
+                                }
+
 							}
 							else {
 
@@ -212,20 +248,41 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 
 				}
 			}
+			
+			else if(command.equals("Method Overloading Add Cont")) {
+				ArrayList<Parameters> pList;
+				if(input.hasNextLine()) {
+					pList = MethodOverloading.locatingParameters(classNameMO, methodNameMO, input.nextLine());
+				}
+				else {
+					pList = MethodOverloading.locatingParameters(classNameMO, methodNameMO, "");
+				}
+            	Parameters.addParameter(classNameMO, methodNameMO, paramNameMO, typeMO, pList, true);
+            	View.inputPanel.setVisible(false);
+            	View.textField.setText("");
+			}
 
 			//If user wanted to remove a parameter
 			else if(command.equals("Remove Parameter")) {
 				//If user inputs info correctly
 				if(input.hasNext()) {
-					String className = input.next();
+					classNameMO = input.next();
 					if(input.hasNext()) {
-						String methodName = input.next();
+						methodNameMO = input.next();
 						if(input.hasNext()) {
-							String paramName = input.next();
-							//Takes info and calls addParameter
-							Parameters.deleteParameter(className, methodName, paramName);
-							View.inputPanel.setVisible(false);
-							View.textField.setText("");
+							paramNameMO = input.next();
+							//Takes info and calls deleteParameter
+							HashSet<String> dupes = MethodOverloading.containsDuplicateMethods(classNameMO);
+                            if(!dupes.contains(methodNameMO)) {
+                            	Parameters.deleteParameter(classNameMO, methodNameMO, paramNameMO, null, false);
+    							View.inputPanel.setVisible(false);
+                            	View.textField.setText("");
+                            }
+                            else {
+                            	View.textField.setText("");
+								View.inputLbl.setText("<html><div style='text-align:center'>There is more than<br>one method that<br>uses the name " + methodNameMO + "<br>Enter all the parameter<br>types for the method<br>you are editing<div></html>");
+								command = "Method Overloading Remove Cont";
+                            }
 						}
 						else {
 							JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -239,47 +296,88 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
+			
+			else if(command.equals("Method Overloading Remove Cont")) {
+				ArrayList<Parameters> pList;
+				if(input.hasNextLine()) {
+					pList = MethodOverloading.locatingParameters(classNameMO, methodNameMO, input.nextLine());
+				}
+				else {
+					pList = MethodOverloading.locatingParameters(classNameMO, methodNameMO, "");
+				}
+            	Parameters.deleteParameter(classNameMO, methodNameMO, paramNameMO, pList, true);
+            	View.inputPanel.setVisible(false);
+            	View.textField.setText("");
+			}
 
 			//If user wanted to remove all parameters
 			else if(command.equals("Remove All Parameters")) {
 				//If user inputs info correctly
 				if(input.hasNext()) {
-					String className = input.next();
+					classNameMO = input.next();
 					if(input.hasNext()) {
-						String methodName = input.next();
-						//Takes info and calls addParameter
-						Parameters.deleteAllParameters(className, methodName);
-						View.inputPanel.setVisible(false);
-						View.textField.setText("");
+						methodNameMO = input.next();
+						//Takes info and calls deleteAllParameters
+						HashSet<String> dupes = MethodOverloading.containsDuplicateMethods(classNameMO);
+                        if(!dupes.contains(methodNameMO)) {
+                        	Parameters.deleteAllParameters(classNameMO, methodNameMO, null, false);
+							View.inputPanel.setVisible(false);
+                        	View.textField.setText("");
+                        }
+                        else {
+                        	View.textField.setText("");
+							View.inputLbl.setText("<html><div style='text-align:center'>There is more than<br>one method that<br>uses the name " + methodNameMO + "<br>Enter all the parameter<br>types for the method<br>you are editing<div></html>");
+							command = "Method Overloading Remove All Param Cont";
+                        }
+
 					}
 					else {
-
 						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else {
 					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
-
 				}
+			}
+			
+			else if(command.equals("Method Overloading Remove All Param Cont")) {
+				ArrayList<Parameters> pList;
+				if(input.hasNextLine()) {
+					pList = MethodOverloading.locatingParameters(classNameMO, methodNameMO, input.nextLine());
+				}
+				else {
+					pList = MethodOverloading.locatingParameters(classNameMO, methodNameMO, "");
+				}
+            	Parameters.deleteAllParameters(classNameMO, methodNameMO, pList, true);
+            	View.inputPanel.setVisible(false);
+            	View.textField.setText("");
 			}
 
 			//If user wanted to change a parameter
 			else if(command.equals("Change Parameter")) {
 				//If user inputs info correctly
 				if(input.hasNext()) {
-					String className = input.next();
+					classNameMO = input.next();
 					if(input.hasNext()) {
-						String methodName = input.next();
+						methodNameMO = input.next();
 						if(input.hasNext()) {
-							String oldName = input.next();
+							oldParamNameMO = input.next();
 							if(input.hasNext()) {
-								String newName = input.next();
+								paramNameMO = input.next();
 								if(input.hasNext()) {
-									String type = input.next();
-									//Takes info and calls addParameter
-									Parameters.changeParameter(className, methodName, oldName, newName, type);
-									View.inputPanel.setVisible(false);
-									View.textField.setText("");
+									typeMO = input.next();
+									//Takes info and calls changeParameter
+									HashSet<String> dupes = MethodOverloading.containsDuplicateMethods(classNameMO);
+	                                if(!dupes.contains(methodNameMO)) {
+	                                	Parameters.changeParameter(classNameMO, methodNameMO, oldParamNameMO, paramNameMO, typeMO, null, false);
+	        							View.inputPanel.setVisible(false);
+	                                	View.textField.setText("");
+	                                }
+	                                else {
+	                                	View.textField.setText("");
+	    								View.inputLbl.setText("<html><div style='text-align:center'>There is more than<br>one method that<br>uses the name " + methodNameMO + "<br>Enter all the parameter<br>types for the method<br>you are editing<div></html>");
+	    								command = "Method Overloading Add Cont";
+	                                }
 								}
 								else {
 									JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -300,6 +398,19 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 				else {
 					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 				}
+			}
+			
+			else if(command.equals("Method Overloading Change Param Cont")) {
+				ArrayList<Parameters> pList;
+				if(input.hasNextLine()) {
+					pList = MethodOverloading.locatingParameters(classNameMO, methodNameMO, input.nextLine());
+				}
+				else {
+					pList = MethodOverloading.locatingParameters(classNameMO, methodNameMO, "");
+				}
+            	Parameters.changeParameter(classNameMO, methodNameMO, oldParamNameMO, paramNameMO, typeMO, pList, true);
+            	View.inputPanel.setVisible(false);
+            	View.textField.setText("");
 			}
 
 			//If user wanted to change all parameters
@@ -329,8 +440,9 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							}
 						}
 						command = "Change All Params Continued";
-						this.className = className;
+						this.classNameCAP = className;
 					}
+					
 					else {
 						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 					}
@@ -338,6 +450,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 				else {
 					JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 				}
+				
 			}
 
 			//To continue changing parameters
@@ -361,13 +474,16 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							//No more parameters to loop through
 							else {
 								for(BoxObject obj : UML.getJLabels()) {
-									if(obj.getJLabelName().equals(className)) {
+
+									if(obj.getJLabelName().equals(classNameCAP)) {
 										BoxObject.updateBox(obj);
+
 									}
 								}
 
 								View.inputPanel.setVisible(false);
 								View.textField.setText("");
+								undoredo.stateKeeper();
 							}
 						}
 						//If a parameter entered already exists
@@ -402,6 +518,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							//Prompts user if they want to add another field
 							View.inputLbl.setText("<html><div style='text-align:center'>Would you like to add<br>another field? (yes / no)</div></html>");
 							command = "Response Add Field";
+							undoredo.stateKeeper();
 						}
 						else {
 							JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -456,6 +573,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 						//Prompts user if they want to remove another field
 						View.inputLbl.setText("<html><div style='text-align:center'>Would you like to remove<br>another field? (yes / no)</div></html>");
 						command = "Response Remove Field";
+						undoredo.stateKeeper();
 					}
 					else {
 						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -506,6 +624,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							Fields.renameField(className, oldName, newName);
 							View.inputPanel.setVisible(false);
 							View.textField.setText("");
+							undoredo.stateKeeper();
 						}
 						else {
 							JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -530,19 +649,20 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 						if(input.hasNext()) {
 							String type = input.next();
 							//Checks if source class exists
-							if(UML.getNoClassDupes().contains(sourceName)) {
+							if(Model.getNoClassDupes().contains(sourceName)) {
 								//Checks if destination class exists
-								if(UML.getNoClassDupes().contains(destName)) {
+								if(Model.getNoClassDupes().contains(destName)) {
 									//Searches for destination class
-									for(UML umlDest : UML.getCollection()) {
+									for(UML umlDest : Model.getCollection()) {
 										if(umlDest.getClassName().equals(destName)) {
 											//Searches for source class
-											for(UML umlSrc : UML.getCollection()) {
+											for(UML umlSrc : Model.getCollection()) {
 												if(umlSrc.getClassName().equals(sourceName)) {
 													//Takes info and calls addRel
 													Relationships.addRel(umlSrc, umlDest, type);
 													View.inputPanel.setVisible(false);
 													View.textField.setText("");
+													undoredo.stateKeeper();
 													break;
 												}
 											}
@@ -583,6 +703,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 						Relationships.delRel(srcName, destName);
 						View.inputPanel.setVisible(false);
 						View.textField.setText("");
+						undoredo.stateKeeper();
 					}
 					else {
 						JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -606,6 +727,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							Relationships.changeRel(srcName, destName, type);
 							View.inputPanel.setVisible(false);
 							View.textField.setText("");
+							undoredo.stateKeeper();
 						}
 						else {
 							JOptionPane.showMessageDialog(View.frmUmlEditor, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -620,24 +742,16 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 				}
 			}
 
-			//Undo
-			//			else if() {
-			//				
-			//			}
-
-			//Redo
-			//			else if() {
-			//				
-			//			}
 
 			//If user wanted to load a JSON string
 			else if(command.equals("Load")) {
 				//If user inputs info correctly
 				if(input.hasNext()) {
-					JsonFile.load(input.next(), UML.getCollection());
+					JsonFile.load(input.next(), Model.getCollection());
 					//					View.outputLbl.setText("File Loaded!");
 					View.inputPanel.setVisible(false);
 					View.textField.setText("");
+					undoredo.loadClear();
 				}
 			}
 			input.close();
@@ -769,9 +883,21 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 			View.inputPanel.setVisible(true);
 		}
 
+
+		else if(e.getActionCommand().equals("Undo")) {
+			undoredo.undo();
+			View.panel.repaint();
+
+		}
+		else if(e.getActionCommand().equals("Redo")) {
+			undoredo.redo();
+			View.panel.repaint();
+
+		}
+
 		//If save button is clicked
 		else if(e.getActionCommand().equals("Save")) {
-			View.textFieldJSON.setText(JsonFile.save(UML.getCollection()));
+			View.textFieldJSON.setText(JsonFile.save(Model.getCollection()));
 
 		}
 
@@ -804,9 +930,8 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							+ "<br>add relation - creates a relationship between two classes"
 							+ "<br>delete relation - deletes a relationship between two classes"
 							+ "<br>change relationship type - changes a relationship type"
-							+ "<br>list classes - lists all the classes made"
-							+ "<br>list contents - lists the contents of a specific class"
-							+ "<br>list relationships - lists relationships between all classes"
+							+ "<br>undo - undos a change made"
+							+ "<br>redo - redos an undo made"
 							+ "<br>save - saves current uml file"
 							+ "<br>load - loads a uml file"
 							+ "<br>help - provides a list of commands usable commands"
@@ -824,7 +949,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		e.getComponent().setLocation(e.getXOnScreen() - 378, e.getYOnScreen() - 35);
+		e.getComponent().setLocation(e.getXOnScreen() - 378, e.getYOnScreen() - 34);
 
 		if(e.getComponent().getX() < 0) {
 			e.getComponent().setLocation(0, e.getComponent().getY());

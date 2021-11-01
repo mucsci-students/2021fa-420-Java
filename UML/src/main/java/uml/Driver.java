@@ -23,90 +23,115 @@ public class Driver {
 		View.runGUI();
 		guiUp = true;
 	}
-
 	public static void runCLI() {
 		//Boolean to run program until user exits
 		boolean run = true;
 
+		undoredo.stateKeeper();
+		boolean state = false;
 		while(run) {
 
 			System.out.println("Enter a command or type exit if you wish to exit!");
 			//This is the command the user has entered
 			//It is converted to lowercase to allow for easier comparison and ignores white space
 			String command = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+			if ((state && !(command.equals("undo")) && !(command.equals("redo")) && !(command.equals("save")) )){
+				undoredo.memClear();
+			}
+
+			state = false;
 
 			switch(command) {
           
 			case "addclass": 
 				CLI.addClassCLI();
+				undoredo.stateKeeper();
 				break;
 
 			case "deleteclass":
 				CLI.deleteClassCLI();
+				undoredo.stateKeeper();
+			
 				break;
 
 			case "renameclass":
 				CLI.renameClassCLI();
+				undoredo.stateKeeper();
 				break;
 
 			case "addfield":
 				CLI.addFieldCLI();
+				undoredo.stateKeeper();
 				break;
 
 			case "deletefield":
 				CLI.deleteFieldCLI();
+				undoredo.stateKeeper();
 				break;
 
 			case "renamefield":
 				CLI.renameFieldCLI();
+				undoredo.stateKeeper();
 				break;
 
 			case "addmethod":
 				CLI.addMethodCLI();
+				undoredo.stateKeeper();
 				break;
 
 			case "deletemethod":
 				CLI.deleteMethodCLI();
+				undoredo.stateKeeper();
 				break;
 
 			case "deleteallmethods":
 				CLI.deleteAllMethodsCLI();
+				undoredo.stateKeeper();
 				break;
 
 			case "renamemethod":
 				CLI.renameMethodCLI();
+				undoredo.stateKeeper();
 				break;
 
 			case "addparameter":
 				CLI.addParameterCLI();
+				undoredo.stateKeeper();
 				break;
 
 			case "deleteparameter":
 				CLI.deleteParameterCLI();
+				undoredo.stateKeeper();
 				break;
 
 			case "deleteallparameters":
 				CLI.deleteAllParametersCLI();
+				undoredo.stateKeeper();
 				break;
 
 			case "changeparameter":
 				CLI.changeParameterCLI();
+				undoredo.stateKeeper();
 				break;
 
 			case "changeallparameters":
 				CLI.changeAllParametersCLI();
+				undoredo.stateKeeper();
 				break;
 
 			case "addrelation":
 				CLI.addRelationshipCLI();
+				undoredo.stateKeeper();
 				break;
 
 			case "deleterelation":
 				CLI.deleteRelationshipCLI();
+				undoredo.stateKeeper();
 				break;
 
 			case "changerelationshiptype":
 				CLI.changeRelationshipTypeCLI();
+				undoredo.stateKeeper();
 				break;
 
 			case "listclasses":
@@ -119,6 +144,14 @@ public class Driver {
 
 			case "listrelationships":
 				CLI.listRelationshipsCLI();
+				break;
+			case "undo":
+				undoredo.undo();
+				state = true;
+				break;
+			case "redo":
+				undoredo.redo();
+				state = true;
 				break;
 
 			case "help":
@@ -152,7 +185,7 @@ public class Driver {
 
 
 			case "save":
-				ArrayList<UML> collection = UML.getCollection();
+				ArrayList<UML> collection = Model.getCollection();
 				String saveFile = JsonFile.save(collection);
 				System.out.println("File saved!");
 				System.out.println(saveFile);
@@ -167,9 +200,10 @@ public class Driver {
 					System.out.println("Enter the file you would like to load");
 					String loadFile = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 
-					if(JsonFile.load(loadFile, UML.getCollection())){
+					if(JsonFile.load(loadFile, Model.getCollection())){
 
 						System.out.println("File loaded!");
+						undoredo.loadClear();
 					}
 				}
 

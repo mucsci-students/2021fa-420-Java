@@ -135,11 +135,12 @@ public class View {
 		btnChangeParameter.setActionCommand("Change Parameter");
 		btnChangeParameter.addActionListener(controller);
 		mainBtnPanel.add(btnChangeParameter);
-
-		JButton btnChangeAllParameters = new JButton("Change All Parameters");
-		btnChangeAllParameters.setActionCommand("Change All Parameters");
-		btnChangeAllParameters.addActionListener(controller);
-		mainBtnPanel.add(btnChangeAllParameters);
+		
+		//Didn't have time to figure out method overloading for this monster
+//		JButton btnChangeAllParameters = new JButton("Change All Parameters");
+//		btnChangeAllParameters.setActionCommand("Change All Parameters");
+//		btnChangeAllParameters.addActionListener(controller);
+//		mainBtnPanel.add(btnChangeAllParameters);
 
 		JButton btnAddField = new JButton("Add Field");
 		btnAddField.setActionCommand("Add Field");
@@ -180,6 +181,8 @@ public class View {
 		btnRedo.setActionCommand("Redo");
 		btnRedo.addActionListener(controller);
 		mainBtnPanel.add(btnRedo);
+
+
 		//*************************************************************************************//
 
 

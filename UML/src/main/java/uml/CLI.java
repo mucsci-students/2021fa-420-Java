@@ -1,4 +1,4 @@
-package uml;
+package src.main.java.uml;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,7 +15,8 @@ public class CLI {
 		System.out.println("What would you like to name the new class?");
 		//Class name to add, ignores white space
 		String className = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-		UML.addClass(className);
+		UML uml = UML.addClass(className);
+		View.createBox(uml);
 	}
 
 	// Deletes a class from the UML
@@ -162,7 +163,8 @@ public class CLI {
 		String paramName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 		System.out.println("What is the parameter type?");
 		String paramType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-		Parameters.addParameter(UMLName, methodName, paramName,  paramType);
+
+		Parameters.addParameter(UMLName, methodName, paramName, paramType, null, true);
 	}
 
 	// Delete a parameter(s) from a method within the UML
@@ -176,7 +178,7 @@ public class CLI {
 			System.out.println("What is the parameter name?");
 			String paramName1 = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 			// Deletion
-			if(Parameters.deleteParameter(UMLName1, methodName1, paramName1)) {
+			if(Parameters.deleteParameter(UMLName1, methodName1, paramName1, null, true)) {
 				System.out.println("Would you like to continue deleting parameters in " + methodName1 + "? (Yes or No)");
 				String response = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 				// If the user wants to stop adding parameters
@@ -196,7 +198,8 @@ public class CLI {
 		String UMLName2 = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 		System.out.println("What method would you like to remove the parameters from?");
 		String methodName2 = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-		Parameters.deleteAllParameters(UMLName2, methodName2);
+
+		Parameters.deleteAllParameters(UMLName2, methodName2, null, true);
 	}
 
 	// Changes the parameter name from a given method within the UML
@@ -211,7 +214,7 @@ public class CLI {
 		String paramName5 = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 		System.out.println("What is the parameter type?");
 		String paramType5 = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-		Parameters.changeParameter(UMLName4, methodName4, oldParamName, paramName5, paramType5);
+		Parameters.changeParameter(UMLName4, methodName4, oldParamName, paramName5, paramType5, null, true);
 	}
 
 	// Changes all the parameter names from a given method within the UML
@@ -222,12 +225,18 @@ public class CLI {
 		System.out.println("What method would you like to rename parameters in?");
 		String methodName3 = scanner.nextLine().toLowerCase();
 		HashSet<String> Dupes = new HashSet<String>();
-		ArrayList<Parameters> pList = Parameters.findMethod(UMLName3, methodName3);
-		//Makes sure there are parameters
+
+		ArrayList<Parameters> pList = MethodOverloading.locatingParameters(UMLName3, methodName3, "");
+		UML UMLOBJ = UML.findUMLOBJ(UMLName3);
+
+		if(pList == null){ 
+			return;
+		}
+
 		if(pList != null) {
 			if(!pList.isEmpty()) {
 				//Loops through all parameters
-				for(int i = 0 ; i <= pList.size() - 1; i++) {
+				for(int i = 0 ; i <= pList.size() - 2; i++) {
 					System.out.println("Here is the parameter being changed:");
 					System.out.println(pList.get(i).getParamType() + " " + pList.get(i).getParamName());
 					System.out.println("What is the new name?");
@@ -243,8 +252,27 @@ public class CLI {
 						System.out.println(pName + " already exists in " + methodName3);
 					}
 				}
+				System.out.println("Here is the parameter being changed:");
+				System.out.println(pList.get(pList.size()-1).getParamType() + " " + pList.get(pList.size()-1).getParamName());
+				System.out.println("What is the new name?");
+				String pName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+				//Makes sure no duplicates while renaming
+				if(!Dupes.contains(pName)){
+					Dupes.add(pName);
+					System.out.println("What is the parameter type?");
+					String pType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+					while(MethodOverloading.containsSameSignatureChangingAll(UMLOBJ, pList, new Parameters(pName, pType), methodName3)){
+						System.out.println("A method with that signature already exists! Choose another typing for last parameter");
+						System.out.println("What is the parameter type?");
+						pType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+					}
+					pList.set(pList.size()-1, new Parameters(pName, pType));
+				}else {
+					System.out.println(pName + " already exists in " + methodName3);
+				}
 			}
-			else {
+
+			else{
 				System.out.println("There are no parameters to change!");
 			}
 		}
@@ -259,14 +287,14 @@ public class CLI {
 		System.out.println("What is the type of the relation? Type must be aggregation, composition, inheritance, or realization.");
 		String relType = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 		//Checks if source exists
-		if(UML.getNoClassDupes().contains(cName)) {
+		if(Model.getNoClassDupes().contains(cName)) {
 			//Checks if destination exists
-			if(UML.getNoClassDupes().contains(relDest)) {
+			if(Model.getNoClassDupes().contains(relDest)) {
 				//Searches for destination
-				for(UML umlDest : UML.getCollection()) {
+				for(UML umlDest : Model.getCollection()) {
 					if(umlDest.getClassName().equals(relDest)) {
 						//Searches for source
-						for(UML umlSrc : UML.getCollection()) {
+						for(UML umlSrc : Model.getCollection()) {
 							if(umlSrc.getClassName().equals(cName)) {
 								Relationships.addRel(umlSrc, umlDest, relType);
 								break;
@@ -320,13 +348,13 @@ public class CLI {
 	public static void listClassesCLI() {
 		if(!guiUp) {
 			// Checks to see if collection contains any classes
-			if (UML.getCollection().isEmpty()) {
+			if (Model.getCollection().isEmpty()) {
 				System.out.println("No classes exist!");
 			}
 			else {
 				//Prints all classes in arrayList "collection"
-				for(int i = 0; i < UML.getCollection().size(); i++) {
-					System.out.println(UML.getCollection().get(i).getClassName());
+				for(int i = 0; i < Model.getCollection().size(); i++) {
+					System.out.println(Model.getCollection().get(i).getClassName());
 				}
 			}
 		}
@@ -337,8 +365,8 @@ public class CLI {
 		System.out.println("What class would you like to list the contents of?");
 		//Scanner input (name of UML object)
 		String toListContents = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-		if(UML.getNoClassDupes().contains(toListContents)) {
-			for(UML uml : UML.getCollection()) {
+		if(Model.getNoClassDupes().contains(toListContents)) {
+			for(UML uml : Model.getCollection()) {
 				if(uml.getClassName().equals(toListContents)) {
 					uml.listFields();
 					uml.listMethods();
@@ -357,9 +385,9 @@ public class CLI {
 		//Scanner input (name of UML object)
 		String toListRelationships = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 		//Checks if class exists
-		if(UML.getNoClassDupes().contains(toListRelationships)) {
+		if(Model.getNoClassDupes().contains(toListRelationships)) {
 			//Searches for class
-			for(UML uml : UML.getCollection()) {
+			for(UML uml : Model.getCollection()) {
 				if(uml.getClassName().equals(toListRelationships)) {
 					uml.listRelationships();
 					break;
