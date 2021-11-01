@@ -49,7 +49,8 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 				if(input.hasNext()) {
 					String className = input.next();
 					//Takes info and calls addClass
-					UML.addClass(className);
+					UML uml = UML.addClass(className);
+					View.createBox(uml);
 					View.inputPanel.setVisible(false);
 					View.textField.setText("");
 					undoredo.stateKeeper();
