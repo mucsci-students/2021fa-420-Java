@@ -19,7 +19,7 @@ public class IntegrationTests {
 		Model.clearCollection();
 	}
 	
-	@Test
+    @Test
 	public void test02_ChangeClass() {
 		UML uml = UML.addClass("computer");
 		assertEquals("The UML is called", "computer", uml.getClassName());
@@ -118,10 +118,10 @@ public class IntegrationTests {
 		Methods.addMethod("computer", "System", "String");
 		assertEquals("Successfully added method to the UML", 1, uml.getMethod().size());
 		
-		Parameters.addParameter("computer", "System", "Linux", "int");
-		Parameters.addParameter("computer", "System", "Windows", "int");
-		Parameters.addParameter("computer", "System", "macOS", "int");		
-		Parameters.deleteParameter("computer", "System", "Windows");
+		Parameters.addParameter("computer", "System", "Linux", "int", null, true);
+		Parameters.addParameter("computer", "System", "Windows", "int", null, true);
+		Parameters.addParameter("computer", "System", "macOS", "int", null, true);		
+		Parameters.deleteParameter("computer", "System", "Windows", null, true);
 		
 		Model.getNoClassDupes().clear();
 		Model.clearCollection();
@@ -146,9 +146,9 @@ public class IntegrationTests {
 		Methods.addMethod("computer", "System", "String");
 		assertEquals("Successfully added method to the UML", 1, uml.getMethod().size());
 		
-		Parameters.addParameter("computer", "System", "Linux", "int");
-		Parameters.addParameter("computer", "System", "Windows", "int");
-		Parameters.addParameter("computer", "System", "macOS", "int");
+		Parameters.addParameter("computer", "System", "Linux", "int", null, true);
+		Parameters.addParameter("computer", "System", "Windows", "int", null, true);
+		Parameters.addParameter("computer", "System", "macOS", "int", null, true);
 		
 		
 		UML uml2 = UML.addClass("phone");
@@ -166,8 +166,8 @@ public class IntegrationTests {
  		Methods.addMethod("phone", "System2", "String");
 		assertEquals("Successfully added method to the UML", 1, uml.getMethod().size());
 		
-		Parameters.addParameter("phone", "System2", "iOS", "int");
-		Parameters.addParameter("phone", "System2", "Android", "int");
+		Parameters.addParameter("phone", "System2", "iOS", "int", null, true);
+		Parameters.addParameter("phone", "System2", "Android", "int", null, true);
 		
 		Relationships.addRel(uml, uml2, "inheritance");
 		Relationships.changeRel("computer", "phone", "realization");
