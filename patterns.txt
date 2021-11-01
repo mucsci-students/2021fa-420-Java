@@ -1,0 +1,47 @@
+1.) State
+Driver file in main with the switch statement for each command
+
+2.) Memento
+Undo / Redo
+
+3.) Iterator
+For each loops that search through the collection
+
+4.) Command
+Save / Load functions (JSON)
+
+5.) Chain of Responsibility
+Controller file
+
+6.) Singleton
+Model Class
+
+7.) Builder
+Box Object (createBox())
+
+8.) MVC
+Model, View, Controller files
+
+9.) Composite
+Collection (stores className, various array lists, and positions)
+
+10.) Prototype
+Located in the Method Overloading file whenever we use clone()
+
+11.) Mediator
+View (buttons) and Controller
+
+12.) Observer
+Controller (Action Listeners)
+
+13.) Strategy
+Methods, Fields, Relationships, and Parameters classes
+
+14.) Visitor
+For each loops that search through the collection
+
+15.) Facade
+CLI and GUI
+
+16.) Factory Method
+UML (Superclass) Fields, Methods, Relationships (Subclasses to UML) Parameters (Subclasses to Methods)
