@@ -69,7 +69,6 @@ public class MethodOverloading {
 					
 				}
 			}
-			//If they are the same
 			return true;
 		}
 		return false;
@@ -119,7 +118,6 @@ public class MethodOverloading {
 			}
 		return false;
 	}
-	
 	//Checks to see that if a parameter is removed that it won't create a method of the same signature
 	public static boolean containsSameSignatureDeleting(UML UMLname,  ArrayList<Parameters> addend, Parameters latestAddition, String mName){
 		@SuppressWarnings("unchecked")
@@ -182,44 +180,40 @@ public class MethodOverloading {
 	
 //************************************************************************************************************************************ */
 	//Gets the correct parameter list of any method
-    public static ArrayList<Parameters> locatingParameters(String UML, String method){
-        ArrayList<Parameters> pList = null;
+    public static ArrayList<Parameters> locatingParameters(String UML, String method, String scanInput) {
+    	ArrayList<Parameters> pList = null;
 		//boolean to check if there is method overloading. False if there is. True if there isn't
 		boolean validate = true;
 		// Exit case
 		try {
 			if(MethodOverloading.containsDuplicateMethods(UML).contains(method)){
-                
-                validate = false;
-                ArrayList<String> comparison = new ArrayList<>();
-                Scanner s;
-                
-                if(Driver.guiUp) {
-					s = new Scanner(View.textField.getText());
-					View.textField.setText(s.nextLine());
-                    View.inputLbl.setText("<html><div style='text-align:center'>There is more than<br>one method that<br>uses the name " + method + "<br>Enter all the parameter<br>types for the method<br>you are editing<div></html>");
-                    
-                    
-                }
-                else {
-                    Scanner scanner = new Scanner(System.in);
-                    System.out.println("There is more than one method that uses the name " + method);
-                    System.out.println("Enter all the parameter types for the method you are editing");
+				
+				validate = false;
+				ArrayList<String> comparison = new ArrayList<>();
+				Scanner s;
+				
+				if(Driver.guiUp) {
+					s = new Scanner(scanInput);
+				}
+				else {
+					Scanner scanner = new Scanner(System.in);
+					System.out.println("There is more than one method that uses the name " + method);
+					System.out.println("Enter all the parameter types for the method you are editing");
 
-                    //User types in all parameter types of the method they are looking for and -1 when they are done
-                    s = new Scanner(scanner.nextLine().toLowerCase()); 
-                }
-                
-                while(s.hasNext()){
-                    comparison.add(s.next());
-                }
-                    
-                // Specific parameter list if the method is overloaded
-                pList = MethodOverloading.findMethod(UML, method, comparison);
-            }
+					//User types in all parameter types of the method they are looking for and -1 when they are done
+					s = new Scanner(scanner.nextLine().toLowerCase()); 
+				}
+				
+				while(s.hasNext()){
+					comparison.add(s.next());
+				}
+					
+				// Specific parameter list if the method is overloaded
+				pList = MethodOverloading.findMethod(UML, method, comparison);
+			}
 	
 		} catch (NullPointerException e) {
-			System.out.println(" Class name not found");
+			System.out.println("Class name not found");
 			return null;
 		}
 		

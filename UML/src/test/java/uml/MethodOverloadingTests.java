@@ -14,7 +14,7 @@ public class MethodOverloadingTests {
 		// Create a class
 		UML.addClass("class");
         Methods.addMethod("class", "a", "String");
-		Parameters.addParameter("class", "a" , "x", "int");
+		Parameters.addParameter("class", "a" , "x", "int", null , true);
         Methods.addMethod("class", "a", "String");
         ArrayList<String> params= new ArrayList<>();
         params.add("int");
@@ -22,7 +22,7 @@ public class MethodOverloadingTests {
         //Testing Parameters find method, which finds the list of parameters
         ArrayList<Parameters> pList1 = MethodOverloading.findMethod("class", "a", params);
         Methods.addMethod("class", "b", "String");
-        Parameters.addParameter("class", "b" , "x", "int");
+        Parameters.addParameter("class", "b" , "x", "int", null , true);
         ArrayList<Parameters> pList2 = Parameters.findMethod("class", "b");
 
         assertTrue("Found correct list", MethodOverloading.compareParams(pList1, pList2, "Useless String"));
@@ -33,7 +33,7 @@ public class MethodOverloadingTests {
     public void containsDuplicateMethods(){
         UML.addClass("class");
         Methods.addMethod("class", "a", "String");
-		Parameters.addParameter("class", "a" , "x", "int");
+		Parameters.addParameter("class", "a" , "x", "int", null , true);
         Methods.addMethod("class", "a", "String");
 
         HashSet<String> s = MethodOverloading.containsDuplicateMethods("class");
@@ -47,7 +47,7 @@ public class MethodOverloadingTests {
       public void containsSameSignatureAdding(){
         UML.addClass("class");
         Methods.addMethod("class", "a", "String");
-		Parameters.addParameter("class", "a" , "x", "int");
+		Parameters.addParameter("class", "a" , "x", "int", null , true);
         Methods.addMethod("class", "a", "String");
         UML OBJ = UML.findUMLOBJ("class");
 
@@ -65,7 +65,7 @@ public class MethodOverloadingTests {
       public void containsSameSignatureDeleting(){
         UML.addClass("class");
         Methods.addMethod("class", "a", "String");
-		Parameters.addParameter("class", "a" , "x", "int");
+		Parameters.addParameter("class", "a" , "x", "int", null , true);
         Methods.addMethod("class", "a", "String");
         UML OBJ = UML.findUMLOBJ("class");
 
@@ -85,7 +85,7 @@ public class MethodOverloadingTests {
       public void containsSameSignatureDeletingAll(){
         UML.addClass("class");
         Methods.addMethod("class", "a", "String");
-		Parameters.addParameter("class", "a" , "x", "int");
+		Parameters.addParameter("class", "a" , "x", "int", null , true);
         Methods.addMethod("class", "a", "String");
         UML OBJ = UML.findUMLOBJ("class");
 
@@ -107,7 +107,7 @@ public class MethodOverloadingTests {
         UML.addClass("class");
         Methods.addMethod("class", "a", "String");
         Methods.addMethod("class", "a", "String");
-        Parameters.addParameter("class", "a" , "y", "String");
+        Parameters.addParameter("class", "a" , "y", "String", null , true);
         UML OBJ = UML.findUMLOBJ("class");
 
         ArrayList<Parameters> p= new ArrayList<>();
@@ -126,8 +126,8 @@ public class MethodOverloadingTests {
         UML.addClass("class");
         Methods.addMethod("class", "a", "String");
         Methods.addMethod("class", "a", "String");
-        Parameters.addParameter("class", "a" , "y", "String");
-        Parameters.addParameter("class", "a" , "z", "String");
+        Parameters.addParameter("class", "a" , "y", "String", null , true);
+        Parameters.addParameter("class", "a" , "z", "String", null , true);
         UML OBJ = UML.findUMLOBJ("class");
 
         ArrayList<Parameters> p= new ArrayList<>();

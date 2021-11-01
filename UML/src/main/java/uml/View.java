@@ -267,82 +267,9 @@ public class View {
 		panel.setLayout(null);
 		savePanel.setVisible(true);
 		
-		updateBoxes();
+		BoxObject.updateBoxes();
 	}
 	
-	public static void createBox(UML uml) {
-		lbl = new JLabel("<html>" + uml.getClassName() + "</html>");
-		panel.add(lbl);
-		lbl.setSize(lbl.getPreferredSize().width + 10, lbl.getPreferredSize().height + 6);
-		lbl.setVerticalAlignment(JLabel.TOP);
-		lbl.setHorizontalAlignment(JLabel.CENTER);
-		lbl.setLocation(uml.getposition_x(), uml.getposition_y());
-//		System.out.println(uml.getposition_x() + " " + uml.getposition_y());
-		lbl.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		lbl.setVisible(true);
-		lbl.setOpaque(true);
-		lbl.addMouseListener(controller);
-		lbl.addMouseMotionListener(controller);
-		Model.getJLabels().add(new BoxObject(uml.getClassName(), lbl));
-	}
-	
-	public static void updateBox(BoxObject obj) {
-		for(UML uml : Model.getCollection()) {
-			if(obj.getJLabelName().equals(uml.getClassName())) {
-				String text = "<html>" + uml.getClassName();
-				for(Fields field : uml.getField()) {
-					text += "<br>" + field.getFieldType() + " " + field.getFieldName();
-				}
-				for(Methods method : uml.getMethod()) {
-					text += "<br>" + method.getMethodType() + " " + method.getMethodName() + "(";
-					if(method.getParams().size() >= 1) {
-						text += method.getParams().get(0).getParamType() + " " + method.getParams().get(0).getParamName();
-					}
-					for(int i = 1; i < method.getParams().size(); i++) {
-						text += ", " + method.getParams().get(i).getParamType() + " " + method.getParams().get(i).getParamName();
-					}
-					text += ")";
-				}
-				text += "</html>";
-				obj.getLabel().setText(text);
-				obj.getLabel().setSize(obj.getLabel().getPreferredSize().width + 10, obj.getLabel().getPreferredSize().height + 2);
-				obj.getLabel().setLocation(uml.getposition_x(), uml.getposition_y());
-				panel.add(obj.getLabel());
-				break;
-			}
-		}
-	}
-	
-	public static void updateBoxes() {
-		for(BoxObject obj : Model.getJLabels()) {
-			for(UML uml : Model.getCollection()) {
-				if(obj.getJLabelName().equals(uml.getClassName())) {
-					String text = "<html>" + uml.getClassName();
-					for(Fields field : uml.getField()) {
-						text += "<br>" + field.getFieldType() + " " + field.getFieldName();
-					}
-					for(Methods method : uml.getMethod()) {
-						text += "<br>" + method.getMethodType() + " " + method.getMethodName() + "(";
-						if(method.getParams().size() >= 1) {
-							text += method.getParams().get(0).getParamType() + " " + method.getParams().get(0).getParamName();
-						}
-						for(int i = 1; i < method.getParams().size(); i++) {
-							text += ", " + method.getParams().get(i).getParamType() + " " + method.getParams().get(i).getParamName();
-						}
-						text += ")";
-					}
-					text += "</html>";
-					obj.getLabel().setText(text);
-					obj.getLabel().setSize(obj.getLabel().getPreferredSize().width + 10, obj.getLabel().getPreferredSize().height + 2);
-					obj.getLabel().setLocation(uml.getposition_x(), uml.getposition_y());
-					panel.add(obj.getLabel());
-					
-					break;
-				}
-			}
-		}
-
-	}
 
 	public static void closeGUI() {
 		frmUmlEditor.dispose();

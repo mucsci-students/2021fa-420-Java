@@ -52,7 +52,7 @@ public class Methods {
 
 								for(BoxObject obj : Model.getJLabels()) {
 									if(obj.getJLabelName().equals(uml.getClassName())) {
-										View.updateBox(obj);
+										BoxObject.updateBox(obj);
 									}
 								}
 
@@ -112,7 +112,7 @@ public class Methods {
 
 								for(BoxObject obj : Model.getJLabels()) {
 									if(obj.getJLabelName().equals(uml.getClassName())) {
-										View.updateBox(obj);
+										BoxObject.updateBox(obj);
 									}
 								}
 
@@ -182,7 +182,7 @@ public class Methods {
 
 						for(BoxObject obj : Model.getJLabels()) {
 							if(obj.getJLabelName().equals(uml.getClassName())) {
-								View.updateBox(obj);
+								BoxObject.updateBox(obj);
 							}
 						}
 
@@ -208,7 +208,7 @@ public class Methods {
 	//Renames an already existing method in a given class
 	public static void renameMethod(String className, String oldName, String newName) {
 
-		ArrayList<Parameters> oldParameters = MethodOverloading.locatingParameters(className, newName);
+		ArrayList<Parameters> oldParameters = MethodOverloading.locatingParameters(className, newName, "");
 		//Given class exists
 		if(Model.getNoClassDupes().contains(className)) {
 			//Searches for class
@@ -228,7 +228,7 @@ public class Methods {
 
 										for(BoxObject obj : Model.getJLabels()) {
 											if(obj.getJLabelName().equals(uml.getClassName())) {
-												View.updateBox(obj);
+												BoxObject.updateBox(obj);
 											}
 										}
 

@@ -62,9 +62,9 @@ public class JsonFile {
 
 			//Creates JLabels for gui
 			for(UML u: Model.getCollection()){
-				View.createBox(u);
+				BoxObject.createBox(u);
 			}
-			View.updateBoxes();
+			BoxObject.updateBoxes();
 			View.panel.repaint();
 
 		} catch(com.google.gson.JsonSyntaxException e){
