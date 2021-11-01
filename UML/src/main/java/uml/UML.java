@@ -1,11 +1,10 @@
-package uml;
+package src.main.java.uml;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
-
 
 public class UML {
 	//Class name
@@ -20,8 +19,16 @@ public class UML {
 	private int position_x;
 	//Y position of class box
 	private int position_y;
-
-
+	
+	//This set is to make sure there are no classes with the same name.
+	private static HashSet<String> noClassDupes = new HashSet<String>();
+	//This is the Array list that holds all the objects
+	private static ArrayList<UML> collection = new ArrayList<UML>();
+	//This is the Array list that holds all the JLabels
+	private static ArrayList<BoxObject> jlabels = new ArrayList<BoxObject>();
+	//This is the Array list that keeps tracks of the relationship arrows
+	private static ArrayList<Arrows> arrows = new ArrayList<Arrows>();
+	
 	//Regex for determining if string is alphanumeric
 	private static Pattern pattern = Pattern.compile("[^a-zA-Z0-9]");
 
@@ -71,8 +78,10 @@ public class UML {
 	public void setposition_y(int y) {
 		position_y = y;
 	}
-
 	
+	public static ArrayList<Arrows> getArrows() {
+		return arrows;
+	}
 
 	public static Pattern getPattern() {
 		return pattern;

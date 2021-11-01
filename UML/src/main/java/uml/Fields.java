@@ -1,4 +1,4 @@
-package uml;
+package src.main.java.uml;
 
 import javax.swing.JOptionPane;
 

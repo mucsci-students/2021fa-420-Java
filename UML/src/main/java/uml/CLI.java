@@ -1,4 +1,4 @@
-package uml;
+package src.main.java.uml;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -231,7 +231,6 @@ public class CLI {
 			return;
 		}
 
-		
 		if(pList != null) {
 			if(!pList.isEmpty()) {
 				//Loops through all parameters
@@ -251,26 +250,26 @@ public class CLI {
 						System.out.println(pName + " already exists in " + methodName3);
 					}
 				}
-					System.out.println("Here is the parameter being changed:");
-					System.out.println(pList.get(pList.size()-1).getParamType() + " " + pList.get(pList.size()-1).getParamName());
-					System.out.println("What is the new name?");
-					String pName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-					//Makes sure no duplicates while renaming
-					if(!Dupes.contains(pName)){
-						Dupes.add(pName);
+				System.out.println("Here is the parameter being changed:");
+				System.out.println(pList.get(pList.size()-1).getParamType() + " " + pList.get(pList.size()-1).getParamName());
+				System.out.println("What is the new name?");
+				String pName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+				//Makes sure no duplicates while renaming
+				if(!Dupes.contains(pName)){
+					Dupes.add(pName);
+					System.out.println("What is the parameter type?");
+					String pType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+					while(MethodOverloading.containsSameSignatureChangingAll(UMLOBJ, pList, new Parameters(pName, pType), methodName3)){
+						System.out.println("A method with that signature already exists! Choose another typing for last parameter");
 						System.out.println("What is the parameter type?");
-						String pType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-						while(MethodOverloading.containsSameSignatureChangingAll(UMLOBJ, pList, new Parameters(pName, pType), methodName3)){
-							System.out.println("A method with that signature already exists! Choose another typing for last parameter");
-							System.out.println("What is the parameter type?");
-						 	pType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-						}
-						pList.set(pList.size()-1, new Parameters(pName, pType));
-					}else {
-						System.out.println(pName + " already exists in " + methodName3);
+						pType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 					}
+					pList.set(pList.size()-1, new Parameters(pName, pType));
+				}else {
+					System.out.println(pName + " already exists in " + methodName3);
+				}
 			}
-					
+
 			else{
 				System.out.println("There are no parameters to change!");
 			}

@@ -1,7 +1,7 @@
-package uml;
+package src.main.java.uml;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -30,9 +30,6 @@ private String oldParamNameMO;
 private String paramNameMO;
 private String typeMO;
 
-	// UNDO REDO state saver
-	private boolean state = false;
-	private boolean start = true;
 	public void actionPerformed(ActionEvent e) {
 		if (start){
 			undoredo.stateKeeper();
@@ -743,6 +740,7 @@ private String typeMO;
 				}
 			}
 
+
 			//If user wanted to load a JSON string
 			else if(command.equals("Load")) {
 				//If user inputs info correctly
@@ -883,30 +881,7 @@ private String typeMO;
 			View.inputPanel.setVisible(true);
 		}
 
-		//If list classes button is clicked
-		else if(e.getActionCommand().equals("List Classes")) {
-			String text = "No classes exist!";
-			if(Model.getCollection().size() >= 1) {
-				text = "<html>Classes:<br>" + Model.getCollection().get(0).getClassName();
-				for(int i = 1; i < Model.getCollection().size(); i++) {
-					text = text + "<br>" + Model.getCollection().get(i).getClassName();
-				}
-			}
-		}
 
-		//If list contents button is clicked
-		else if(e.getActionCommand().equals("List Contents")) {
-			command = "List Contents";
-			View.inputLbl.setText("<html><div style='text-align:center'>What class would<br>you like to list the<br>contents of?</div></html>");
-			View.inputPanel.setVisible(true);
-		}
-
-		//If list relationships button is clicked
-		else if(e.getActionCommand().equals("List Relationships")) {
-			command = "List Relationships";
-			View.inputLbl.setText("<html><div style='text-align:center'>What class would<br>you like to list the<br>relationships of?</div></html>");
-			View.inputPanel.setVisible(true);
-		}
 		else if(e.getActionCommand().equals("Undo")) {
 			undoredo.undo();
 			View.panel.repaint();
@@ -953,9 +928,8 @@ private String typeMO;
 							+ "<br>add relation - creates a relationship between two classes"
 							+ "<br>delete relation - deletes a relationship between two classes"
 							+ "<br>change relationship type - changes a relationship type"
-							+ "<br>list classes - lists all the classes made"
-							+ "<br>list contents - lists the contents of a specific class"
-							+ "<br>list relationships - lists relationships between all classes"
+							+ "<br>undo - undos a change made"
+							+ "<br>redo - redos an undo made"
 							+ "<br>save - saves current uml file"
 							+ "<br>load - loads a uml file"
 							+ "<br>help - provides a list of commands usable commands"
@@ -973,7 +947,7 @@ private String typeMO;
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		e.getComponent().setLocation(e.getXOnScreen() - 378, e.getYOnScreen() - 35);
+		e.getComponent().setLocation(e.getXOnScreen() - 378, e.getYOnScreen() - 34);
 
 		if(e.getComponent().getX() < 0) {
 			e.getComponent().setLocation(0, e.getComponent().getY());
@@ -987,6 +961,9 @@ private String typeMO;
 		if(e.getComponent().getY() > 679 - e.getComponent().getHeight()) {
 			e.getComponent().setLocation(e.getComponent().getX(), 679 - e.getComponent().getHeight());
 		}
+
+		View.panel.repaint();
+		Arrows.updateArrows();
 	}
 
 	@Override
@@ -1016,15 +993,6 @@ private String typeMO;
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		for(BoxObject obj : Model.getJLabels()) {
-			if(obj.getLabel() == e.getComponent()) {
-				for(UML uml : Model.getCollection()) {
-					if(obj.getJLabelName().equals(uml.getClassName())) {
-						uml.setposition_x(e.getComponent().getX());
-						uml.setposition_y(e.getComponent().getY());
-					}
-				}
-			}
-		}
+		Arrows.updateArrows();
 	}
 }

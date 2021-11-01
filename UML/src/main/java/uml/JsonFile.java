@@ -1,4 +1,4 @@
-package uml;
+package src.main.java.uml;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;

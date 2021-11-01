@@ -1,4 +1,5 @@
 package uml;
+
 import java.awt.Color;
 
 import javax.swing.JLabel;
@@ -29,16 +30,16 @@ public class BoxObject {
 		try {
 			View.lbl = new JLabel("<html>" + uml.getClassName() + "</html>");
 			View.panel.add(View.lbl);
-		View.lbl.setSize(View.lbl.getPreferredSize().width + 10, View.lbl.getPreferredSize().height + 6);
-		View.lbl.setVerticalAlignment(JLabel.TOP);
-		View.lbl.setHorizontalAlignment(JLabel.CENTER);
-		View.lbl.setLocation(uml.getposition_x(), uml.getposition_y());
-		View.lbl.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		View.lbl.setVisible(true);
-		View.lbl.setOpaque(true);
-		View.lbl.addMouseListener(View.controller);
-		View.lbl.addMouseMotionListener(View.controller);
-		Model.getJLabels().add(new BoxObject(uml.getClassName(), View.lbl));
+			View.lbl.setSize(View.lbl.getPreferredSize().width + 10, View.lbl.getPreferredSize().height + 6);
+			View.lbl.setVerticalAlignment(JLabel.TOP);
+			View.lbl.setHorizontalAlignment(JLabel.CENTER);
+			View.lbl.setLocation(uml.getposition_x(), uml.getposition_y());
+			View.lbl.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+			View.lbl.setVisible(true);
+			View.lbl.setOpaque(true);
+			View.lbl.addMouseListener(View.controller);
+			View.lbl.addMouseMotionListener(View.controller);
+			Model.getJLabels().add(new BoxObject(uml.getClassName(), View.lbl));
 		} catch (Exception e) {
 			;
 		}

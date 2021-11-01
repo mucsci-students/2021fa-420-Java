@@ -1,17 +1,17 @@
 package uml;
 
-import java.awt.EventQueue;
-import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JButton;
 import javax.swing.JPanel;
-
-import javax.swing.border.LineBorder;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
+
 
 public class View {
 	//Window
@@ -135,11 +135,12 @@ public class View {
 		btnChangeParameter.setActionCommand("Change Parameter");
 		btnChangeParameter.addActionListener(controller);
 		mainBtnPanel.add(btnChangeParameter);
-
-		JButton btnChangeAllParameters = new JButton("Change All Parameters");
-		btnChangeAllParameters.setActionCommand("Change All Parameters");
-		btnChangeAllParameters.addActionListener(controller);
-		mainBtnPanel.add(btnChangeAllParameters);
+		
+		//Didn't have time to figure out method overloading for this monster
+//		JButton btnChangeAllParameters = new JButton("Change All Parameters");
+//		btnChangeAllParameters.setActionCommand("Change All Parameters");
+//		btnChangeAllParameters.addActionListener(controller);
+//		mainBtnPanel.add(btnChangeAllParameters);
 
 		JButton btnAddField = new JButton("Add Field");
 		btnAddField.setActionCommand("Add Field");
@@ -180,6 +181,7 @@ public class View {
 		btnRedo.setActionCommand("Redo");
 		btnRedo.addActionListener(controller);
 		mainBtnPanel.add(btnRedo);
+
 
 		//*************************************************************************************//
 
@@ -270,7 +272,6 @@ public class View {
 		BoxObject.updateBoxes();
 	}
 	
-
 	public static void closeGUI() {
 		frmUmlEditor.dispose();
 	}

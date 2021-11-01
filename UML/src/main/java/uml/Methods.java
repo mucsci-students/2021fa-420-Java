@@ -207,7 +207,6 @@ public class Methods {
 
 	//Renames an already existing method in a given class
 	public static void renameMethod(String className, String oldName, String newName) {
-
 		ArrayList<Parameters> oldParameters = MethodOverloading.locatingParameters(className, newName, "");
 		//Given class exists
 		if(Model.getNoClassDupes().contains(className)) {
@@ -233,7 +232,6 @@ public class Methods {
 										}
 
 										if(!Driver.guiUp) {
-
 											System.out.println("Method Renamed!");
 										}
 										return;
@@ -244,7 +242,7 @@ public class Methods {
 											JOptionPane.showMessageDialog(View.frmUmlEditor, "That method with that signature already exists!", "Error", JOptionPane.ERROR_MESSAGE);
 										}
 										else {
-											System.out.println("That method already exists!");
+											System.out.println("That method with that signature already exists!");
 										}
 										return;
 									}
