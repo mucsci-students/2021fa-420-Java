@@ -1,4 +1,4 @@
-package src.main.java.uml;
+package uml;
 
 import java.awt.Component;
 import java.util.ArrayList;
@@ -228,7 +228,7 @@ public class Driver {
 	}
 	
 	public static BoxObject findLabel(Component comp) {
-		for(BoxObject obj : UML.getJLabels()) {
+		for(BoxObject obj : Model.getJLabels()) {
 			if(obj.getLabel() == comp) {
 				return obj;
 			}
@@ -237,7 +237,7 @@ public class Driver {
 	}
 	
 	public static BoxObject findLabel(String name) {
-		for(BoxObject obj : UML.getJLabels()) {
+		for(BoxObject obj : Model.getJLabels()) {
 			if(obj.getJLabelName().equals(name)) {
 				return obj;
 			}
@@ -246,7 +246,7 @@ public class Driver {
 	}
 	
 	public static UML findClass(String name) {
-		for(UML uml : UML.getCollection()) {
+		for(UML uml : Model.getCollection()) {
 			if(uml.getClassName().equals(name)) {
 				return uml;
 			}
