@@ -77,12 +77,21 @@ public class Relationships {
 					for(UML u : Model.getCollection()) {
 						if(u.getClassName().equals(source.getClassName())) { // searches for the class name that we are adding a relationship to
 							u.getRels().add(r);
-							if(Driver.guiUp) {
-
-//								View.outputLbl.setText("Relationship added!");
+							for(BoxObject src : Model.getJLabels()) {
+								if(src.getJLabelName().equals(source.getClassName())) {
+									for(BoxObject dest : Model.getJLabels()) {
+										if(dest.getJLabelName().equals(destination.getClassName())) {
+											Arrows arrow = new Arrows(src, dest, type);
+											Model.getArrows().add(arrow);
+											if(Driver.guiUp) {
+												Arrows.drawArrow(arrow);
+											}
+										}
+									}
+								}
 							}
-							else {
-								System.out.println("Relationship added!");
+							if(!Driver.guiUp) {
+								System.out.println("Relationship Added!");
 							}
 							return;
 						}
@@ -121,13 +130,16 @@ public class Relationships {
 									if(r.getDestination().equals(destination)) { //Checks if a relationship in the relationship arraylist has the same name as the requested deletion destination 
 										int x = srcUml.getRels().indexOf(r);// Needed to finds where the relationship is that we need to delete
 										srcUml.getRels().remove(x);
-										if(Driver.guiUp) {
-
-//											View.outputLbl.setText("Relationship deleted!");
-
+										for(Arrows arrow : Model.getArrows()) {
+											if(arrow.getSrc().getJLabelName().equals(source) && arrow.getDest().getJLabelName().equals(destination)) {
+												Model.getArrows().remove(arrow);
+												View.panel.repaint();
+												Arrows.updateArrows();
+												break;
+											}
 										}
-										else {
-											System.out.println("Relationship deleted!");
+										if(!Driver.guiUp) {
+											System.out.println("Relationship Deleted!");
 										}
 										break;
 									}
@@ -168,11 +180,17 @@ public class Relationships {
 						for(Relationships umlRel : umlSrc.getRels()) {
 							if(umlRel.getDestination().equals(destName)) {
 								umlRel.setType(type);
-								if(Driver.guiUp) {
-//									JOptionPane.showMessageDialog(View.frmUmlEditor, "Type changed to " + type, "Error", JOptionPane.ERROR_MESSAGE);
-
+								for(Arrows arrow : Model.getArrows()) {
+									if(arrow.getSrc().getJLabelName().equals(srcName) && arrow.getDest().getJLabelName().equals(destName)) {
+										arrow.setType(type);
+										View.panel.repaint();
+										if(Driver.guiUp) {
+											Arrows.updateArrows();
+										}
+										break;
+									}
 								}
-								else {
+								if(!Driver.guiUp) {
 									System.out.println("Type changed to " + type);
 								}
 								return;

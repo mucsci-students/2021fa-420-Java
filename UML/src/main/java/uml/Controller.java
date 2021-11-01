@@ -987,6 +987,8 @@ private String typeMO;
 		if(e.getComponent().getY() > 679 - e.getComponent().getHeight()) {
 			e.getComponent().setLocation(e.getComponent().getX(), 679 - e.getComponent().getHeight());
 		}
+		View.panel.repaint();
+		Arrows.updateArrows();
 	}
 
 	@Override
@@ -1026,5 +1028,6 @@ private String typeMO;
 				}
 			}
 		}
+		Arrows.updateArrows();
 	}
 }
