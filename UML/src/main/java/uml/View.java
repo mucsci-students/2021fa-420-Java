@@ -1,17 +1,17 @@
-package uml;
+package src.main.java.uml;
 
-import java.awt.EventQueue;
-import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JButton;
 import javax.swing.JPanel;
-
-import javax.swing.border.LineBorder;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
+
 
 public class View {
 	//Window
@@ -135,11 +135,12 @@ public class View {
 		btnChangeParameter.setActionCommand("Change Parameter");
 		btnChangeParameter.addActionListener(controller);
 		mainBtnPanel.add(btnChangeParameter);
-
-		JButton btnChangeAllParameters = new JButton("Change All Parameters");
-		btnChangeAllParameters.setActionCommand("Change All Parameters");
-		btnChangeAllParameters.addActionListener(controller);
-		mainBtnPanel.add(btnChangeAllParameters);
+		
+		//Didn't have time to figure out method overloading for this monster
+//		JButton btnChangeAllParameters = new JButton("Change All Parameters");
+//		btnChangeAllParameters.setActionCommand("Change All Parameters");
+//		btnChangeAllParameters.addActionListener(controller);
+//		mainBtnPanel.add(btnChangeAllParameters);
 
 		JButton btnAddField = new JButton("Add Field");
 		btnAddField.setActionCommand("Add Field");
@@ -171,20 +172,15 @@ public class View {
 		btnChangeRelationship.addActionListener(controller);
 		mainBtnPanel.add(btnChangeRelationship);
 
-		JButton btnListClasses = new JButton("List Classes");
-		btnListClasses.setActionCommand("List Classes");
-		btnListClasses.addActionListener(controller);
-		mainBtnPanel.add(btnListClasses);
+		JButton btnUndo = new JButton("Undo");
+		btnUndo.setActionCommand("Undo");
+		btnUndo.addActionListener(controller);
+		mainBtnPanel.add(btnUndo);
 
-		JButton btnListContents = new JButton("List Contents");
-		btnListContents.setActionCommand("List Contents");
-		btnListContents.addActionListener(controller);
-		mainBtnPanel.add(btnListContents);
-
-		JButton btnListRelationships = new JButton("List Relationships");
-		btnListRelationships.setActionCommand("List Relationships");
-		btnListRelationships.addActionListener(controller);
-		mainBtnPanel.add(btnListRelationships);
+		JButton btnRedo = new JButton("Redo");
+		btnRedo.setActionCommand("Redo");
+		btnRedo.addActionListener(controller);
+		mainBtnPanel.add(btnRedo);
 		//*************************************************************************************//
 
 
@@ -271,81 +267,8 @@ public class View {
 		panel.setLayout(null);
 		savePanel.setVisible(true);
 		
-		updateBoxes();
-	}
-	
-	public static void createBox(UML uml) {
-		lbl = new JLabel("<html>" + uml.getClassName() + "</html>");
-		panel.add(lbl);
-		lbl.setSize(lbl.getPreferredSize().width + 10, lbl.getPreferredSize().height + 6);
-		lbl.setVerticalAlignment(JLabel.TOP);
-		lbl.setHorizontalAlignment(JLabel.CENTER);
-		lbl.setLocation(uml.getposition_x(), uml.getposition_y());
-//		System.out.println(uml.getposition_x() + " " + uml.getposition_y());
-		lbl.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		lbl.setVisible(true);
-		lbl.setOpaque(true);
-		lbl.addMouseListener(controller);
-		lbl.addMouseMotionListener(controller);
-		UML.getJLabels().add(new BoxObject(uml.getClassName(), lbl));
-	}
-	
-	public static void updateBox(BoxObject obj) {
-		for(UML uml : UML.getCollection()) {
-			if(obj.getJLabelName().equals(uml.getClassName())) {
-				String text = "<html>" + uml.getClassName();
-				for(Fields field : uml.getField()) {
-					text += "<br>" + field.getFieldType() + " " + field.getFieldName();
-				}
-				for(Methods method : uml.getMethod()) {
-					text += "<br>" + method.getMethodType() + " " + method.getMethodName() + "(";
-					if(method.getParams().size() >= 1) {
-						text += method.getParams().get(0).getParamType() + " " + method.getParams().get(0).getParamName();
-					}
-					for(int i = 1; i < method.getParams().size(); i++) {
-						text += ", " + method.getParams().get(i).getParamType() + " " + method.getParams().get(i).getParamName();
-					}
-					text += ")";
-				}
-				text += "</html>";
-				obj.getLabel().setText(text);
-				obj.getLabel().setSize(obj.getLabel().getPreferredSize().width + 10, obj.getLabel().getPreferredSize().height + 2);
-				obj.getLabel().setLocation(uml.getposition_x(), uml.getposition_y());
-				panel.add(obj.getLabel());
-				break;
-			}
-		}
-	}
-	
-	public static void updateBoxes() {
-		for(BoxObject obj : UML.getJLabels()) {
-			for(UML uml : UML.getCollection()) {
-				if(obj.getJLabelName().equals(uml.getClassName())) {
-					String text = "<html>" + uml.getClassName();
-					for(Fields field : uml.getField()) {
-						text += "<br>" + field.getFieldType() + " " + field.getFieldName();
-					}
-					for(Methods method : uml.getMethod()) {
-						text += "<br>" + method.getMethodType() + " " + method.getMethodName() + "(";
-						if(method.getParams().size() >= 1) {
-							text += method.getParams().get(0).getParamType() + " " + method.getParams().get(0).getParamName();
-						}
-						for(int i = 1; i < method.getParams().size(); i++) {
-							text += ", " + method.getParams().get(i).getParamType() + " " + method.getParams().get(i).getParamName();
-						}
-						text += ")";
-					}
-					text += "</html>";
-					obj.getLabel().setText(text);
-					obj.getLabel().setSize(obj.getLabel().getPreferredSize().width + 10, obj.getLabel().getPreferredSize().height + 2);
-					obj.getLabel().setLocation(uml.getposition_x(), uml.getposition_y());
-					panel.add(obj.getLabel());
-					
-					break;
-				}
-			}
-		}
-
+		BoxObject.updateBoxes();
+		Arrows.updateArrows();
 	}
 
 	public static void closeGUI() {

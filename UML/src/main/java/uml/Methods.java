@@ -1,4 +1,4 @@
-package uml;
+package src.main.java.uml;
 
 import java.util.ArrayList;
 
@@ -52,7 +52,7 @@ public class Methods {
 
 								for(BoxObject obj : UML.getJLabels()) {
 									if(obj.getJLabelName().equals(uml.getClassName())) {
-										View.updateBox(obj);
+										BoxObject.updateBox(obj);
 									}
 								}
 
@@ -112,7 +112,7 @@ public class Methods {
 
 								for(BoxObject obj : UML.getJLabels()) {
 									if(obj.getJLabelName().equals(uml.getClassName())) {
-										View.updateBox(obj);
+										BoxObject.updateBox(obj);
 									}
 								}
 
@@ -182,7 +182,7 @@ public class Methods {
 
 						for(BoxObject obj : UML.getJLabels()) {
 							if(obj.getJLabelName().equals(uml.getClassName())) {
-								View.updateBox(obj);
+								BoxObject.updateBox(obj);
 							}
 						}
 
@@ -207,8 +207,7 @@ public class Methods {
 
 	//Renames an already existing method in a given class
 	public static void renameMethod(String className, String oldName, String newName) {
-
-		ArrayList<Parameters> oldParameters = MethodOverloading.locatingParameters(className, newName);
+		ArrayList<Parameters> oldParameters = MethodOverloading.locatingParameters(className, newName, "");
 		//Given class exists
 		if(UML.getNoClassDupes().contains(className)) {
 			//Searches for class
@@ -228,12 +227,11 @@ public class Methods {
 
 										for(BoxObject obj : UML.getJLabels()) {
 											if(obj.getJLabelName().equals(uml.getClassName())) {
-												View.updateBox(obj);
+												BoxObject.updateBox(obj);
 											}
 										}
 
 										if(!Driver.guiUp) {
-
 											System.out.println("Method Renamed!");
 										}
 										return;
@@ -244,7 +242,7 @@ public class Methods {
 											JOptionPane.showMessageDialog(View.frmUmlEditor, "That method with that signature already exists!", "Error", JOptionPane.ERROR_MESSAGE);
 										}
 										else {
-											System.out.println("That method already exists!");
+											System.out.println("That method with that signature already exists!");
 										}
 										return;
 									}

@@ -180,7 +180,7 @@ public class MethodOverloading {
 	
 //************************************************************************************************************************************ */
 	//Gets the correct parameter list of any method
-    public static ArrayList<Parameters> locatingParameters(String UML, String method){
+    public static ArrayList<Parameters> locatingParameters(String UML, String method, String scanInput) {
     	ArrayList<Parameters> pList = null;
 		//boolean to check if there is method overloading. False if there is. True if there isn't
 		boolean validate = true;
@@ -190,13 +190,19 @@ public class MethodOverloading {
 				
 				validate = false;
 				ArrayList<String> comparison = new ArrayList<>();
+				Scanner s;
 				
-				Scanner scanner = new Scanner(System.in);
-				System.out.println("There is more than one method that uses the name " + method);
-				System.out.println("Enter all the parameter types for the method you are editing");
+				if(Driver.guiUp) {
+					s = new Scanner(scanInput);
+				}
+				else {
+					Scanner scanner = new Scanner(System.in);
+					System.out.println("There is more than one method that uses the name " + method);
+					System.out.println("Enter all the parameter types for the method you are editing");
 
-				//User types in all parameter types of the method they are looking for and -1 when they are done
-				Scanner s = new Scanner(scanner.nextLine().toLowerCase()); 
+					//User types in all parameter types of the method they are looking for and -1 when they are done
+					s = new Scanner(scanner.nextLine().toLowerCase()); 
+				}
 				
 				while(s.hasNext()){
 					comparison.add(s.next());
