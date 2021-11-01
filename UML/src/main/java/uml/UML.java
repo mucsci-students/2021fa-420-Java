@@ -178,7 +178,7 @@ public class UML {
 					for(BoxObject obj : Model.getJLabels()) {
 						if(obj.getJLabelName().equals(oldName)) {
 							obj.setJLabelName(newName);
-							View.updateBox(obj);
+							BoxObject.updateBox(obj);
 						}
 					}
 					

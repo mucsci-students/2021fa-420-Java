@@ -36,7 +36,7 @@ public class ParametersTesting {
         Methods.addMethod("class", "a", "String");
 		// Add the first Method
 		Parameters p1= new Parameters("x", "int");
-		Parameters.addParameter("class", "a" , "x", "int");
+		Parameters.addParameter("class", "a" , "x", "int", null , true);
 
         //Testing Parameters find method, which finds the list of parameters
         ArrayList<Parameters> pList = Parameters.findMethod("class", "a");
@@ -57,9 +57,9 @@ public class ParametersTesting {
 		Parameters p3= new Parameters("x1", "int");
         Parameters p4= new Parameters("x2", "String");
         Parameters p5= new Parameters("x3", "Object");
-		Parameters.addParameter("class", "a" , "x1", "int");
-        Parameters.addParameter("class", "a" , "x2", "String");
-        Parameters.addParameter("class", "a" , "x3", "Object");
+		Parameters.addParameter("class", "a" , "x1", "int", null , true);
+        Parameters.addParameter("class", "a" , "x2", "String", null , true);
+        Parameters.addParameter("class", "a" , "x3", "Object", null , true);
         ArrayList<Parameters> pList2 = Parameters.findMethod("class", "a");
         
         Parameters p6 = Parameters.findParam("x1", pList2);
@@ -86,17 +86,17 @@ public class ParametersTesting {
         Parameters p2= new Parameters("x2", "String");
         Parameters p3= new Parameters("x3", "Object");
 
-		Parameters.addParameter("class", "a" , "x1", "int");
-        Parameters.addParameter("class", "a" , "x2", "String");
-        Parameters.addParameter("class", "a" , "x3", "Object");
+		Parameters.addParameter("class", "a" , "x1", "int", null , true);
+        Parameters.addParameter("class", "a" , "x2", "String", null , true);
+        Parameters.addParameter("class", "a" , "x3", "Object", null , true);
 
         ArrayList<Parameters> pList1 = Parameters.findMethod("class", "a");
         UML.addClass("class");
         Methods.addMethod("class", "b", "String");
-        Parameters.addParameter("class", "b" , "x2", "String");
-        Parameters.addParameter("class", "b" , "x3", "Object");
+        Parameters.addParameter("class", "b" , "x2", "String", null , true);
+        Parameters.addParameter("class", "b" , "x3", "Object", null , true);
         
-        Parameters.deleteParameter("class", "a", "x1");
+        Parameters.deleteParameter("class", "a", "x1", null , true);
         ArrayList<Parameters> pList2 = Parameters.findMethod("class", "b");
         assertTrue("Are the params the same?", MethodOverloading.compareParams(pList1, pList2, "Random String"));
        
@@ -112,15 +112,15 @@ public class ParametersTesting {
         Parameters p2= new Parameters("x2", "String");
         Parameters p3= new Parameters("x3", "Object");
 
-		Parameters.addParameter("class", "a" , "x1", "int");
-        Parameters.addParameter("class", "a" , "x2", "String");
-        Parameters.addParameter("class", "a" , "x3", "Object");
+		Parameters.addParameter("class", "a" , "x1", "int", null , true);
+        Parameters.addParameter("class", "a" , "x2", "String", null , true);
+        Parameters.addParameter("class", "a" , "x3", "Object", null , true);
 
         ArrayList<Parameters> pList1 = Parameters.findMethod("class", "a");
         UML.addClass("class");
         Methods.addMethod("class", "b", "String");
         
-        Parameters.deleteAllParameters("class", "a");
+        Parameters.deleteAllParameters("class", "a", null , true);
         ArrayList<Parameters> pList2 = Parameters.findMethod("class", "b");
         assertTrue("Are the params the same?", MethodOverloading.compareParams(pList1, pList2, "Random String"));
        
@@ -135,13 +135,13 @@ public class ParametersTesting {
 		Parameters p1 = new Parameters("x1", "int");
          
 
-		Parameters.addParameter("class", "a" , "x1", "int");
-        Parameters.addParameter("class", "a" , "x2", "String");
-        Parameters.addParameter("class", "a" , "x3", "Object");
+		Parameters.addParameter("class", "a" , "x1", "int", null , true);
+        Parameters.addParameter("class", "a" , "x2", "String", null , true);
+        Parameters.addParameter("class", "a" , "x3", "Object", null , true);
 
         ArrayList<Parameters> pList1 = Parameters.findMethod("class", "a");
         
-        Parameters.changeParameter("class", "a", "x1", "x4", "Object");
+        Parameters.changeParameter("class", "a", "x1", "x4", "Object", null , true);
         ArrayList<Parameters> pList2 = Parameters.findMethod("class", "a");
         
 

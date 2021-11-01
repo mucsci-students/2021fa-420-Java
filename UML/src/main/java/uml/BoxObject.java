@@ -1,4 +1,4 @@
-package src.main.java.uml;
+package uml;
 
 import java.awt.Color;
 
@@ -27,22 +27,27 @@ public class BoxObject {
 	}
 	
 	public static void createBox(UML uml) {
-		View.lbl = new JLabel("<html>" + uml.getClassName() + "</html>");
-		View.panel.add(View.lbl);
-		View.lbl.setSize(View.lbl.getPreferredSize().width + 10, View.lbl.getPreferredSize().height + 6);
-		View.lbl.setVerticalAlignment(JLabel.TOP);
-		View.lbl.setHorizontalAlignment(JLabel.CENTER);
-		View.lbl.setLocation(uml.getXPos(), uml.getYPos());
-		View.lbl.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		View.lbl.setVisible(true);
-		View.lbl.setOpaque(true);
-		View.lbl.addMouseListener(View.controller);
-		View.lbl.addMouseMotionListener(View.controller);
-		UML.getJLabels().add(new BoxObject(uml.getClassName(), View.lbl));
+		try {
+			View.lbl = new JLabel("<html>" + uml.getClassName() + "</html>");
+			View.panel.add(View.lbl);
+			View.lbl.setSize(View.lbl.getPreferredSize().width + 10, View.lbl.getPreferredSize().height + 6);
+			View.lbl.setVerticalAlignment(JLabel.TOP);
+			View.lbl.setHorizontalAlignment(JLabel.CENTER);
+			View.lbl.setLocation(uml.getposition_x(), uml.getposition_y());
+			View.lbl.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+			View.lbl.setVisible(true);
+			View.lbl.setOpaque(true);
+			View.lbl.addMouseListener(View.controller);
+			View.lbl.addMouseMotionListener(View.controller);
+			Model.getJLabels().add(new BoxObject(uml.getClassName(), View.lbl));
+		} catch (Exception e) {
+			;
+		}
+		
 	}
 	
 	public static void updateBox(BoxObject obj) {
-		for(UML uml : UML.getCollection()) {
+		for(UML uml : Model.getCollection()) {
 			if(obj.getJLabelName().equals(uml.getClassName())) {
 				String text = "<html>" + uml.getClassName();
 				for(Fields field : uml.getField()) {
@@ -61,7 +66,7 @@ public class BoxObject {
 				text += "</html>";
 				obj.getLabel().setText(text);
 				obj.getLabel().setSize(obj.getLabel().getPreferredSize().width + 10, obj.getLabel().getPreferredSize().height + 2);
-				obj.getLabel().setLocation(uml.getXPos(), uml.getYPos());
+				obj.getLabel().setLocation(uml.getposition_x(), uml.getposition_y());
 				View.panel.add(obj.getLabel());
 				break;
 			}
@@ -69,8 +74,8 @@ public class BoxObject {
 	}
 	
 	public static void updateBoxes() {
-		for(BoxObject obj : UML.getJLabels()) {
-			for(UML uml : UML.getCollection()) {
+		for(BoxObject obj : Model.getJLabels()) {
+			for(UML uml : Model.getCollection()) {
 				if(obj.getJLabelName().equals(uml.getClassName())) {
 					String text = "<html>" + uml.getClassName();
 					for(Fields field : uml.getField()) {
@@ -89,11 +94,14 @@ public class BoxObject {
 					text += "</html>";
 					obj.getLabel().setText(text);
 					obj.getLabel().setSize(obj.getLabel().getPreferredSize().width + 10, obj.getLabel().getPreferredSize().height + 2);
-					obj.getLabel().setLocation(uml.getXPos(), uml.getYPos());
+					obj.getLabel().setLocation(uml.getposition_x(), uml.getposition_y());
 					View.panel.add(obj.getLabel());
+					
 					break;
 				}
 			}
 		}
+
 	}
+
 }
