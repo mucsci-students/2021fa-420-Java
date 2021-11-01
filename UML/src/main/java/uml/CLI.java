@@ -1,4 +1,4 @@
-package uml;
+package src.main.java.uml;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -163,7 +163,8 @@ public class CLI {
 		String paramName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 		System.out.println("What is the parameter type?");
 		String paramType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-		Parameters.addParameter(UMLName, methodName, paramName,  paramType);
+
+		Parameters.addParameter(UMLName, methodName, paramName, paramType, null, true);
 	}
 
 	// Delete a parameter(s) from a method within the UML
@@ -177,7 +178,7 @@ public class CLI {
 			System.out.println("What is the parameter name?");
 			String paramName1 = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 			// Deletion
-			if(Parameters.deleteParameter(UMLName1, methodName1, paramName1)) {
+			if(Parameters.deleteParameter(UMLName1, methodName1, paramName1, null, true)) {
 				System.out.println("Would you like to continue deleting parameters in " + methodName1 + "? (Yes or No)");
 				String response = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 				// If the user wants to stop adding parameters
@@ -197,7 +198,8 @@ public class CLI {
 		String UMLName2 = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 		System.out.println("What method would you like to remove the parameters from?");
 		String methodName2 = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-		Parameters.deleteAllParameters(UMLName2, methodName2);
+
+		Parameters.deleteAllParameters(UMLName2, methodName2, null, true);
 	}
 
 	// Changes the parameter name from a given method within the UML
@@ -212,7 +214,7 @@ public class CLI {
 		String paramName5 = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 		System.out.println("What is the parameter type?");
 		String paramType5 = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-		Parameters.changeParameter(UMLName4, methodName4, oldParamName, paramName5, paramType5);
+		Parameters.changeParameter(UMLName4, methodName4, oldParamName, paramName5, paramType5, null, true);
 	}
 
 	// Changes all the parameter names from a given method within the UML
@@ -224,14 +226,13 @@ public class CLI {
 		String methodName3 = scanner.nextLine().toLowerCase();
 		HashSet<String> Dupes = new HashSet<String>();
 
-		ArrayList<Parameters> pList = MethodOverloading.locatingParameters(UMLName3, methodName3);
+		ArrayList<Parameters> pList = MethodOverloading.locatingParameters(UMLName3, methodName3, "");
 		UML UMLOBJ = UML.findUMLOBJ(UMLName3);
 
 		if(pList == null){ 
 			return;
 		}
 
-		
 		if(pList != null) {
 			if(!pList.isEmpty()) {
 				//Loops through all parameters
@@ -251,26 +252,26 @@ public class CLI {
 						System.out.println(pName + " already exists in " + methodName3);
 					}
 				}
-					System.out.println("Here is the parameter being changed:");
-					System.out.println(pList.get(pList.size()-1).getParamType() + " " + pList.get(pList.size()-1).getParamName());
-					System.out.println("What is the new name?");
-					String pName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-					//Makes sure no duplicates while renaming
-					if(!Dupes.contains(pName)){
-						Dupes.add(pName);
+				System.out.println("Here is the parameter being changed:");
+				System.out.println(pList.get(pList.size()-1).getParamType() + " " + pList.get(pList.size()-1).getParamName());
+				System.out.println("What is the new name?");
+				String pName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+				//Makes sure no duplicates while renaming
+				if(!Dupes.contains(pName)){
+					Dupes.add(pName);
+					System.out.println("What is the parameter type?");
+					String pType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
+					while(MethodOverloading.containsSameSignatureChangingAll(UMLOBJ, pList, new Parameters(pName, pType), methodName3)){
+						System.out.println("A method with that signature already exists! Choose another typing for last parameter");
 						System.out.println("What is the parameter type?");
-						String pType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-						while(MethodOverloading.containsSameSignatureChangingAll(UMLOBJ, pList, new Parameters(pName, pType), methodName3)){
-							System.out.println("A method with that signature already exists! Choose another typing for last parameter");
-							System.out.println("What is the parameter type?");
-						 	pType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-						}
-						pList.set(pList.size()-1, new Parameters(pName, pType));
-					}else {
-						System.out.println(pName + " already exists in " + methodName3);
+						pType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 					}
+					pList.set(pList.size()-1, new Parameters(pName, pType));
+				}else {
+					System.out.println(pName + " already exists in " + methodName3);
+				}
 			}
-					
+
 			else{
 				System.out.println("There are no parameters to change!");
 			}

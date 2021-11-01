@@ -1,9 +1,6 @@
-package uml;
+package src.main.java.uml;
 
 import java.util.*;
-import javax.swing.JOptionPane;
-
-
 import javax.swing.JOptionPane;
 
 public class Parameters {
@@ -33,20 +30,29 @@ public class Parameters {
 	}
 
 	//Adds parameters to a method
-	public static boolean addParameter(String UMLName, String methodName, String parameterName, String type){
-		// Does a check to see if the method is overloaded. Also finds the correct method
-		ArrayList<Parameters> pList = MethodOverloading.locatingParameters(UMLName, methodName);
+	public static boolean addParameter(String UMLName, String methodName, String parameterName, String type, ArrayList<Parameters> pList, boolean dupeMethods){
+		if(!Driver.guiUp || !dupeMethods) {
+			// Does a check to see if the method is overloaded. Also finds the correct method
+			pList = MethodOverloading.locatingParameters(UMLName, methodName, "");
+			// Case where the method doesn't exist
+			if(pList == null) {
+				return false;
+			}
+		}
+		
 		// Inserted Parameter
 		Parameters parameter = new Parameters(parameterName, type);
 		//Gets the UML object that the parameter is being inserted into
 		UML UMLOBJ = UML.findUMLOBJ(UMLName);
-		// case where the method doesn't exist
-		if(pList == null){ 
-			return false;
-		}
-		//Makes sure there aren't any methods with duplicate sinatures being created with the addition of a new parameter
+
+		//Makes sure there aren't any methods with duplicate signatures being created with the addition of a new parameter
 		if(MethodOverloading.containsSameSignatureAdding(UMLOBJ, pList, parameter, methodName)){
-			System.out.println("A method with that signature already exists");
+			if(Driver.guiUp) {
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "A method with that signature already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else {
+				System.out.println("A method with that signature already exists!");
+			}
 			return false;
 		}
 
@@ -60,14 +66,14 @@ public class Parameters {
 
 		if(!noDuplicates.contains(parameterName)) {
 			noDuplicates.add(parameterName);
-			
+
 			// Addition of a new parameter
 			pList.add(parameter);
 
 			// Updates GUI boxes
 			for(BoxObject obj : Model.getJLabels()) {
 				if(obj.getJLabelName().equals(UMLName)) {
-					View.updateBox(obj);
+					BoxObject.updateBox(obj);
 				}
 			}
 
@@ -86,24 +92,31 @@ public class Parameters {
 		}
 		return false;
 
-}
+	}
 
 	// Removes a parameter that matches the specified credentials at the index
-	public static boolean deleteParameter(String UMLName, String methodsName, String pName) {
-		// Does a check to see if the method is overloaded. Also finds the correct method
-		ArrayList<Parameters> pList = MethodOverloading.locatingParameters(UMLName, methodsName);
+	public static boolean deleteParameter(String UMLName, String methodsName, String pName, ArrayList<Parameters> pList, boolean dupeMethods) {
+		if(!Driver.guiUp || !dupeMethods) {
+			// Does a check to see if the method is overloaded. Also finds the correct method
+			pList = MethodOverloading.locatingParameters(UMLName, methodsName, "");
+			//Case where the method doesn't exist
+			if(pList == null){ 
+				return false;
+			}
+		}
 		//Gets the UML object that the parameter is being removed from
 		UML UMLOBJ = UML.findUMLOBJ(UMLName);
-		//Case where the method doesn't exist
-		if(pList == null){ 
-			return false;
-		}
 		//Finds the specific parameter that is getting deleted
 		Parameters p = findParam(pName, pList);
 
 		//Makes sure there aren't any methods with duplicate sinatures being created with the deletion of a new parameter
 		if(MethodOverloading.containsSameSignatureDeleting(UMLOBJ, pList, p, methodsName)){
-			System.out.println("A method with that signature already exists");
+			if(Driver.guiUp) {
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "A method with that signature already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else {
+				System.out.println("A method with that signature already exists!");
+			}
 			return false;
 		}
 		int index = -1;
@@ -123,7 +136,7 @@ public class Parameters {
 			// Updates GUI boxes
 			for(BoxObject obj : Model.getJLabels()) {
 				if(obj.getJLabelName().equals(UMLName)) {
-					View.updateBox(obj);
+					BoxObject.updateBox(obj);
 				}
 			}
 
@@ -145,18 +158,26 @@ public class Parameters {
 
 
 	// Empties the Parameters of a given method
-	public static boolean deleteAllParameters (String UMLName, String methodsName){
-		// Does a check to see if the method is overloaded. Also finds the correct method
-		ArrayList<Parameters> pList = MethodOverloading.locatingParameters(UMLName, methodsName);
+	public static boolean deleteAllParameters (String UMLName, String methodsName, ArrayList<Parameters> pList, boolean dupeMethods){
+		if(!Driver.guiUp || !dupeMethods) {
+			// Does a check to see if the method is overloaded. Also finds the correct method
+			pList = MethodOverloading.locatingParameters(UMLName, methodsName, "");
+			//Case where method doesn't exist
+			if(pList == null){ 
+				return false;
+			}
+		}
 		//Gets the UML object that the parameters are being removed from
 		UML UMLOBJ = UML.findUMLOBJ(UMLName);
-		//Case where method doesn't exist
-		if(pList == null){ 
-			return false;
-		}
+		
 		//Makes sure there aren't any methods with duplicate sinatures being created with the deletion of parameters
 		if(MethodOverloading.containsSameSignatureDeletingAll(UMLOBJ, pList, methodsName)){
-			System.out.println("A method with that signature already exists");
+			if(Driver.guiUp) {
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "A method with that signature already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else {
+				System.out.println("A method with that signature already exists!");
+			}
 			return false;
 		}				
 
@@ -174,7 +195,7 @@ public class Parameters {
 
 		for(BoxObject obj : Model.getJLabels()) {
 			if(obj.getJLabelName().equals(UMLName)) {
-				View.updateBox(obj);
+				BoxObject.updateBox(obj);
 			}
 		}
 
@@ -185,18 +206,25 @@ public class Parameters {
 	}
 
 	// Changes a single parameter in a method
-	public static boolean changeParameter(String UMLName, String methodsName, String oldpName, String newpName, String newpType ) {
-		// Does a check to see if the method is overloaded. Also finds the correct method
-		ArrayList<Parameters> pList = MethodOverloading.locatingParameters(UMLName, methodsName);
+	public static boolean changeParameter(String UMLName, String methodsName, String oldpName, String newpName, String newpType, ArrayList<Parameters> pList, boolean dupeMethods) {
+		if(!Driver.guiUp || !dupeMethods) {
+			// Does a check to see if the method is overloaded. Also finds the correct method
+			pList = MethodOverloading.locatingParameters(UMLName, methodsName, "");
+			//Case where method doesn't exist
+			if(pList == null){ 
+				return false;
+			}
+		}
 		//Gets the UML object that the parameters are being changed from
 		UML UMLOBJ = UML.findUMLOBJ(UMLName);
-		//Case where method doesn't exist
-		if(pList == null){ 
-			return false;
-		}
 		//Makes sure there aren't any methods with duplicate sinatures being created with the changing of parameters
 		if(MethodOverloading.containsSameSignatureChanging(UMLOBJ, pList, methodsName, oldpName, newpName, newpType)){
-			System.out.println("A method with that signature already exists");
+			if(Driver.guiUp) {
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "A method with that signature already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else {
+				System.out.println("A method with that signature already exists!");
+			}
 			return false;
 		}
 		//Duplicate checking
@@ -225,7 +253,7 @@ public class Parameters {
 
 				for(BoxObject obj : Model.getJLabels()) {
 					if(obj.getJLabelName().equals(UMLName)) {
-						View.updateBox(obj);
+						BoxObject.updateBox(obj);
 					}
 				}
 
@@ -296,7 +324,7 @@ public class Parameters {
 		}
 		return null;
 	}
-	
+
 	//Finds a specific parameter in a given parameter list
 	public static Parameters findParam(String name, ArrayList<Parameters> list){
 		for(Parameters p : list){
