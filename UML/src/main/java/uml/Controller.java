@@ -1,4 +1,4 @@
-package src.main.java.uml;
+package uml;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -961,7 +961,6 @@ private String typeMO;
 		if(e.getComponent().getY() > 679 - e.getComponent().getHeight()) {
 			e.getComponent().setLocation(e.getComponent().getX(), 679 - e.getComponent().getHeight());
 		}
-
 		View.panel.repaint();
 		Arrows.updateArrows();
 	}
@@ -993,6 +992,16 @@ private String typeMO;
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		for(BoxObject obj : Model.getJLabels()) {
+			if(obj.getLabel() == e.getComponent()) {
+				for(UML uml : Model.getCollection()) {
+					if(obj.getJLabelName().equals(uml.getClassName())) {
+						uml.setposition_x(e.getComponent().getX());
+						uml.setposition_y(e.getComponent().getY());
+					}
+				}
+			}
+		}
 		Arrows.updateArrows();
 	}
 }

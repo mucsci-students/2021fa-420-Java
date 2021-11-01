@@ -10,6 +10,8 @@ public class Model {
 	private static ArrayList<UML> collection = new ArrayList<UML>();
 	//This is the Array list that holds all the JLabels
 	private static ArrayList<BoxObject> jlabels = new ArrayList<BoxObject>();
+	//This is the Array list that keeps tracks of the relationship arrows
+    private static ArrayList<Arrows> arrows = new ArrayList<Arrows>();
 
     public static ArrayList<UML> getCollection() {
 		return collection;
@@ -30,5 +32,8 @@ public class Model {
 	public static ArrayList<BoxObject> getJLabels() {
 		return jlabels;
 	}
+	public static ArrayList<Arrows> getArrows() {
+        return arrows;
+    }
 
 }

@@ -77,13 +77,15 @@ public class Relationships {
 					for(UML u : Model.getCollection()) {
 						if(u.getClassName().equals(source.getClassName())) { // searches for the class name that we are adding a relationship to
 							u.getRels().add(r);
-							for(BoxObject src : UML.getJLabels()) {
+							for(BoxObject src : Model.getJLabels()) {
 								if(src.getJLabelName().equals(source.getClassName())) {
-									for(BoxObject dest : UML.getJLabels()) {
+									for(BoxObject dest : Model.getJLabels()) {
 										if(dest.getJLabelName().equals(destination.getClassName())) {
 											Arrows arrow = new Arrows(src, dest, type);
-											UML.getArrows().add(arrow);
-											Arrows.drawArrow(arrow);
+											Model.getArrows().add(arrow);
+											if(Driver.guiUp) {
+												Arrows.drawArrow(arrow);
+											}
 										}
 									}
 								}
@@ -128,9 +130,9 @@ public class Relationships {
 									if(r.getDestination().equals(destination)) { //Checks if a relationship in the relationship arraylist has the same name as the requested deletion destination 
 										int x = srcUml.getRels().indexOf(r);// Needed to finds where the relationship is that we need to delete
 										srcUml.getRels().remove(x);
-										for(Arrows arrow : UML.getArrows()) {
+										for(Arrows arrow : Model.getArrows()) {
 											if(arrow.getSrc().getJLabelName().equals(source) && arrow.getDest().getJLabelName().equals(destination)) {
-												UML.getArrows().remove(arrow);
+												Model.getArrows().remove(arrow);
 												View.panel.repaint();
 												Arrows.updateArrows();
 												break;
@@ -178,11 +180,13 @@ public class Relationships {
 						for(Relationships umlRel : umlSrc.getRels()) {
 							if(umlRel.getDestination().equals(destName)) {
 								umlRel.setType(type);
-								for(Arrows arrow : UML.getArrows()) {
+								for(Arrows arrow : Model.getArrows()) {
 									if(arrow.getSrc().getJLabelName().equals(srcName) && arrow.getDest().getJLabelName().equals(destName)) {
 										arrow.setType(type);
 										View.panel.repaint();
-										Arrows.updateArrows();
+										if(Driver.guiUp) {
+											Arrows.updateArrows();
+										}
 										break;
 									}
 								}

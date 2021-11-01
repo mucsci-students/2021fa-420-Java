@@ -1,5 +1,4 @@
-package src.main.java.uml;
-
+package uml;
 import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -34,7 +33,7 @@ public class Arrows {
 	}
 	
 	public static void updateArrows() {
-		for(Arrows arrow : UML.getArrows()) {
+		for(Arrows arrow : Model.getArrows()) {
 			drawArrow(arrow);
 		}
 	}
