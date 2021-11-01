@@ -1,5 +1,6 @@
-package uml;
+package src.main.java.uml;
 
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -224,5 +225,32 @@ public class Driver {
 				System.out.println("Command not recognized. Type help for valid commands");
 			}	
 		}
+	}
+	
+	public static BoxObject findLabel(Component comp) {
+		for(BoxObject obj : UML.getJLabels()) {
+			if(obj.getLabel() == comp) {
+				return obj;
+			}
+		}
+		return null;
+	}
+	
+	public static BoxObject findLabel(String name) {
+		for(BoxObject obj : UML.getJLabels()) {
+			if(obj.getJLabelName().equals(name)) {
+				return obj;
+			}
+		}
+		return null;
+	}
+	
+	public static UML findClass(String name) {
+		for(UML uml : UML.getCollection()) {
+			if(uml.getClassName().equals(name)) {
+				return uml;
+			}
+		}
+		return null;
 	}
 }

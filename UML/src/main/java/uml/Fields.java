@@ -1,4 +1,4 @@
-package uml;
+package src.main.java.uml;
 
 import javax.swing.JOptionPane;
 
@@ -43,7 +43,7 @@ public class Fields {
 
 								for(BoxObject obj : Model.getJLabels()) {
 									if(obj.getJLabelName().equals(uml.getClassName())) {
-										View.updateBox(obj);
+										BoxObject.updateBox(obj);
 									}
 								}
 
@@ -109,7 +109,7 @@ public class Fields {
 
 								for(BoxObject obj : Model.getJLabels()) {
 									if(obj.getJLabelName().equals(uml.getClassName())) {
-										View.updateBox(obj);
+										BoxObject.updateBox(obj);
 									}
 								}
 
@@ -174,7 +174,7 @@ public class Fields {
 
 										for(BoxObject obj : Model.getJLabels()) {
 											if(obj.getJLabelName().equals(uml.getClassName())) {
-												View.updateBox(obj);
+												BoxObject.updateBox(obj);
 											}
 										}
 
