@@ -61,12 +61,11 @@ public class JsonFile {
 			
 
 			//Creates JLabels for gui
-			for(UML uml : UML.getCollection()) {
-				BoxObject.createBox(uml);
+			for(UML u: Model.getCollection()){
+				BoxObject.createBox(u);
 			}
 			BoxObject.updateBoxes();
-
-
+			View.panel.repaint();
 
 		} catch(com.google.gson.JsonSyntaxException e){
 			System.out.println("Not a valid Json file!");

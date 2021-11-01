@@ -16,7 +16,7 @@ public class CLI {
 		//Class name to add, ignores white space
 		String className = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 		UML uml = UML.addClass(className);
-		View.createBox(uml);
+		BoxObject.createBox(uml);
 	}
 
 	// Deletes a class from the UML
@@ -163,8 +163,7 @@ public class CLI {
 		String paramName = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 		System.out.println("What is the parameter type?");
 		String paramType = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-
-		Parameters.addParameter(UMLName, methodName, paramName, paramType, null, true);
+		Parameters.addParameter(UMLName, methodName, paramName,  paramType, null, true);
 	}
 
 	// Delete a parameter(s) from a method within the UML
@@ -198,7 +197,6 @@ public class CLI {
 		String UMLName2 = scanner.nextLine().toLowerCase().replaceAll("\\s","");
 		System.out.println("What method would you like to remove the parameters from?");
 		String methodName2 = scanner.nextLine().toLowerCase().replaceAll("\\s","");
-
 		Parameters.deleteAllParameters(UMLName2, methodName2, null, true);
 	}
 

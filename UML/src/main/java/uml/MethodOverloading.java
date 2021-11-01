@@ -1,4 +1,4 @@
-package src.main.java.uml;
+package uml;
 
 import java.util.*;
 import javax.swing.JOptionPane;
@@ -119,7 +119,6 @@ public class MethodOverloading {
 			}
 		return false;
 	}
-	
 	//Checks to see that if a parameter is removed that it won't create a method of the same signature
 	public static boolean containsSameSignatureDeleting(UML UMLname,  ArrayList<Parameters> addend, Parameters latestAddition, String mName){
 		@SuppressWarnings("unchecked")
@@ -189,7 +188,6 @@ public class MethodOverloading {
 		// Exit case
 		try {
 			if(MethodOverloading.containsDuplicateMethods(UML).contains(method)){
-
 				
 				validate = false;
 				ArrayList<String> comparison = new ArrayList<>();

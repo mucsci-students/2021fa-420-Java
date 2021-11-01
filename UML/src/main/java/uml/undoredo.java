@@ -1,26 +1,33 @@
 package uml;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 
 public class undoredo {
-    private static ArrayList<String> mem = new ArrayList<String>();
+    public static ArrayList<String> mem = new ArrayList<String>();
     //private Iterator<String> itr = mem.iterator();
     private static ArrayList<UML> newColl = new ArrayList<UML>();
-    static int incr = -1;
+    static int incr = 0;
    
 
-    public static void stateKeeper(){
-        mem.add(JsonFile.save(Model.getCollection()));
+    public static void stateKeeper(){ 
+        mem.add(incr,JsonFile.save(Model.getCollection())); // adds the string of the save file into an arraylist to track actions
+       //System.out.println(mem.size());
+    //    System.out.println(Model.getCollection().size());
         ++incr;
-      
+       //System.out.println("incr: "+ incr);
+        
+    
     }
 
     public static void undo(){
         try {
-            JsonFile.load(mem.get(incr-1), newColl);
-            incr--;
+            --incr;
+            JsonFile.load(mem.get(incr-1), newColl); //returns to a previous save by loading prev coll 
             System.out.println("Action undone!");
+            //System.out.println(mem.size());
+            //System.out.println("incr: "+ incr);
         
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Nothing left to undo!");
@@ -30,10 +37,13 @@ public class undoredo {
     }
     public static void redo(){
         try {
-            JsonFile.load(mem.get(incr + 1), newColl);
             
+            JsonFile.load(mem.get(incr), newColl); //redoes an undone action
             ++incr;
+            
             System.out.println("Action redone!");
+            //System.out.println(mem.size());
+            //System.out.println("incr: "+ incr);
             
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Nothing left to redo!");
@@ -41,20 +51,24 @@ public class undoredo {
         
 
     }
-    // This is fucked!
+    
     public static void memClear(){ // if method is called after undo/redo clear any replace index and clear all indices after
         int temp = incr;
+        int hold = mem.size();
         try{
-            for (int i = temp + 1; i <= mem.size(); ++temp){
+            for (int i = temp; i <= hold-1; ++i){ //clears history of collection when an action is taken after undo/redo
 
-                mem.remove(mem.get(temp+1));
+                mem.remove(mem.get(incr));
             }
-            --incr;
+
+            //System.err.println("blep");
+            //System.out.println(mem.size());
+            //System.out.println("incr: "+ incr);
         }
         catch (IndexOutOfBoundsException e){
            System.out.println(e.getMessage());
         }
-         
+
 
     }
     public static void loadClear(){

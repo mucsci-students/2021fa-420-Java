@@ -1,4 +1,4 @@
-package src.main.java.uml;
+package uml;
 
 import java.util.*;
 import javax.swing.JOptionPane;
@@ -324,7 +324,6 @@ public class Parameters {
 		}
 		return null;
 	}
-
 
 	//Finds a specific parameter in a given parameter list
 	public static Parameters findParam(String name, ArrayList<Parameters> list){

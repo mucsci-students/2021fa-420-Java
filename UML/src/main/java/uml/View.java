@@ -1,4 +1,4 @@
-package src.main.java.uml;
+package uml;
 
 import java.awt.Dimension;
 import java.awt.Color;
@@ -270,9 +270,8 @@ public class View {
 		savePanel.setVisible(true);
 		
 		BoxObject.updateBoxes();
-		Arrows.updateArrows();
 	}
-
+	
 	public static void closeGUI() {
 		frmUmlEditor.dispose();
 	}
