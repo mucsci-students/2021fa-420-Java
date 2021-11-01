@@ -21,11 +21,6 @@ public class UML {
 	private int position_y;
 	
 	//This set is to make sure there are no classes with the same name.
-	private static HashSet<String> noClassDupes = new HashSet<String>();
-	//This is the Array list that holds all the objects
-	private static ArrayList<UML> collection = new ArrayList<UML>();
-	//This is the Array list that holds all the JLabels
-	private static ArrayList<BoxObject> jlabels = new ArrayList<BoxObject>();
 	//This is the Array list that keeps tracks of the relationship arrows
 	private static ArrayList<Arrows> arrows = new ArrayList<Arrows>();
 	
