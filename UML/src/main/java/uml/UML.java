@@ -86,7 +86,7 @@ public class UML {
 			Model.getNoClassDupes().add(className);
 			Model.getCollection().add(uml);
 			
-			View.createBox(uml);
+			
 			
 			if(!Driver.guiUp) {
 

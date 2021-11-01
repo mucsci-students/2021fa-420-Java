@@ -15,7 +15,8 @@ public class CLI {
 		System.out.println("What would you like to name the new class?");
 		//Class name to add, ignores white space
 		String className = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-		UML.addClass(className);
+		UML uml = UML.addClass(className);
+		View.createBox(uml);
 	}
 
 	// Deletes a class from the UML
