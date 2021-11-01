@@ -325,6 +325,7 @@ public class Parameters {
 		return null;
 	}
 
+
 	//Finds a specific parameter in a given parameter list
 	public static Parameters findParam(String name, ArrayList<Parameters> list){
 		for(Parameters p : list){
@@ -334,4 +335,5 @@ public class Parameters {
 		}
 		return null;
 	}
+
 }

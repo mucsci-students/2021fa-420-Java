@@ -1,4 +1,4 @@
-package uml;
+package src.main.java.uml;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
@@ -61,11 +61,12 @@ public class JsonFile {
 			
 
 			//Creates JLabels for gui
-			for(UML u: Model.getCollection()){
-				View.createBox(u);
+			for(UML uml : UML.getCollection()) {
+				BoxObject.createBox(uml);
 			}
-			View.updateBoxes();
-			View.panel.repaint();
+			BoxObject.updateBoxes();
+
+
 
 		} catch(com.google.gson.JsonSyntaxException e){
 			System.out.println("Not a valid Json file!");

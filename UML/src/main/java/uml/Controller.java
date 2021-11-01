@@ -474,6 +474,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							//No more parameters to loop through
 							else {
 								for(BoxObject obj : UML.getJLabels()) {
+
 									if(obj.getJLabelName().equals(classNameCAP)) {
 										BoxObject.updateBox(obj);
 
@@ -741,6 +742,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 				}
 			}
 
+
 			//If user wanted to load a JSON string
 			else if(command.equals("Load")) {
 				//If user inputs info correctly
@@ -880,6 +882,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 			View.inputLbl.setText("<html><div style='text-align:center'>What is the source<br>class of the relationship<br>you would like to change?<br><br>What is the destination<br>class of the relationship<br>you would like to change?<br><br>What would you like<br>to change the type to?<div></html>");
 			View.inputPanel.setVisible(true);
 		}
+
 
 		else if(e.getActionCommand().equals("Undo")) {
 			undoredo.undo();
