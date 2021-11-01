@@ -30,6 +30,9 @@ private String oldParamNameMO;
 private String paramNameMO;
 private String typeMO;
 
+private boolean start = true;
+private boolean state = false;
+
 	public void actionPerformed(ActionEvent e) {
 		if (start){
 			undoredo.stateKeeper();
