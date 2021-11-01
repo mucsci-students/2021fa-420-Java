@@ -222,6 +222,7 @@ private String typeMO;
                                 	Parameters.addParameter(classNameMO, methodNameMO, paramNameMO, typeMO, null, false);
         							View.inputPanel.setVisible(false);
                                 	View.textField.setText("");
+									undoredo.stateKeeper();
                                 }
                                 else {
                                 	View.textField.setText("");
@@ -257,6 +258,7 @@ private String typeMO;
 					pList = MethodOverloading.locatingParameters(classNameMO, methodNameMO, "");
 				}
             	Parameters.addParameter(classNameMO, methodNameMO, paramNameMO, typeMO, pList, true);
+				undoredo.stateKeeper();
             	View.inputPanel.setVisible(false);
             	View.textField.setText("");
 			}
@@ -276,6 +278,7 @@ private String typeMO;
                             	Parameters.deleteParameter(classNameMO, methodNameMO, paramNameMO, null, false);
     							View.inputPanel.setVisible(false);
                             	View.textField.setText("");
+								undoredo.stateKeeper();
                             }
                             else {
                             	View.textField.setText("");
@@ -305,6 +308,7 @@ private String typeMO;
 					pList = MethodOverloading.locatingParameters(classNameMO, methodNameMO, "");
 				}
             	Parameters.deleteParameter(classNameMO, methodNameMO, paramNameMO, pList, true);
+				undoredo.stateKeeper();
             	View.inputPanel.setVisible(false);
             	View.textField.setText("");
 			}
@@ -320,6 +324,7 @@ private String typeMO;
 						HashSet<String> dupes = MethodOverloading.containsDuplicateMethods(classNameMO);
                         if(!dupes.contains(methodNameMO)) {
                         	Parameters.deleteAllParameters(classNameMO, methodNameMO, null, false);
+							undoredo.stateKeeper();
 							View.inputPanel.setVisible(false);
                         	View.textField.setText("");
                         }
@@ -347,6 +352,7 @@ private String typeMO;
 					pList = MethodOverloading.locatingParameters(classNameMO, methodNameMO, "");
 				}
             	Parameters.deleteAllParameters(classNameMO, methodNameMO, pList, true);
+				undoredo.stateKeeper();
             	View.inputPanel.setVisible(false);
             	View.textField.setText("");
 			}
@@ -370,6 +376,7 @@ private String typeMO;
 	                                	Parameters.changeParameter(classNameMO, methodNameMO, oldParamNameMO, paramNameMO, typeMO, null, false);
 	        							View.inputPanel.setVisible(false);
 	                                	View.textField.setText("");
+										undoredo.stateKeeper();
 	                                }
 	                                else {
 	                                	View.textField.setText("");
@@ -407,6 +414,7 @@ private String typeMO;
 					pList = MethodOverloading.locatingParameters(classNameMO, methodNameMO, "");
 				}
             	Parameters.changeParameter(classNameMO, methodNameMO, oldParamNameMO, paramNameMO, typeMO, pList, true);
+				undoredo.stateKeeper();
             	View.inputPanel.setVisible(false);
             	View.textField.setText("");
 			}
