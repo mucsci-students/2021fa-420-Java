@@ -26,16 +26,16 @@ public class Driver {
 		//Boolean to run program until user exits
 		boolean run = true;
 
-		undoredo.stateKeeper();
-		boolean state = false;
+		boolean state = false; // tracks last usage of undo/redo
 		while(run) {
 
 			System.out.println("Enter a command or type exit if you wish to exit!");
 			//This is the command the user has entered
 			//It is converted to lowercase to allow for easier comparison and ignores white space
 			String command = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-			if ((state && !(command.equals("undo")) && !(command.equals("redo")) && !(command.equals("save")) )){
-				undoredo.memClear();
+			if ((state && !(command.equals("undo")) && !(command.equals("redo")) && !(command.equals("save")) && !(command.equals("load")) && !(command.equals("listcontents")) 
+			&& !(command.equals("listclasses")) && !(command.equals("listrelationships")) && !(command.equals("save")) && !(command.equals("help")) )){
+				undoredo.memClear(); //runs when a command is used after undo/redo
 			}
 
 			state = false;
