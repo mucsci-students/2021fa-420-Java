@@ -5,8 +5,9 @@ import java.util.regex.Pattern;
 
 import java.io.File;
 import java.io.IOException;
-import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.awt.Graphics;
 
 import javax.swing.JOptionPane;
 
@@ -328,6 +329,8 @@ public class UML {
 		BufferedImage image = new BufferedImage(View.panel.getWidth(), View.panel.getHeight(),
 				BufferedImage.TYPE_INT_RGB);
 		View.panel.paint(image.getGraphics());
+		Graphics g = image.getGraphics();
+		Arrows.updateArrows(g);
 		try {
 			// Makes new file if provided one doesn't exist yet
 			File file = new File(fileName + ".jpg");

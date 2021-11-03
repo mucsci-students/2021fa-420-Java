@@ -14,60 +14,62 @@ public class JsonFile {
 		// Converts the list to JSON
 		String saveFile = gson.toJson(collection);
 		return saveFile;
-	
-		
+
 	}
 
-	// Loads a String with a JSON format and turns it into an ArrayList of UML objects
+	// Loads a String with a JSON format and turns it into an ArrayList of UML
+	// objects
 	public static boolean load(String loaded, ArrayList<UML> collection) {
 
 		try {
 
 			// Tells the Gson converter that we want an ArrayList of UML objects
-			Type type = new TypeToken<ArrayList<UML>>(){}.getType();
-			// Puts the JSON string and determines the type of list needed and makes a new ArrayList with this information
+			Type type = new TypeToken<ArrayList<UML>>() {
+			}.getType();
+			// Puts the JSON string and determines the type of list needed and makes a new
+			// ArrayList with this information
 			ArrayList<UML> newCollection = new Gson().fromJson(loaded, type);
 
 			// Empties the current ArrayList
-			for(BoxObject obj : Model.getJLabels()) {
+			for (BoxObject obj : Model.getJLabels()) {
 				View.panel.remove(obj.getLabel());
 			}
 			Model.getJLabels().clear();
 			View.panel.repaint();
 			Model.clearCollection();
-			
-			//Need to remove the current no dupes and replace it with the loaded dupes
+			Model.clearArrows();
+
+			// Need to remove the current no dupes and replace it with the loaded dupes
 			HashSet<String> noDupes = Model.getNoClassDupes();
 			noDupes.clear();
 
-			//Inserts class names into no dupes
-			for(UML u : newCollection){
-
+			// Inserts class names into no dupes
+			for (UML u : newCollection) {
 				noDupes.add(u.getClassName());
 			}
 			// The new collection of the loaded UML object
-			
+
 			System.out.println(save(newCollection));
 			Model.setCollection(newCollection);
 
+			// Create a box object for every uml object
+			// add box object to jlabs array
 
-	
-
-			//Create a box object for every uml object
-			//add box object to jlabs array
-
-
-		
-			
-
-			//Creates JLabels for gui
-			for(UML u: Model.getCollection()){
-				BoxObject.createBox(u);
+			// Creates JLabels for gui
+			for (UML uml : Model.getCollection()) {
+				BoxObject.createBox(uml);
 			}
-			BoxObject.updateBoxes();
+			for (UML uml : Model.getCollection()) {
+				for (Relationships rel : uml.getRels()) {
+					Model.getArrows().add(new Arrows(Driver.findLabel(rel.getSource()),
+							Driver.findLabel(rel.getDestination()), rel.getType()));
+				}
+			}
 			View.panel.repaint();
+			BoxObject.updateBoxes();
+			Arrows.updateArrows(View.panel.getGraphics());
 
-		} catch(com.google.gson.JsonSyntaxException e){
+		} catch (com.google.gson.JsonSyntaxException e) {
 			System.out.println("Not a valid Json file!");
 			return false;
 		}
