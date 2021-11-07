@@ -72,6 +72,7 @@ public class Parameters {
 
 			// Addition of a new parameter
 			pList.add(parameter);
+			undoredo.stateKeeper();
 
 			// Updates GUI boxes
 			for (BoxObject obj : Model.getJLabels()) {
@@ -137,6 +138,7 @@ public class Parameters {
 		// Removes the parameter at the index if found
 		if (index != -1) {
 			pList.remove(index);
+			undoredo.stateKeeper();
 
 			// Updates GUI boxes
 			for (BoxObject obj : Model.getJLabels()) {
@@ -198,6 +200,7 @@ public class Parameters {
 		}
 		// deletes parameters
 		pList.clear();
+		undoredo.stateKeeper();
 
 		for (BoxObject obj : Model.getJLabels()) {
 			if (obj.getJLabelName().equals(UMLName)) {
@@ -258,6 +261,7 @@ public class Parameters {
 			// Replaces the parameter at that index with the new one
 			if (!noDuplicates.contains(newpName)) {
 				pList.set(index, p);
+				undoredo.stateKeeper();
 
 				for (BoxObject obj : Model.getJLabels()) {
 					if (obj.getJLabelName().equals(UMLName)) {

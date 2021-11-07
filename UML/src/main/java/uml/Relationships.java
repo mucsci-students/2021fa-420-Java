@@ -80,6 +80,7 @@ public class Relationships {
 						if (u.getClassName().equals(source.getClassName())) { // searches for the class name that we are
 																				// adding a relationship to
 							u.getRels().add(r);
+							undoredo.stateKeeper();
 							for (BoxObject src : Model.getJLabels()) {
 								if (src.getJLabelName().equals(source.getClassName())) {
 									for (BoxObject dest : Model.getJLabels()) {
@@ -136,6 +137,7 @@ public class Relationships {
 										int x = srcUml.getRels().indexOf(r);// Needed to finds where the relationship is
 																			// that we need to delete
 										srcUml.getRels().remove(x);
+										undoredo.stateKeeper();
 										for (Arrows arrow : Model.getArrows()) {
 											if (arrow.getSrc().getJLabelName().equals(source)
 													&& arrow.getDest().getJLabelName().equals(destination)) {
@@ -185,6 +187,7 @@ public class Relationships {
 						for (Relationships umlRel : umlSrc.getRels()) {
 							if (umlRel.getDestination().equals(destName)) {
 								umlRel.setType(type);
+								undoredo.stateKeeper();
 								for (Arrows arrow : Model.getArrows()) {
 									if (arrow.getSrc().getJLabelName().equals(srcName)
 											&& arrow.getDest().getJLabelName().equals(destName)) {

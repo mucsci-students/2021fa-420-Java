@@ -9,7 +9,9 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics;
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class UML {
 	// Class name
@@ -94,9 +96,8 @@ public class UML {
 			UML uml = new UML(className, 0, 0);
 			Model.getNoClassDupes().add(className);
 			Model.getCollection().add(uml);
-
+			undoredo.stateKeeper();
 			if (!Driver.guiUp) {
-
 				System.out.println("Class Created!");
 			}
 			return uml;
@@ -133,6 +134,7 @@ public class UML {
 				if (uml.getClassName().equals(deleteName)) {
 					Model.getNoClassDupes().remove(deleteName);
 					Model.getCollection().remove(Model.getCollection().indexOf(uml));
+					undoredo.stateKeeper();
 
 					for (BoxObject obj : Model.getJLabels()) {
 						if (obj.getJLabelName().equals(uml.getClassName())) {
@@ -173,6 +175,7 @@ public class UML {
 					Model.getNoClassDupes().remove(oldName);
 					Model.getNoClassDupes().add(newName);
 					uml.setClassName(newName);
+					undoredo.stateKeeper();
 
 					for (BoxObject obj : Model.getJLabels()) {
 						if (obj.getJLabelName().equals(oldName)) {
@@ -324,38 +327,67 @@ public class UML {
 		}
 	}
 
-	public static void screenshot(String fileName) {
+	public static void screenshot() {
 		// Creates image
 		BufferedImage image = new BufferedImage(View.panel.getWidth(), View.panel.getHeight(),
 				BufferedImage.TYPE_INT_RGB);
 		View.panel.paint(image.getGraphics());
 		Graphics g = image.getGraphics();
 		Arrows.updateArrows(g);
-		try {
-			// Makes new file if provided one doesn't exist yet
-			File file = new File(fileName + ".jpg");
-			if (file.createNewFile()) {
-				if (Driver.guiUp) {
-					JOptionPane.showMessageDialog(View.frmUmlEditor, "File Created!", "File",
-							JOptionPane.PLAIN_MESSAGE);
-				} else {
-					System.out.println("File Created!");
+
+		// JFileChooser points to user's default directory
+		JFileChooser j = new JFileChooser();
+		// Only allows jpg/jpeg files to show
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPEG File", "jpg", "jpeg");
+		j.setFileFilter(filter);
+		// Open the save dialog
+		int response = j.showSaveDialog(null);
+		// User saved image
+		if (response == JFileChooser.APPROVE_OPTION) {
+			File file;
+			String name = j.getSelectedFile().getName();
+			// Prevents new files being created when they already exist
+			if (name.contains(".jpg") || name.contains(".jpeg")) {
+				int i = name.lastIndexOf('.');
+				name = name.substring(0, i);
+			}
+			file = new File(j.getSelectedFile().getParent(), name + ".jpg");
+
+			try {
+				// File does not exist and is created
+				if (file.createNewFile()) {
+					if (Driver.guiUp) {
+						JOptionPane.showMessageDialog(View.frmUmlEditor, "File Created!", "File",
+								JOptionPane.PLAIN_MESSAGE);
+					} else {
+						System.out.println("File Created!");
+					}
 				}
-			} else {
+				// File exists and is overwritten
+				else {
+					if (Driver.guiUp) {
+						JOptionPane.showMessageDialog(View.frmUmlEditor, "This file exists, it was overwritten!",
+								"File", JOptionPane.PLAIN_MESSAGE);
+					} else {
+						System.out.println("This file exists, it was overwritten!");
+					}
+				}
+				// Writes image to file
+				ImageIO.write(image, "jpg", file);
+
+			} catch (IOException e) {
 				if (Driver.guiUp) {
-					JOptionPane.showMessageDialog(View.frmUmlEditor, "This file exists, it was overwritten!", "File",
-							JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showMessageDialog(View.frmUmlEditor, e.getMessage(), "File Error!",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
-					System.out.println("This file exists, it was overwritten!");
+					System.out.println(e.getMessage());
 				}
 			}
-			// Writes image to file
-			ImageIO.write(image, "jpg", file);
-		} catch (IOException e) {
-			if (Driver.guiUp) {
-				JOptionPane.showMessageDialog(View.frmUmlEditor, "File Error!", "File", JOptionPane.ERROR_MESSAGE);
-			} else {
-				System.out.println("File Error!");
+		}
+		// User cancelled save
+		else {
+			if (!Driver.guiUp) {
+				System.out.println("File save operation was cancelled!");
 			}
 		}
 	}

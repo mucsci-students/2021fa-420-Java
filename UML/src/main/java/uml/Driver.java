@@ -46,93 +46,74 @@ public class Driver {
 
 			case "addclass":
 				CLI.addClassCLI();
-				undoredo.stateKeeper();
 				break;
 
 			case "deleteclass":
 				CLI.deleteClassCLI();
-				undoredo.stateKeeper();
-
 				break;
 
 			case "renameclass":
 				CLI.renameClassCLI();
-				undoredo.stateKeeper();
 				break;
 
 			case "addfield":
 				CLI.addFieldCLI();
-				undoredo.stateKeeper();
 				break;
 
 			case "deletefield":
 				CLI.deleteFieldCLI();
-				undoredo.stateKeeper();
 				break;
 
 			case "renamefield":
 				CLI.renameFieldCLI();
-				undoredo.stateKeeper();
 				break;
 
 			case "addmethod":
 				CLI.addMethodCLI();
-				undoredo.stateKeeper();
 				break;
 
 			case "deletemethod":
 				CLI.deleteMethodCLI();
-				undoredo.stateKeeper();
 				break;
 
 			case "deleteallmethods":
 				CLI.deleteAllMethodsCLI();
-				undoredo.stateKeeper();
 				break;
 
 			case "renamemethod":
 				CLI.renameMethodCLI();
-				undoredo.stateKeeper();
 				break;
 
 			case "addparameter":
 				CLI.addParameterCLI();
-				undoredo.stateKeeper();
 				break;
 
 			case "deleteparameter":
 				CLI.deleteParameterCLI();
-				undoredo.stateKeeper();
 				break;
 
 			case "deleteallparameters":
 				CLI.deleteAllParametersCLI();
-				undoredo.stateKeeper();
 				break;
 
 			case "changeparameter":
 				CLI.changeParameterCLI();
-				undoredo.stateKeeper();
 				break;
 
 			case "changeallparameters":
 				CLI.changeAllParametersCLI();
-				undoredo.stateKeeper();
 				break;
 
 			case "addrelation":
 				CLI.addRelationshipCLI();
-				undoredo.stateKeeper();
 				break;
 
 			case "deleterelation":
 				CLI.deleteRelationshipCLI();
-				undoredo.stateKeeper();
 				break;
 
 			case "changerelationshiptype":
 				CLI.changeRelationshipTypeCLI();
-				undoredo.stateKeeper();
 				break;
 
 			case "listclasses":

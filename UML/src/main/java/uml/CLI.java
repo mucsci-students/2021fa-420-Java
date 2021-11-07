@@ -267,6 +267,7 @@ public class CLI {
 						pType = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
 					}
 					pList.set(pList.size() - 1, new Parameters(pName, pType));
+					undoredo.stateKeeper();
 				} else {
 					System.out.println(pName + " already exists in " + methodName3);
 				}
@@ -398,9 +399,6 @@ public class CLI {
 	}
 
 	public static void screenshotCLI() {
-		System.out.println("What file would you like to save to?");
-		System.out.println("Existing file will be overwritten.");
-		String fileName = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-		UML.screenshot(fileName);
+		UML.screenshot();
 	}
 }
