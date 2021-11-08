@@ -1,30 +1,56 @@
-#Commands
+            #Commands
+
 
 add class - creates a new unique class * the name must be alphanumeric and not already exist.
+
 delete class - deletes a preexisting class * the class must already exist to delete it.
+
 rename class - takes a class and provides a new name * the name must not already exist as another class and it's new name must be alphanumeric.
+
 add method - creates a new method for a class
+
 delete method - deletes a method from a class
+
 delete all methods - Deletes all methods in a given UML Class.
+
 rename method - renames a method in a class
+
 add field - creates a new field for a class
+
 delete field - deletes a field from a class
+
 rename field - renames a field from a class
+
 add parameter - creates a parameter in a method for a class
+
 delete parameter - deletes a parameter from a method in a class
+
 delete all parameters - deletes all the paramaters in a given method
+
 change parameter - changes a parameter in a method in a class
+
 change all parameters - changes all the parameters in a method
+
 add relation - creates a relationship between two classes
+
 delete relation - deletes a relationship between two classes
+
 change relationship type - changes a relationship type
+
 list classes - lists all the classes made
+
 list contents - lists the contents of a specific class
+
 list relationships - lists relationships between all classes
+
 save - saves current uml file
+
 load - loads a uml file
+
 help - provides a list of commands usable commands
+
 exit - exists the program
+
 GUI - opens the GUI
 
 #GUI
