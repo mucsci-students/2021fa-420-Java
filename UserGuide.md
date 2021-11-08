@@ -57,14 +57,14 @@ GUI - opens the GUI
 
 ##### In the GUI, the commands listed above will accessible via button click on the far left of the GUI.
             
-## Steps For Using GUI Buttons
+### Steps For Using GUI Buttons
 
         1. Find the commands you would like to run and click on that button
         2. Once you've clicked on a button you'll be prompted for information, sometimes you'll be prompted for multiple things at once
         3. Enter the information being prompted in the specified text boxes
         4. Action completed
     
-## User Interaction
+### User Interaction
 
         1. All class boxes are able to be dragged by being clicked on and moved to a new location
         2. Arrows are visible once a relation is created between two classes. These arrows will move with the class boxes
@@ -75,7 +75,7 @@ GUI - opens the GUI
 # CLI
 ##### In the CLI the commands listed above will need to be typed
 
-## Steps For Using CLI
+### Steps For Using CLI
 
         1. Find and type the command in the terminal that you would like to run (commands listed above) and press enter
         2. After each command you will be prompted for more information, fill out the prompts according to your desired result
