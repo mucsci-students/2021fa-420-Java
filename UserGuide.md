@@ -1,8 +1,9 @@
 #Commands
-            add class - creates a new unique class * the name must be alphanumeric and not already exist.
-						delete class - deletes a preexisting class * the class must already exist to delete it.
-						rename class - takes a class and provides a new name * the name must not already exist as another class and it's new name must be alphanumeric.
-						add method - creates a new method for a class
+
+           			* add class - creates a new unique class * the name must be alphanumeric and not already exist.
+				* delete class - deletes a preexisting class * the class must already exist to delete it.
+				* rename class - takes a class and provides a new name * the name must not already exist as another class and it's new name must be alphanumeric.
+				* add method - creates a new method for a class
 						delete method - deletes a method from a class
 						delete all methods - Deletes all methods in a given UML Class.
 						rename method - renames a method in a class
