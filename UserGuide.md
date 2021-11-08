@@ -77,7 +77,7 @@ GUI - opens the GUI
 
 ## Steps For Using CLI
 
-        1. Find and type the command int the terminal that you would like to run (commands listed above) and press enter
+        1. Find and type the command in the terminal that you would like to run (commands listed above) and press enter
         2. After each command you will be prompted for more information, fill out the prompts according to your desired result
         3. If the user wants to type the commands faster, there is a tab completion option where the user can hit the tab key
            and it will autocomplete the command
