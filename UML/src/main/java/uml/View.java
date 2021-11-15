@@ -12,24 +12,23 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
-
 public class View {
-	//Window
+	// Window
 	public static JFrame frmUmlEditor;
 
-	//For user input
+	// For user input
 	public static JPanel inputPanel;
 	public static JLabel inputLbl;
 	public static JTextField textField;
 	public static String outputText;
 
-	//JSON string output
+	// JSON string output
 	public static JPanel savePanel;
 	public static JTextField textFieldJSON;
 
-	//Controller object to run commands
+	// Controller object to run commands
 	public static Controller controller = new Controller();
-	
+
 	public static JLabel lbl;
 	public static JPanel panel;
 
@@ -43,8 +42,7 @@ public class View {
 				try {
 					View window = new View();
 					window.frmUmlEditor.setVisible(true);
-				}
-				catch (Exception e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -62,7 +60,7 @@ public class View {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		//Creates window
+		// Creates window
 		frmUmlEditor = new JFrame();
 		frmUmlEditor.setTitle("UML Editor");
 		frmUmlEditor.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -71,7 +69,7 @@ public class View {
 		frmUmlEditor.getContentPane().setPreferredSize(new Dimension(1360, 700));
 		frmUmlEditor.pack();
 
-		//Creates panel for major command buttons
+		// Creates panel for major command buttons
 		JPanel mainBtnPanel = new JPanel();
 		mainBtnPanel.setBackground(Color.LIGHT_GRAY);
 		mainBtnPanel.setBounds(10, 10, 183, 679);
@@ -79,8 +77,9 @@ public class View {
 		mainBtnPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		mainBtnPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-		//Creates command buttons, gives them action commands and listeners, and adds to panel
-		//*************************************************************************************//
+		// Creates command buttons, gives them action commands and listeners, and adds
+		// to panel
+		// *************************************************************************************//
 		JButton btnAddClass = new JButton("Add Class");
 		btnAddClass.setActionCommand("Add Class");
 		btnAddClass.addActionListener(controller);
@@ -135,12 +134,12 @@ public class View {
 		btnChangeParameter.setActionCommand("Change Parameter");
 		btnChangeParameter.addActionListener(controller);
 		mainBtnPanel.add(btnChangeParameter);
-		
-		//Didn't have time to figure out method overloading for this monster
-//		JButton btnChangeAllParameters = new JButton("Change All Parameters");
-//		btnChangeAllParameters.setActionCommand("Change All Parameters");
-//		btnChangeAllParameters.addActionListener(controller);
-//		mainBtnPanel.add(btnChangeAllParameters);
+
+		// Didn't have time to figure out method overloading for this monster
+		// JButton btnChangeAllParameters = new JButton("Change All Parameters");
+		// btnChangeAllParameters.setActionCommand("Change All Parameters");
+		// btnChangeAllParameters.addActionListener(controller);
+		// mainBtnPanel.add(btnChangeAllParameters);
 
 		JButton btnAddField = new JButton("Add Field");
 		btnAddField.setActionCommand("Add Field");
@@ -182,21 +181,19 @@ public class View {
 		btnRedo.addActionListener(controller);
 		mainBtnPanel.add(btnRedo);
 
+		// *************************************************************************************//
 
-		//*************************************************************************************//
-
-
-
-		//Creates panel for other buttons
+		// Creates panel for other buttons
 		JPanel extraBtnPanel = new JPanel();
 		extraBtnPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		extraBtnPanel.setBackground(Color.LIGHT_GRAY);
-		extraBtnPanel.setBounds(1232, 10, 118, 136);
+		extraBtnPanel.setBounds(1232, 10, 118, 169);
 		frmUmlEditor.getContentPane().add(extraBtnPanel);
 		extraBtnPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-		//Creates other buttons, gives them action commands and listeners, and adds to panel
-		//*************************************************************************************//
+		// Creates other buttons, gives them action commands and listeners, and adds to
+		// panel
+		// *************************************************************************************//
 		JButton btnSave = new JButton("Save");
 		btnSave.setActionCommand("Save");
 		btnSave.addActionListener(controller);
@@ -216,12 +213,15 @@ public class View {
 		btnSwitch.setActionCommand("CLI");
 		btnSwitch.addActionListener(controller);
 		extraBtnPanel.add(btnSwitch);
-		//*************************************************************************************//
 
+		JButton btnScreenshot = new JButton("Screenshot");
+		btnScreenshot.setActionCommand("Screenshot");
+		btnScreenshot.addActionListener(controller);
+		extraBtnPanel.add(btnScreenshot);
+		// *************************************************************************************//
 
-
-		//Creates panel for user input
-		//*************************************************************************************//
+		// Creates panel for user input
+		// *************************************************************************************//
 		inputPanel = new JPanel();
 		inputPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		inputPanel.setBackground(Color.LIGHT_GRAY);
@@ -241,16 +241,14 @@ public class View {
 		btnEnter.addActionListener(controller);
 		inputPanel.add(btnEnter);
 		inputPanel.setVisible(false);
-		//*************************************************************************************//
+		// *************************************************************************************//
 
-
-
-		//Creates panel for JSON string output
-		//*************************************************************************************//
+		// Creates panel for JSON string output
+		// *************************************************************************************//
 		savePanel = new JPanel();
 		savePanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		savePanel.setBackground(Color.LIGHT_GRAY);
-		savePanel.setBounds(1232, 157, 118, 59);
+		savePanel.setBounds(1232, 190, 118, 59);
 		frmUmlEditor.getContentPane().add(savePanel);
 		savePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
@@ -260,7 +258,7 @@ public class View {
 		textFieldJSON = new JTextField();
 		savePanel.add(textFieldJSON);
 		textFieldJSON.setColumns(10);
-		
+
 		panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);
 		panel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -268,11 +266,13 @@ public class View {
 		frmUmlEditor.getContentPane().add(panel);
 		panel.setLayout(null);
 		savePanel.setVisible(true);
-		
+
 		BoxObject.updateBoxes();
+		Arrows.updateArrows(panel.getGraphics());
 	}
-	
+
 	public static void closeGUI() {
 		frmUmlEditor.dispose();
 	}
+
 }

@@ -9,8 +9,8 @@ public class undoredo {
     static int incr = 0;
 
     public static void stateKeeper() {
-        mem.add(incr, JsonFile.save(Model.getCollection())); // adds the string of the save file into an arraylist to
-                                                             // track actions
+        mem.add(incr, JsonFile.jsonString()); // adds the string of the save file into an arraylist to
+                                              // track actions
         // System.out.println(mem.size());
         // System.out.println(Model.getCollection().size());
         ++incr;
@@ -19,9 +19,11 @@ public class undoredo {
 
     public static void undo() {
         try {
+            JsonFile.load(mem.get(incr - 2), newColl); // returns to a previous save by loading prev coll
             --incr;
-            JsonFile.load(mem.get(incr - 1), newColl); // returns to a previous save by loading prev coll
-            System.out.println("Action undone!");
+            if (!Driver.guiUp) {
+                System.out.println("Action undone!");
+            }
             // System.out.println(mem.size());
             // System.out.println("incr: "+ incr);
 
@@ -35,16 +37,18 @@ public class undoredo {
 
     public static void redo() {
         try {
-
             JsonFile.load(mem.get(incr), newColl); // redoes an undone action
             ++incr;
-
-            System.out.println("Action redone!");
+            if (!Driver.guiUp) {
+                System.out.println("Action redone!");
+            }
             // System.out.println(mem.size());
             // System.out.println("incr: "+ incr);
 
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Nothing left to redo!");
+            if (!Driver.guiUp) {
+                System.out.println("Nothing left to redo!");
+            }
         }
 
     }

@@ -399,6 +399,6 @@ public class CLI {
 	}
 
 	public static void screenshotCLI() {
-		UML.screenshot();
+		Screenshot.screenshot();
 	}
 }

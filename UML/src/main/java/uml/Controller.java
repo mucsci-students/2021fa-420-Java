@@ -35,7 +35,6 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 
 	public void actionPerformed(ActionEvent e) {
 		if (start) {
-			undoredo.stateKeeper();
 			start = false;
 		}
 		if ((state && !(e.getActionCommand().equals("Undo")) && !(e.getActionCommand().equals("Redo")))) {
@@ -902,7 +901,9 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 			undoredo.undo();
 			View.panel.repaint();
 
-		} else if (e.getActionCommand().equals("Redo")) {
+		}
+
+		else if (e.getActionCommand().equals("Redo")) {
 			undoredo.redo();
 			View.panel.repaint();
 
@@ -910,15 +911,17 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 
 		// If save button is clicked
 		else if (e.getActionCommand().equals("Save")) {
-			View.textFieldJSON.setText(JsonFile.save(Model.getCollection()));
+			JsonFile.save(Model.getCollection());
 		}
 
 		// If load button is clicked
 		else if (e.getActionCommand().equals("Load")) {
-			command = "Load";
-			View.inputLbl.setText(
-					"<html><div style='text-align:center'>Insert json string<br>you want to load.<br>By clicking enter, you<br>agree all unsaved work<br>will be deleted.</div></html>");
-			View.inputPanel.setVisible(true);
+
+		}
+
+		// If screenshot button is clicked
+		else if (e.getActionCommand().equals("Screenshot")) {
+			Screenshot.screenshot();
 		}
 
 		// If help button is clicked
@@ -1015,4 +1018,5 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 		}
 		Arrows.updateArrows(View.panel.getGraphics());
 	}
+
 }

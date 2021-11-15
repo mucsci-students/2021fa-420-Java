@@ -1,7 +1,6 @@
 package uml;
 
 import java.awt.Component;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Driver {
@@ -14,6 +13,7 @@ public class Driver {
 	 * Run command
 	 */
 	public static void main(String args[]) {
+		undoredo.stateKeeper();
 		runView();
 	}
 
@@ -27,7 +27,6 @@ public class Driver {
 		// Boolean to run program until user exits
 		boolean run = true;
 
-		undoredo.stateKeeper();
 		boolean state = false;
 		while (run) {
 
@@ -169,10 +168,7 @@ public class Driver {
 				break;
 
 			case "save":
-				ArrayList<UML> collection = Model.getCollection();
-				String saveFile = JsonFile.save(collection);
-				System.out.println("File saved!");
-				System.out.println(saveFile);
+				JsonFile.save(Model.getCollection());
 				break;
 
 			case "load":
