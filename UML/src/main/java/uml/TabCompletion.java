@@ -10,12 +10,17 @@ import org.jline.reader.impl.completer.NullCompleter;
 
 public class TabCompletion {
 
-    private AggregateCompleter completer = null;
+    private Completer completer = null;
 
     public TabCompletion(){
-        this.completer = new AggregateCompleter(ADCompleter, renameCompleter, changeCompleter, changeAllCompleter, deleteAllCompleter, listCompleter, singleCompleter);
+        this.completer = compose(completer);
     }
-    
+
+    public Completer compose(Completer c){
+        c = new AggregateCompleter(ADCompleter, renameCompleter, changeCompleter, changeAllCompleter, deleteAllCompleter, listCompleter, singleCompleter);
+        return c;
+    } 
+
     ArgumentCompleter ADCompleter = new ArgumentCompleter(
     new StringsCompleter("add", "delete"),
     new StringsCompleter("class", "field", "method", "parameter", "relation"),
