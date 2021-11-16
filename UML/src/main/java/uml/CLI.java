@@ -401,4 +401,15 @@ public class CLI {
 	public static void screenshotCLI() {
 		Screenshot.screenshot();
 	}
+
+	public static void setposition(){
+		System.out.println("What class would you like to move? Enter: UML name, xPos, yPos");
+		String move1 = scanner.next().toLowerCase();
+		UML u = UML.findUMLOBJ(move1);
+		String move2 = scanner.next().toLowerCase();
+		String move3 = scanner.next().toLowerCase();
+		UML.setCoords(u, Integer.valueOf(move2), Integer.valueOf(move3));
+
+
+	}
 }

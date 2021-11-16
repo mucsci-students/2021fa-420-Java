@@ -138,6 +138,9 @@ public class Driver {
 			case "screenshot":
 				CLI.screenshotCLI();
 				break;
+			case "setposition":
+				CLI.setposition();
+				break;
 
 			case "help":
 				System.out.println(
