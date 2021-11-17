@@ -3,12 +3,19 @@ package uml;
 import java.awt.Component;
 import java.util.Scanner;
 
+import org.jline.terminal.TerminalBuilder;
+import org.jline.terminal.*;
+import org.jline.reader.*;
+import org.jline.reader.impl.completer.AggregateCompleter;
+
 public class Driver {
 	// Scanner for user input
 	static Scanner scanner = new Scanner(System.in);
 
 	public static boolean guiUp;
 
+	private static LineReader lineScan;
+	
 	/*
 	 * Run command
 	 */
@@ -24,9 +31,20 @@ public class Driver {
 	}
 
 	public static void runCLI() {
+		try {
+			Terminal terminal = TerminalBuilder.builder().system(true).build();
+			AggregateCompleter completer = TabCompletion.compose();
+			lineScan = LineReaderBuilder.builder().terminal(terminal).completer(completer).build();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
 		// Boolean to run program until user exits
 		boolean run = true;
+		
 
+		
+		
 		boolean state = false;
 		while (run) {
 
@@ -34,7 +52,9 @@ public class Driver {
 			// This is the command the user has entered
 			// It is converted to lowercase to allow for easier comparison and ignores white
 			// space
-			String command = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+			
+			
+			String command = lineScan.readLine(">>> ").toLowerCase().replaceAll("\\s", "");
 			if ((state && !(command.equals("undo")) && !(command.equals("redo")) && !(command.equals("save")))) {
 				undoredo.memClear();
 			}

@@ -1,5 +1,4 @@
 package uml;
-import org.jline.reader.Completer;
 import org.jline.reader.impl.completer.StringsCompleter;
 
 import org.jline.reader.impl.completer.ArgumentCompleter;
@@ -10,48 +9,44 @@ import org.jline.reader.impl.completer.NullCompleter;
 
 public class TabCompletion {
 
-    private Completer completer = null;
-
-    public TabCompletion(){
-        this.completer = compose(completer);
-    }
-
-    public Completer compose(Completer c){
-        c = new AggregateCompleter(ADCompleter, renameCompleter, changeCompleter, changeAllCompleter, deleteAllCompleter, listCompleter, singleCompleter);
+    public static AggregateCompleter compose(){
+        AggregateCompleter c = new AggregateCompleter(ADCompleter, renameCompleter, changeCompleter, changeAllCompleter, deleteAllCompleter, listCompleter, singleCompleter);
         return c;
     } 
 
-    ArgumentCompleter ADCompleter = new ArgumentCompleter(
+    public static ArgumentCompleter ADCompleter = new ArgumentCompleter(
     new StringsCompleter("add", "delete"),
     new StringsCompleter("class", "field", "method", "parameter", "relation"),
     new NullCompleter());
 
-    ArgumentCompleter renameCompleter = new ArgumentCompleter(
+    public static ArgumentCompleter renameCompleter = new ArgumentCompleter(
     new StringsCompleter("rename"),
     new StringsCompleter("class", "field", "method"),
     new NullCompleter());
 
-    ArgumentCompleter changeCompleter = new ArgumentCompleter(
+    public static ArgumentCompleter changeCompleter = new ArgumentCompleter(
     new StringsCompleter("change"),
     new StringsCompleter("parameter", "relationship type"),
     new NullCompleter());
 
-    ArgumentCompleter changeAllCompleter = new ArgumentCompleter(
-    new StringsCompleter("change all"),
+    public static ArgumentCompleter changeAllCompleter = new ArgumentCompleter(
+    new StringsCompleter("change"),
+    new StringsCompleter("all"),
     new StringsCompleter("parameter"),
     new NullCompleter());
 
-    ArgumentCompleter deleteAllCompleter = new ArgumentCompleter(
-    new StringsCompleter("delete all"),
+    public static ArgumentCompleter deleteAllCompleter = new ArgumentCompleter(
+    new StringsCompleter("delete"),
+    new StringsCompleter("all"),
     new StringsCompleter("parameters", "methods"),
     new NullCompleter());
 
-    ArgumentCompleter listCompleter = new ArgumentCompleter(
+    public static ArgumentCompleter listCompleter = new ArgumentCompleter(
     new StringsCompleter("list"),
     new StringsCompleter("contents", "classes", "relationships"),
     new NullCompleter());
 
-    ArgumentCompleter singleCompleter = new ArgumentCompleter(
+    public static ArgumentCompleter singleCompleter = new ArgumentCompleter(
     new StringsCompleter("undo", "redo", "screenshot", "help", "save", "load", "exit","gui", "set position"),
     new NullCompleter());
 
