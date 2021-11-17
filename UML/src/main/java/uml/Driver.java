@@ -7,13 +7,14 @@ import org.jline.terminal.TerminalBuilder;
 import org.jline.terminal.*;
 import org.jline.reader.*;
 import org.jline.reader.impl.completer.AggregateCompleter;
+import java.util.ArrayList;
 
 public class Driver {
 	// Scanner for user input
 	static Scanner scanner = new Scanner(System.in);
 
 	public static boolean guiUp;
-
+	private static ArrayList<String> parser;
 	private static LineReader lineScan;
 	
 	/*
@@ -55,17 +56,25 @@ public class Driver {
 			// space
 			
 			
-			String command = lineScan.readLine(">>> ").toLowerCase().replaceAll("\\s", "");
-			if ((state && !(command.equals("undo")) && !(command.equals("redo")) && !(command.equals("save")))) {
+			String command = lineScan.readLine(">>> ").toLowerCase();
+			String switchy = Commands.compare(command);
+			String matcher = Commands.match(switchy);
+
+			parser = Commands.parse(command);
+
+
+			if ((state && !(matcher.equals("undo")) && !(matcher.equals("redo")) && !(matcher.equals("save")))) {
 				undoredo.memClear();
 			}
 
 			state = false;
 
-			switch (command) {
+			switch (matcher) {
 
 			case "addclass":
-				CLI.addClassCLI();
+			String className = parser.get(1);
+			UML uml = UML.addClass(className);
+			BoxObject.createBox(uml);
 				break;
 
 			case "deleteclass":
@@ -228,6 +237,7 @@ public class Driver {
 			default:
 				System.out.println("Command not recognized. Type help for valid commands");
 			}
+			parser.clear();
 		}
 	}
 
