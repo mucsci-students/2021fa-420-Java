@@ -22,6 +22,7 @@ public class Driver {
 	public static void main(String args[]) {
 		undoredo.stateKeeper();
 		runView();
+		
 	}
 
 	// Runs the GUI (view) for the UML
@@ -31,13 +32,7 @@ public class Driver {
 	}
 
 	public static void runCLI() {
-		try {
-			Terminal terminal = TerminalBuilder.builder().system(true).build();
-			AggregateCompleter completer = TabCompletion.compose();
-			lineScan = LineReaderBuilder.builder().terminal(terminal).completer(completer).build();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+		
 		
 		// Boolean to run program until user exits
 		boolean run = true;
@@ -196,12 +191,12 @@ public class Driver {
 
 			case "load":
 				System.out.println("Any unsaved changes will be deleted. Do you wish to proceed? (Yes or No)");
-				String confirm = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+				String confirm = lineScan.readLine(">>> ").toLowerCase().replaceAll("\\s", "");;
 
 				// Safeguard so the user doesn't accidentally delete files
 				if (confirm.equals("yes")) {
 					System.out.println("Enter the file you would like to load");
-					String loadFile = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+					String loadFile = lineScan.readLine("").toLowerCase().replaceAll("\\s", "");;
 
 					if (JsonFile.load(loadFile, Model.getCollection())) {
 

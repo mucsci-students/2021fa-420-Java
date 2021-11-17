@@ -32,7 +32,7 @@ public class TabCompletion {
     public static ArgumentCompleter changeAllCompleter = new ArgumentCompleter(
     new StringsCompleter("change"),
     new StringsCompleter("all"),
-    new StringsCompleter("parameter"),
+    new StringsCompleter("parameters"),
     new NullCompleter());
 
     public static ArgumentCompleter deleteAllCompleter = new ArgumentCompleter(
