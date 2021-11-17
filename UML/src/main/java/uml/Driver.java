@@ -22,7 +22,13 @@ public class Driver {
 	public static void main(String args[]) {
 		undoredo.stateKeeper();
 		runView();
-		
+		try {
+			Terminal terminal = TerminalBuilder.builder().system(true).build();
+			AggregateCompleter completer = TabCompletion.compose();
+			lineScan = LineReaderBuilder.builder().terminal(terminal).completer(completer).build();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	// Runs the GUI (view) for the UML
