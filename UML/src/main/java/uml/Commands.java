@@ -5,7 +5,7 @@ public class Commands {
     private static final int COMMAND_GREATEST_LENGTH = 26;
 
     public Commands(){
-        this.allCommands = getCommands();
+        allCommands = getCommands();
     }
 
     public static ArrayList<String> getCommands(){
@@ -13,7 +13,7 @@ public class Commands {
         return allCommands;
     }
 
-    public static List<String> namesList = Arrays.asList( 
+    private static List<String> namesList = Arrays.asList( 
      "addclass",
      "deleteclass",
      "renameclass",
@@ -44,6 +44,7 @@ public class Commands {
      "exit", 
      "setposition");
 
+     // need case if there are a lot of spaces in the begining
      public static String compare(String command){
         String builder = "";
         for(int i = 0; i<command.length(); ++i){
@@ -74,19 +75,57 @@ public class Commands {
         return "-1";
      }
 
+     //THIS GIVES INFINITE LOOP IF COMMAND DOESN'T EXIST
+    public static int removeCommand(String s){
+        int count =0;
+        String compare = compare(s);
+        String match = match(compare); 
+        //replace first until no spaces and equals matcher
+        int run = 0;
+        while (!match.equals(s.substring(0, match.length()))){
+            
+            s = s.replaceFirst(" ", "");
+            ++count;
+            ++run;
+            if (run > 120){
+                throw new IllegalArgumentException();
+            }
+        }
+        return count;
+
+    }
+
+
     public static ArrayList<String> parse(String given){
         ArrayList<String> parser = new ArrayList<>();
         String comparison = Commands.compare(given);
 		String matcher = Commands.match(comparison);
-		parser.add(matcher);
+
+        // int numOfSpaces = countSpaces("   add   class ", matcher);   
+        int test = 0;
+        try {
+           test = removeCommand(given);
+        } catch (Exception e) {
+            System.out.println("Either too many spaces or the command does not exist!");
+        }
+		
         
-        given = given.replace("add class ", "");
+        String command = given.substring(0, matcher.length() + test);
+        parser.add(command);
+        
+        given = given.replace(command, "");
+        while(!given.isEmpty() && given.charAt(0) == ' '){
+            given = given.replaceFirst(" ", "");
+            }
+        
         while(!(given.isEmpty())){
             String s = getWords(given);
             parser.add(s);
             given = given.replace(s, "");
             if(!given.isEmpty()){
-                given =given.replaceFirst(" ", "");
+                while(given.charAt(0) == ' '){
+                    given = given.replaceFirst(" ", "");
+                    }
             }
         }
         return parser;
@@ -104,4 +143,6 @@ public class Commands {
         }
         return sb;
     }
+
+    
 }
