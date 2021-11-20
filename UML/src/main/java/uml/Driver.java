@@ -1,20 +1,41 @@
 package uml;
 
-import java.awt.Component;
 import java.util.Scanner;
+
+import org.jline.terminal.TerminalBuilder;
+import org.jline.terminal.*;
+import org.jline.reader.*;
+import org.jline.reader.impl.completer.AggregateCompleter;
+import java.util.ArrayList;
+import javax.swing.UIManager;
 
 public class Driver {
 	// Scanner for user input
 	static Scanner scanner = new Scanner(System.in);
 
 	public static boolean guiUp;
-
+	private static ArrayList<String> parser;
+	private static LineReader lineScan;
+	
 	/*
 	 * Run command
 	 */
 	public static void main(String args[]) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			System.out.println(e.getStackTrace());
+		}
+		
 		undoredo.stateKeeper();
 		runView();
+		try {
+			Terminal terminal = TerminalBuilder.builder().system(true).build();
+			AggregateCompleter completer = TabCompletion.compose();
+			lineScan = LineReaderBuilder.builder().terminal(terminal).completer(completer).build();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	// Runs the GUI (view) for the UML
@@ -24,107 +45,298 @@ public class Driver {
 	}
 
 	public static void runCLI() {
+		
+		
 		// Boolean to run program until user exits
 		boolean run = true;
+		
 
+		
+		
 		boolean state = false;
 		while (run) {
-
 			System.out.println("Enter a command or type exit if you wish to exit!");
 			// This is the command the user has entered
 			// It is converted to lowercase to allow for easier comparison and ignores white
 			// space
-			String command = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-			if ((state && !(command.equals("undo")) && !(command.equals("redo")) && !(command.equals("save")))) {
+			
+			
+			String command = lineScan.readLine(">>> ").toLowerCase();
+			String switchy = Commands.compare(command);
+			String matcher = Commands.match(switchy);
+
+			parser = Commands.parse(command);
+
+
+			if ((state && !(matcher.equals("undo")) && !(matcher.equals("redo")) && !(matcher.equals("save")))) {
 				undoredo.memClear();
 			}
 
 			state = false;
 
-			switch (command) {
+			int paramNums = 0;
+
+			switch (matcher) {
 
 			case "addclass":
-				CLI.addClassCLI();
+				paramNums = 1;
+				if (parser.size() != (paramNums + 1)){
+					System.out.println("incorrect number of parameters");
+					break;
+				}
+				String className = parser.get(1);
+				UML uml = UML.addClass(className);
+				BoxObject.createBox(uml);
 				break;
 
 			case "deleteclass":
-				CLI.deleteClassCLI();
+				paramNums = 1;
+				if (parser.size() != (paramNums + 1)){
+					System.out.println("incorrect number of parameters");
+					break;
+				}
+				String deleteName = parser.get(1);
+				UML.deleteClass(deleteName);
 				break;
 
 			case "renameclass":
-				CLI.renameClassCLI();
+				paramNums = 2;
+				if (parser.size() != (paramNums + 1)){
+					System.out.println("incorrect number of parameters");
+					break;
+				}
+				String oldName = parser.get(1);
+				String newName = parser.get(2);
+				UML.renameClass(oldName, newName);
 				break;
 
 			case "addfield":
-				CLI.addFieldCLI();
+				paramNums = 3;
+				if (parser.size() != (paramNums + 1)){
+					System.out.println("incorrect number of parameters");
+					break;
+				}
+				String classNameAdd = parser.get(1);
+				String fieldNameAdd = parser.get(2);
+				String fieldTypeAdd = parser.get(3);
+				Fields.addField(classNameAdd, fieldNameAdd, fieldTypeAdd);
 				break;
 
 			case "deletefield":
-				CLI.deleteFieldCLI();
+				paramNums = 2;
+				if (parser.size() != (paramNums + 1)){
+					System.out.println("incorrect number of parameters");
+					break;
+				}
+				String classNameRemove = parser.get(1);
+				String deletefield = parser.get(2);
+				Fields.removeField(classNameRemove, deletefield);
 				break;
 
 			case "renamefield":
-				CLI.renameFieldCLI();
+				paramNums = 3;
+				if (parser.size() != (paramNums + 1)){
+					System.out.println("incorrect number of parameters");
+					break;
+				}
+				String classNameRename = parser.get(1);
+				String oldField = parser.get(2);
+				String newField = parser.get(3);
+				Fields.renameField(classNameRename, oldField, newField);
 				break;
 
 			case "addmethod":
-				CLI.addMethodCLI();
+				paramNums = 3;
+				if (parser.size() != (paramNums + 1)){
+					System.out.println("incorrect number of parameters");
+					break;
+				}
+				String methodClassNameAdd = parser.get(1);
+				String methodNameAdd = parser.get(2);
+				String methodTypeAdd = parser.get(3);
+				Methods.addMethod(methodClassNameAdd, methodNameAdd, methodTypeAdd);
 				break;
 
 			case "deletemethod":
-				CLI.deleteMethodCLI();
+				paramNums = 2;
+				if (parser.size() != (paramNums + 1)){
+					System.out.println("incorrect number of parameters");
+					break;
+				}
+				String methodClassNameRemove = parser.get(1);
+				String deleteMethod = parser.get(2);
+				Methods.removeMethod(methodClassNameRemove, deleteMethod);
 				break;
 
 			case "deleteallmethods":
-				CLI.deleteAllMethodsCLI();
+				paramNums = 1;
+				if (parser.size() != (paramNums + 1)){
+					System.out.println("incorrect number of parameters");
+					break;
+				}
+				String methodsClassNameRemove = parser.get(1);
+				Methods.removeAllMethods(methodsClassNameRemove);
 				break;
 
 			case "renamemethod":
-				CLI.renameMethodCLI();
+				paramNums = 3;
+				if (parser.size() != (paramNums + 1)){
+					System.out.println("incorrect number of parameters");
+					break;
+				}
+				String methodClassNameRename = parser.get(1);
+				String oldMethod = parser.get(2);
+				String newMethod = parser.get(3);
+				Methods.renameMethod(methodClassNameRename, oldMethod, newMethod);
 				break;
 
 			case "addparameter":
-				CLI.addParameterCLI();
+				paramNums = 4;
+				if (parser.size() != (paramNums + 1)){
+					System.out.println("incorrect number of parameters");
+					break;
+				}
+				String UMLName = parser.get(1);
+				String methodName = parser.get(2);
+				String paramName = parser.get(3);
+				String paramType = parser.get(4);
+				Parameters.addParameter(UMLName, methodName, paramName, paramType, null, true);
 				break;
 
 			case "deleteparameter":
-				CLI.deleteParameterCLI();
+				paramNums = 3;
+				if (parser.size() != (paramNums + 1)){
+					System.out.println("incorrect number of parameters");
+					break;
+				}
+				String UMLName1 = parser.get(1);
+				String methodName1 = parser.get(2);
+				String paramName1 = parser.get(3);
+				Parameters.deleteParameter(UMLName1, methodName1, paramName1, null, true);
 				break;
 
 			case "deleteallparameters":
-				CLI.deleteAllParametersCLI();
+				paramNums = 2;
+				if (parser.size() != (paramNums + 1)){
+					System.out.println("incorrect number of parameters");
+					break;
+				}
+				String UMLName2 = parser.get(1);
+				String methodName2 = parser.get(2);
+				Parameters.deleteAllParameters(UMLName2, methodName2, null, true);
 				break;
 
 			case "changeparameter":
-				CLI.changeParameterCLI();
+			paramNums = 5;
+			if (parser.size() != (paramNums + 1)){
+					System.out.println("incorrect number of parameters");
+					break;
+				}
+			String UMLName4 = parser.get(1);
+			String methodName4 = parser.get(2);
+			String oldParamName = parser.get(3);
+			String paramName5 = parser.get(4);
+			String paramType5 = parser.get(5);
+			Parameters.changeParameter(UMLName4, methodName4, oldParamName, paramName5, paramType5, null, true);
 				break;
 
-			case "changeallparameters":
-				CLI.changeAllParametersCLI();
-				break;
+			// case "changeallparameters":
+			// 	CLI.changeAllParametersCLI();
+			// 	break;
 
 			case "addrelation":
-				CLI.addRelationshipCLI();
+				paramNums = 3;
+				if (parser.size() != (paramNums + 1)){
+					System.out.println("incorrect number of parameters");
+					break;
+				}
+				if(Model.getNoClassDupes().contains(parser.get(1)) && Model.getNoClassDupes().contains(parser.get(2))){
+					Relationships.addRel(UML.findUMLOBJ(parser.get(1)), UML.findUMLOBJ(parser.get(2)), parser.get(3));
+					break;
+				}
+				
+				System.out.println("Source or destination does not exist");
 				break;
 
 			case "deleterelation":
-				CLI.deleteRelationshipCLI();
+				paramNums = 2;
+				if (parser.size() != (paramNums + 1)){
+					System.out.println("incorrect number of parameters");
+					break;
+				}
+				Relationships.delRel(parser.get(1), parser.get(2));
 				break;
 
 			case "changerelationshiptype":
-				CLI.changeRelationshipTypeCLI();
+			paramNums = 3;
+			if (parser.size() != (paramNums + 1)){
+					System.out.println("incorrect number of parameters");
+					break;
+				}
+			String changeRelSource = parser.get(1);
+			String changeRelDest = parser.get(2);
+			String newType = parser.get(3);
+			Relationships.changeRel(changeRelSource, changeRelDest, newType);
 				break;
 
 			case "listclasses":
-				CLI.listClassesCLI();
+				paramNums = 0;
+				if (parser.size() != (paramNums + 1)){
+					System.out.println("incorrect number of parameters");
+					break;
+				}
+				if (Model.getCollection().isEmpty()) {
+					System.out.println("No classes exist!");
+				} else {
+					// Prints all classes in arrayList "collection"
+					for (int i = 0; i < Model.getCollection().size(); i++) {
+						System.out.println(Model.getCollection().get(i).getClassName());
+					}
+				}
 				break;
 
 			case "listcontents":
-				CLI.listContentsCLI();
+			paramNums = 1;
+			if (parser.size() != (paramNums + 1)){
+					System.out.println("incorrect number of parameters");
+					break;
+				}
+			System.out.println("What class would you like to list the contents of?");
+			// Scanner input (name of UML object)
+			String toListContents = parser.get(1);
+			if (Model.getNoClassDupes().contains(toListContents)) {
+				for (UML uml1 : Model.getCollection()) {
+					if (uml1.getClassName().equals(toListContents)) {
+						uml1.listFields();
+						uml1.listMethods();
+						break;
+					}
+				}
+			} else {
+				System.out.println("Class does not exist!");
+			}
 				break;
 
 			case "listrelationships":
-				CLI.listRelationshipsCLI();
+			paramNums = 1;
+			if (parser.size() != (paramNums + 1)){
+					System.out.println("incorrect number of parameters");
+					break;
+				}
+			// Scanner input (name of UML object)
+			String toListRelationships = parser.get(1);
+			// Checks if class exists
+			if (Model.getNoClassDupes().contains(toListRelationships)) {
+				// Searches for class
+				for (UML uml2 : Model.getCollection()) {
+					if (uml2.getClassName().equals(toListRelationships)) {
+						uml2.listRelationships();
+						break;
+					}
+				}
+			} else {
+				System.out.println("Class does not exist!");
+			}
 				break;
 			case "undo":
 				undoredo.undo();
@@ -136,7 +348,19 @@ public class Driver {
 				break;
 
 			case "screenshot":
-				CLI.screenshotCLI();
+				Screenshot.screenshot();
+				break;
+			case "setposition":
+				paramNums = 3;
+				if (parser.size() != (paramNums + 1)){
+					System.out.println("incorrect number of parameters");
+					break;
+				}
+				String move1 = parser.get(1);
+				UML u = UML.findUMLOBJ(move1);
+				String move2 = parser.get(2);
+				String move3 = parser.get(3);
+				UML.setCoords(u, Integer.valueOf(move2), Integer.valueOf(move3));
 				break;
 
 			case "help":
@@ -173,12 +397,12 @@ public class Driver {
 
 			case "load":
 				System.out.println("Any unsaved changes will be deleted. Do you wish to proceed? (Yes or No)");
-				String confirm = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+				String confirm = lineScan.readLine(">>> ").toLowerCase().replaceAll("\\s", "");;
 
 				// Safeguard so the user doesn't accidentally delete files
 				if (confirm.equals("yes")) {
 					System.out.println("Enter the file you would like to load");
-					String loadFile = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
+					String loadFile = lineScan.readLine("").toLowerCase().replaceAll("\\s", "");;
 
 					if (JsonFile.load(loadFile, Model.getCollection())) {
 
@@ -204,33 +428,8 @@ public class Driver {
 			default:
 				System.out.println("Command not recognized. Type help for valid commands");
 			}
+			parser.clear();
 		}
 	}
 
-	public static BoxObject findLabel(Component comp) {
-		for (BoxObject obj : Model.getJLabels()) {
-			if (obj.getLabel() == comp) {
-				return obj;
-			}
-		}
-		return null;
-	}
-
-	public static BoxObject findLabel(String name) {
-		for (BoxObject obj : Model.getJLabels()) {
-			if (obj.getJLabelName().equals(name)) {
-				return obj;
-			}
-		}
-		return null;
-	}
-
-	public static UML findClass(String name) {
-		for (UML uml : Model.getCollection()) {
-			if (uml.getClassName().equals(name)) {
-				return uml;
-			}
-		}
-		return null;
-	}
 }

@@ -73,6 +73,11 @@ public class UML {
 		position_y = y;
 	}
 
+	public static void setCoords(UML u, int x, int y){
+		u.setposition_x(x);
+		u.setposition_y(y);
+	}
+
 	public static ArrayList<Arrows> getArrows() {
 		return arrows;
 	}
@@ -336,4 +341,13 @@ public class UML {
 		}
 		return null;
 	}
+
+	// public static UML findClass(String name) {
+	// 	for (UML uml : Model.getCollection()) {
+	// 		if (uml.getClassName().equals(name)) {
+	// 			return uml;
+	// 		}
+	// 	}
+	// 	return null;
+	// }
 }

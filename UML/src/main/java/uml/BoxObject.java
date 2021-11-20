@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
+import java.awt.Component;
 
 public class BoxObject {
 	private String jlabelName;
@@ -102,6 +103,24 @@ public class BoxObject {
 			}
 		}
 
+	}
+
+	public static BoxObject findLabel(Component comp) {
+		for (BoxObject obj : Model.getJLabels()) {
+			if (obj.getLabel() == comp) {
+				return obj;
+			}
+		}
+		return null;
+	}
+
+	public static BoxObject findLabel(String name) {
+		for (BoxObject obj : Model.getJLabels()) {
+			if (obj.getJLabelName().equals(name)) {
+				return obj;
+			}
+		}
+		return null;
 	}
 
 }
