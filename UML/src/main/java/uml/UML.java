@@ -341,4 +341,13 @@ public class UML {
 		}
 		return null;
 	}
+
+	// public static UML findClass(String name) {
+	// 	for (UML uml : Model.getCollection()) {
+	// 		if (uml.getClassName().equals(name)) {
+	// 			return uml;
+	// 		}
+	// 	}
+	// 	return null;
+	// }
 }

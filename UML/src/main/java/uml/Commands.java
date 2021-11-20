@@ -113,7 +113,7 @@ public class Commands {
         String command = given.substring(0, matcher.length() + test);
         parser.add(command);
         
-        given = given.replace(command, "");
+        given = given.replaceFirst(command, "");
         while(!given.isEmpty() && given.charAt(0) == ' '){
             given = given.replaceFirst(" ", "");
             }
@@ -121,10 +121,13 @@ public class Commands {
         while(!(given.isEmpty())){
             String s = getWords(given);
             parser.add(s);
-            given = given.replace(s, "");
-            if(!given.isEmpty()){
+            given = given.replaceFirst(s, "");
+            if(given.length() != 0){
                 while(given.charAt(0) == ' '){
                     given = given.replaceFirst(" ", "");
+                        if(given.length() == 0){
+                        break;
+                        }
                     }
             }
         }

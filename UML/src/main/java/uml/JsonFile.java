@@ -124,8 +124,8 @@ public class JsonFile {
 			}
 			for (UML uml : Model.getCollection()) {
 				for (Relationships rel : uml.getRels()) {
-					Model.getArrows().add(new Arrows(Driver.findLabel(rel.getSource()),
-							Driver.findLabel(rel.getDestination()), rel.getType()));
+					Model.getArrows().add(new Arrows(BoxObject.findLabel(rel.getSource()),
+					BoxObject.findLabel(rel.getDestination()), rel.getType()));
 				}
 			}
 			View.panel.repaint();

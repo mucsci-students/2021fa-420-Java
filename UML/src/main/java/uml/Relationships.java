@@ -56,6 +56,8 @@ public class Relationships {
 		return false;
 	}
 
+
+	
 	public static void addRel(UML source, UML destination, String type) { // make String type into enum later
 		if (Relationships.testType(type)) {
 			boolean dupeRel = false;
