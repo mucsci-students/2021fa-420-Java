@@ -245,19 +245,19 @@ public class View {
 
 		// Creates panel for JSON string output
 		// *************************************************************************************//
-		savePanel = new JPanel();
-		savePanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		savePanel.setBackground(Color.LIGHT_GRAY);
-		savePanel.setBounds(1232, 190, 118, 59);
-		frmUmlEditor.getContentPane().add(savePanel);
-		savePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		// savePanel = new JPanel();
+		// savePanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		// savePanel.setBackground(Color.LIGHT_GRAY);
+		// savePanel.setBounds(1232, 190, 118, 59);
+		// frmUmlEditor.getContentPane().add(savePanel);
+		// savePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-		JLabel copyLabel = new JLabel("<html><div style='text-align:center'>Copy JSON String</div></html>");
-		savePanel.add(copyLabel);
+		// JLabel copyLabel = new JLabel("<html><div style='text-align:center'>Copy JSON String</div></html>");
+		// savePanel.add(copyLabel);
 
-		textFieldJSON = new JTextField();
-		savePanel.add(textFieldJSON);
-		textFieldJSON.setColumns(10);
+		// textFieldJSON = new JTextField();
+		// savePanel.add(textFieldJSON);
+		// textFieldJSON.setColumns(10);
 
 		panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);
@@ -265,7 +265,7 @@ public class View {
 		panel.setBounds(378, 10, 844, 679);
 		frmUmlEditor.getContentPane().add(panel);
 		panel.setLayout(null);
-		savePanel.setVisible(true);
+		// savePanel.setVisible(true);
 
 		BoxObject.updateBoxes();
 		Arrows.updateArrows(panel.getGraphics());
