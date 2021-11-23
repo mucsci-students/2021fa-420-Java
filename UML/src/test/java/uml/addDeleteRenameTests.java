@@ -1,6 +1,12 @@
 package uml;
-import org.junit.Test;
+
 import static org.junit.Assert.*;
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+
 public class addDeleteRenameTests {
 	
 	/**
@@ -20,6 +26,7 @@ public class addDeleteRenameTests {
 		Model.getNoClassDupes().clear();
 		Model.getCollection().clear();
 	}
+
 	@Test
 	public void test02_AddThreeClasses() {
 		//Adding 1 class
@@ -62,6 +69,7 @@ public class addDeleteRenameTests {
 		Model.getNoClassDupes().clear();
 		Model.getCollection().clear();
 	}
+
 	@Test
 	public void test03_AddClassNotAlphaNum() {
 		//Adding a class but it's non-alphanumeric
@@ -79,6 +87,7 @@ public class addDeleteRenameTests {
 		Model.getNoClassDupes().clear();
 		Model.getCollection().clear();
 	}
+
 	@Test
 	public void test04_AddClassExists() {
 		//Adding a class that already exists
@@ -109,23 +118,19 @@ public class addDeleteRenameTests {
 		Model.getNoClassDupes().clear();
 		Model.getCollection().clear();
 	}
-	// @Test
-	// public void test05_DeleteClassExists() {
-	// 	//Deleting a class that exists
-	// 	UML.addClass("class");
-	// 	UML uml = UML.deleteClass("class");
-	// 	//If uml is not null, class was deleted
-	// 	assertNotNull(uml);
-	// 	//True if "class" was removed from noClassDupes
-	// 	assertTrue(!Model.getNoClassDupes().contains(uml.getClassName()));
-	// 	//True if size is 0
-	// 	assertEquals("noClassDupes size is not 0", 0, Model.getNoClassDupes().size());
-	// 	//True if collection removed uml and size is 0
-	// 	assertTrue(!Model.getCollection().contains(uml));
-	// 	assertEquals("collection size is not 0", 0, Model.getCollection().size());
-	// 	Model.getNoClassDupes().clear();
-	// 	Model.getCollection().clear();
-	// }
+
+	@Test
+	public void test05_DeleteClassExists() {
+		View.initializePanel();
+		UML.addClass("class");
+		UML.deleteClass("class");
+
+		assertEquals("Collection size is not 0", 0, Model.getCollection().size());
+
+		Model.getNoClassDupes().clear();
+		Model.getCollection().clear();
+	}
+
 	@Test
 	public void test06_DeleteClassNotExists() {
 		//Deleting a class that doesn't exist
@@ -152,6 +157,7 @@ public class addDeleteRenameTests {
 		Model.getNoClassDupes().clear();
 		Model.getCollection().clear();
 	}
+
 	@Test
 	public void test07_RenameClassSuccess() {
 		//Renaming class cat to dog succeeding
@@ -191,6 +197,7 @@ public class addDeleteRenameTests {
 		Model.getNoClassDupes().clear();
 		Model.getCollection().clear();
 	}
+
 	@Test
 	public void test08_RenameClassNotExists() {
 		//Renaming a class that doesn't exist
@@ -219,6 +226,7 @@ public class addDeleteRenameTests {
 		Model.getNoClassDupes().clear();
 		Model.getCollection().clear();
 	}
+
 	//still need test for new name being taken and non-AN
 	@Test
 	public void test09_RenameClassExists() {
@@ -260,6 +268,7 @@ public class addDeleteRenameTests {
 		Model.getNoClassDupes().clear();
 		Model.getCollection().clear();
 	}
+
 	@Test
 	public void test10_RenameClassNotAlphaNum() {
 		//Renaming class cat to non-alphanumeric name
@@ -303,4 +312,12 @@ public class addDeleteRenameTests {
 		Model.getNoClassDupes().clear();
 		Model.getCollection().clear();
 	}
+
+	@Test
+    public void test11_FindUMLObject() {
+        UML uml = UML.addClass("class");
+        assertEquals("UML Object does not match expected UML", uml, UML.findUMLOBJ("class"));
+        Model.getNoClassDupes().clear();
+		Model.clearCollection();
+    }
 }

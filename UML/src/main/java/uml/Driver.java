@@ -28,6 +28,7 @@ public class Driver {
 		}
 		
 		undoredo.stateKeeper();
+		View.initializePanel();
 		runView();
 		try {
 			Terminal terminal = TerminalBuilder.builder().system(true).build();
@@ -46,12 +47,10 @@ public class Driver {
 
 	public static void runCLI() {
 		
-		
 		// Boolean to run program until user exits
 		boolean run = true;
 		
 
-		
 		
 		boolean state = false;
 		while (run) {
@@ -239,10 +238,6 @@ public class Driver {
 			String paramType5 = parser.get(5);
 			Parameters.changeParameter(UMLName4, methodName4, oldParamName, paramName5, paramType5, null, true);
 				break;
-
-			// case "changeallparameters":
-			// 	CLI.changeAllParametersCLI();
-			// 	break;
 
 			case "addrelation":
 				paramNums = 3;

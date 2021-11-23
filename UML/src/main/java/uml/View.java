@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
@@ -31,6 +32,7 @@ public class View {
 
 	public static JLabel lbl;
 	public static JPanel panel;
+	public static JScrollPane scroll;
 
 	/**
 	 * Launch the application.
@@ -67,6 +69,7 @@ public class View {
 		frmUmlEditor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmUmlEditor.getContentPane().setLayout(null);
 		frmUmlEditor.getContentPane().setPreferredSize(new Dimension(1360, 700));
+		frmUmlEditor.getContentPane().add(panel);
 		frmUmlEditor.pack();
 
 		// Creates panel for major command buttons
@@ -241,34 +244,17 @@ public class View {
 		btnEnter.addActionListener(controller);
 		inputPanel.add(btnEnter);
 		inputPanel.setVisible(false);
-		// *************************************************************************************//
 
-		// Creates panel for JSON string output
-		// *************************************************************************************//
-		// savePanel = new JPanel();
-		// savePanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		// savePanel.setBackground(Color.LIGHT_GRAY);
-		// savePanel.setBounds(1232, 190, 118, 59);
-		// frmUmlEditor.getContentPane().add(savePanel);
-		// savePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		BoxObject.updateBoxes();
+		Arrows.updateArrows(panel.getGraphics());
+	}
 
-		// JLabel copyLabel = new JLabel("<html><div style='text-align:center'>Copy JSON String</div></html>");
-		// savePanel.add(copyLabel);
-
-		// textFieldJSON = new JTextField();
-		// savePanel.add(textFieldJSON);
-		// textFieldJSON.setColumns(10);
-
+	public static void initializePanel() {
 		panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);
 		panel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		panel.setBounds(378, 10, 844, 679);
-		frmUmlEditor.getContentPane().add(panel);
 		panel.setLayout(null);
-		// savePanel.setVisible(true);
-
-		BoxObject.updateBoxes();
-		Arrows.updateArrows(panel.getGraphics());
 	}
 
 	public static void closeGUI() {
