@@ -199,6 +199,14 @@ public class Driver {
 				String methodName = parser.get(2);
 				String paramName = parser.get(3);
 				String paramType = parser.get(4);
+				if(MethodOverloading.containsDuplicateMethods(UMLName).contains(methodName)){
+					System.out.println("There is more than one method that uses the name " + methodName);
+					System.out.println("Enter all the parameter types for the method you are editing");
+					String s = lineScan.readLine(">>> ").toLowerCase();
+					ArrayList<String> a = Commands.storeArray(s);
+					Parameters.addParameterCLI(UMLName, methodName, paramName, paramType, null, true, a);
+					break;
+				}
 				Parameters.addParameter(UMLName, methodName, paramName, paramType, null, true);
 				break;
 

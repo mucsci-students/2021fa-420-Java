@@ -346,4 +346,80 @@ public class Parameters {
 		return null;
 	}
 
+
+
+
+
+
+
+//*****************************************************************************************************************
+/* CLI method overloading
+**********************************************************************************************************************/
+public static boolean addParameterCLI(String UMLName, String methodName, String parameterName, String type,
+			ArrayList<Parameters> pList, boolean dupeMethods, ArrayList<String> a) {
+		if (!Driver.guiUp || !dupeMethods) {
+			// Does a check to see if the method is overloaded. Also finds the correct
+			// method
+			pList = MethodOverloading.locatingParametersCLI(UMLName, methodName, a);
+			// Case where the method doesn't exist
+			if (pList == null) {
+				return false;
+			}
+		}
+
+		// Inserted Parameter
+		Parameters parameter = new Parameters(parameterName, type);
+		// Gets the UML object that the parameter is being inserted into
+		UML UMLOBJ = UML.findUMLOBJ(UMLName);
+
+		// Makes sure there aren't any methods with duplicate signatures being created
+		// with the addition of a new parameter
+		// if (MethodOverloading.containsSameSignatureAdding(UMLOBJ, pList, parameter, methodName)) {
+		// 	if (Driver.guiUp) {
+		// 		JOptionPane.showMessageDialog(View.frmUmlEditor, "A method with that signature already exists!",
+		// 				"Error", JOptionPane.ERROR_MESSAGE);
+		// 	} else {
+		// 		System.out.println("A method with that signature already exists!");
+		// 	}
+		// 	return false;
+		// }
+
+		// Duplicate checking
+		HashSet<String> noDuplicates = new HashSet<String>();
+
+		// Copying Param names to noDuplicates
+		for (Parameters p : pList) {
+			noDuplicates.add(p.getParamName());
+		}
+
+		if (!noDuplicates.contains(parameterName)) {
+			noDuplicates.add(parameterName);
+
+			// Addition of a new parameter
+			pList.add(parameter);
+			undoredo.stateKeeper();
+
+			// Updates GUI boxes
+			for (BoxObject obj : Model.getJLabels()) {
+				if (obj.getJLabelName().equals(UMLName)) {
+					BoxObject.updateBox(obj);
+				}
+			}
+
+			if (!Driver.guiUp) {
+				System.out.println("Parameter Created!");
+			}
+			return true;
+		} else {
+			if (Driver.guiUp) {
+				JOptionPane.showMessageDialog(View.frmUmlEditor, "That parameter already exists!", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			} else {
+				System.out.println("That parameter already exists!");
+			}
+		}
+		return false;
+
+	}
+
 }

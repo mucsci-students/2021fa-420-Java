@@ -1,5 +1,6 @@
 package uml;
 import java.util.*;
+import java.util.ArrayList;
 public class Commands {
     private static ArrayList<String> allCommands = new ArrayList<>();
     private static final int COMMAND_GREATEST_LENGTH = 26;
@@ -148,6 +149,25 @@ public class Commands {
             
         }
         return sb;
+    }
+
+    public static ArrayList<String> storeArray(String s){
+        ArrayList<String> parsed = new ArrayList<>();
+        String str = "";
+        while (!s.equals("")){
+            if (s.charAt(0)== ' '){
+                s = s.replaceFirst(" ", ""); 
+            } else{
+                while ( !s.isEmpty() && s.charAt(0) != ' '){
+                    str += s.charAt(0);
+                    s = s.substring(1, s.length());
+                }
+                parsed.add(str);
+                str = "";
+            }
+        }
+
+        return parsed;
     }
 
     
