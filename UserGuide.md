@@ -1,57 +1,80 @@
 # Commands
-
+#####The parentheses in the signature is one argument
 
 add class - creates a new unique class * the name must be alphanumeric and not already exist.
+            Signature: add class (name)
 
 delete class - deletes a preexisting class * the class must already exist to delete it.
+            Signature: delete class (name)
 
 rename class - takes a class and provides a new name * the name must not already exist as another class and it's new name must be alphanumeric.
+            Signature: rename class (old name) (new name)
 
 add method - creates a new method for a class
+            Signature:  add method (class name) (method name) (method type)
 
 delete method - deletes a method from a class
+            Signature: delete method (class name) (method name)
 
 delete all methods - Deletes all methods in a given UML Class.
+            Signature: delete all methods (class name)
 
 rename method - renames a method in a class
+            Signature: rename method (class name) (old name) (new name)
 
 add field - creates a new field for a class
+            Signature: add field (class name) (field name) (field type)
 
 delete field - deletes a field from a class
+            Signature: delete field (class name) (field name)
 
 rename field - renames a field from a class
+            Signature: rename field (class name) (old name) (new name)
 
 add parameter - creates a parameter in a method for a class
+            Signature: add parameter (class name) (method name) (parameter name) (parameter type)
 
 delete parameter - deletes a parameter from a method in a class
+            Signature: delete parameter (class name) (method name) (parameter name)
 
 delete all parameters - deletes all the paramaters in a given method
+            Signature: delete all parameter (class name) (method name)
 
 change parameter - changes a parameter in a method in a class
-
-change all parameters - changes all the parameters in a method
+            Signature: change parameter (class name) (method name) (old parameter name) (new parameter name) (parameter type)
 
 add relation - creates a relationship between two classes
+            Signature: add relation (source class name) (destination class name) (relationship type)
 
 delete relation - deletes a relationship between two classes
+            Signature: delete relation (source class name) (destination class name)
 
 change relationship type - changes a relationship type
+            Signature: change relation (source class name) (destination class name) (New relationship type)
 
 list classes - lists all the classes made
+            Signature: list classes
 
 list contents - lists the contents of a specific class
+            Signature: list contents
 
 list relationships - lists relationships between all classes
+            Signature: list relationships
 
 save - saves current uml file
+            Signature: save
 
 load - loads a uml file
+            Signature: load
 
 help - provides a list of commands usable commands
+            Signature: help
 
 exit - exists the program
+            Signature: exit
 
 GUI - opens the GUI
+            Signature: gui
 
 # GUI
 
