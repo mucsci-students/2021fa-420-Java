@@ -75,6 +75,18 @@ exit - exists the program
 
 GUI - opens the GUI
             Signature: gui
+            
+undo - undos last action
+            signature: undo
+
+redo - redos last action
+            signature: redo
+    
+screenshot - takes a screenshot of uml
+            signature: screenshot (location of directory where saving)
+
+set position - sets the position of a uml box
+            signature: set position (class name) (x-coordinate) (y-coordinate)
 
 # GUI
 
