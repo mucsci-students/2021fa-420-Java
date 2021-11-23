@@ -1017,6 +1017,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 			}
 		}
 		Arrows.updateArrows(View.panel.getGraphics());
+		undoredo.stateKeeper();
 	}
 
 }

@@ -46,6 +46,9 @@ public class Commands {
 
      // need case if there are a lot of spaces in the begining
      public static String compare(String command){
+        while(command.charAt(0) == ' '){
+            command = command.replaceFirst(" ", "");
+        }
         String builder = "";
         for(int i = 0; i<command.length(); ++i){
             if (builder.length() > COMMAND_GREATEST_LENGTH){
