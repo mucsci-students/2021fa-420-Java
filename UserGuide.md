@@ -116,4 +116,4 @@ set position - sets the position of a uml box
         2. After each command you will be prompted for more information, fill out the prompts according to your desired result
         3. If the user wants to type the commands faster, there is a tab completion option where the user can hit the tab key
            and it will autocomplete the command
-            
+           
