@@ -1,13 +1,18 @@
 package uml;
-import org.junit.Test;
+
 import static org.junit.Assert.*;
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class addDeleteRenameTests {
-	
+
 	/**
 	 * Make global variables attr, rels, noClassDupes, collection, and p public
 	 * for using these tests
 	 */
-	
+
 	@Test
 	public void test01_Constructor() {
 		UML uml = new UML("class", 0 ,0);
@@ -109,23 +114,19 @@ public class addDeleteRenameTests {
 		Model.getNoClassDupes().clear();
 		Model.getCollection().clear();
 	}
-	// @Test
-	// public void test05_DeleteClassExists() {
-	// 	//Deleting a class that exists
-	// 	UML.addClass("class");
-	// 	UML uml = UML.deleteClass("class");
-	// 	//If uml is not null, class was deleted
-	// 	assertNotNull(uml);
-	// 	//True if "class" was removed from noClassDupes
-	// 	assertTrue(!Model.getNoClassDupes().contains(uml.getClassName()));
-	// 	//True if size is 0
-	// 	assertEquals("noClassDupes size is not 0", 0, Model.getNoClassDupes().size());
-	// 	//True if collection removed uml and size is 0
-	// 	assertTrue(!Model.getCollection().contains(uml));
-	// 	assertEquals("collection size is not 0", 0, Model.getCollection().size());
-	// 	Model.getNoClassDupes().clear();
-	// 	Model.getCollection().clear();
-	// }
+
+	@Test
+    public void test05_DeleteClassExists() {
+        View.initializePanel();
+        UML.addClass("class");
+        UML.deleteClass("class");
+
+        assertEquals("Collection size is not 0", 0, Model.getCollection().size());
+
+        Model.getNoClassDupes().clear();
+        Model.getCollection().clear();
+    }
+
 	@Test
 	public void test06_DeleteClassNotExists() {
 		//Deleting a class that doesn't exist
