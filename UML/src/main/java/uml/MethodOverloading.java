@@ -170,6 +170,10 @@ public class MethodOverloading {
 		// need a clone so we can check what it'll look like with a change
 		ArrayList<Parameters> origin = (ArrayList<Parameters>) addend.clone();
 		Parameters p1 = Parameters.findParam(oldPName, addend);
+		if(p1 == null){
+		
+			return false;
+		}
 		Parameters p2 = new Parameters(newPName, newPType);
 		// replace old parameter with new
 		int index = origin.indexOf(p1);

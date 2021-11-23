@@ -219,6 +219,14 @@ public class Driver {
 				String UMLName1 = parser.get(1);
 				String methodName1 = parser.get(2);
 				String paramName1 = parser.get(3);
+				if(MethodOverloading.containsDuplicateMethods(UMLName1).contains(methodName1)){
+					System.out.println("There is more than one method that uses the name " + methodName1);
+					System.out.println("Enter all the parameter types for the method you are editing");
+					String s = lineScan.readLine(">>> ").toLowerCase();
+					ArrayList<String> a = Commands.storeArray(s);
+					Parameters.deleteParameterCLI(UMLName1, methodName1, paramName1, null, true, a);
+					break;
+				}
 				Parameters.deleteParameter(UMLName1, methodName1, paramName1, null, true);
 				break;
 
@@ -230,6 +238,14 @@ public class Driver {
 				}
 				String UMLName2 = parser.get(1);
 				String methodName2 = parser.get(2);
+				if(MethodOverloading.containsDuplicateMethods(UMLName2).contains(methodName2)){
+					System.out.println("There is more than one method that uses the name " + methodName2);
+					System.out.println("Enter all the parameter types for the method you are editing");
+					String s = lineScan.readLine(">>> ").toLowerCase();
+					ArrayList<String> a = Commands.storeArray(s);
+					Parameters.deleteAllParametersCLI(UMLName2, methodName2, null, true, a);
+					break;
+				}
 				Parameters.deleteAllParameters(UMLName2, methodName2, null, true);
 				break;
 
@@ -244,6 +260,14 @@ public class Driver {
 			String oldParamName = parser.get(3);
 			String paramName5 = parser.get(4);
 			String paramType5 = parser.get(5);
+			if(MethodOverloading.containsDuplicateMethods(UMLName4).contains(methodName4)){
+				System.out.println("There is more than one method that uses the name " + methodName4);
+				System.out.println("Enter all the parameter types for the method you are editing");
+				String s = lineScan.readLine(">>> ").toLowerCase();
+				ArrayList<String> a = Commands.storeArray(s);
+				Parameters.changeParameterCLI(UMLName4, methodName4, oldParamName, paramName5, paramType5, null, true, a);
+				break;
+			}
 			Parameters.changeParameter(UMLName4, methodName4, oldParamName, paramName5, paramType5, null, true);
 				break;
 
