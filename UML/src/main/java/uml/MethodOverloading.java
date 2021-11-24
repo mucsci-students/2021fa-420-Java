@@ -2,6 +2,7 @@ package uml;
 
 import java.util.*;
 import javax.swing.JOptionPane;
+import java.util.Arrays;
 
 public class MethodOverloading {
 
@@ -169,6 +170,10 @@ public class MethodOverloading {
 		// need a clone so we can check what it'll look like with a change
 		ArrayList<Parameters> origin = (ArrayList<Parameters>) addend.clone();
 		Parameters p1 = Parameters.findParam(oldPName, addend);
+		if(p1 == null){
+		
+			return false;
+		}
 		Parameters p2 = new Parameters(newPName, newPType);
 		// replace old parameter with new
 		int index = origin.indexOf(p1);
@@ -215,19 +220,8 @@ public class MethodOverloading {
 
 				validate = false;
 				ArrayList<String> comparison = new ArrayList<>();
-				Scanner s;
-
-				if (Driver.guiUp) {
-					s = new Scanner(scanInput);
-				} else {
-					Scanner scanner = new Scanner(System.in);
-					System.out.println("There is more than one method that uses the name " + method);
-					System.out.println("Enter all the parameter types for the method you are editing");
-
-					// User types in all parameter types of the method they are looking for and -1
-					// when they are done
-					s = new Scanner(scanner.nextLine().toLowerCase());
-				}
+				Scanner s = new Scanner(scanInput);
+				
 
 				while (s.hasNext()) {
 					comparison.add(s.next());
@@ -235,6 +229,33 @@ public class MethodOverloading {
 
 				// Specific parameter list if the method is overloaded
 				pList = MethodOverloading.findMethod(UML, method, comparison);
+			}
+
+		} catch (NullPointerException e) {
+			System.out.println("Class name not found");
+			return null;
+		}
+
+		if (validate) {
+			// If no method overloading exists
+			pList = Parameters.findMethod(UML, method);
+		}
+		return pList;
+	}
+
+	public static ArrayList<Parameters> locatingParametersCLI(String UML, String method, ArrayList<String> a) {
+		ArrayList<Parameters> pList = null;
+		// boolean to check if there is method overloading. False if there is. True if
+		// there isn't
+
+		boolean validate = true;
+		// Exit case
+		try {
+			if (MethodOverloading.containsDuplicateMethods(UML).contains(method)) {
+
+				validate = false;
+				// Specific parameter list if the method is overloaded
+				pList = MethodOverloading.findMethod(UML, method, a);
 			}
 
 		} catch (NullPointerException e) {

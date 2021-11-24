@@ -3,6 +3,7 @@ package uml;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+
 import java.awt.image.BufferedImage;
 import java.awt.Graphics;
 
@@ -74,6 +75,42 @@ public class Screenshot {
             if (!Driver.guiUp) {
                 System.out.println("File save operation was cancelled!");
             }
+        }
+    }
+
+    public static void screenshotCLI(String fileName, String path) {
+        // fileName = "file.jpg";
+        path = path + "\\" + fileName;
+
+        // Creates image
+        BufferedImage image = new BufferedImage(View.panel.getWidth(), View.panel.getHeight(),
+                BufferedImage.TYPE_INT_RGB);
+        View.panel.paint(image.getGraphics());
+        Graphics g = image.getGraphics();
+        Arrows.updateArrows(g);
+
+        try {
+            String filePath;
+            if (path.substring(path.length() - 5, path.length()).equals(".jpeg")
+                    || path.substring(path.length() - 4, path.length()).equals(".jpg")) {
+                filePath = path;
+            } else {
+                filePath = path + ".jpg";
+            }
+
+            File file = new File(filePath);
+            // File does not exist and is created
+            if (file.createNewFile()) {
+                System.out.println("File Created!");
+            }
+            // File exists and is overwritten
+            else {
+                System.out.println("This file exists, it was overwritten!");
+            }
+
+            ImageIO.write(image, "jpg", file);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

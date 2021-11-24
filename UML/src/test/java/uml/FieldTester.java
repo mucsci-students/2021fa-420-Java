@@ -1,4 +1,5 @@
 package uml;
+
 import static org.junit.Assert.*;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -125,23 +126,23 @@ public class FieldTester {
 		// Add the first Field
 		Fields.addField("class", "Hello", "String");
 
-		//True if noClassDupes doesn't have this class
+		// True if noClassDupes doesn't have this class
 		assertTrue(!Model.getNoClassDupes().contains("class"));
-		//True if noClassDupes size did not change
+		// True if noClassDupes size did not change
 		assertEquals("noClassDupes size is not " + size, Model.getNoClassDupes().size(), size);
 
-		//Searches collection to see if "class" is inside
+		// Searches collection to see if "class" is inside
 		boolean bool = true;
 		for (UML element : Model.getCollection()) {
-			if(element.getClassName().equals("class")) {
+			if (element.getClassName().equals("class")) {
 				bool = false;
 				break;
 			}
 		}
 
-		//True if there was no class with the given name
+		// True if there was no class with the given name
 		assertTrue(bool);
-		//True if collection size did not change
+		// True if collection size did not change
 		assertEquals("collection size is not " + size, Model.getCollection().size(), size);
 
 		Model.getNoClassDupes().clear();
@@ -183,34 +184,34 @@ public class FieldTester {
 	}
 
 	@Test
-    public void test06_RemoveNonExistingField() {
-        // Creates class
-        UML uml = UML.addClass("class");
-        new Fields("Goodbye", "String");
-        Fields.addField("class", "Goodbye", "String");
-        // Remove the Field
-        Fields.removeField("class", "hullo");
-        // True if Fields does not contain one and size is 0
-        for (Fields field : uml.getField()) {
-            if (!field.getFieldName().equals("hullo")) {
-                assertTrue(!field.getFieldName().contains("hullo"));
-            }
-        }
-        assertEquals("Fields size is not 1", 1, uml.getField().size());
+	public void test06_RemoveNonExistingField() {
+		// Creates class
+		UML uml = UML.addClass("class");
+		new Fields("Goodbye", "String");
+		Fields.addField("class", "Goodbye", "String");
+		// Remove the Field
+		Fields.removeField("class", "hullo");
+		// True if Fields does not contain one and size is 0
+		for (Fields field : uml.getField()) {
+			if (!field.getFieldName().equals("hullo")) {
+				assertTrue(!field.getFieldName().contains("hullo"));
+			}
+		}
+		assertEquals("Fields size is not 1", 1, uml.getField().size());
 
-        // Remove the Field
-        Fields.removeField("class", "Hello");
-        // True if Fields does not contain one and size is 0
-        for (Fields field : uml.getField()) {
-            if (!field.getFieldName().equals("Hello")) {
-                assertTrue(!field.getFieldName().contains("Hello"));
-            }
-        }
-        assertEquals("Fields size is not 1", 1, uml.getField().size());
+		// Remove the Field
+		Fields.removeField("class", "Hello");
+		// True if Fields does not contain one and size is 0
+		for (Fields field : uml.getField()) {
+			if (!field.getFieldName().equals("Hello")) {
+				assertTrue(!field.getFieldName().contains("Hello"));
+			}
+		}
+		assertEquals("Fields size is not 1", 1, uml.getField().size());
 
-        Model.getNoClassDupes().clear();
-        Model.clearCollection();
-    }
+		Model.getNoClassDupes().clear();
+		Model.clearCollection();
+	}
 
 	@Test
 	public void test07_RemoveFieldNonExistingClass() {
@@ -218,23 +219,23 @@ public class FieldTester {
 		// Add the first Field
 		Fields.removeField("class", "Hello");
 
-		//True if noClassDupes doesn't have this class
+		// True if noClassDupes doesn't have this class
 		assertTrue(!Model.getNoClassDupes().contains("class"));
-		//True if noClassDupes size did not change
+		// True if noClassDupes size did not change
 		assertEquals("noClassDupes size is not " + size, Model.getNoClassDupes().size(), size);
 
-		//Searches collection to see if "class" is inside
+		// Searches collection to see if "class" is inside
 		boolean bool = true;
 		for (UML element : Model.getCollection()) {
-			if(element.getClassName().equals("class")) {
+			if (element.getClassName().equals("class")) {
 				bool = false;
 				break;
 			}
 		}
 
-		//True if there was no class with the given name
+		// True if there was no class with the given name
 		assertTrue(bool);
-		//True if collection size did not change
+		// True if collection size did not change
 		assertEquals("collection size is not " + size, Model.getCollection().size(), size);
 
 		Model.getNoClassDupes().clear();
@@ -242,37 +243,38 @@ public class FieldTester {
 	}
 
 	@Test
-    public void test08_RenameField() {
-        // Creates class
-        UML uml = UML.addClass("class");
-        Fields.addField("class", "Hello", "String");
-        Fields.renameField("class", "Hello", "There");
+	public void test08_RenameField() {
+		// Creates class
+		UML uml = UML.addClass("class");
+		Fields.addField("class", "Hello", "String");
+		Fields.renameField("class", "Hello", "There");
 
-        // True if Fields added one, renamed it to two, and is size 1
-        for (Fields field : uml.getField()) {
-            if (field.getFieldName().equals("There")) {
-                assertTrue(field.getFieldName().contains("There"));
-            }
-        }
-        assertEquals("Fields size is not 1", 1, uml.getField().size());
+		// True if Fields added one, renamed it to two, and is size 1
+		for (Fields field : uml.getField()) {
+			if (field.getFieldName().equals("There")) {
+				assertTrue(field.getFieldName().contains("There"));
+			}
+		}
+		assertEquals("Fields size is not 1", 1, uml.getField().size());
 
-        Fields.addField("class", "Hello", "String");
-        Fields.renameField("class", "There", "Hello");
-        for (Fields field : uml.getField()) {
-            if (field.getFieldName().equals("Hello")) {
-                assertTrue(field.getFieldName().contains("Hello"));
-            }
-        }
-        assertEquals("Fields size is not 2", 2, uml.getField().size());
+		Fields.addField("class", "Hello", "String");
+		Fields.renameField("class", "There", "Hello");
+		for (Fields field : uml.getField()) {
+			if (field.getFieldName().equals("Hello")) {
+				assertTrue(field.getFieldName().contains("Hello"));
+			}
+		}
+		assertEquals("Fields size is not 2", 2, uml.getField().size());
 
-        Model.getNoClassDupes().clear();
-        Model.clearCollection();
-    }
+		Model.getNoClassDupes().clear();
+		Model.clearCollection();
+	}
 
 	@Test
 	public void test09_RenameNonExistingField() {
 		// Creates class
 		UML uml = UML.addClass("class");
+
 		Fields.renameField("class", "Hello", "There");
 
 		// True if Fields does not contain one and size is 0
@@ -293,46 +295,46 @@ public class FieldTester {
 		Fields.addField("class", "Hello", "String");
 		Fields.renameField("class", "Hello", "There");
 
-		//True if noClassDupes doesn't have this class
+		// True if noClassDupes doesn't have this class
 		assertTrue(!Model.getNoClassDupes().contains("class"));
-		//True if noClassDupes size did not change
+		// True if noClassDupes size did not change
 		assertEquals("noClassDupes size is not " + size, Model.getNoClassDupes().size(), size);
 
-		//Searches collection to see if "class" is inside
+		// Searches collection to see if "class" is inside
 		boolean bool = true;
 		for (UML element : Model.getCollection()) {
-			if(element.getClassName().equals("class")) {
+			if (element.getClassName().equals("class")) {
 				bool = false;
 				break;
 			}
 		}
 
-		//True if there was no class with the given name
+		// True if there was no class with the given name
 		assertTrue(bool);
-		//True if collection size did not change
+		// True if collection size did not change
 		assertEquals("collection size is not " + size, Model.getCollection().size(), size);
 
 		Model.getNoClassDupes().clear();
 		Model.clearCollection();
 	}
-	
+
 	@Test
-    public void test11_RenameFieldNonAlpha() {
-        // Creates class
-        UML uml = UML.addClass("class");
-        new Fields("hullo", "String");
-        Fields.addField("class", "hullo", "String");
-        Fields.renameField("class", "hullo", "$H311");
+	public void test11_RenameFieldNonAlpha() {
+		// Creates class
+		UML uml = UML.addClass("class");
+		new Fields("hullo", "String");
+		Fields.addField("class", "hullo", "String");
+		Fields.renameField("class", "hullo", "$H311");
 
-        // True if noFieldsDupes did not add one and is size 0
-        for (Fields field : uml.getField()) {
-            if (!field.getFieldName().equals("$H311")) {
-                assertFalse(field.getFieldName().contains("$H311"));
-            }
-        }
-        assertEquals("Fields size is not 1", 1, uml.getField().size());
+		// True if noFieldsDupes did not add one and is size 0
+		for (Fields field : uml.getField()) {
+			if (!field.getFieldName().equals("$H311")) {
+				assertFalse(field.getFieldName().contains("$H311"));
+			}
+		}
+		assertEquals("Fields size is not 1", 1, uml.getField().size());
 
-        Model.getNoClassDupes().clear();
-        Model.clearCollection();
-    }
+		Model.getNoClassDupes().clear();
+		Model.clearCollection();
+	}
 }

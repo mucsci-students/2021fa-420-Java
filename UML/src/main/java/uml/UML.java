@@ -24,7 +24,7 @@ public class UML {
 	private static ArrayList<Arrows> arrows = new ArrayList<Arrows>();
 
 	// Regex for determining if string is alphanumeric
-	private static Pattern pattern = Pattern.compile("[^a-zA-Z0-9]");
+	private static Pattern pattern = Pattern.compile("[^a-zA-Z0-9_]");
 
 	public UML(String name, int position_x, int position_y) {
 		this.name = name;

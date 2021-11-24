@@ -739,17 +739,6 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 				}
 			}
 
-			// If user wanted to load a JSON string
-			else if (command.equals("Load")) {
-				// If user inputs info correctly
-				if (input.hasNext()) {
-					JsonFile.load(input.next(), Model.getCollection());
-					// View.outputLbl.setText("File Loaded!");
-					View.inputPanel.setVisible(false);
-					View.textField.setText("");
-					undoredo.loadClear();
-				}
-			}
 			input.close();
 		}
 
@@ -916,7 +905,8 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 
 		// If load button is clicked
 		else if (e.getActionCommand().equals("Load")) {
-
+			JsonFile.load();
+			undoredo.loadClear();
 		}
 
 		// If screenshot button is clicked
@@ -1017,6 +1007,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 			}
 		}
 		Arrows.updateArrows(View.panel.getGraphics());
+		undoredo.stateKeeper();
 	}
 
 }

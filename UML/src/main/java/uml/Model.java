@@ -2,6 +2,7 @@ package uml;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import javax.swing.JOptionPane;
 
 public class Model {
 
@@ -40,5 +41,14 @@ public class Model {
 
 	public static void clearArrows() {
 		arrows.clear();
+	}
+
+	public static void throwingError(String s){
+		if (Driver.guiUp) {
+			JOptionPane.showMessageDialog(View.frmUmlEditor, s,
+					"Error", JOptionPane.ERROR_MESSAGE);
+		} else {
+			System.out.println(s);
+		}
 	}
 }

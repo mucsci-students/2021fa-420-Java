@@ -1,5 +1,6 @@
 package uml;
 import java.util.*;
+import java.util.ArrayList;
 public class Commands {
     private static ArrayList<String> allCommands = new ArrayList<>();
     private static final int COMMAND_GREATEST_LENGTH = 26;
@@ -46,6 +47,9 @@ public class Commands {
 
      // need case if there are a lot of spaces in the begining
      public static String compare(String command){
+        while(command.charAt(0) == ' '){
+            command = command.replaceFirst(" ", "");
+        }
         String builder = "";
         for(int i = 0; i<command.length(); ++i){
             if (builder.length() > COMMAND_GREATEST_LENGTH){
@@ -75,7 +79,6 @@ public class Commands {
         return "-1";
      }
 
-     //THIS GIVES INFINITE LOOP IF COMMAND DOESN'T EXIST
     public static int removeCommand(String s){
         int count =0;
         String compare = compare(s);
@@ -145,6 +148,25 @@ public class Commands {
             
         }
         return sb;
+    }
+
+    public static ArrayList<String> storeArray(String s){
+        ArrayList<String> parsed = new ArrayList<>();
+        String str = "";
+        while (!s.equals("")){
+            if (s.charAt(0)== ' '){
+                s = s.replaceFirst(" ", ""); 
+            } else{
+                while ( !s.isEmpty() && s.charAt(0) != ' '){
+                    str += s.charAt(0);
+                    s = s.substring(1, s.length());
+                }
+                parsed.add(str);
+                str = "";
+            }
+        }
+
+        return parsed;
     }
 
     
