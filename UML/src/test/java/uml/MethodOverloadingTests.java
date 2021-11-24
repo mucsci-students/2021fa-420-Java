@@ -1,14 +1,18 @@
 package uml;
 import static org.junit.Assert.*;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Scanner;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MethodOverloadingTests {
+	
+	
     @Test
     public void findingCorrectMethodsAndCompareParams() {
 		// Create a class
@@ -144,5 +148,27 @@ public class MethodOverloadingTests {
 
 
     }
-
+    
+    @Test
+      public void locatingParameters(){
+    	
+        UML uml = UML.addClass("class");
+        Methods.addMethod("class", "a", "String");
+        Parameters.addParameter("class", "a" , "x", "String", null , true);
+        Methods.addMethod("class", "a", "String");
+        	//Replicates user input 
+	        String userInput = String.format("String");
+		    ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
+		    System.setIn(in);
+		    ByteArrayOutputStream out = new ByteArrayOutputStream();
+		    PrintStream printStream = new PrintStream(out);
+		    System.setOut(printStream);
+		    //End of replicating user input
+        Parameters.addParameter("class", "a" , "y", "int", null , true);
+        
+        
+        
+        Model.clearCollection();
+        Model.getNoClassDupes().clear();
+    }  
 }

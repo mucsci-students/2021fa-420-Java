@@ -1,4 +1,5 @@
 package uml;
+
 import static org.junit.Assert.*;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -125,23 +126,23 @@ public class FieldTester {
 		// Add the first Field
 		Fields.addField("class", "Hello", "String");
 
-		//True if noClassDupes doesn't have this class
+		// True if noClassDupes doesn't have this class
 		assertTrue(!Model.getNoClassDupes().contains("class"));
-		//True if noClassDupes size did not change
+		// True if noClassDupes size did not change
 		assertEquals("noClassDupes size is not " + size, Model.getNoClassDupes().size(), size);
 
-		//Searches collection to see if "class" is inside
+		// Searches collection to see if "class" is inside
 		boolean bool = true;
 		for (UML element : Model.getCollection()) {
-			if(element.getClassName().equals("class")) {
+			if (element.getClassName().equals("class")) {
 				bool = false;
 				break;
 			}
 		}
 
-		//True if there was no class with the given name
+		// True if there was no class with the given name
 		assertTrue(bool);
-		//True if collection size did not change
+		// True if collection size did not change
 		assertEquals("collection size is not " + size, Model.getCollection().size(), size);
 
 		Model.getNoClassDupes().clear();
@@ -218,23 +219,23 @@ public class FieldTester {
 		// Add the first Field
 		Fields.removeField("class", "Hello");
 
-		//True if noClassDupes doesn't have this class
+		// True if noClassDupes doesn't have this class
 		assertTrue(!Model.getNoClassDupes().contains("class"));
-		//True if noClassDupes size did not change
+		// True if noClassDupes size did not change
 		assertEquals("noClassDupes size is not " + size, Model.getNoClassDupes().size(), size);
 
-		//Searches collection to see if "class" is inside
+		// Searches collection to see if "class" is inside
 		boolean bool = true;
 		for (UML element : Model.getCollection()) {
-			if(element.getClassName().equals("class")) {
+			if (element.getClassName().equals("class")) {
 				bool = false;
 				break;
 			}
 		}
 
-		//True if there was no class with the given name
+		// True if there was no class with the given name
 		assertTrue(bool);
-		//True if collection size did not change
+		// True if collection size did not change
 		assertEquals("collection size is not " + size, Model.getCollection().size(), size);
 
 		Model.getNoClassDupes().clear();
@@ -294,23 +295,23 @@ public class FieldTester {
 		Fields.addField("class", "Hello", "String");
 		Fields.renameField("class", "Hello", "There");
 
-		//True if noClassDupes doesn't have this class
+		// True if noClassDupes doesn't have this class
 		assertTrue(!Model.getNoClassDupes().contains("class"));
-		//True if noClassDupes size did not change
+		// True if noClassDupes size did not change
 		assertEquals("noClassDupes size is not " + size, Model.getNoClassDupes().size(), size);
 
-		//Searches collection to see if "class" is inside
+		// Searches collection to see if "class" is inside
 		boolean bool = true;
 		for (UML element : Model.getCollection()) {
-			if(element.getClassName().equals("class")) {
+			if (element.getClassName().equals("class")) {
 				bool = false;
 				break;
 			}
 		}
 
-		//True if there was no class with the given name
+		// True if there was no class with the given name
 		assertTrue(bool);
-		//True if collection size did not change
+		// True if collection size did not change
 		assertEquals("collection size is not " + size, Model.getCollection().size(), size);
 
 		Model.getNoClassDupes().clear();
