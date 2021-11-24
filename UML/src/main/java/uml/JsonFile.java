@@ -6,6 +6,7 @@ import java.lang.reflect.Type;
 import java.util.*;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -16,12 +17,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class JsonFile {
 
 	// Saves the ArrayList of UML objects into a json string format
-
 	public static void save(ArrayList<UML> collection) {
 		// JFileChooser points to user's default directory
 		JFileChooser j = new JFileChooser();
 		// Only allows jpg/jpeg files to show
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("Text File", "txt");
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Json File", "json");
 		j.setFileFilter(filter);
 		// Open the save dialog
 		int response = j.showSaveDialog(null);
@@ -30,11 +30,11 @@ public class JsonFile {
 			File file;
 			String name = j.getSelectedFile().getName();
 			// Prevents new files being created when they already exist
-			if (name.contains(".txt")) {
+			if (name.contains(".json")) {
 				int i = name.lastIndexOf('.');
 				name = name.substring(0, i);
 			}
-			file = new File(j.getSelectedFile().getParent(), name + ".txt");
+			file = new File(j.getSelectedFile().getParent(), name + ".json");
 
 			try {
 				// File does not exist and is created
@@ -55,7 +55,6 @@ public class JsonFile {
 						System.out.println("This file exists, it was overwritten!");
 					}
 				}
-
 				Gson gson = new Gson();
 				// Converts the list to JSON
 				String saveFile = gson.toJson(collection);
@@ -83,9 +82,7 @@ public class JsonFile {
 	// Loads a String with a JSON format and turns it into an ArrayList of UML
 	// objects
 	public static boolean load(String loaded, ArrayList<UML> collection) {
-
 		try {
-
 			// Tells the Gson converter that we want an ArrayList of UML objects
 			Type type = new TypeToken<ArrayList<UML>>() {
 			}.getType();
@@ -110,13 +107,9 @@ public class JsonFile {
 			for (UML u : newCollection) {
 				noDupes.add(u.getClassName());
 			}
-			// The new collection of the loaded UML object
 
 			// System.out.println(save(newCollection));
 			Model.setCollection(newCollection);
-
-			// Create a box object for every uml object
-			// add box object to jlabs array
 
 			// Creates JLabels for gui
 			for (UML uml : Model.getCollection()) {
@@ -125,7 +118,7 @@ public class JsonFile {
 			for (UML uml : Model.getCollection()) {
 				for (Relationships rel : uml.getRels()) {
 					Model.getArrows().add(new Arrows(BoxObject.findLabel(rel.getSource()),
-					BoxObject.findLabel(rel.getDestination()), rel.getType()));
+							BoxObject.findLabel(rel.getDestination()), rel.getType()));
 				}
 			}
 			View.panel.repaint();
@@ -137,6 +130,50 @@ public class JsonFile {
 			return false;
 		}
 		return true;
+	}
+
+	public static boolean load() {
+		// JFileChooser points to user's default directory
+		JFileChooser j = new JFileChooser();
+		// Only allows jpg/jpeg files to show
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Json File", "json");
+		j.setFileFilter(filter);
+		// Open the save dialog
+		int response = j.showOpenDialog(null);
+		// User saved image
+		if (response == JFileChooser.APPROVE_OPTION) {
+			File file;
+			String name = j.getSelectedFile().getName();
+			// Prevents new files being created when they already exist
+			if (name.contains(".json")) {
+				int i = name.lastIndexOf('.');
+				name = name.substring(0, i);
+			}
+			file = new File(j.getSelectedFile().getParent(), name + ".json");
+
+			try {
+				FileReader reader = new FileReader(file);
+				Scanner scanner = new Scanner(reader);
+				String json = scanner.nextLine();
+				scanner.close();
+				return load(json, Model.getCollection());
+
+			} catch (IOException e) {
+				if (Driver.guiUp) {
+					JOptionPane.showMessageDialog(View.frmUmlEditor, e.getMessage(), "File Error!",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					System.out.println(e.getMessage());
+				}
+			}
+		}
+		// User cancelled save
+		else {
+			if (!Driver.guiUp) {
+				System.out.println("File save operation was cancelled!");
+			}
+		}
+		return false;
 	}
 
 	public static String jsonString() {
