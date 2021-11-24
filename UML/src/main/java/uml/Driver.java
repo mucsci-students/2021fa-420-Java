@@ -375,6 +375,14 @@ public class Driver {
 				break;
 
 			case "screenshot":
+			// 	paramNums = 2;
+			// 	if (parser.size() != (paramNums + 1)){
+			// 	System.out.println("incorrect number of parameters");
+			// 	break;
+			// }
+			// 	String filename = parser.get(1);
+			// 	String path = parser.get(2);
+			// 	Screenshot.screenshotCLI(filename, path);
 				Screenshot.screenshot();
 				break;
 			case "setposition":

@@ -79,7 +79,6 @@ public class Commands {
         return "-1";
      }
 
-     //THIS GIVES INFINITE LOOP IF COMMAND DOESN'T EXIST
     public static int removeCommand(String s){
         int count =0;
         String compare = compare(s);
