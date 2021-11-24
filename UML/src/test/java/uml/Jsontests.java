@@ -3,16 +3,16 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class Jsontests {
-    // @Test 
-	// public void saveandLoadTestsBasic(){
-	
-	// 		String s = "[{\"name\":\"a\",\"fields\":[],\"methods\":[{\"name\":\"b\",\"return_type\":\"int\",\"params\":[]}],\"relationships\":[]}]";
-    //         JsonFile.load(s, Model.getCollection());
+    @Test 
+	public void saveandLoadTestsBasic(){
+            UML.addClass("a");
+            Methods.addMethod("a", "b", "int");
+			String s = "[{\"name\":\"a\",\"fields\":[],\"methods\":[{\"name\":\"b\",\"return_type\":\"int\",\"params\":[]}],\"relationships\":[],\"position_x\":0,\"position_y\":0}]";
 
-    //         assertEquals("Doesn't work", s,  JsonFile.save(Model.getCollection()));
-    //         Model.clearCollection();
-    //         Model.getJLabels().clear();
-	// }
+            assertEquals("Doesn't work", s,  JsonFile.jsonString());
+            Model.clearCollection();
+            Model.getJLabels().clear();
+	}
     // @Test
     // public void saveAndLoadTestsAdvanced(){
 

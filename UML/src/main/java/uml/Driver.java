@@ -375,6 +375,14 @@ public class Driver {
 				break;
 
 			case "screenshot":
+			// 	paramNums = 2;
+			// 	if (parser.size() != (paramNums + 1)){
+			// 	System.out.println("incorrect number of parameters");
+			// 	break;
+			// }
+			// 	String filename = parser.get(1);
+			// 	String path = parser.get(2);
+			// 	Screenshot.screenshotCLI(filename, path);
 				Screenshot.screenshot();
 				break;
 			case "setposition":
@@ -428,10 +436,7 @@ public class Driver {
 
 				// Safeguard so the user doesn't accidentally delete files
 				if (confirm.equals("yes")) {
-					System.out.println("Enter the file you would like to load");
-					String loadFile = lineScan.readLine("").toLowerCase().replaceAll("\\s", "");;
-
-					if (JsonFile.load(loadFile, Model.getCollection())) {
+					if (JsonFile.load()) {
 
 						System.out.println("File loaded!");
 						undoredo.loadClear();
