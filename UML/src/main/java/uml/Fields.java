@@ -55,43 +55,21 @@ public class Fields {
 							}
 							// Given field exists
 							else if (uml.getField().get(i).getFieldName().equals(name)) {
-								if (Driver.guiUp) {
-
-									JOptionPane.showMessageDialog(View.frmUmlEditor, "That field already exists!",
-											"Error", JOptionPane.ERROR_MESSAGE);
-
-								} else {
-									System.out.println("That field already exists!");
-								}
+								Driver.throwingError("That field already exists!");
 								return;
 							}
 						}
 					}
 					// Given field name is not alphanumeric
 					else {
-						if (Driver.guiUp) {
-
-							JOptionPane.showMessageDialog(View.frmUmlEditor,
-									"A field name must only contain numbers and letters", "Error",
-									JOptionPane.ERROR_MESSAGE);
-
-						} else {
-							System.out.println("A field name must only contain numbers and letters");
-						}
+						Driver.throwingError("A field name must only contain numbers and letters");
 					}
 				}
 			}
 		}
 		// Given class does not exist
 		else {
-			if (Driver.guiUp) {
-
-				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class does not exist!", "Error",
-						JOptionPane.ERROR_MESSAGE);
-
-			} else {
-				System.out.println("That class does not exist!");
-			}
+			Driver.throwingError("That class does not exist!");
 		}
 	}
 
@@ -123,36 +101,21 @@ public class Fields {
 							}
 							// Given field does not exist
 							else if (i == uml.getField().size()) {
-								if (Driver.guiUp) {
-									JOptionPane.showMessageDialog(View.frmUmlEditor, "That field does not exist!",
-											"Error", JOptionPane.ERROR_MESSAGE);
-								} else {
-									System.out.println("That field does not exist!");
-								}
+								Driver.throwingError("That field does not exist!");
 							}
 						}
 						return;
 					}
 					// No fields to remove
 					else {
-						if (Driver.guiUp) {
-							JOptionPane.showMessageDialog(View.frmUmlEditor, "This class has no fields!", "Error",
-									JOptionPane.ERROR_MESSAGE);
-						} else {
-							System.out.println("This class has no fields!");
-						}
+						Driver.throwingError("This class has no fields!");
 					}
 				}
 			}
 		}
 		// Given class does not exists
 		else {
-			if (Driver.guiUp) {
-				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class does not exist!", "Error",
-						JOptionPane.ERROR_MESSAGE);
-			} else {
-				System.out.println("That class does not exist!");
-			}
+			Driver.throwingError("That class does not exist!");
 		}
 	}
 
@@ -190,49 +153,28 @@ public class Fields {
 									// New field already exists
 									else if (j < uml.getField().size()
 											&& uml.getField().get(j).getFieldName().equals(newName)) {
-										if (Driver.guiUp) {
-											JOptionPane.showMessageDialog(View.frmUmlEditor,
-													"That field already exists!", "Error", JOptionPane.ERROR_MESSAGE);
-										} else {
-											System.out.println("That field already exists!");
-										}
+										Driver.throwingError("That field already exists!");
 										return;
 									}
 								}
 							}
 							// Old field does not exist
 							else {
-								if (Driver.guiUp) {
-									JOptionPane.showMessageDialog(View.frmUmlEditor, "That field does not exist!",
-											"Error", JOptionPane.ERROR_MESSAGE);
-								} else {
-									System.out.println("That field does not exist!");
-								}
+								Driver.throwingError("That field does not exist!");
 								return;
 							}
 						}
 					}
 					// New field must be alphanumeric
 					else {
-						if (Driver.guiUp) {
-							JOptionPane.showMessageDialog(View.frmUmlEditor,
-									"A field name must only contain numbers and letters", "Error",
-									JOptionPane.ERROR_MESSAGE);
-						} else {
-							System.out.println("A field name must only contain numbers and letters");
-						}
+						Driver.throwingError("A field name must only contain numbers and letters");
 					}
 				}
 			}
 		}
 		// Given class does not exist
 		else {
-			if (Driver.guiUp) {
-				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class does not exist!", "Error",
-						JOptionPane.ERROR_MESSAGE);
-			} else {
-				System.out.println("That class does not exist!");
-			}
+			Driver.throwingError("That class does not exist!");
 		}
 	}
 }

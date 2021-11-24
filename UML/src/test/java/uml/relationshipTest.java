@@ -1,6 +1,10 @@
 package uml;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class relationshipTest {
 
 	@Test 
@@ -21,6 +25,8 @@ public class relationshipTest {
 	    UML uml2 = UML.addClass("two");
 	    Relationships.addRel(uml,uml2,"inhatance");
 		assertEquals("The type was accepted when it should have been rejected",true,Relationships.testType("inheritance"));
+		Model.clearCollection();
+		Model.getNoClassDupes().clear();
 	}
 
 	@Test 

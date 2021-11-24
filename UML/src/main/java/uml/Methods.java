@@ -64,37 +64,21 @@ public class Methods {
 							// If given method exists and has the same signature as another method
 							else if (uml.getMethod().get(i).getMethodName().equals(methodName)
 									&& (uml.getMethod().get(i).getParams().isEmpty())) {
-								if (Driver.guiUp) {
-									JOptionPane.showMessageDialog(View.frmUmlEditor, "That method already exists!",
-											"Error", JOptionPane.ERROR_MESSAGE);
-								} else {
-									System.out.println("That method already exists!");
-								}
+								Driver.throwingError("That method already exists!");
 								return;
 							}
 						}
 					}
 					// Given method name is not alphanumeric
 					else {
-						if (Driver.guiUp) {
-							JOptionPane.showMessageDialog(View.frmUmlEditor,
-									"A method name must only contain numbers and letters", "Error",
-									JOptionPane.ERROR_MESSAGE);
-						} else {
-							System.out.println("A method name must only contain numbers and letters");
-						}
+						Driver.throwingError("A method name must only contain numbers and letters");
 					}
 				}
 			}
 		}
 		// Given class does not exist
 		else {
-			if (Driver.guiUp) {
-				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class already exists.", "Error",
-						JOptionPane.ERROR_MESSAGE);
-			} else {
-				System.out.println("That class does not exist!");
-			}
+			Driver.throwingError("That class already exists.");
 		}
 	}
 
@@ -127,40 +111,21 @@ public class Methods {
 							}
 							// Given method does not exist
 							else if (i == uml.getMethod().size()) {
-								if (Driver.guiUp) {
-
-									JOptionPane.showMessageDialog(View.frmUmlEditor, "That method does not exist!",
-											"Error", JOptionPane.ERROR_MESSAGE);
-
-								} else {
-									System.out.println("That method does not exist!");
-								}
+								Driver.throwingError("That method does not exist!");
 							}
 						}
 						return;
 					}
 					// No methods to remove
 					else {
-						if (Driver.guiUp) {
-							JOptionPane.showMessageDialog(View.frmUmlEditor, "This class has no methods!", "Error",
-									JOptionPane.ERROR_MESSAGE);
-
-						} else {
-							System.out.println("This class has no methods!");
-						}
+						Driver.throwingError("This class has no methods!");
 					}
 				}
 			}
 		}
 		// Given class does not exists
 		else {
-			if (Driver.guiUp) {
-				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class does not exist!", "Error",
-						JOptionPane.ERROR_MESSAGE);
-
-			} else {
-				System.out.println("That class does not exist!");
-			}
+			Driver.throwingError("That class does not exist!");
 		}
 	}
 
@@ -173,12 +138,7 @@ public class Methods {
 				if (uml.getClassName().equals(className)) {
 					// If there are no methods
 					if (uml.getMethod().isEmpty()) {
-						if (Driver.guiUp) {
-							JOptionPane.showMessageDialog(View.frmUmlEditor, "There are no methods to remove.", "Error",
-									JOptionPane.ERROR_MESSAGE);
-						} else {
-							System.out.println("There are no methods to remove.");
-						}
+						Driver.throwingError("There are no methods to remove.");
 					}
 					// If there are methods
 					else {
@@ -202,12 +162,7 @@ public class Methods {
 		}
 		// Given class does not exist
 		else {
-			if (Driver.guiUp) {
-				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class does not exist!", "Error",
-						JOptionPane.ERROR_MESSAGE);
-			} else {
-				System.out.println("That class does not exist!");
-			}
+			Driver.throwingError("That class does not exist!");
 		}
 	}
 
@@ -248,50 +203,28 @@ public class Methods {
 											&& uml.getMethod().get(j).getMethodName().equals(newName)
 											&& (MethodOverloading.compareParams(uml.getMethod().get(j).getParams(),
 													oldParameters, "hi"))) {
-										if (Driver.guiUp) {
-											JOptionPane.showMessageDialog(View.frmUmlEditor,
-													"That method with that signature already exists!", "Error",
-													JOptionPane.ERROR_MESSAGE);
-										} else {
-											System.out.println("That method with that signature already exists!");
-										}
+										Driver.throwingError("That method with that signature already exists!");
 										return;
 									}
 								}
 							}
 							// Old method does not exist
 							else {
-								if (Driver.guiUp) {
-									JOptionPane.showMessageDialog(View.frmUmlEditor, "That method does not exist!",
-											"Error", JOptionPane.ERROR_MESSAGE);
-								} else {
-									System.out.println("That method does not exist!");
-								}
+								Driver.throwingError("That method does not exist!");
 								return;
 							}
 						}
 					}
 					// New method must be alphanumeric
 					else {
-						if (Driver.guiUp) {
-							JOptionPane.showMessageDialog(View.frmUmlEditor,
-									"A method name must only contain numbers and letters", "Error",
-									JOptionPane.ERROR_MESSAGE);
-						} else {
-							System.out.println("A method name must only contain numbers and letters");
-						}
+						Driver.throwingError("A method name must only contain numbers and letters");
 					}
 				}
 			}
 		}
 		// Given class does not exist
 		else {
-			if (Driver.guiUp) {
-				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class does not exist!", "Error",
-						JOptionPane.ERROR_MESSAGE);
-			} else {
-				System.out.println("That class does not exist!");
-			}
+			Driver.throwingError("That class does not exist!");
 		}
 	}
 }

@@ -243,31 +243,31 @@ public class MethodOverloading {
 		return pList;
 	}
 
-	public static ArrayList<Parameters> locatingParametersCLI(String UML, String method, ArrayList<String> a) {
-		ArrayList<Parameters> pList = null;
-		// boolean to check if there is method overloading. False if there is. True if
-		// there isn't
-
-		boolean validate = true;
-		// Exit case
-		try {
-			if (MethodOverloading.containsDuplicateMethods(UML).contains(method)) {
-
-				validate = false;
-				// Specific parameter list if the method is overloaded
-				pList = MethodOverloading.findMethod(UML, method, a);
-			}
-
-		} catch (NullPointerException e) {
-			System.out.println("Class name not found");
-			return null;
-		}
-
-		if (validate) {
-			// If no method overloading exists
-			pList = Parameters.findMethod(UML, method);
-		}
-		return pList;
-	}
+//	public static ArrayList<Parameters> locatingParametersCLI(String UML, String method, ArrayList<String> a) {
+//		ArrayList<Parameters> pList = null;
+//		// boolean to check if there is method overloading. False if there is. True if
+//		// there isn't
+//
+//		boolean validate = true;
+//		// Exit case
+//		try {
+//			if (MethodOverloading.containsDuplicateMethods(UML).contains(method)) {
+//
+//				validate = false;
+//				// Specific parameter list if the method is overloaded
+//				pList = MethodOverloading.findMethod(UML, method, a);
+//			}
+//
+//		} catch (NullPointerException e) {
+//			System.out.println("Class name not found");
+//			return null;
+//		}
+//
+//		if (validate) {
+//			// If no method overloading exists
+//			pList = Parameters.findMethod(UML, method);
+//		}
+//		return pList;
+//	}
 
 }

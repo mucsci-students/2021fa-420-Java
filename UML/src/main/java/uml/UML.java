@@ -101,23 +101,11 @@ public class UML {
 		}
 		// When the inputted name is not alphanumeric
 		else if (pattern.matcher(className).find()) {
-			if (Driver.guiUp) {
-				JOptionPane.showMessageDialog(View.frmUmlEditor, "A class name must only contain numbers and letters!",
-						"Error", JOptionPane.ERROR_MESSAGE);
-
-			} else {
-				System.out.println("A class name must only contain numbers and letters!");
-			}
+			Driver.throwingError("A class name must only contain numbers and letters!");
 		}
 		// When the class already exists
 		else {
-			if (Driver.guiUp) {
-				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class already exists!", "Error",
-						JOptionPane.ERROR_MESSAGE);
-
-			} else {
-				System.out.println("That class already exists!");
-			}
+			Driver.throwingError("That class already exists!");
 		}
 		return null;
 	}
@@ -151,12 +139,7 @@ public class UML {
 		}
 		// When the class doesn't exist
 		else {
-			if (Driver.guiUp) {
-				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class does not exist!", "Error",
-						JOptionPane.ERROR_MESSAGE);
-			} else {
-				System.out.println("That class does not exist!");
-			}
+			Driver.throwingError("That class does not exist!");
 		}
 		return null;
 	}
@@ -190,37 +173,21 @@ public class UML {
 		}
 		// When the new name is not alphanumeric
 		else if (pattern.matcher(newName).find()) {
-			if (Driver.guiUp) {
-				JOptionPane.showMessageDialog(View.frmUmlEditor, "A class name must only contain numbers and letters",
-						"Error", JOptionPane.ERROR_MESSAGE);
-			} else {
-				System.out.println("A class name must only contain numbers and letters");
-			}
+			Driver.throwingError("A class name must only contain numbers and letters");
 		}
 		// When the new class already exists
 		else if (Model.getNoClassDupes().contains(newName)) {
-			if (Driver.guiUp) {
-
-				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class already exists!", "Error",
-						JOptionPane.ERROR_MESSAGE);
-			} else {
-				System.out.println("That class already exists!");
-			}
+			Driver.throwingError("That class already exists!");
 		}
 		// When the old class doesn't exist
 		else {
-			if (Driver.guiUp) {
-				JOptionPane.showMessageDialog(View.frmUmlEditor, "That class does not exist!", "Error",
-						JOptionPane.ERROR_MESSAGE);
-			} else {
-				System.out.println("That class does not exist!");
-			}
+			Driver.throwingError("That class does not exist!");
 		}
 		return null;
 	}
 
 	// Will list all of UMLs fields.
-	public void listFields() {
+	public boolean listFields() {
 		if (Driver.guiUp) {
 			View.outputText = "<html>Class: " + name;
 		} else {
@@ -247,18 +214,16 @@ public class UML {
 					System.out.println(fields.get(i).getFieldType() + " " + fields.get(i).getFieldName());
 				}
 			}
+			
 		}
+		return true;
 	}
 
 	// Will list all of UMLs methods.
-	public void listMethods() {
+	public boolean listMethods() {
 		// Checks if there are any methods.
 		if (methods.isEmpty()) {
-			if (Driver.guiUp) {
-				View.outputText += "<br>This class has no methods";
-			} else {
-				System.out.println("This class has no methods");
-			}
+			Driver.throwingError("This class has no methods");
 		} else {
 			if (Driver.guiUp) {
 				// Prints all methods in arrayList "method"
@@ -294,17 +259,14 @@ public class UML {
 				}
 			}
 		}
+		return true;
 	}
 
 	// Will list all of UMLs relationships.
-	public void listRelationships() {
+	public boolean listRelationships() {
 		// Checks if there are any relationships.
 		if (relationships.isEmpty()) {
-			if (Driver.guiUp) {
-				View.outputText = ("No relationships exist!");
-			} else {
-				System.out.println("No relationships exist!");
-			}
+			Driver.throwingError("No relationships exist!");
 		} else {
 			if (Driver.guiUp) {
 				View.outputText = "<html>";
@@ -322,6 +284,7 @@ public class UML {
 				}
 			}
 		}
+		return true;
 	}
 
 	public static UML findUMLOBJ(String name) {

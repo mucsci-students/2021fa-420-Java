@@ -322,4 +322,19 @@ public class MethodsTester {
 		Model.getNoClassDupes().clear();
 		Model.clearCollection();
 	}
+	
+	
+	@Test
+	public void test12_lists() {
+		UML uml1 = UML.addClass("Class1");
+		UML uml2 = UML.addClass("Class2");
+		Methods.addMethod("Class1", "a", "String");
+		Fields.addField("Class1", "b", "int");
+		assertTrue("Fields not listed",uml1.listFields());
+		assertTrue("Methods not listed",uml1.listMethods());
+		assertTrue("Relationships not listed",uml1.listRelationships());
+		
+		Model.getNoClassDupes().clear();
+		Model.clearCollection();
+	}
 }
