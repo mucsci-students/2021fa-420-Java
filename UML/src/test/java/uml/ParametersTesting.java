@@ -9,10 +9,7 @@ import org.junit.runners.MethodSorters;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ParametersTesting {
-    
-
-    
-@Test
+    @Test
 	public void Constructor() {
 
 		// Add the first Method
@@ -29,7 +26,8 @@ public class ParametersTesting {
         Model.clearCollection();
         Model.getNoClassDupes().clear();
     }
-@Test
+    
+    @Test
     public void addParamsAndFindParams() {
 		// Create a class
 		UML.addClass("class");
@@ -48,7 +46,8 @@ public class ParametersTesting {
         Model.clearCollection();
         Model.getNoClassDupes().clear();
     }
-@Test
+    
+    @Test
     public void addParamsAndFindParamsAdvanced(){
         //Advanced case
         UML.addClass("class");
@@ -77,7 +76,8 @@ public class ParametersTesting {
         Model.clearCollection();
         Model.getNoClassDupes().clear();
     }
-@Test
+    
+    @Test
     public void deleteParameterAndCompareParams(){
         UML.addClass("class");
         Methods.addMethod("class", "a", "String");
@@ -103,7 +103,8 @@ public class ParametersTesting {
         Model.clearCollection();
         Model.getNoClassDupes().clear();
     }
-@Test
+    
+    @Test
     public void deleteAllParameters(){
         UML.addClass("class");
         Methods.addMethod("class", "a", "String");
@@ -127,9 +128,10 @@ public class ParametersTesting {
         Model.clearCollection();
         Model.getNoClassDupes().clear();
     }
-@Test
+    
+    @Test
     public void changeParameters(){
-    UML.addClass("class");
+        UML.addClass("class");
         Methods.addMethod("class", "a", "String");
 
 		Parameters p1 = new Parameters("x1", "int");
@@ -152,8 +154,63 @@ public class ParametersTesting {
 
         Model.clearCollection();
         Model.getNoClassDupes().clear();
-
     }
 
+    @Test
+    public void addParamsDNE() {
+        // Create a class
+		UML uml = UML.addClass("class");
+        // Add a method
+        Methods.addMethod("class", "a", "String");
+		Parameters p1= new Parameters("x", "int");
+		Parameters.addParameter("class", "a" , "x", "int", null , true);
+        //Testing Parameters find method, which finds the list of parameters
+        ArrayList<Parameters> pList = Parameters.findMethod("class", "a");
+        //Testing that given the method we can find the specific parameters
+        Parameters p2 = Parameters.findParam("x", pList);
+        Parameters p3= new Parameters("x", "int");
+		Parameters.addParameter("class", "a" , "x", "int", null , true);
 
+        Model.clearCollection();
+        Model.getNoClassDupes().clear();
+    }
+
+    @Test
+    public void deleteParamsDNE() {
+        UML.addClass("class");
+        Methods.addMethod("class", "a", "String");
+
+		Parameters p1= new Parameters("x1", "int");
+        Parameters p2= new Parameters("x2", "String");
+        Parameters p3= new Parameters("x3", "Object");
+
+		Parameters.addParameter("class", "a" , "x1", "int", null , true);
+        Parameters.addParameter("class", "a" , "x2", "String", null , true);
+        Parameters.addParameter("class", "a" , "x3", "Object", null , true);
+
+        ArrayList<Parameters> pList1 = Parameters.findMethod("class", "a");
+        UML.addClass("class");
+        Methods.addMethod("class", "b", "String");
+        Parameters.addParameter("class", "b" , "x2", "String", null , true);
+        Parameters.addParameter("class", "b" , "x3", "Object", null , true);
+        
+        Parameters.deleteParameter("class", "a", "y1", null , true);
+        ArrayList<Parameters> pList2 = Parameters.findMethod("class", "b");
+        assertFalse("Are the params the same?", MethodOverloading.compareParams(pList1, pList2, "Random String"));
+       
+        Model.clearCollection();
+        Model.getNoClassDupes().clear();
+    }
+
+    @Test
+    public void deleteAllParamsDNE() {
+        UML.addClass("class");
+        Methods.addMethod("class", "a", "String");
+
+        ArrayList<Parameters> pList1 = Parameters.findMethod("class", "a");        
+        Parameters.deleteAllParameters("class", "a", null , true);
+       
+        Model.clearCollection();
+        Model.getNoClassDupes().clear();
+    }
 }

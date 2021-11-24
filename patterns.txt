@@ -6,6 +6,7 @@ For each loops that search through the collection
 
 3.) Builder
 Tab Completion
+
 4.) MVC
 Model, View, Controller files
 
@@ -20,3 +21,15 @@ Tab Completion -> Completers
 
 8.) Facade
 Tab Completion
+
+9.) Command
+Save & Load
+
+10.) Mediator
+Controller
+
+11.) Adaptor
+Screenshot
+
+12.) Singleton
+Model & UML, which contains the "database" of our program

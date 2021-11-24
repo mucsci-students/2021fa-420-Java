@@ -17,7 +17,10 @@ public class relationshipTest {
 
 	@Test
 	public void test02_checkRelationTypes() { //Tests that a relationship of a type not allowed can not be added.
-		assertEquals("The type was accepted when it should have been rejected",false,Relationships.testType("inharitance"));
+		UML uml = UML.addClass("one");
+	    UML uml2 = UML.addClass("two");
+	    Relationships.addRel(uml,uml2,"inhatance");
+		assertEquals("The type was accepted when it should have been rejected",true,Relationships.testType("inheritance"));
 	}
 
 	@Test 
@@ -84,6 +87,47 @@ public class relationshipTest {
 	    Relationships.addRel(uml, uml2, "inheritance");
 		Relationships.addRel(uml, uml2, "inheritance");
 
+		assertEquals("Relationships size is not 1", 1, uml.getRels().size());
+
+		Model.clearCollection();
+		Model.getNoClassDupes().clear();
+	}
+
+	@Test
+	public void test07_deleteNotExist() {
+		UML uml = UML.addClass("one");
+	    UML uml2 = UML.addClass("two");
+
+		Relationships.addRel(uml, uml2, "inheritance");
+	    Relationships.delRel("three", "two");
+		Relationships.delRel("one", "three");
+		assertEquals("Relationships size is not 1", 1, uml.getRels().size());
+
+		Model.clearCollection();
+		Model.getNoClassDupes().clear();
+	}
+
+	@Test
+	public void test08_changeRel() {
+		UML uml = UML.addClass("one");
+	    UML uml2 = UML.addClass("two");
+
+		Relationships.addRel(uml, uml2, "inheritance");
+		Relationships.changeRel("one", "two", "realization");
+		assertEquals("Relationships size is not 1", 1, uml.getRels().size());
+
+		Model.clearCollection();
+		Model.getNoClassDupes().clear();
+	}
+
+	@Test
+	public void test09_changeRelNotExist() {
+		UML uml = UML.addClass("one");
+	    UML uml2 = UML.addClass("two");
+
+		Relationships.addRel(uml, uml2, "inheritance");
+		Relationships.changeRel("three", "two", "realization");
+		Relationships.changeRel("one", "three", "realization");
 		assertEquals("Relationships size is not 1", 1, uml.getRels().size());
 
 		Model.clearCollection();
