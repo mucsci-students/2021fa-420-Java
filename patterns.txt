@@ -33,3 +33,9 @@ Screenshot
 
 12.) Singleton
 Model & UML, which contains the "database" of our program
+
+13.) Composite
+JSwing
+
+14.) Decorator
+2D Graphics in the Relationship class
