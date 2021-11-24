@@ -43,12 +43,4 @@ public class Model {
 		arrows.clear();
 	}
 
-	public static void throwingError(String s){
-		if (Driver.guiUp) {
-			JOptionPane.showMessageDialog(View.frmUmlEditor, s,
-					"Error", JOptionPane.ERROR_MESSAGE);
-		} else {
-			System.out.println(s);
-		}
-	}
 }

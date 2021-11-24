@@ -171,4 +171,19 @@ public class MethodOverloadingTests {
         Model.clearCollection();
         Model.getNoClassDupes().clear();
     }  
+    
+//    @Test
+//    public void locatingParametersCLI(){
+//  	
+//      UML uml = UML.addClass("class");
+//      Methods.addMethod("class", "a", "String");
+//      Parameters.addParameter("class", "a" , "x", "String", null , true);
+//      ArrayList<String> list = new ArrayList<String>();
+//      list.add("x");
+//      ArrayList<Parameters> p = MethodOverloading.locatingParametersCLI("class","a",list);
+//      assertEquals("","x",p.get(0).getParamType());
+//      Model.clearCollection();
+//      Model.getNoClassDupes().clear();
+//  }  
+    
 }

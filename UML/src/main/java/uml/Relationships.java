@@ -37,13 +37,7 @@ public class Relationships {
 		if (testType(type)) {
 			this.type = type;
 		} else {
-			if (Driver.guiUp) {
-				JOptionPane.showMessageDialog(View.frmUmlEditor,
-						"Type must be aggregation, composition, inheritance, or realization.", "Error",
-						JOptionPane.ERROR_MESSAGE);
-			} else {
-				System.out.println("Type must be aggregation, composition, inheritance, or realization.");
-			}
+			Driver.throwingError("Type must be aggregation, composition, inheritance, or realization.");
 		}
 	}
 
@@ -104,23 +98,11 @@ public class Relationships {
 					}
 				}
 			} else {
-				if (Driver.guiUp) {
-					JOptionPane.showMessageDialog(View.frmUmlEditor, "Cannot add a relationship to the same class",
-							"Error", JOptionPane.ERROR_MESSAGE);
-				} else {
-					System.out.println("Cannot add a relationship to the same class");
-				}
+				Driver.throwingError("Cannot add a relationship to the same class");
 			}
 		} else {
 			// Type entered was not one of the 4 for relationships
-			if (Driver.guiUp) {
-
-				JOptionPane.showMessageDialog(View.frmUmlEditor,
-						"Type must be aggregation, composition, inheritance, or realization.", "Error",
-						JOptionPane.ERROR_MESSAGE);
-			} else {
-				System.out.println("Type must be aggregation, composition, inheritance, or realization.");
-			}
+			Driver.throwingError("Type must be aggregation, composition, inheritance, or realization.");
 		}
 	}
 
@@ -162,22 +144,10 @@ public class Relationships {
 					}
 				}
 			} else {
-				if (Driver.guiUp) {
-					JOptionPane.showMessageDialog(View.frmUmlEditor, "Destination class does not exist!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else {
-					System.out.println("Destination class does not exist!");
-				}
+				Driver.throwingError("Destination class does not exist!");
 			}
 		} else {
-			if (Driver.guiUp) {
-
-				JOptionPane.showMessageDialog(View.frmUmlEditor, "Source class does not exist!", "Error",
-						JOptionPane.ERROR_MESSAGE);
-
-			} else {
-				System.out.println("Source class does not exist!");
-			}
+			Driver.throwingError("Source class does not exist!");
 		}
 	}
 
@@ -210,24 +180,10 @@ public class Relationships {
 					}
 				}
 			} else {
-				if (Driver.guiUp) {
-
-					JOptionPane.showMessageDialog(View.frmUmlEditor, "Destination class does not exist!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-
-				} else {
-					System.out.println("Destination class does not exist!");
-				}
+				Driver.throwingError("Destination class does not exist!");
 			}
 		} else {
-			if (Driver.guiUp) {
-
-				JOptionPane.showMessageDialog(View.frmUmlEditor, "Source class does not exist!", "Error",
-						JOptionPane.ERROR_MESSAGE);
-
-			} else {
-				System.out.println("Source class does not exist!");
-			}
+			Driver.throwingError("Source class does not exist!");
 		}
 	}
 }
