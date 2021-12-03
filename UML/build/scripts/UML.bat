@@ -67,7 +67,7 @@ goto fail
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\UMLEditor-3.0.0.jar;%APP_HOME%\lib\gson-2.8.8.jar
+set CLASSPATH=%APP_HOME%\lib\UMLEditor-4.0.0.jar;%APP_HOME%\lib\gson-2.8.8.jar;%APP_HOME%\lib\jline-3.21.0.jar;%APP_HOME%\lib\jansi-2.4.0.jar
 
 
 @rem Execute UML

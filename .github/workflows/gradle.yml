@@ -2,9 +2,9 @@ name: Continous Integration
 
 on:
   push:
-    branches: [ $default-branch ]
+    branches: [ develop ]
   pull_request:
-    branches: [ $default-branch ]
+    branches: [ devleop ]
 jobs:
   build:
 
