@@ -78,7 +78,7 @@ public class Methods {
 		}
 		// Given class does not exist
 		else {
-			Driver.throwingError("That class already exists.");
+			Driver.throwingError("That class does not exist!");
 		}
 	}
 

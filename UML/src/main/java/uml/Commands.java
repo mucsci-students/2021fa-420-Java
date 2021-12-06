@@ -103,6 +103,9 @@ public class Commands {
         ArrayList<String> parser = new ArrayList<>();
         String comparison = Commands.compare(given);
 		String matcher = Commands.match(comparison);
+        if (matcher.equals("-1")){
+            throw new IllegalArgumentException();
+        }
 
         // int numOfSpaces = countSpaces("   add   class ", matcher);   
         int test = 0;
