@@ -90,9 +90,9 @@ public class Commands {
             s = s.replaceFirst(" ", "");
             ++count;
             ++run;
-            if (run > 120){
-                throw new IllegalArgumentException();
-            }
+            // if (run > 120){
+            //     throw new IllegalArgumentException();
+            // }
         }
         return count;
 

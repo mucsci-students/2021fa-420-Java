@@ -1,264 +1,561 @@
 package uml;
 
-import java.awt.Dimension;
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
+/**
+ *
+ * @author tbren
+ */
+public class View extends javax.swing.JFrame {
 
-public class View {
-	// Window
-	public static JFrame frmUmlEditor;
+    public static Controller controller = new Controller();
 
-	// For user input
-	public static JPanel inputPanel;
-	public static JLabel inputLbl;
-	public static JTextField textField;
-	public static String outputText;
+    public View() {
+        initComponents();
+    }
 
-	// JSON string output
-	public static JPanel savePanel;
-	public static JTextField textFieldJSON;
+    
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
 
-	// Controller object to run commands
-	public static Controller controller = new Controller();
+		toolbar = new javax.swing.JToolBar();
+		toolbar.setFloatable(false);
 
-	public static JLabel lbl;
-	public static JPanel panel;
-	public static JScrollPane scroll;
+		load = new javax.swing.JButton();
+		load.addActionListener(controller);
+		load.setActionCommand("Load");
 
-	/**
-	 * Launch the application.
-	 */
-	public static void runGUI() {
-		EventQueue.invokeLater(new Runnable() {
-			@SuppressWarnings("static-access")
-			public void run() {
-				try {
-					View window = new View();
-					window.frmUmlEditor.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+        save = new javax.swing.JButton();
+		save.addActionListener(controller);
+		save.setActionCommand("Save");
 
-	/**
-	 * Create the application.
-	 */
-	public View() {
-		initialize();
-	}
+        help = new javax.swing.JButton();
+		help.addActionListener(controller);
+		help.setActionCommand("Help");
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		// Creates window
-		frmUmlEditor = new JFrame();
-		frmUmlEditor.setTitle("UML Editor");
-		frmUmlEditor.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		frmUmlEditor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmUmlEditor.getContentPane().setLayout(null);
-		frmUmlEditor.getContentPane().setPreferredSize(new Dimension(1360, 700));
-		frmUmlEditor.getContentPane().add(panel);
-		frmUmlEditor.pack();
+		CLI = new javax.swing.JButton();
+		CLI.addActionListener(controller);
+		CLI.setActionCommand("Switch to CLI");
 
-		// Creates panel for major command buttons
-		JPanel mainBtnPanel = new JPanel();
-		mainBtnPanel.setBackground(Color.LIGHT_GRAY);
-		mainBtnPanel.setBounds(10, 10, 183, 679);
-		frmUmlEditor.getContentPane().add(mainBtnPanel);
-		mainBtnPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		mainBtnPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        screenshot = new javax.swing.JButton();
+		screenshot.addActionListener(controller);
+		screenshot.setActionCommand("Screenshot");
 
-		// Creates command buttons, gives them action commands and listeners, and adds
-		// to panel
-		// *************************************************************************************//
-		JButton btnAddClass = new JButton("Add Class");
-		btnAddClass.setActionCommand("Add Class");
-		btnAddClass.addActionListener(controller);
-		mainBtnPanel.add(btnAddClass);
+        undo = new javax.swing.JButton();
+		undo.addActionListener(controller);
+		undo.setActionCommand("Undo");
 
-		JButton btnRemoveClass = new JButton("Remove Class");
-		btnRemoveClass.setActionCommand("Remove Class");
-		btnRemoveClass.addActionListener(controller);
-		mainBtnPanel.add(btnRemoveClass);
+		addclass = new javax.swing.JButton();
+		addclass.addActionListener(controller);
+		addclass.setActionCommand("Add Class");
 
-		JButton btnRenameClass = new JButton("Rename Class");
-		btnRenameClass.setActionCommand("Rename Class");
-		btnRenameClass.addActionListener(controller);
-		mainBtnPanel.add(btnRenameClass);
+        removeclass = new javax.swing.JButton();
+        renameclass = new javax.swing.JButton();
+		addmethod = new javax.swing.JButton();
+        removemethod = new javax.swing.JButton();
+        removeall = new javax.swing.JButton();
+		renamemethod = new javax.swing.JButton();
+		addparam = new javax.swing.JButton();
+        removeparam = new javax.swing.JButton();
+        removeallparams = new javax.swing.JButton();
+        changeparams = new javax.swing.JButton();
 
-		JButton btnAddMethod = new JButton("Add Method");
-		btnAddMethod.setActionCommand("Add Method");
-		btnAddMethod.addActionListener(controller);
-		mainBtnPanel.add(btnAddMethod);
 
-		JButton btnRemoveMethod = new JButton("Remove Method");
-		btnRemoveMethod.setActionCommand("Remove Method");
-		btnRemoveMethod.addActionListener(controller);
-		mainBtnPanel.add(btnRemoveMethod);
+        frmUmlEditor = new javax.swing.JFrame();
+        scroll = new javax.swing.JScrollPane();
+        panel = new javax.swing.JPanel();
+        
+        redo = new javax.swing.JButton();
+        classes = new javax.swing.JTabbedPane();
+        jPanel9 = new javax.swing.JPanel();
+        
+        methodsTab = new javax.swing.JPanel();
+        
+    
+        fieldTab = new javax.swing.JPanel();
+        addfield = new javax.swing.JButton();
+        removefield = new javax.swing.JButton();
+        renamefield = new javax.swing.JButton();
+        relationshipTab = new javax.swing.JPanel();
+        addrelationship = new javax.swing.JButton();
+        changerelationship = new javax.swing.JButton();
+        removerelationship = new javax.swing.JButton();
+        paramTab = new javax.swing.JPanel();
+        
+        inputPanel = new javax.swing.JPanel();
+        inputLbl = new javax.swing.JLabel();
+        textField = new javax.swing.JTextField();
+        Enter = new javax.swing.JButton();
 
-		JButton btnRemoveAllMethods = new JButton("Remove All Methods");
-		btnRemoveAllMethods.setActionCommand("Remove All Methods");
-		btnRemoveAllMethods.addActionListener(controller);
-		mainBtnPanel.add(btnRemoveAllMethods);
+        javax.swing.GroupLayout frameLayout = new javax.swing.GroupLayout(frmUmlEditor.getContentPane());
+        frmUmlEditor.getContentPane().setLayout(frameLayout);
+        frameLayout.setHorizontalGroup(
+            frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        frameLayout.setVerticalGroup(
+            frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
-		JButton btnRenameMethod = new JButton("Rename Method");
-		btnRenameMethod.setActionCommand("Rename Method");
-		btnRenameMethod.addActionListener(controller);
-		mainBtnPanel.add(btnRenameMethod);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-		JButton btnAddParameter = new JButton("Add Parameter");
-		btnAddParameter.setActionCommand("Add Parameter");
-		btnAddParameter.addActionListener(controller);
-		mainBtnPanel.add(btnAddParameter);
+        scroll.setBackground(new java.awt.Color(102, 102, 102));
 
-		JButton btnRemoveParameter = new JButton("Remove Parameter");
-		btnRemoveParameter.setActionCommand("Remove Parameter");
-		btnRemoveParameter.addActionListener(controller);
-		mainBtnPanel.add(btnRemoveParameter);
+        panel.setBackground(new java.awt.Color(102, 102, 102));
+        panel.setAutoscrolls(true);
 
-		JButton btnRemoveAllParameters = new JButton("Remove All Parameters");
-		btnRemoveAllParameters.setActionCommand("Remove All Parameters");
-		btnRemoveAllParameters.addActionListener(controller);
-		mainBtnPanel.add(btnRemoveAllParameters);
+        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
+        panel.setLayout(panelLayout);
+        panelLayout.setHorizontalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1792, Short.MAX_VALUE)
+        );
+        panelLayout.setVerticalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1652, Short.MAX_VALUE)
+        );
 
-		JButton btnChangeParameter = new JButton("Change Parameter");
-		btnChangeParameter.setActionCommand("Change Parameter");
-		btnChangeParameter.addActionListener(controller);
-		mainBtnPanel.add(btnChangeParameter);
+        scroll.setViewportView(panel);
 
-		// Didn't have time to figure out method overloading for this monster
-		// JButton btnChangeAllParameters = new JButton("Change All Parameters");
-		// btnChangeAllParameters.setActionCommand("Change All Parameters");
-		// btnChangeAllParameters.addActionListener(controller);
-		// mainBtnPanel.add(btnChangeAllParameters);
+        toolbar.setRollover(true);
 
-		JButton btnAddField = new JButton("Add Field");
-		btnAddField.setActionCommand("Add Field");
-		btnAddField.addActionListener(controller);
-		mainBtnPanel.add(btnAddField);
+        load.setText("Load");
+        load.setFocusable(false);
+        load.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        load.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolbar.add(load);
 
-		JButton btnRemoveField = new JButton("Remove Field");
-		btnRemoveField.setActionCommand("Remove Field");
-		btnRemoveField.addActionListener(controller);
-		mainBtnPanel.add(btnRemoveField);
+        save.setText("Save");
+        save.setFocusable(false);
+        save.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        save.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolbar.add(save);
 
-		JButton btnRenameField = new JButton("Rename Field");
-		btnRenameField.setActionCommand("Rename Field");
-		btnRenameField.addActionListener(controller);
-		mainBtnPanel.add(btnRenameField);
+        help.setText("Help");
+        help.setFocusable(false);
+        help.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        help.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolbar.add(help);
 
-		JButton btnAddRelationship = new JButton("Add Relationship");
-		btnAddRelationship.setActionCommand("Add Relationship");
-		btnAddRelationship.addActionListener(controller);
-		mainBtnPanel.add(btnAddRelationship);
+        CLI.setText("Switch to CLI");
+        CLI.setFocusable(false);
+        CLI.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        CLI.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolbar.add(CLI);
 
-		JButton btnRemoveRelationship = new JButton("Remove Relationship");
-		btnRemoveRelationship.setActionCommand("Remove Relationship");
-		btnRemoveRelationship.addActionListener(controller);
-		mainBtnPanel.add(btnRemoveRelationship);
+        screenshot.setText("Screenshot");
+        screenshot.setFocusable(false);
+        screenshot.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        screenshot.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolbar.add(screenshot);
 
-		JButton btnChangeRelationship = new JButton("Change Relationship");
-		btnChangeRelationship.setActionCommand("Change Relationship");
-		btnChangeRelationship.addActionListener(controller);
-		mainBtnPanel.add(btnChangeRelationship);
+        undo.setText("Undo");
+        undo.setFocusable(false);
+        undo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        undo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolbar.add(undo);
 
-		JButton btnUndo = new JButton("Undo");
-		btnUndo.setActionCommand("Undo");
-		btnUndo.addActionListener(controller);
-		mainBtnPanel.add(btnUndo);
+        redo.setText("Redo");
+        redo.setFocusable(false);
+        redo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        redo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolbar.add(redo);
 
-		JButton btnRedo = new JButton("Redo");
-		btnRedo.setActionCommand("Redo");
-		btnRedo.addActionListener(controller);
-		mainBtnPanel.add(btnRedo);
+		// EVENTS
+        addclass.setText("Add Class");
+		
+        removeclass.setText("Remove Class");
+        removeclass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeclassActionPerformed(evt);
+            }
+        });
 
-		// *************************************************************************************//
+        renameclass.setText("Rename Class");
 
-		// Creates panel for other buttons
-		JPanel extraBtnPanel = new JPanel();
-		extraBtnPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		extraBtnPanel.setBackground(Color.LIGHT_GRAY);
-		extraBtnPanel.setBounds(1232, 10, 118, 169);
-		frmUmlEditor.getContentPane().add(extraBtnPanel);
-		extraBtnPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(addclass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(removeclass, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+            .addComponent(renameclass, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(addclass)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(removeclass)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(renameclass)
+                .addContainerGap(304, Short.MAX_VALUE))
+        );
 
-		// Creates other buttons, gives them action commands and listeners, and adds to
-		// panel
-		// *************************************************************************************//
-		JButton btnSave = new JButton("Save");
-		btnSave.setActionCommand("Save");
-		btnSave.addActionListener(controller);
-		extraBtnPanel.add(btnSave);
+        classes.addTab("Class", jPanel9);
 
-		JButton btnLoad = new JButton("Load");
-		btnLoad.setActionCommand("Load");
-		btnLoad.addActionListener(controller);
-		extraBtnPanel.add(btnLoad);
+        addmethod.setText("Add Method");
+        addmethod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addmethodActionPerformed(evt);
+            }
+        });
 
-		JButton btnHelp = new JButton("Help");
-		btnHelp.setActionCommand("Help");
-		btnHelp.addActionListener(controller);
-		extraBtnPanel.add(btnHelp);
+        removemethod.setText("Remove Method");
+        removemethod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removemethodActionPerformed(evt);
+            }
+        });
 
-		JButton btnSwitch = new JButton("Switch to CLI");
-		btnSwitch.setActionCommand("CLI");
-		btnSwitch.addActionListener(controller);
-		extraBtnPanel.add(btnSwitch);
+        removeall.setText("Remove All Methods");
 
-		JButton btnScreenshot = new JButton("Screenshot");
-		btnScreenshot.setActionCommand("Screenshot");
-		btnScreenshot.addActionListener(controller);
-		extraBtnPanel.add(btnScreenshot);
-		// *************************************************************************************//
+        renamemethod.setText("Rename Method");
+        renamemethod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                renamemethodActionPerformed(evt);
+            }
+        });
 
-		// Creates panel for user input
-		// *************************************************************************************//
-		inputPanel = new JPanel();
-		inputPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		inputPanel.setBackground(Color.LIGHT_GRAY);
-		inputPanel.setBounds(203, 10, 165, 343);
-		frmUmlEditor.getContentPane().add(inputPanel);
-		inputPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        javax.swing.GroupLayout methodsTabLayout = new javax.swing.GroupLayout(methodsTab);
+        methodsTab.setLayout(methodsTabLayout);
+        methodsTabLayout.setHorizontalGroup(
+            methodsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(renamemethod, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(removeall, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+            .addComponent(removemethod, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(addmethod, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        methodsTabLayout.setVerticalGroup(
+            methodsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(methodsTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(addmethod)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(removemethod)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(removeall)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(renamemethod)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-		inputLbl = new JLabel("");
-		inputPanel.add(inputLbl);
+        classes.addTab("Methods", methodsTab);
 
-		textField = new JTextField();
-		inputPanel.add(textField);
-		textField.setColumns(10);
+        addfield.setText("Add Field");
 
-		JButton btnEnter = new JButton("Enter");
-		btnEnter.setActionCommand("Enter");
-		btnEnter.addActionListener(controller);
-		inputPanel.add(btnEnter);
-		inputPanel.setVisible(false);
+        removefield.setText("Remove Field");
 
-		BoxObject.updateBoxes();
-		Arrows.updateArrows(panel.getGraphics());
-	}
+        renamefield.setText("Rename Field");
 
-	public static void initializePanel() {
-		panel = new JPanel();
-		panel.setBackground(Color.LIGHT_GRAY);
-		panel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		panel.setBounds(378, 10, 844, 679);
-		panel.setLayout(null);
-	}
+        javax.swing.GroupLayout fieldTabLayout = new javax.swing.GroupLayout(fieldTab);
+        fieldTab.setLayout(fieldTabLayout);
+        fieldTabLayout.setHorizontalGroup(
+            fieldTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(addfield, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(removefield, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+            .addComponent(renamefield, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        fieldTabLayout.setVerticalGroup(
+            fieldTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fieldTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(addfield)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(removefield)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(renamefield)
+                .addContainerGap(304, Short.MAX_VALUE))
+        );
 
-	public static void closeGUI() {
+        classes.addTab("Fields", fieldTab);
+
+        addrelationship.setText("Add Realtionship");
+
+        changerelationship.setText("Change RelationShip");
+
+        removerelationship.setText("Remove Relationship");
+        removerelationship.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerelationshipActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout relationshipTabLayout = new javax.swing.GroupLayout(relationshipTab);
+        relationshipTab.setLayout(relationshipTabLayout);
+        relationshipTabLayout.setHorizontalGroup(
+            relationshipTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(addrelationship, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(changerelationship, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(removerelationship, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+        );
+        relationshipTabLayout.setVerticalGroup(
+            relationshipTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(relationshipTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(addrelationship)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(changerelationship)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(removerelationship)
+                .addContainerGap(304, Short.MAX_VALUE))
+        );
+
+        classes.addTab("Relationships", relationshipTab);
+
+        addparam.setText("Add Parameter");
+        addparam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addparamActionPerformed(evt);
+            }
+        });
+
+        removeparam.setText("Remove Parameter");
+        removeparam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeparamActionPerformed(evt);
+            }
+        });
+
+        removeallparams.setText("Remove All Parameters");
+        removeallparams.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeallparamsActionPerformed(evt);
+            }
+        });
+
+        changeparams.setText("Change Parameter");
+
+        javax.swing.GroupLayout paramTabLayout = new javax.swing.GroupLayout(paramTab);
+        paramTab.setLayout(paramTabLayout);
+        paramTabLayout.setHorizontalGroup(
+            paramTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(addparam, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(removeparam, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(removeallparams, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(changeparams, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        paramTabLayout.setVerticalGroup(
+            paramTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paramTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(addparam)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(removeparam)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(removeallparams)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(changeparams)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        classes.addTab("Parameters", paramTab);
+
+        inputLbl.setText("hold");
+
+        textField.setText("textfield");
+        textField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textfieldActionPerformed(evt);
+            }
+        });
+
+        Enter.setText("Enter");
+        Enter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EnterActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(inputPanel);
+        inputPanel.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(inputLbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(textField, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(149, 149, 149)
+                        .addComponent(Enter)))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(inputLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(Enter)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(toolbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(43, 43, 43))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(inputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(classes, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(toolbar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(classes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(inputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1027, 1027, 1027))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 897, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+
+        pack();
+    }// </editor-fold>                        
+
+    private void addmethodActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        // TODO add your handling code here:
+    }                                         
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        // TODO add your handling code here:
+    }                                        
+
+    private void renamemethodActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        // TODO add your handling code here:
+    }                                         
+
+    private void addparamActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        // TODO add your handling code here:
+    }                                         
+
+    private void removeallparamsActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        // TODO add your handling code here:
+    }                                         
+
+    private void removeclassActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        // TODO add your handling code here:
+    }                                        
+
+    private void removemethodActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        // TODO add your handling code here:
+    }                                         
+
+    private void removeparamActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        // TODO add your handling code here:
+    }                                         
+
+    private void removerelationshipActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        // TODO add your handling code here:
+    }                                         
+
+    private void EnterActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        // TODO add your handling code here:
+    }                                         
+
+    private void textfieldActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        // TODO add your handling code here:
+    }                                           
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void runGUI() {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(View.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(View.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(View.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(View.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new View().setVisible(true);
+            }
+        });
+    }
+
+	public static void closeGUI(){
 		frmUmlEditor.dispose();
 	}
 
+    // Variables declaration - do not modify                     
+    private javax.swing.JButton load;
+	private javax.swing.JButton save;
+	private javax.swing.JButton help;
+    private javax.swing.JButton CLI;
+    private javax.swing.JButton screenshot;
+    private javax.swing.JButton undo;
+    private javax.swing.JButton addclass;
+    private javax.swing.JButton removeclass;
+    private javax.swing.JButton renameclass;
+    private javax.swing.JButton addmethod;
+    private javax.swing.JButton removemethod;
+    private javax.swing.JButton removeall;
+    private javax.swing.JButton renamemethod;
+    private javax.swing.JButton addparam;
+    private javax.swing.JButton removeparam;
+    private javax.swing.JButton removeallparams;
+    private javax.swing.JButton changeparams;
+    private javax.swing.JButton addfield;
+    private javax.swing.JButton removefield;
+    
+    private javax.swing.JButton renamefield;
+    private javax.swing.JButton addrelationship;
+    private javax.swing.JButton changerelationship;
+    private javax.swing.JButton removerelationship;
+    private javax.swing.JButton redo;
+    private javax.swing.JButton Enter;
+    
+    public static javax.swing.JFrame frmUmlEditor;
+    public static javax.swing.JLabel inputLbl;
+
+    public static javax.swing.JPanel panel;
+    private javax.swing.JPanel methodsTab;
+    private javax.swing.JPanel fieldTab;
+    private javax.swing.JPanel relationshipTab;
+    private javax.swing.JPanel paramTab;
+    public static javax.swing.JPanel inputPanel;
+    private javax.swing.JPanel jPanel9;
+
+    private javax.swing.JScrollPane scroll;
+    private javax.swing.JTabbedPane classes;
+    public static javax.swing.JTextField textField;
+    private javax.swing.JToolBar toolbar;
+	public static javax.swing.JLabel lbl;
+    // End of variables declaration                   
 }

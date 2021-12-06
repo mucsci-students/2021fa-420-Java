@@ -5,8 +5,9 @@ import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import javax.swing.JPanel;
 
-public class Arrows {
+public class Arrows extends JPanel {
 
 	private BoxObject src;
 	private BoxObject dest;
@@ -278,5 +279,14 @@ public class Arrows {
 			g.drawLine(srcBounds.x + (srcBounds.width / 2), srcBounds.y - 10, destBounds.x + (destBounds.width / 2),
 					destBounds.y + destBounds.height + 10);
 		}
+	}
+
+	@Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        Graphics2D g2d = (Graphics2D) g;
+        
+        updateArrows(g2d);
 	}
 }

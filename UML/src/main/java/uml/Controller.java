@@ -947,6 +947,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 			View.closeGUI();
 			Driver.runCLI();
 		}
+		
 	}
 
 	@Override
@@ -966,6 +967,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 			e.getComponent().setLocation(e.getComponent().getX(), 679 - e.getComponent().getHeight());
 		}
 		View.panel.repaint();
+		
 		Arrows.updateArrows(View.panel.getGraphics());
 	}
 
@@ -1006,8 +1008,11 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 				}
 			}
 		}
+		
 		Arrows.updateArrows(View.panel.getGraphics());
 		undoredo.stateKeeper();
+		
+		
 	}
 
 }

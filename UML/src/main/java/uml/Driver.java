@@ -32,7 +32,7 @@ public class Driver {
 		}
 		
 		undoredo.stateKeeper();
-		View.initializePanel();
+		// View.initializePanel();
 		runView();
 		try {
 			Terminal terminal = TerminalBuilder.builder().system(true).build();
