@@ -952,10 +952,24 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 	}
 
 	@Override
-	public void mouseDragged(MouseEvent me) {
+	public void mouseDragged(MouseEvent e) {
 		
-		me.translatePoint(me.getComponent().getLocation().x, me.getComponent().getLocation().y);
-		me.getComponent().setLocation(me.getX(), me.getY());
+		e.translatePoint(e.getComponent().getLocation().x, e.getComponent().getLocation().y);
+		e.getComponent().setLocation(e.getX(), e.getY());
+
+		if (e.getComponent().getX() < 0) {
+            e.getComponent().setLocation(0, e.getComponent().getY());
+        }
+        if (e.getComponent().getX() > 1792 - e.getComponent().getWidth()) {
+            e.getComponent().setLocation(1792 - e.getComponent().getWidth(), e.getComponent().getY());
+        }
+        if (e.getComponent().getY() < 0) {
+            e.getComponent().setLocation(e.getComponent().getX(), 0);
+        }
+        if (e.getComponent().getY() > 1652 - e.getComponent().getHeight()) {
+            e.getComponent().setLocation(e.getComponent().getX(), 1652 - e.getComponent().getHeight());
+        }
+
 		View.panel.repaint();
 		Arrows.updateArrows(View.panel.getGraphics());
 	}
