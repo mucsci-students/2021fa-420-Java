@@ -73,7 +73,8 @@ public class Parameters {
 			// Updates GUI boxes
 			for (BoxObject obj : Model.getJLabels()) {
 				if (obj.getJLabelName().equals(UMLName)) {
-					BoxObject.updateBox(obj);
+					int width = BoxObject.updateBox(obj, 0);
+					BoxObject.updateBox(obj, width);
 				}
 			}
 
@@ -130,7 +131,8 @@ public class Parameters {
 			// Updates GUI boxes
 			for (BoxObject obj : Model.getJLabels()) {
 				if (obj.getJLabelName().equals(UMLName)) {
-					BoxObject.updateBox(obj);
+					int width = BoxObject.updateBox(obj, 0);
+					BoxObject.updateBox(obj, width);
 				}
 			}
 
@@ -177,7 +179,8 @@ public class Parameters {
 
 		for (BoxObject obj : Model.getJLabels()) {
 			if (obj.getJLabelName().equals(UMLName)) {
-				BoxObject.updateBox(obj);
+				int width = BoxObject.updateBox(obj, 0);
+				BoxObject.updateBox(obj, width);
 			}
 		}
 
@@ -234,7 +237,8 @@ public class Parameters {
 
 				for (BoxObject obj : Model.getJLabels()) {
 					if (obj.getJLabelName().equals(UMLName)) {
-						BoxObject.updateBox(obj);
+						int width = BoxObject.updateBox(obj, 0);
+						BoxObject.updateBox(obj, width);
 					}
 				}
 
@@ -278,7 +282,7 @@ public class Parameters {
 				}
 			}
 			if (Driver.guiUp && foundMethod) {
-			Driver.throwingError("That method does not exist!");
+				Driver.throwingError("That method does not exist!");
 			}
 			return null;
 		}
@@ -301,16 +305,11 @@ public class Parameters {
 		return null;
 	}
 
-
-
-
-
-
-
-//*****************************************************************************************************************
-/* CLI method overloading
-**********************************************************************************************************************/
-public static boolean addParameterCLI(String UMLName, String methodName, String parameterName, String type,
+	// *****************************************************************************************************************
+	/*
+	 * CLI method overloading
+	 **********************************************************************************************************************/
+	public static boolean addParameterCLI(String UMLName, String methodName, String parameterName, String type,
 			ArrayList<Parameters> pList, boolean dupeMethods, ArrayList<String> a) {
 		if (!Driver.guiUp || !dupeMethods) {
 			// Does a check to see if the method is overloaded. Also finds the correct
@@ -323,14 +322,11 @@ public static boolean addParameterCLI(String UMLName, String methodName, String 
 			}
 		}
 
-
 		// Inserted Parameter
 		Parameters parameter = new Parameters(parameterName, type);
 
-
 		// Duplicate checking
 		HashSet<String> noDuplicates = new HashSet<String>();
-
 
 		// Gets the UML object that the parameter is being inserted into
 		UML UMLOBJ = UML.findUMLOBJ(UMLName);
@@ -338,9 +334,9 @@ public static boolean addParameterCLI(String UMLName, String methodName, String 
 		// Makes sure there aren't any methods with duplicate signatures being created
 		// with the addition of a new parameter
 		if (MethodOverloading.containsSameSignatureAdding(UMLOBJ, pList, parameter, methodName)) {
-				System.out.println("A method with that signature already exists!");
-				return false;
-			}
+			System.out.println("A method with that signature already exists!");
+			return false;
+		}
 
 		// Copying Param names to noDuplicates
 		for (Parameters p : pList) {
@@ -357,20 +353,22 @@ public static boolean addParameterCLI(String UMLName, String methodName, String 
 			// Updates GUI boxes
 			for (BoxObject obj : Model.getJLabels()) {
 				if (obj.getJLabelName().equals(UMLName)) {
-					BoxObject.updateBox(obj);
+					int width = BoxObject.updateBox(obj, 0);
+					BoxObject.updateBox(obj, width);
 				}
 			}
-				System.out.println("Parameter Created!");
+			System.out.println("Parameter Created!");
 			return true;
 		} else {
-				System.out.println("That parameter already exists!");
+			System.out.println("That parameter already exists!");
 		}
 		return false;
 
 	}
 
 	// Removes a parameter that matches the specified credentials at the index
-	public static boolean deleteParameterCLI(String UMLName, String methodsName, String pName, ArrayList<Parameters> pList,
+	public static boolean deleteParameterCLI(String UMLName, String methodsName, String pName,
+			ArrayList<Parameters> pList,
 			boolean dupeMethods, ArrayList<String> a) {
 		if (!Driver.guiUp || !dupeMethods) {
 			// Does a check to see if the method is overloaded. Also finds the correct
@@ -386,10 +384,10 @@ public static boolean addParameterCLI(String UMLName, String methodName, String 
 		// Finds the specific parameter that is getting deleted
 		Parameters p = findParam(pName, pList);
 		if (MethodOverloading.containsSameSignatureDeleting(UMLOBJ, pList, p, methodsName)) {
-				System.out.println("A method with that signature already exists!");
-				return false;
-			}
-			
+			System.out.println("A method with that signature already exists!");
+			return false;
+		}
+
 		int index = -1;
 
 		// Finds the parameter to be removed
@@ -408,14 +406,15 @@ public static boolean addParameterCLI(String UMLName, String methodName, String 
 			// Updates GUI boxes
 			for (BoxObject obj : Model.getJLabels()) {
 				if (obj.getJLabelName().equals(UMLName)) {
-					BoxObject.updateBox(obj);
+					int width = BoxObject.updateBox(obj, 0);
+					BoxObject.updateBox(obj, width);
 				}
 			}
 
-				System.out.println("Parameter Removed!");
+			System.out.println("Parameter Removed!");
 			return true;
 		} else {
-				System.out.println("That parameter does not exist!");
+			System.out.println("That parameter does not exist!");
 			return false;
 		}
 	}
@@ -438,7 +437,7 @@ public static boolean addParameterCLI(String UMLName, String methodName, String 
 		// Makes sure there aren't any methods with duplicate sinatures being created
 		// with the deletion of parameters
 		if (MethodOverloading.containsSameSignatureDeletingAll(UMLOBJ, pList, methodsName)) {
-				System.out.println("A method with that signature already exists!");
+			System.out.println("A method with that signature already exists!");
 			return false;
 		}
 
@@ -452,14 +451,15 @@ public static boolean addParameterCLI(String UMLName, String methodName, String 
 
 		for (BoxObject obj : Model.getJLabels()) {
 			if (obj.getJLabelName().equals(UMLName)) {
-				BoxObject.updateBox(obj);
+				int width = BoxObject.updateBox(obj, 0);
+				BoxObject.updateBox(obj, width);
 			}
 		}
 
-			System.out.println("Parameters Removed!");
+		System.out.println("Parameters Removed!");
 		return true;
 	}
-	
+
 	public static boolean changeParameterCLI(String UMLName, String methodsName, String oldpName, String newpName,
 			String newpType, ArrayList<Parameters> pList, boolean dupeMethods, ArrayList<String> a) {
 		if (!Driver.guiUp || !dupeMethods) {
@@ -506,7 +506,8 @@ public static boolean addParameterCLI(String UMLName, String methodName, String 
 
 				for (BoxObject obj : Model.getJLabels()) {
 					if (obj.getJLabelName().equals(UMLName)) {
-						BoxObject.updateBox(obj);
+						int width = BoxObject.updateBox(obj, 0);
+						BoxObject.updateBox(obj, width);
 					}
 				}
 
@@ -515,12 +516,12 @@ public static boolean addParameterCLI(String UMLName, String methodName, String 
 				}
 				return true;
 			} else {
-				
+
 				System.out.println("That parameter already exists!");
 				return false;
 			}
 		} else {
-				System.out.println("That parameter does not exist!");
+			System.out.println("That parameter does not exist!");
 			return false;
 		}
 

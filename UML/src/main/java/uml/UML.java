@@ -160,7 +160,8 @@ public class UML {
 					for (BoxObject obj : Model.getJLabels()) {
 						if (obj.getJLabelName().equals(oldName)) {
 							obj.setJLabelName(newName);
-							BoxObject.updateBox(obj);
+							int width = BoxObject.updateBox(obj, 0);
+            				BoxObject.updateBox(obj, width);
 						}
 					}
 
@@ -188,26 +189,13 @@ public class UML {
 
 	// Will list all of UMLs fields.
 	public boolean listFields() {
-		if (Driver.guiUp) {
-			View.outputText = "<html>Class: " + name;
-		} else {
-			System.out.println("Class: " + name);
-		}
+		
+		System.out.println("Class: " + name);
 		// Checks if there are any fields.
 		if (fields.isEmpty()) {
-			if (Driver.guiUp) {
-				View.outputText += "<br>This class has no fields";
-			} else {
+			
 				System.out.println("This class has no fields");
-			}
 		} else {
-			if (Driver.guiUp) {
-				View.outputText += "<br>Fields:";
-				// Prints all fields in arrayList "field"
-				for (int i = 0; i < fields.size(); i++) {
-					View.outputText += "<br>" + fields.get(i).getFieldType() + " " + fields.get(i).getFieldName();
-				}
-			} else {
 				System.out.println("Fields:");
 				// Prints all fields in arrayList "field"
 				for (int i = 0; i < fields.size(); i++) {
@@ -215,7 +203,6 @@ public class UML {
 				}
 			}
 			
-		}
 		return true;
 	}
 
@@ -225,23 +212,7 @@ public class UML {
 		if (methods.isEmpty()) {
 			Driver.throwingError("This class has no methods");
 		} else {
-			if (Driver.guiUp) {
-				// Prints all methods in arrayList "method"
-				View.outputText += "<br>Methods:";
-				for (Methods method : methods) {
-					View.outputText += "<br>" + method.getMethodType() + " " + method.getMethodName() + "(";
-					// Prints all parameters in arrayList "param"
-					if (method.getParams().size() >= 1) {
-						View.outputText += method.getParams().get(0).getParamType() + " "
-								+ method.getParams().get(0).getParamName();
-					}
-					for (int i = 1; i < method.getParams().size(); i++) {
-						View.outputText += ", " + method.getParams().get(i).getParamType() + " "
-								+ method.getParams().get(i).getParamName();
-					}
-					View.outputText += ")";
-				}
-			} else {
+			
 				// Prints all methods in arrayList "method"
 				System.out.println("Methods:");
 				for (Methods method : methods) {
@@ -257,7 +228,6 @@ public class UML {
 					}
 					System.out.println(")");
 				}
-			}
 		}
 		return true;
 	}
@@ -268,20 +238,12 @@ public class UML {
 		if (relationships.isEmpty()) {
 			Driver.throwingError("No relationships exist!");
 		} else {
-			if (Driver.guiUp) {
-				View.outputText = "<html>";
-				// Prints all relationships in arrayList "rels" for this UML object.
-				for (int i = 0; i < relationships.size(); i++) {
-					View.outputText += relationships.get(i).getSource() + " has a " + relationships.get(i).getType()
-							+ " relationship with " + relationships.get(i).getDestination() + "<br>";
-				}
-			} else {
+			
 				// Prints all relationships in arrayList "rels" for this UML object.
 				for (int i = 0; i < relationships.size(); i++) {
 					System.out.print(relationships.get(i).getSource() + " has a ");
 					System.out.print(relationships.get(i).getType() + " relationship with ");
 					System.out.println(relationships.get(i).getDestination());
-				}
 			}
 		}
 		return true;

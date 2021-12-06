@@ -476,7 +476,8 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							else {
 								for (BoxObject obj : Model.getJLabels()) {
 									if (obj.getJLabelName().equals(classNameCAP)) {
-										BoxObject.updateBox(obj);
+										int width = BoxObject.updateBox(obj, 0);
+            							BoxObject.updateBox(obj, width);
 									}
 								}
 
@@ -947,24 +948,28 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 			View.closeGUI();
 			Driver.runCLI();
 		}
+		
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		e.getComponent().setLocation(e.getXOnScreen() - 378, e.getYOnScreen() - 34);
+		
+		e.translatePoint(e.getComponent().getLocation().x, e.getComponent().getLocation().y);
+		e.getComponent().setLocation(e.getX(), e.getY());
 
 		if (e.getComponent().getX() < 0) {
-			e.getComponent().setLocation(0, e.getComponent().getY());
-		}
-		if (e.getComponent().getX() > 844 - e.getComponent().getWidth()) {
-			e.getComponent().setLocation(844 - e.getComponent().getWidth(), e.getComponent().getY());
-		}
-		if (e.getComponent().getY() < 0) {
-			e.getComponent().setLocation(e.getComponent().getX(), 0);
-		}
-		if (e.getComponent().getY() > 679 - e.getComponent().getHeight()) {
-			e.getComponent().setLocation(e.getComponent().getX(), 679 - e.getComponent().getHeight());
-		}
+            e.getComponent().setLocation(0, e.getComponent().getY());
+        }
+        if (e.getComponent().getX() > 1792 - e.getComponent().getWidth()) {
+            e.getComponent().setLocation(1792 - e.getComponent().getWidth(), e.getComponent().getY());
+        }
+        if (e.getComponent().getY() < 0) {
+            e.getComponent().setLocation(e.getComponent().getX(), 0);
+        }
+        if (e.getComponent().getY() > 1652 - e.getComponent().getHeight()) {
+            e.getComponent().setLocation(e.getComponent().getX(), 1652 - e.getComponent().getHeight());
+        }
+
 		View.panel.repaint();
 		Arrows.updateArrows(View.panel.getGraphics());
 	}
@@ -1006,8 +1011,11 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 				}
 			}
 		}
+		
 		Arrows.updateArrows(View.panel.getGraphics());
 		undoredo.stateKeeper();
+		
+		
 	}
 
 }

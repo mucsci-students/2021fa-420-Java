@@ -121,7 +121,7 @@ public class addDeleteRenameTests {
 
 	@Test
 	public void test05_DeleteClassExists() {
-		View.initializePanel();
+		// View.initializePanel();
 		UML.addClass("class");
 		UML.deleteClass("class");
 

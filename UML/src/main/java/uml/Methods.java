@@ -52,7 +52,8 @@ public class Methods {
 
 								for (BoxObject obj : Model.getJLabels()) {
 									if (obj.getJLabelName().equals(uml.getClassName())) {
-										BoxObject.updateBox(obj);
+										int width = BoxObject.updateBox(obj, 0);
+            							BoxObject.updateBox(obj, width);
 									}
 								}
 
@@ -100,7 +101,8 @@ public class Methods {
 
 								for (BoxObject obj : Model.getJLabels()) {
 									if (obj.getJLabelName().equals(uml.getClassName())) {
-										BoxObject.updateBox(obj);
+										int width = BoxObject.updateBox(obj, 0);
+            							BoxObject.updateBox(obj, width);
 									}
 								}
 
@@ -148,7 +150,8 @@ public class Methods {
 
 						for (BoxObject obj : Model.getJLabels()) {
 							if (obj.getJLabelName().equals(uml.getClassName())) {
-								BoxObject.updateBox(obj);
+								int width = BoxObject.updateBox(obj, 0);
+            					BoxObject.updateBox(obj, width);
 							}
 						}
 
@@ -189,7 +192,8 @@ public class Methods {
 
 										for (BoxObject obj : Model.getJLabels()) {
 											if (obj.getJLabelName().equals(uml.getClassName())) {
-												BoxObject.updateBox(obj);
+												int width = BoxObject.updateBox(obj, 0);
+            									BoxObject.updateBox(obj, width);
 											}
 										}
 
