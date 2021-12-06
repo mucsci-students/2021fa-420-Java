@@ -73,7 +73,8 @@ public class Parameters {
 			// Updates GUI boxes
 			for (BoxObject obj : Model.getJLabels()) {
 				if (obj.getJLabelName().equals(UMLName)) {
-					BoxObject.updateBox(obj);
+					int width = BoxObject.updateBox(obj, 0);
+            		BoxObject.updateBox(obj, width);
 				}
 			}
 
@@ -130,7 +131,8 @@ public class Parameters {
 			// Updates GUI boxes
 			for (BoxObject obj : Model.getJLabels()) {
 				if (obj.getJLabelName().equals(UMLName)) {
-					BoxObject.updateBox(obj);
+					int width = BoxObject.updateBox(obj, 0);
+					BoxObject.updateBox(obj, width);
 				}
 			}
 
@@ -177,7 +179,8 @@ public class Parameters {
 
 		for (BoxObject obj : Model.getJLabels()) {
 			if (obj.getJLabelName().equals(UMLName)) {
-				BoxObject.updateBox(obj);
+				int width = BoxObject.updateBox(obj, 0);
+				BoxObject.updateBox(obj, width);
 			}
 		}
 
@@ -234,7 +237,8 @@ public class Parameters {
 
 				for (BoxObject obj : Model.getJLabels()) {
 					if (obj.getJLabelName().equals(UMLName)) {
-						BoxObject.updateBox(obj);
+						int width = BoxObject.updateBox(obj, 0);
+						BoxObject.updateBox(obj, width);
 					}
 				}
 
@@ -357,7 +361,8 @@ public static boolean addParameterCLI(String UMLName, String methodName, String 
 			// Updates GUI boxes
 			for (BoxObject obj : Model.getJLabels()) {
 				if (obj.getJLabelName().equals(UMLName)) {
-					BoxObject.updateBox(obj);
+					int width = BoxObject.updateBox(obj, 0);
+					BoxObject.updateBox(obj, width);
 				}
 			}
 				System.out.println("Parameter Created!");
@@ -408,7 +413,8 @@ public static boolean addParameterCLI(String UMLName, String methodName, String 
 			// Updates GUI boxes
 			for (BoxObject obj : Model.getJLabels()) {
 				if (obj.getJLabelName().equals(UMLName)) {
-					BoxObject.updateBox(obj);
+					int width = BoxObject.updateBox(obj, 0);
+					BoxObject.updateBox(obj, width);
 				}
 			}
 
@@ -452,7 +458,8 @@ public static boolean addParameterCLI(String UMLName, String methodName, String 
 
 		for (BoxObject obj : Model.getJLabels()) {
 			if (obj.getJLabelName().equals(UMLName)) {
-				BoxObject.updateBox(obj);
+				int width = BoxObject.updateBox(obj, 0);
+				BoxObject.updateBox(obj, width);
 			}
 		}
 
@@ -506,7 +513,8 @@ public static boolean addParameterCLI(String UMLName, String methodName, String 
 
 				for (BoxObject obj : Model.getJLabels()) {
 					if (obj.getJLabelName().equals(UMLName)) {
-						BoxObject.updateBox(obj);
+						int width = BoxObject.updateBox(obj, 0);
+						BoxObject.updateBox(obj, width);
 					}
 				}
 

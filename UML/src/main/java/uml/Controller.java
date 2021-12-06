@@ -476,7 +476,8 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 							else {
 								for (BoxObject obj : Model.getJLabels()) {
 									if (obj.getJLabelName().equals(classNameCAP)) {
-										BoxObject.updateBox(obj);
+										int width = BoxObject.updateBox(obj, 0);
+            							BoxObject.updateBox(obj, width);
 									}
 								}
 
@@ -952,7 +953,7 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		e.getComponent().setLocation(e.getXOnScreen(), e.getYOnScreen());
+		e.getComponent().setLocation(e.getXOnScreen(), e.getYOnScreen()-48);
 		View.panel.repaint();
 		Arrows.updateArrows(View.panel.getGraphics());
 	}

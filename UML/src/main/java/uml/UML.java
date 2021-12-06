@@ -160,7 +160,8 @@ public class UML {
 					for (BoxObject obj : Model.getJLabels()) {
 						if (obj.getJLabelName().equals(oldName)) {
 							obj.setJLabelName(newName);
-							BoxObject.updateBox(obj);
+							int width = BoxObject.updateBox(obj, 0);
+            				BoxObject.updateBox(obj, width);
 						}
 					}
 

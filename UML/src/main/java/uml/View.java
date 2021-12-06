@@ -136,6 +136,8 @@ public class View extends javax.swing.JFrame {
         paramTab = new javax.swing.JPanel();
         
         inputPanel = new javax.swing.JPanel();
+		inputPanel.setVisible(false);
+		
         inputLbl = new javax.swing.JLabel();
         textField = new javax.swing.JTextField();
         
