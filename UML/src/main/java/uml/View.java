@@ -18,8 +18,7 @@ public class View extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-		toolbar = new javax.swing.JToolBar();
-		toolbar.setFloatable(false);
+		
 
 		load = new javax.swing.JButton();
 		load.addActionListener(controller);
@@ -41,51 +40,105 @@ public class View extends javax.swing.JFrame {
 		screenshot.addActionListener(controller);
 		screenshot.setActionCommand("Screenshot");
 
-        undo = new javax.swing.JButton();
-		undo.addActionListener(controller);
-		undo.setActionCommand("Undo");
-
 		addclass = new javax.swing.JButton();
 		addclass.addActionListener(controller);
 		addclass.setActionCommand("Add Class");
 
         removeclass = new javax.swing.JButton();
+		removeclass.addActionListener(controller);
+		removeclass.setActionCommand("Remove Class");
+
         renameclass = new javax.swing.JButton();
+		renameclass.addActionListener(controller);
+		renameclass.setActionCommand("Rename Class");
+
 		addmethod = new javax.swing.JButton();
+		addmethod.addActionListener(controller);
+		addmethod.setActionCommand("Add Method");
+
         removemethod = new javax.swing.JButton();
+		removemethod.addActionListener(controller);
+		removemethod.setActionCommand("Remove Method");
+		
         removeall = new javax.swing.JButton();
+		removeall.addActionListener(controller);
+		removeall.setActionCommand("Remove All Methods");
+
 		renamemethod = new javax.swing.JButton();
+		renamemethod.addActionListener(controller);
+		renamemethod.setActionCommand("Rename Method");
+
 		addparam = new javax.swing.JButton();
+		addparam.addActionListener(controller);
+		addparam.setActionCommand("Add Parameter");
+
         removeparam = new javax.swing.JButton();
+		removeparam.addActionListener(controller);
+		removeparam.setActionCommand("Remove Parameter");
+
         removeallparams = new javax.swing.JButton();
+		removeallparams.addActionListener(controller);
+		removeallparams.setActionCommand("Remove All Parameters");
+
         changeparams = new javax.swing.JButton();
+		changeparams.addActionListener(controller);
+		changeparams.setActionCommand("Change Parameter");
 
+		addfield = new javax.swing.JButton();
+		addfield.addActionListener(controller);
+		addfield.setActionCommand("Add Field");
 
-        frmUmlEditor = new javax.swing.JFrame();
+        removefield = new javax.swing.JButton();
+		removefield.addActionListener(controller);
+		removefield.setActionCommand("Remove Field");
+
+        renamefield = new javax.swing.JButton();
+		renamefield.addActionListener(controller);
+		renamefield.setActionCommand("Rename Field");
+
+        
+        addrelationship = new javax.swing.JButton();
+		addrelationship.addActionListener(controller);
+		addrelationship.setActionCommand("Add Realtionship");
+
+        changerelationship = new javax.swing.JButton();
+		changerelationship.addActionListener(controller);
+		changerelationship.setActionCommand("Change Relationship");
+
+        removerelationship = new javax.swing.JButton();
+		removerelationship.addActionListener(controller);
+		removerelationship.setActionCommand("Remove Relationship");
+
+		undo = new javax.swing.JButton();
+		undo.addActionListener(controller);
+		undo.setActionCommand("Undo");
+
+		redo = new javax.swing.JButton();
+		redo.addActionListener(controller);
+		redo.setActionCommand("Redo");
+
+		Enter = new javax.swing.JButton();
+		Enter.addActionListener(controller);
+		Enter.setActionCommand("Enter");
+        
         scroll = new javax.swing.JScrollPane();
         panel = new javax.swing.JPanel();
-        
-        redo = new javax.swing.JButton();
-        classes = new javax.swing.JTabbedPane();
-        jPanel9 = new javax.swing.JPanel();
-        
-        methodsTab = new javax.swing.JPanel();
-        
     
+		frmUmlEditor = new javax.swing.JFrame();
+		toolbar = new javax.swing.JToolBar();
+		toolbar.setFloatable(false);
+
+        Tab = new javax.swing.JTabbedPane();
+        classTab = new javax.swing.JPanel();
+        methodsTab = new javax.swing.JPanel();
+		relationshipTab = new javax.swing.JPanel();
         fieldTab = new javax.swing.JPanel();
-        addfield = new javax.swing.JButton();
-        removefield = new javax.swing.JButton();
-        renamefield = new javax.swing.JButton();
-        relationshipTab = new javax.swing.JPanel();
-        addrelationship = new javax.swing.JButton();
-        changerelationship = new javax.swing.JButton();
-        removerelationship = new javax.swing.JButton();
         paramTab = new javax.swing.JPanel();
         
         inputPanel = new javax.swing.JPanel();
         inputLbl = new javax.swing.JLabel();
         textField = new javax.swing.JTextField();
-        Enter = new javax.swing.JButton();
+        
 
         javax.swing.GroupLayout frameLayout = new javax.swing.GroupLayout(frmUmlEditor.getContentPane());
         frmUmlEditor.getContentPane().setLayout(frameLayout);
@@ -174,17 +227,17 @@ public class View extends javax.swing.JFrame {
 
         renameclass.setText("Rename Class");
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout classTabLayout = new javax.swing.GroupLayout(classTab);
+        classTab.setLayout(classTabLayout);
+        classTabLayout.setHorizontalGroup(
+            classTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(addclass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(removeclass, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
             .addComponent(renameclass, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
+        classTabLayout.setVerticalGroup(
+            classTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(classTabLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(addclass)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -194,7 +247,7 @@ public class View extends javax.swing.JFrame {
                 .addContainerGap(304, Short.MAX_VALUE))
         );
 
-        classes.addTab("Class", jPanel9);
+        Tab.addTab("Class", classTab);
 
         addmethod.setText("Add Method");
         addmethod.addActionListener(new java.awt.event.ActionListener() {
@@ -242,7 +295,7 @@ public class View extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        classes.addTab("Methods", methodsTab);
+        Tab.addTab("Methods", methodsTab);
 
         addfield.setText("Add Field");
 
@@ -270,7 +323,7 @@ public class View extends javax.swing.JFrame {
                 .addContainerGap(304, Short.MAX_VALUE))
         );
 
-        classes.addTab("Fields", fieldTab);
+        Tab.addTab("Fields", fieldTab);
 
         addrelationship.setText("Add Realtionship");
 
@@ -303,7 +356,7 @@ public class View extends javax.swing.JFrame {
                 .addContainerGap(304, Short.MAX_VALUE))
         );
 
-        classes.addTab("Relationships", relationshipTab);
+        Tab.addTab("Relationships", relationshipTab);
 
         addparam.setText("Add Parameter");
         addparam.addActionListener(new java.awt.event.ActionListener() {
@@ -351,11 +404,11 @@ public class View extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        classes.addTab("Parameters", paramTab);
+        Tab.addTab("Parameters", paramTab);
 
-        inputLbl.setText("hold");
+        inputLbl.setText("");
 
-        textField.setText("textfield");
+        textField.setText("");
         textField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textfieldActionPerformed(evt);
@@ -369,11 +422,11 @@ public class View extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(inputPanel);
+
+		javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(inputPanel);
         inputPanel.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(inputLbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -382,16 +435,18 @@ public class View extends javax.swing.JFrame {
                         .addGap(18, 18, 18))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(149, 149, 149)
-                        .addComponent(Enter)))
+                        .addComponent(Enter))
+                    .addComponent(inputLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(inputLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addComponent(inputLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Enter)
                 .addContainerGap())
         );
@@ -408,7 +463,7 @@ public class View extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(inputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(classes, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Tab, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -418,7 +473,7 @@ public class View extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(classes)
+                        .addComponent(Tab)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(inputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1027, 1027, 1027))
@@ -550,10 +605,10 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JPanel relationshipTab;
     private javax.swing.JPanel paramTab;
     public static javax.swing.JPanel inputPanel;
-    private javax.swing.JPanel jPanel9;
+    private javax.swing.JPanel classTab;
 
     private javax.swing.JScrollPane scroll;
-    private javax.swing.JTabbedPane classes;
+    private javax.swing.JTabbedPane Tab;
     public static javax.swing.JTextField textField;
     private javax.swing.JToolBar toolbar;
 	public static javax.swing.JLabel lbl;
