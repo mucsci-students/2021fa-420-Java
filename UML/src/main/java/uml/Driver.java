@@ -465,7 +465,7 @@ public class Driver {
 
 			case "gui":
 				guiUp = true;
-				View.runGUI();
+				View.view.setVisible(true);
 				run = false;
 				break;
 

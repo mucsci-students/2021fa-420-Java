@@ -13,7 +13,7 @@ public class View extends javax.swing.JFrame {
         initComponents();
     }
 
-    
+    public static View view;
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
@@ -34,7 +34,7 @@ public class View extends javax.swing.JFrame {
 
 		CLI = new javax.swing.JButton();
 		CLI.addActionListener(controller);
-		CLI.setActionCommand("Switch to CLI");
+		CLI.setActionCommand("CLI");
 
         screenshot = new javax.swing.JButton();
 		screenshot.addActionListener(controller);
@@ -191,7 +191,7 @@ public class View extends javax.swing.JFrame {
         help.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         toolbar.add(help);
 
-        CLI.setText("Switch to CLI");
+        CLI.setText("CLI");
         CLI.setFocusable(false);
         CLI.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         CLI.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -533,11 +533,6 @@ public class View extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void runGUI() {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -554,18 +549,18 @@ public class View extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(View.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new View().setVisible(true);
+               view = new View();
+			   view.setVisible(true);
             }
         });
     }
 
 	public static void closeGUI(){
-		frmUmlEditor.dispose();
+		view.setVisible(false);
+		
 	}
 
     // Variables declaration - do not modify                     
