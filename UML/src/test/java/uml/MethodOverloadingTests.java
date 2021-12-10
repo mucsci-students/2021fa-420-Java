@@ -165,12 +165,36 @@ public class MethodOverloadingTests {
 		    System.setOut(printStream);
 		    //End of replicating user input
         Parameters.addParameter("class", "a" , "y", "int", null , true);
-        
+        Parameters.addParameter("dasdasd", "a" , "y", "int", null , true);
         
         
         Model.clearCollection();
         Model.getNoClassDupes().clear();
     }  
+    
+    @Test
+    public void locatingParametersCLI(){
+    	ArrayList<String> a = new ArrayList<String>();
+      UML uml = UML.addClass("class");
+      Methods.addMethod("class", "a", "String");
+      Parameters.addParameterCLI("class", "a" , "x", "String", null , true,a );
+      Methods.addMethod("class", "a", "String");
+      	//Replicates user input 
+	        String userInput = String.format("String");
+		    ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
+		    System.setIn(in);
+		    ByteArrayOutputStream out = new ByteArrayOutputStream();
+		    PrintStream printStream = new PrintStream(out);
+		    System.setOut(printStream);
+		    //End of replicating user input
+      Parameters.addParameterCLI("class", "a" , "y", "int", null , true, a);
+      Parameters.addParameterCLI("dasdasd", "a" , "y", "int", null , true, a);
+      
+      
+      
+      Model.clearCollection();
+      Model.getNoClassDupes().clear();
+  }  
     
 //    @Test
 //    public void locatingParametersCLI(){

@@ -61,7 +61,62 @@ public class FieldTester {
 		Model.getNoClassDupes().clear();
 		Model.clearCollection();
 	}
+	@Test
+	public void test01_AddFieldgui() {
+		// Create a class
+		Driver.guiUp = true;
+		UML uml = UML.addClass("class");
 
+		// Add the first Field
+		Fields one = new Fields("Hello", "String");
+		Fields.addField("class", "Hello", "String");
+		// True if Field was added
+		assertNotNull(one);
+		// True if one is alphanumeric
+		assertTrue(!UML.getPattern().matcher(one.getFieldName()).find());
+		// True if Fields added one and is size 1
+		for (Fields field : uml.getField()) {
+			if (field.getFieldName().equals("Hello")) {
+				assertTrue(field.getFieldName().contains("Hello"));
+			}
+		}
+		assertEquals("Fields size is not 1", 1, uml.getField().size());
+
+		// Add a second Field
+		Fields two = new Fields("There", "String");
+		Fields.addField("class", "There", "String");
+		// True if Field was added
+		assertNotNull(two);
+		// True if one is alphanumeric
+		assertTrue(!UML.getPattern().matcher(two.getFieldName()).find());
+		// True if Fields added two and is size 2
+		for (Fields field : uml.getField()) {
+			if (field.getFieldName().equals("There")) {
+				assertTrue(field.getFieldName().contains("There"));
+			}
+		}
+		assertEquals("Fields size is not 2", 2, uml.getField().size());
+
+		// Add a third Field
+		Fields three = new Fields("Dummy", "String");
+		Fields.addField("class", "Dummy", "String");
+		// True if Field was added
+		assertNotNull(three);
+		// True if one is alphanumeric
+		assertTrue(!UML.getPattern().matcher(three.getFieldName()).find());
+		// True if Fields added three and is size 3
+		for (Fields field : uml.getField()) {
+			if (field.getFieldName().equals("Dummy")) {
+				assertTrue(field.getFieldName().contains("Dummy"));
+			}
+		}
+		assertEquals("Fields size is not 3", 3, uml.getField().size());
+		Driver.guiUp = false;
+
+		Model.getNoClassDupes().clear();
+		Model.clearCollection();
+	}
+	
 	@Test
 	public void test02_AddExistingField() {
 		// Creates class

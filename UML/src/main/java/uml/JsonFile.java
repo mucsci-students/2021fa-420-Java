@@ -95,7 +95,9 @@ public class JsonFile {
 				View.panel.remove(obj.getLabel());
 			}
 			Model.getJLabels().clear();
+			if (!StartUp.CLIstart){
 			View.panel.repaint();
+			}
 			Model.clearCollection();
 			Model.clearArrows();
 
@@ -121,9 +123,13 @@ public class JsonFile {
 							BoxObject.findLabel(rel.getDestination()), rel.getType()));
 				}
 			}
+			if (!StartUp.CLIstart){
 			View.panel.repaint();
+			}
 			BoxObject.updateBoxes();
+			if (!StartUp.CLIstart){
 			Arrows.updateArrows(View.panel.getGraphics());
+			}
 
 		} catch (com.google.gson.JsonSyntaxException e) {
 			System.out.println("Not a valid Json file!");

@@ -19,6 +19,9 @@ public class UML {
 	// Y position of class box
 	private int position_y;
 
+	//this is for testing purposes only
+	public static boolean test = true;
+
 	// This set is to make sure there are no classes with the same name.
 	// This is the Array list that keeps tracks of the relationship arrows
 	private static ArrayList<Arrows> arrows = new ArrayList<Arrows>();
@@ -76,6 +79,7 @@ public class UML {
 	public static void setCoords(UML u, int x, int y){
 		u.setposition_x(x);
 		u.setposition_y(y);
+		undoredo.stateKeeper();
 	}
 
 	public static ArrayList<Arrows> getArrows() {
@@ -120,14 +124,10 @@ public class UML {
 					Model.getNoClassDupes().remove(deleteName);
 					Model.getCollection().remove(Model.getCollection().indexOf(uml));
 
-					for (BoxObject obj : Model.getJLabels()) {
-						if (obj.getJLabelName().equals(uml.getClassName())) {
-							View.panel.remove(obj.getLabel());
-							Model.getJLabels().remove(obj);
-							break;
-						}
+					BoxObject.delete(uml.getClassName());
+					if (!StartUp.CLIstart && test ){
+						View.panel.repaint();
 					}
-					View.panel.repaint();
 
 					if (!Driver.guiUp) {
 						System.out.println("Class Deleted!");
@@ -157,13 +157,7 @@ public class UML {
 					uml.setClassName(newName);
 					undoredo.stateKeeper();
 
-					for (BoxObject obj : Model.getJLabels()) {
-						if (obj.getJLabelName().equals(oldName)) {
-							obj.setJLabelName(newName);
-							int width = BoxObject.updateBox(obj, 0);
-            				BoxObject.updateBox(obj, width);
-						}
-					}
+					BoxObject.find(oldName, newName);
 
 					if (!Driver.guiUp) {
 						System.out.println("Class Renamed!");
@@ -189,20 +183,20 @@ public class UML {
 
 	// Will list all of UMLs fields.
 	public boolean listFields() {
-		
+
 		System.out.println("Class: " + name);
 		// Checks if there are any fields.
 		if (fields.isEmpty()) {
-			
-				System.out.println("This class has no fields");
+
+			System.out.println("This class has no fields");
 		} else {
-				System.out.println("Fields:");
-				// Prints all fields in arrayList "field"
-				for (int i = 0; i < fields.size(); i++) {
-					System.out.println(fields.get(i).getFieldType() + " " + fields.get(i).getFieldName());
-				}
+			System.out.println("Fields:");
+			// Prints all fields in arrayList "field"
+			for (int i = 0; i < fields.size(); i++) {
+				System.out.println(fields.get(i).getFieldType() + " " + fields.get(i).getFieldName());
 			}
-			
+		}
+
 		return true;
 	}
 
@@ -212,22 +206,22 @@ public class UML {
 		if (methods.isEmpty()) {
 			Driver.throwingError("This class has no methods");
 		} else {
-			
-				// Prints all methods in arrayList "method"
-				System.out.println("Methods:");
-				for (Methods method : methods) {
-					System.out.print(method.getMethodType() + " " + method.getMethodName() + "(");
-					// Prints all parameters in arrayList "param"
-					if (method.getParams().size() >= 1) {
-						System.out.print(method.getParams().get(0).getParamType() + " "
-								+ method.getParams().get(0).getParamName());
-					}
-					for (int i = 1; i < method.getParams().size(); i++) {
-						System.out.print(", " + method.getParams().get(i).getParamType() + " "
-								+ method.getParams().get(i).getParamName());
-					}
-					System.out.println(")");
+
+			// Prints all methods in arrayList "method"
+			System.out.println("Methods:");
+			for (Methods method : methods) {
+				System.out.print(method.getMethodType() + " " + method.getMethodName() + "(");
+				// Prints all parameters in arrayList "param"
+				if (method.getParams().size() >= 1) {
+					System.out.print(method.getParams().get(0).getParamType() + " "
+							+ method.getParams().get(0).getParamName());
 				}
+				for (int i = 1; i < method.getParams().size(); i++) {
+					System.out.print(", " + method.getParams().get(i).getParamType() + " "
+							+ method.getParams().get(i).getParamName());
+				}
+				System.out.println(")");
+			}
 		}
 		return true;
 	}
@@ -238,13 +232,9 @@ public class UML {
 		if (relationships.isEmpty()) {
 			Driver.throwingError("No relationships exist!");
 		} else {
-			
-				// Prints all relationships in arrayList "rels" for this UML object.
-				for (int i = 0; i < relationships.size(); i++) {
-					System.out.print(relationships.get(i).getSource() + " has a ");
-					System.out.print(relationships.get(i).getType() + " relationship with ");
-					System.out.println(relationships.get(i).getDestination());
-			}
+
+			// Prints all relationships in arrayList "rels" for this UML object.
+			helper();
 		}
 		return true;
 	}
@@ -275,4 +265,11 @@ public class UML {
 	// 	}
 	// 	return null;
 	// }
+	public void helper() {
+		for (int i = 0; i < relationships.size(); i++) {
+			System.out.print(relationships.get(i).getSource() + " has a ");
+			System.out.print(relationships.get(i).getType() + " relationship with ");
+			System.out.println(relationships.get(i).getDestination());
+		}
+	}
 }

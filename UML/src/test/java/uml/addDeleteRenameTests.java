@@ -1,6 +1,9 @@
 package uml;
 
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -121,7 +124,7 @@ public class addDeleteRenameTests {
 
 	@Test
 	public void test05_DeleteClassExists() {
-		// View.initializePanel();
+		UML.test = false;
 		UML.addClass("class");
 		UML.deleteClass("class");
 
@@ -129,6 +132,7 @@ public class addDeleteRenameTests {
 
 		Model.getNoClassDupes().clear();
 		Model.getCollection().clear();
+		UML.test = true;
 	}
 
 	@Test
@@ -317,7 +321,20 @@ public class addDeleteRenameTests {
 	public void test11_FindUMLObject() {
 		UML uml = UML.addClass("class");
 		assertEquals("UML Object does not match expected UML", uml, UML.findUMLOBJ("class"));
+		UML uml1 = UML.findUMLOBJ("abc");
+		assertEquals("UML Object does not match expected UML", uml1, null);
 		Model.getNoClassDupes().clear();
 		Model.clearCollection();
 	}
+	@Test
+	public void test12t() {
+		UML uml = UML.addClass("class");
+		uml.setCoords(uml, 5, 10);
+
+		assertEquals("UML Object does not match expected UML", uml.getposition_x(), 5);
+		assertEquals("UML Object does not match expected UML", uml.getposition_y(), 10);
+		Model.getNoClassDupes().clear();
+		Model.clearCollection();
+	}
+
 }

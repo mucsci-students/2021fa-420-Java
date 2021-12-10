@@ -37,9 +37,11 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 		if (start) {
 			start = false;
 		}
-		if ((state && !(e.getActionCommand().equals("Undo")) && !(e.getActionCommand().equals("Redo")))) {
-			undoredo.memClear();
-		}
+		if ((state && !(e.getActionCommand().equals("Undo")) && !(e.getActionCommand().equals("Redo")) && !(e.getActionCommand().equals("Save")) &&!(e.getActionCommand().equals("CLI"))) 
+			&&!(e.getActionCommand().equals("Load")) && !(e.getActionCommand().equals("Help"))&& !(e.getActionCommand().equals("Screenshot"))){
+				undoredo.memClear();
+				state = false;
+			}
 
 		state = false;
 		// If enter button is clicked
@@ -889,12 +891,14 @@ public class Controller implements ActionListener, MouseListener, MouseMotionLis
 
 		else if (e.getActionCommand().equals("Undo")) {
 			undoredo.undo();
+			state = true;
 			View.panel.repaint();
 
 		}
 
 		else if (e.getActionCommand().equals("Redo")) {
 			undoredo.redo();
+			state = true;
 			View.panel.repaint();
 
 		}

@@ -392,6 +392,7 @@ javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                     .addComponent(Tab, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
+        // ADD COMPONENT SCROLL ADJUSTS THE SIZE OF THE PANEL BOX!
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -401,11 +402,9 @@ javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Tab)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(inputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1027, 1027, 1027))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 897, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(inputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 700, Short.MAX_VALUE))
+                .addGap(797, 797, 797))
         );
 /*----------------------------------------------------------------------------------------------------------
 * INPUT PANEL LAYOUT (NO TOUCHY!)

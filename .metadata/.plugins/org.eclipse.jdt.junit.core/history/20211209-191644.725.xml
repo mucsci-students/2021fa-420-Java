@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="MethodsTester" project="UML" tests="13" started="13" failures="0" errors="0" ignored="0">
+  <testsuite name="uml.MethodsTester" time="0.531">
+    <testcase name="test01_AddMethod" classname="uml.MethodsTester" time="0.418"/>
+    <testcase name="test02_AddExistingMethod" classname="uml.MethodsTester" time="0.016"/>
+    <testcase name="test03_AddNonAlphaMethod" classname="uml.MethodsTester" time="0.004"/>
+    <testcase name="test04_AddMethodNonExistingClass" classname="uml.MethodsTester" time="0.0"/>
+    <testcase name="test05_RemoveMethod" classname="uml.MethodsTester" time="0.006"/>
+    <testcase name="test06_RemoveNonExistingMethod" classname="uml.MethodsTester" time="0.003"/>
+    <testcase name="test07_RemoveMethodNonExistingClass" classname="uml.MethodsTester" time="0.023"/>
+    <testcase name="test08_RenameMethod" classname="uml.MethodsTester" time="0.02"/>
+    <testcase name="test09_RenameNonExistingMethod" classname="uml.MethodsTester" time="0.002"/>
+    <testcase name="test10_RenameMethodNonExistingClass" classname="uml.MethodsTester" time="0.0"/>
+    <testcase name="test11_RemoveAllMethods" classname="uml.MethodsTester" time="0.012"/>
+    <testcase name="test11_RemoveMethods" classname="uml.MethodsTester" time="0.004"/>
+    <testcase name="test12_lists" classname="uml.MethodsTester" time="0.011"/>
+  </testsuite>
+</testrun>

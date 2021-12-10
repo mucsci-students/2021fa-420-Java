@@ -99,6 +99,24 @@ public class relationshipTest {
 		Model.getNoClassDupes().clear();
 	}
 
+	//Test like this for GUI!
+	@Test 
+	public void test065_addRelationDup(){ 
+		Driver.guiUp = true;
+		UML uml = UML.addClass("one");
+	    UML uml2 = UML.addClass("two");
+
+	    Relationships.addRel(uml, uml2, "inheritance");
+		Relationships.addRel(uml, uml2, "inheritance");
+
+		assertEquals("Relationships size is not 1", 1, uml.getRels().size());
+
+		Model.clearCollection();
+		Model.getNoClassDupes().clear();
+		Driver.guiUp = false;
+	}
+	
+
 	@Test
 	public void test07_deleteNotExist() {
 		UML uml = UML.addClass("one");
@@ -107,6 +125,7 @@ public class relationshipTest {
 		Relationships.addRel(uml, uml2, "inheritance");
 	    Relationships.delRel("three", "two");
 		Relationships.delRel("one", "three");
+		
 		assertEquals("Relationships size is not 1", 1, uml.getRels().size());
 
 		Model.clearCollection();
@@ -117,11 +136,13 @@ public class relationshipTest {
 	public void test08_changeRel() {
 		UML uml = UML.addClass("one");
 	    UML uml2 = UML.addClass("two");
+	    Driver.guiUp = true;
 
 		Relationships.addRel(uml, uml2, "inheritance");
 		Relationships.changeRel("one", "two", "realization");
 		assertEquals("Relationships size is not 1", 1, uml.getRels().size());
-
+		
+		Driver.guiUp = false;
 		Model.clearCollection();
 		Model.getNoClassDupes().clear();
 	}

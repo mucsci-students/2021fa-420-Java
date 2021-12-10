@@ -1,5 +1,8 @@
 package uml;
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -322,8 +325,20 @@ public class MethodsTester {
 		Model.getNoClassDupes().clear();
 		Model.clearCollection();
 	}
-	
-	
+
+	@Test
+	public void test11_RemoveMethods() {
+		// Creates class
+		UML uml = UML.addClass("class");
+
+		// Add the first Method
+		Methods.addMethod("class", "oogieboogie", "grr");
+		Methods.removeMethod("class", "abfvasdfasc");
+		Model.getNoClassDupes().clear();
+		Model.clearCollection();
+	}
+
+
 	@Test
 	public void test12_lists() {
 		UML uml1 = UML.addClass("Class1");
@@ -333,8 +348,53 @@ public class MethodsTester {
 		assertTrue("Fields not listed",uml1.listFields());
 		assertTrue("Methods not listed",uml1.listMethods());
 		assertTrue("Relationships not listed",uml1.listRelationships());
-		
+
 		Model.getNoClassDupes().clear();
 		Model.clearCollection();
 	}
+	@Test
+	public void test13_lists() {
+		UML uml1 = UML.addClass("Class1");
+		UML uml2 = UML.addClass("Class2");
+		Relationships.addRel(uml1, uml2, "inheritance");
+		uml1.listRelationships();
+
+		uml1.listFields();
+		uml1.listMethods();
+		uml2.listMethods();
+
+		Methods.addMethod("class1","meth" , "String");
+		// Add the first Method
+		Parameters p1= new Parameters("x", "int");
+		Parameters.addParameter("class", "a" , "x", "int", null , true);
+
+		//Testing Parameters find method, which finds the list of parameters
+		ArrayList<Parameters> pList = Parameters.findMethod("class", "a");
+		//Testing that given the method we can find the specific parameter
+
+		uml1.listMethods();
+
+		Model.getNoClassDupes().clear();
+		Model.clearCollection();
+	}
+	@Test
+	public void addParamsAndFindParams() {
+		// Create a class
+		UML.addClass("class");
+		Methods.addMethod("class", "a", "String");
+		// Add the first Method
+		Parameters p1= new Parameters("x", "int");
+		Parameters.addParameter("class", "a" , "x", "int", null , true);
+
+		//Testing Parameters find method, which finds the list of parameters
+		ArrayList<Parameters> pList = Parameters.findMethod("class", "a");
+		//Testing that given the method we can find the specific parameters
+		Parameters p2 = Parameters.findParam("x", pList);
+
+		assertEquals(p1.getParamName(), p2.getParamName());
+		assertEquals(p1.getParamType(), p2.getParamType());
+		Model.clearCollection();
+		Model.getNoClassDupes().clear();
+	}
+
 }

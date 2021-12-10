@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="ParametersTesting" project="UML" tests="15" started="15" failures="0" errors="0" ignored="0">
+  <testsuite name="uml.ParametersTesting" time="0.635">
+    <testcase name="Constructor" classname="uml.ParametersTesting" time="0.01"/>
+    <testcase name="addParamsAndFindParams" classname="uml.ParametersTesting" time="0.437"/>
+    <testcase name="addParamsAndFindParamsAdvanced" classname="uml.ParametersTesting" time="0.024"/>
+    <testcase name="addParamsAndFindParamsCLI" classname="uml.ParametersTesting" time="0.014"/>
+    <testcase name="addParamsDNE" classname="uml.ParametersTesting" time="0.008"/>
+    <testcase name="addParamsDNE1" classname="uml.ParametersTesting" time="0.009"/>
+    <testcase name="changeParameters" classname="uml.ParametersTesting" time="0.011"/>
+    <testcase name="changeParametersCLI" classname="uml.ParametersTesting" time="0.035"/>
+    <testcase name="deleteAllParameters" classname="uml.ParametersTesting" time="0.014"/>
+    <testcase name="deleteAllParametersCLI" classname="uml.ParametersTesting" time="0.015"/>
+    <testcase name="deleteAllParamsDNE" classname="uml.ParametersTesting" time="0.002"/>
+    <testcase name="deleteParameterAndCompareParams" classname="uml.ParametersTesting" time="0.014"/>
+    <testcase name="deleteParameterAndCompareParamsCLI" classname="uml.ParametersTesting" time="0.014"/>
+    <testcase name="deleteParamsDNE" classname="uml.ParametersTesting" time="0.011"/>
+    <testcase name="deleteParamsDNE1" classname="uml.ParametersTesting" time="0.011"/>
+  </testsuite>
+</testrun>
