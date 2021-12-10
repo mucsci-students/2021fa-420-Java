@@ -57,7 +57,7 @@ public class JsonFile {
 				}
 				Gson gson = new Gson();
 				// Converts the list to JSON
-				String saveFile = "{\"classes\":["+gson.toJson(collection) +"]}";
+				String saveFile = "{\"classes\":"+gson.toJson(collection) +"}";
 				FileWriter writer = new FileWriter(file);
 				writer.write(saveFile);
 				writer.close();
