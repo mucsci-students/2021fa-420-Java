@@ -162,8 +162,6 @@ public class JsonFile {
 				Scanner scanner = new Scanner(reader);
 				String json = scanner.nextLine();
 				json = json.substring(11, json.length() -1);
-				System.out.println(json);
-				
 				scanner.close();
 				return load(json, Model.getCollection());
 
