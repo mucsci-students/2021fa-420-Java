@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="Jsontests (1)" project="UML" tests="2" started="2" failures="0" errors="0" ignored="0">
-  <testsuite name="uml.Jsontests" time="0.466">
-    <testcase name="setCollection" classname="uml.Jsontests" time="0.385"/>
-    <testcase name="saveandLoadTestsBasic" classname="uml.Jsontests" time="0.08"/>
-  </testsuite>
-</testrun>
