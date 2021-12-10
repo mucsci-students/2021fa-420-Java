@@ -60,10 +60,7 @@ public class Relationships {
 					if (c.getDestination() == destination.getClassName()) {
 						dupeRel = true;
 						if (Driver.guiUp) {
-							JOptionPane.showMessageDialog(
-									View.frmUmlEditor, "A relationship from " + source.getClassName() + " to "
-											+ destination.getClassName() + " already exists!",
-											"Error", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(View.frmUmlEditor, "A relationship from " + source.getClassName() + " to "+ destination.getClassName() + " already exists!","Error", JOptionPane.ERROR_MESSAGE);
 						} else {
 							System.out.println("A relationship from " + source.getClassName() + " to "
 									+ destination.getClassName() + " already exists!");

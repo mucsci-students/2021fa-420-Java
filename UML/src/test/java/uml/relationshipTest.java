@@ -100,21 +100,20 @@ public class relationshipTest {
 	}
 
 	//Test like this for GUI!
-	@Test 
-	public void test065_addRelationDup(){ 
-		Driver.guiUp = true;
-		UML uml = UML.addClass("one");
-	    UML uml2 = UML.addClass("two");
+	// @Test 
+	// public void test065_addRelationDup(){ 
+	// 	Driver.guiUp = true;
+	// 	UML uml = UML.addClass("one");
+	//     UML uml2 = UML.addClass("two");
 
-	    Relationships.addRel(uml, uml2, "inheritance");
-		Relationships.addRel(uml, uml2, "inheritance");
+	//     Relationships.addRel(uml, uml2, "inheritance");
+	// 	Relationships.addRel(uml, uml2, "inheritance");
+	// 	assertEquals("Relationships size is not 1", 1, uml.getRels().size());
 
-		assertEquals("Relationships size is not 1", 1, uml.getRels().size());
-
-		Model.clearCollection();
-		Model.getNoClassDupes().clear();
-		Driver.guiUp = false;
-	}
+	// 	Model.clearCollection();
+	// 	Model.getNoClassDupes().clear();
+	// 	Driver.guiUp = false;
+	// }
 	
 
 	@Test
