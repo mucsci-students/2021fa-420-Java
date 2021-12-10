@@ -71,12 +71,7 @@ public class Parameters {
 			undoredo.stateKeeper();
 
 			// Updates GUI boxes
-			for (BoxObject obj : Model.getJLabels()) {
-				if (obj.getJLabelName().equals(UMLName)) {
-					int width = BoxObject.updateBox(obj, 0);
-					BoxObject.updateBox(obj, width);
-				}
-			}
+			BoxObject.find(UMLName);
 
 			if (!Driver.guiUp) {
 				System.out.println("Parameter Created!");
@@ -129,12 +124,7 @@ public class Parameters {
 			undoredo.stateKeeper();
 
 			// Updates GUI boxes
-			for (BoxObject obj : Model.getJLabels()) {
-				if (obj.getJLabelName().equals(UMLName)) {
-					int width = BoxObject.updateBox(obj, 0);
-					BoxObject.updateBox(obj, width);
-				}
-			}
+			BoxObject.find(UMLName);
 
 			if (!Driver.guiUp) {
 				System.out.println("Parameter Removed!");
@@ -177,12 +167,7 @@ public class Parameters {
 		pList.clear();
 		undoredo.stateKeeper();
 
-		for (BoxObject obj : Model.getJLabels()) {
-			if (obj.getJLabelName().equals(UMLName)) {
-				int width = BoxObject.updateBox(obj, 0);
-				BoxObject.updateBox(obj, width);
-			}
-		}
+		BoxObject.find(UMLName);
 
 		if (!Driver.guiUp) {
 			System.out.println("Parameters Removed!");
@@ -235,12 +220,7 @@ public class Parameters {
 				pList.set(index, p);
 				undoredo.stateKeeper();
 
-				for (BoxObject obj : Model.getJLabels()) {
-					if (obj.getJLabelName().equals(UMLName)) {
-						int width = BoxObject.updateBox(obj, 0);
-						BoxObject.updateBox(obj, width);
-					}
-				}
+				BoxObject.find(UMLName);
 
 				if (!Driver.guiUp) {
 					System.out.println("Parameter Changed!");
@@ -351,12 +331,7 @@ public class Parameters {
 			undoredo.stateKeeper();
 
 			// Updates GUI boxes
-			for (BoxObject obj : Model.getJLabels()) {
-				if (obj.getJLabelName().equals(UMLName)) {
-					int width = BoxObject.updateBox(obj, 0);
-					BoxObject.updateBox(obj, width);
-				}
-			}
+			BoxObject.find(UMLName);
 			System.out.println("Parameter Created!");
 			return true;
 		} else {
@@ -404,12 +379,7 @@ public class Parameters {
 			undoredo.stateKeeper();
 
 			// Updates GUI boxes
-			for (BoxObject obj : Model.getJLabels()) {
-				if (obj.getJLabelName().equals(UMLName)) {
-					int width = BoxObject.updateBox(obj, 0);
-					BoxObject.updateBox(obj, width);
-				}
-			}
+			BoxObject.find(UMLName);
 
 			System.out.println("Parameter Removed!");
 			return true;
@@ -449,12 +419,7 @@ public class Parameters {
 		pList.clear();
 		undoredo.stateKeeper();
 
-		for (BoxObject obj : Model.getJLabels()) {
-			if (obj.getJLabelName().equals(UMLName)) {
-				int width = BoxObject.updateBox(obj, 0);
-				BoxObject.updateBox(obj, width);
-			}
-		}
+		BoxObject.find(UMLName);
 
 		System.out.println("Parameters Removed!");
 		return true;
@@ -504,12 +469,7 @@ public class Parameters {
 				pList.set(index, p);
 				undoredo.stateKeeper();
 
-				for (BoxObject obj : Model.getJLabels()) {
-					if (obj.getJLabelName().equals(UMLName)) {
-						int width = BoxObject.updateBox(obj, 0);
-						BoxObject.updateBox(obj, width);
-					}
-				}
+				BoxObject.find(UMLName);
 
 				if (!Driver.guiUp) {
 					System.out.println("Parameter Changed!");

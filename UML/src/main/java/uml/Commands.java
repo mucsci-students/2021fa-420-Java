@@ -30,7 +30,7 @@ public class Commands {
      "deleteallparameters", 
      "changeparameter", 
      "addrelation", 
-     "deleterelations", 
+     "deleterelation", 
      "changerelationshiptype", 
      "listclasses", 
      "listcontents", 

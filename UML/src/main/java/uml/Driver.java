@@ -20,6 +20,7 @@ public class Driver {
 	private static LineReader lineScan;
 	private static String matcher = "-1";
 	private static boolean check = false;
+	private static boolean start = true;
 	
 	/*
 	 * Run command
@@ -30,17 +31,12 @@ public class Driver {
 		} catch (Exception e) {
 			System.out.println(e.getStackTrace());
 		}
-		
 		undoredo.stateKeeper();
+		
+		
 		// View.initializePanel();
 		runView();
-		try {
-			Terminal terminal = TerminalBuilder.builder().system(true).build();
-			AggregateCompleter completer = TabCompletion.compose();
-			lineScan = LineReaderBuilder.builder().terminal(terminal).completer(completer).build();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+		
 	}
 
 	// Runs the GUI (view) for the UML
@@ -50,7 +46,21 @@ public class Driver {
 	}
 
 	public static void runCLI() {
-		
+	if (start){
+		if (guiUp){
+		undoredo.stateKeeper();
+		}
+		try {
+			start = false;
+			Terminal terminal = TerminalBuilder.builder().system(true).build();
+			AggregateCompleter completer = TabCompletion.compose();
+			lineScan = LineReaderBuilder.builder().terminal(terminal).completer(completer).build();
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+		guiUp = false;
 		// Boolean to run program until user exits
 		boolean run = true;
 		
@@ -85,8 +95,11 @@ public class Driver {
 			}
 
 
-			if ((state && !(matcher.equals("undo")) && !(matcher.equals("redo")) && !(matcher.equals("save")))) {
+			if ((state && !(command.equals("undo")) && !(command.equals("redo")) && !(command.equals("save")) &&!(command.equals("gui")) && !(command.equals("listclasses")) 
+			&&!(command.equals("load")) &&!(command.equals("list relationships"))&& !(command.equals("help"))&& !(command.equals("screenshot")) && !(command.equals("list contents")) && 
+			!(command.equals("list classes")))){
 				undoredo.memClear();
+				state = false;
 			}
 
 			state = false;
@@ -464,15 +477,24 @@ public class Driver {
 				break;
 
 			case "gui":
+				if(StartUp.CLIstart){
+					runView();
+					
+					StartUp.CLIstart = false;
+					System.out.println("This is a little buggy. If you go to cli then add things, new boxes will appear when adding. ");
+					System.out.println("The old boxes will not appear! ");
+					run = false;
+					
+				} else {
 				guiUp = true;
 				View.view.setVisible(true);
 				run = false;
+				}
 				break;
 
 			case "exit":
 				System.out.println("Exiting the application.");
 				run = false;
-				scanner.close();
 				break;
 
 			default:
@@ -490,6 +512,18 @@ public class Driver {
 			System.out.println(s);
 		}
 	}
+	
+	public static void  throwingError(String s, boolean b){
+		if (Driver.guiUp && b) {
+			JOptionPane.showMessageDialog(View.frmUmlEditor, "That method does not exist!", "Error",
+					JOptionPane.ERROR_MESSAGE);
+		} else if (!Driver.guiUp && b) {
+			System.out.println("That method does not exist!");
+		}
+	}
+	
+	
+	
 
 
 }

@@ -57,7 +57,7 @@ public class JsonFile {
 				}
 				Gson gson = new Gson();
 				// Converts the list to JSON
-				String saveFile = gson.toJson(collection);
+				String saveFile = "{\"classes\":"+gson.toJson(collection) +"}";
 				FileWriter writer = new FileWriter(file);
 				writer.write(saveFile);
 				writer.close();
@@ -95,7 +95,9 @@ public class JsonFile {
 				View.panel.remove(obj.getLabel());
 			}
 			Model.getJLabels().clear();
+			if (!StartUp.CLIstart){
 			View.panel.repaint();
+			}
 			Model.clearCollection();
 			Model.clearArrows();
 
@@ -121,9 +123,13 @@ public class JsonFile {
 							BoxObject.findLabel(rel.getDestination()), rel.getType()));
 				}
 			}
+			if (!StartUp.CLIstart){
 			View.panel.repaint();
+			}
 			BoxObject.updateBoxes();
+			if (!StartUp.CLIstart){
 			Arrows.updateArrows(View.panel.getGraphics());
+			}
 
 		} catch (com.google.gson.JsonSyntaxException e) {
 			System.out.println("Not a valid Json file!");
@@ -155,6 +161,9 @@ public class JsonFile {
 				FileReader reader = new FileReader(file);
 				Scanner scanner = new Scanner(reader);
 				String json = scanner.nextLine();
+				json = json.substring(11, json.length() -1);
+				System.out.println(json);
+				
 				scanner.close();
 				return load(json, Model.getCollection());
 

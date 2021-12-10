@@ -71,7 +71,7 @@ set CLASSPATH=%APP_HOME%\lib\UMLEditor-4.0.0.jar;%APP_HOME%\lib\gson-2.8.8.jar;%
 
 
 @rem Execute UML
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %UML_OPTS%  -classpath "%CLASSPATH%" uml.Driver %*
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %UML_OPTS%  -classpath "%CLASSPATH%" uml.StartUp %*
 
 :end
 @rem End local scope for the variables with windows NT shell

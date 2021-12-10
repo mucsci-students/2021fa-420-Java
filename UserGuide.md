@@ -137,7 +137,7 @@ set position - sets the position of a uml box
 
 # CLI
 ##### In the CLI the commands listed above will need to be typed
-
+## IF you want to run the program with the CLI, add --cli to the end of .\build\install\UML\bin\UML.bat for windows and ./build/install/UML/bin/UML fo mac/linux
 ### Steps For Using CLI
 
         1. Find and type the command in the terminal that you would like to run (commands listed above) and press enter

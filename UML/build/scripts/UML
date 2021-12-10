@@ -201,7 +201,7 @@ fi
 
 set -- \
         -classpath "$CLASSPATH" \
-        uml.Driver \
+        uml.StartUp \
         "$@"
 
 # Use "xargs" to parse quoted args.

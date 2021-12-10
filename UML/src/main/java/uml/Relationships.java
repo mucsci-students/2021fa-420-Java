@@ -51,7 +51,7 @@ public class Relationships {
 	}
 
 
-	
+
 	public static void addRel(UML source, UML destination, String type) { // make String type into enum later
 		if (Relationships.testType(type)) {
 			boolean dupeRel = false;
@@ -60,10 +60,7 @@ public class Relationships {
 					if (c.getDestination() == destination.getClassName()) {
 						dupeRel = true;
 						if (Driver.guiUp) {
-							JOptionPane.showMessageDialog(
-									View.frmUmlEditor, "A relationship from " + source.getClassName() + " to "
-											+ destination.getClassName() + " already exists!",
-									"Error", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(View.frmUmlEditor, "A relationship from " + source.getClassName() + " to "+ destination.getClassName() + " already exists!","Error", JOptionPane.ERROR_MESSAGE);
 						} else {
 							System.out.println("A relationship from " + source.getClassName() + " to "
 									+ destination.getClassName() + " already exists!");
@@ -74,22 +71,10 @@ public class Relationships {
 					Relationships r = new Relationships(source, destination, type);
 					for (UML u : Model.getCollection()) {
 						if (u.getClassName().equals(source.getClassName())) { // searches for the class name that we are
-																				// adding a relationship to
+							// adding a relationship to
 							u.getRels().add(r);
 							undoredo.stateKeeper();
-							for (BoxObject src : Model.getJLabels()) {
-								if (src.getJLabelName().equals(source.getClassName())) {
-									for (BoxObject dest : Model.getJLabels()) {
-										if (dest.getJLabelName().equals(destination.getClassName())) {
-											Arrows arrow = new Arrows(src, dest, type);
-											Model.getArrows().add(arrow);
-											if (Driver.guiUp) {
-												Arrows.drawArrow(arrow, View.panel.getGraphics());
-											}
-										}
-									}
-								}
-							}
+							BoxObject.get3(source, destination, type);
 							if (!Driver.guiUp) {
 								System.out.println("Relationship Added!");
 							}
@@ -115,22 +100,14 @@ public class Relationships {
 							if (destUml.getClassName().equals(destination)) {
 								for (Relationships r : srcUml.getRels()) {
 									if (r.getDestination().equals(destination)) { // Checks if a relationship in the
-																					// relationship arraylist has the
-																					// same name as the requested
-																					// deletion destination
+										// relationship arraylist has the
+										// same name as the requested
+										// deletion destination
 										int x = srcUml.getRels().indexOf(r);// Needed to finds where the relationship is
-																			// that we need to delete
+										// that we need to delete
 										srcUml.getRels().remove(x);
 										undoredo.stateKeeper();
-										for (Arrows arrow : Model.getArrows()) {
-											if (arrow.getSrc().getJLabelName().equals(source)
-													&& arrow.getDest().getJLabelName().equals(destination)) {
-												Model.getArrows().remove(arrow);
-												View.panel.repaint();
-												Arrows.updateArrows(View.panel.getGraphics());
-												break;
-											}
-										}
+										BoxObject.get(UML.findUMLOBJ(source), UML.findUMLOBJ(destination));
 										if (!Driver.guiUp) {
 											System.out.println("Relationship Deleted!");
 										}
@@ -160,17 +137,7 @@ public class Relationships {
 							if (umlRel.getDestination().equals(destName)) {
 								umlRel.setType(type);
 								undoredo.stateKeeper();
-								for (Arrows arrow : Model.getArrows()) {
-									if (arrow.getSrc().getJLabelName().equals(srcName)
-											&& arrow.getDest().getJLabelName().equals(destName)) {
-										arrow.setType(type);
-										View.panel.repaint();
-										if (Driver.guiUp) {
-											Arrows.updateArrows(View.panel.getGraphics());
-										}
-										break;
-									}
-								}
+								BoxObject.get2(srcName, destName, type);
 								if (!Driver.guiUp) {
 									System.out.println("Type changed to " + type);
 								}

@@ -30,12 +30,8 @@ public class MethodOverloading {
 					return m.getParams();
 				}
 			}
-			if (Driver.guiUp && foundMethod) {
-				JOptionPane.showMessageDialog(View.frmUmlEditor, "That method does not exist!", "Error",
-						JOptionPane.ERROR_MESSAGE);
-			} else if (!Driver.guiUp && foundMethod) {
-				System.out.println("That method does not exist!");
-			}
+			
+			Driver.throwingError("That method does not exist!", foundMethod);
 			return null;
 		}
 		if (Driver.guiUp && foundUML == null) {

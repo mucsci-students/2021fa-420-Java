@@ -50,12 +50,7 @@ public class Methods {
 								uml.getMethod().add(new Methods(methodName, retType));
 								undoredo.stateKeeper();
 
-								for (BoxObject obj : Model.getJLabels()) {
-									if (obj.getJLabelName().equals(uml.getClassName())) {
-										int width = BoxObject.updateBox(obj, 0);
-            							BoxObject.updateBox(obj, width);
-									}
-								}
+								BoxObject.find(uml.getClassName());
 
 								if (!Driver.guiUp) {
 									System.out.println("Method Created!");
@@ -99,12 +94,7 @@ public class Methods {
 								uml.getMethod().remove(i);
 								undoredo.stateKeeper();
 
-								for (BoxObject obj : Model.getJLabels()) {
-									if (obj.getJLabelName().equals(uml.getClassName())) {
-										int width = BoxObject.updateBox(obj, 0);
-            							BoxObject.updateBox(obj, width);
-									}
-								}
+								BoxObject.find(uml.getClassName());
 
 								if (Driver.guiUp) {
 									System.out.println("Method Removed!");
@@ -148,12 +138,7 @@ public class Methods {
 						uml.getMethod().clear();
 						undoredo.stateKeeper();
 
-						for (BoxObject obj : Model.getJLabels()) {
-							if (obj.getJLabelName().equals(uml.getClassName())) {
-								int width = BoxObject.updateBox(obj, 0);
-            					BoxObject.updateBox(obj, width);
-							}
-						}
+						BoxObject.find(uml.getClassName());
 
 						if (!Driver.guiUp) {
 							System.out.println("All methods have been deleted!");
@@ -190,12 +175,7 @@ public class Methods {
 										uml.getMethod().get(i).setMethodName(newName);
 										undoredo.stateKeeper();
 
-										for (BoxObject obj : Model.getJLabels()) {
-											if (obj.getJLabelName().equals(uml.getClassName())) {
-												int width = BoxObject.updateBox(obj, 0);
-            									BoxObject.updateBox(obj, width);
-											}
-										}
+										BoxObject.find(uml.getClassName());
 
 										if (!Driver.guiUp) {
 											System.out.println("Method Renamed!");

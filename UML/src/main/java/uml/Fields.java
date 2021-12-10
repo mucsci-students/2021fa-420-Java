@@ -42,12 +42,7 @@ public class Fields {
 								uml.getField().add(new Fields(name, type));
 								undoredo.stateKeeper();
 
-								for (BoxObject obj : Model.getJLabels()) {
-									if (obj.getJLabelName().equals(uml.getClassName())) {
-										int width = BoxObject.updateBox(obj, 0);
-            							BoxObject.updateBox(obj, width);
-									}
-								}
+								BoxObject.find(uml.getClassName());
 
 								if (!Driver.guiUp) {
 									System.out.println("Field Created!");
@@ -89,12 +84,7 @@ public class Fields {
 								uml.getField().remove(i);
 								undoredo.stateKeeper();
 
-								for (BoxObject obj : Model.getJLabels()) {
-									if (obj.getJLabelName().equals(uml.getClassName())) {
-										int width = BoxObject.updateBox(obj, 0);
-            							BoxObject.updateBox(obj, width);
-									}
-								}
+								BoxObject.find(uml.getClassName());
 
 								if (Driver.guiUp) {
 									System.out.println("Field Removed!");
@@ -141,12 +131,7 @@ public class Fields {
 										uml.getField().get(i).setFieldName(newName);
 										undoredo.stateKeeper();
 
-										for (BoxObject obj : Model.getJLabels()) {
-											if (obj.getJLabelName().equals(uml.getClassName())) {
-												int width = BoxObject.updateBox(obj, 0);
-            							BoxObject.updateBox(obj, width);
-											}
-										}
+										BoxObject.find(uml.getClassName());
 
 										if (!Driver.guiUp) {
 											System.out.println("Field Renamed!");
