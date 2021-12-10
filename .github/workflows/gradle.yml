@@ -20,4 +20,4 @@ jobs:
 
 
     - name: Build with Gradle
-      run: gradlew build install
+      run: gradle build
