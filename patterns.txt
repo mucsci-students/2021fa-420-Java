@@ -22,20 +22,20 @@ Tab Completion -> Completers
 8.) Facade
 Tab Completion
 
-9.) Command
-Save & Load
 
-10.) Mediator
+9.) Mediator
 Controller
 
-11.) Adaptor
+10.) Adaptor
 Screenshot
 
-12.) Singleton
+11.) Singleton
 Model & UML, which contains the "database" of our program
 
-13.) Composite
+12.) Composite
 JSwing
 
-14.) Decorator
-2D Graphics in the Relationship class
+Just added:
+--------------
+13.) Command
+The CLI.java class takes in an input from the user and turns the input into standalone objects
