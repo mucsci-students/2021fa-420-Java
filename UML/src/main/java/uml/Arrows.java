@@ -281,12 +281,12 @@ public class Arrows extends JPanel {
 		}
 	}
 
-	@Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+	// @Override
+    // protected void paintComponent(Graphics g) {
+    //     super.paintComponent(g);
 
-        Graphics2D g2d = (Graphics2D) g;
+    //     Graphics2D g2d = (Graphics2D) g;
         
-        updateArrows(g2d);
-	}
+    //     updateArrows(g2d);
+	// }
 }

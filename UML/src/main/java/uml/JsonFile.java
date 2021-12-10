@@ -57,7 +57,7 @@ public class JsonFile {
 				}
 				Gson gson = new Gson();
 				// Converts the list to JSON
-				String saveFile = gson.toJson(collection);
+				String saveFile = "{\"classes\":["+gson.toJson(collection) +"]}";
 				FileWriter writer = new FileWriter(file);
 				writer.write(saveFile);
 				writer.close();
@@ -161,6 +161,9 @@ public class JsonFile {
 				FileReader reader = new FileReader(file);
 				Scanner scanner = new Scanner(reader);
 				String json = scanner.nextLine();
+				json = json.substring(11, json.length() -1);
+				System.out.println(json);
+				
 				scanner.close();
 				return load(json, Model.getCollection());
 

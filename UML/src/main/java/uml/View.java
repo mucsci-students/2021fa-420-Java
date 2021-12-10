@@ -11,6 +11,8 @@ public class View extends javax.swing.JFrame {
 
     public View() {
         initComponents();
+        BoxObject.updateBoxes();
+        Arrows.updateArrows(panel.getGraphics());
     }
 
     public static View view;

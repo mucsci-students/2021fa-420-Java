@@ -60,7 +60,7 @@ public class Driver {
 			System.out.println(e.getMessage());
 		}
 	}
-		
+		guiUp = false;
 		// Boolean to run program until user exits
 		boolean run = true;
 		
@@ -479,9 +479,12 @@ public class Driver {
 			case "gui":
 				if(StartUp.CLIstart){
 					runView();
+					
 					StartUp.CLIstart = false;
-					guiUp = true;
+					System.out.println("This is a little buggy. If you go to cli then add things, new boxes will appear when adding. ");
+					System.out.println("The old boxes will not appear! ");
 					run = false;
+					
 				} else {
 				guiUp = true;
 				View.view.setVisible(true);
