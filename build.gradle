@@ -31,19 +31,6 @@ test {
   finalizedBy jacocoTestReport // report is always generated after tests run
 }
 
-sourceSets {
-  main {
-    java {
-      srcDir 'UML/src/main/java'
-    }
-  }
-
-  test {
-    java {
-      srcDir 'UML/src/test/java'
-    }
-  }
-}
 
 jacoco {
     reportsDir = file("./coverage")
