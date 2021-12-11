@@ -36,5 +36,5 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
-         token: ${{654b64f1-1764-4568-b3ab-d2a4c4816463}}
+         files: .UML/src/test/java/uml/addDeleteRenameTests.java
 
