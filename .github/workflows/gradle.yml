@@ -36,5 +36,7 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
-         files: .UML/src/test/java/uml/addDeleteRenameTests.java
+          file: ./coverage/test/jacocoTestReport.xml
+          name: codecov-umbrella
+          fail_ci_if_error: true
 
