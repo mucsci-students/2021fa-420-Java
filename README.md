@@ -1,3 +1,9 @@
+
+      <a href="https://codecov.io/gh/mucsci-students/2021fa-420-Java">
+        <img src="https://codecov.io/gh/mucsci-students/2021fa-420-Java/branch/develop/graph/badge.svg?token=9ggtHIS4kw"/>
+      </a>
+    
+
 STEP 0:
 
 Have Java installed
