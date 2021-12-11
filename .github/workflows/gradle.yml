@@ -2,9 +2,9 @@ name: Continous Integration
 
 on:
   push:
-    branches: [ codecoverage ]
+    branches: [ develop ]
   pull_request:
-    branches: [ codecoverage ]
+    branches: [ develop ]
 jobs:
   build:
 
