@@ -30,7 +30,7 @@ test {
     events "passed", "skipped", "failed"
   }
   
-jjacoco {
+jacoco {
     reportsDir = file("./coverage")
 }
 
