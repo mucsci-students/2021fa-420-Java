@@ -23,17 +23,6 @@ apply plugin: 'jacoco'
 mainClassName = 'uml.StartUp'
 version = '4.0.0'
 
-
-test {
-  useJUnitPlatform()
-  testLogging {
-    events "passed", "skipped", "failed"
-  }
-  
-jacoco {
-    reportsDir = file("./coverage")
-}
-
 jacocoTestReport {
     reports {
         xml.enabled true
