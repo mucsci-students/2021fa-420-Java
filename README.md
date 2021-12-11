@@ -1,3 +1,7 @@
+
+[![codecov](https://codecov.io/gh/mucsci-students/2021fa-420-Java/branch/develop/graph/badge.svg?token=9ggtHIS4kw)](https://codecov.io/gh/mucsci-students/2021fa-420-Java)
+    
+
 STEP 0:
 
 Have Java installed

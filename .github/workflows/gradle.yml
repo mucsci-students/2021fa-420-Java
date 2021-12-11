@@ -21,6 +21,5 @@ jobs:
 
     - name: Build with Gradle
       run: gradle build
-    - name: Codecov
-      uses: codecov/codecov-action@v2.1.0
+       - bash <(curl -s https://codecov.io/bash)4816463
 
