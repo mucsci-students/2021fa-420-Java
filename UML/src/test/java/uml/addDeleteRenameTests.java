@@ -28,6 +28,7 @@ public class addDeleteRenameTests {
 		Model.getNoClassDupes().clear();
 		Model.getCollection().clear();
 	}
+	
 
 	@Test
 	public void test02_AddThreeClasses() {
