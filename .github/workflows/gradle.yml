@@ -2,9 +2,9 @@ name: Continous Integration
 
 on:
   push:
-    branches: [ deprecated-gradle ]
+    branches: [ develop ]
   pull_request:
-    branches: [ deprecated-gradle ]
+    branches: [ develop ]
 jobs:
   build:
 
