@@ -1,2 +1,2 @@
 rootProject.name = 'UML'
-include('app', 'list', 'utilities')
+include('app', 'list', 'utilities', 'install',)
